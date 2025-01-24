@@ -1,0 +1,28 @@
+STANZA 1 : Camera da letto
+- class Puzzle (interface UnpickableWithEnigma) sul tavolo con un immagine che rivela la password per la Porta1 : ele
+- class Door1to2 (interface UnpickableWithEnigma) con password del puzzle : etto
+
+STANZA 2 : Mensa
+- class Biglietto (interface Pickable) trovato sul tavolo della mensa e dice di andare dal calendario: etto
+- class Calendar (interface UnpickableWithEnigma) che rivela un codice per aprire la cassettiera : ele
+- class Cassettiera (interface UnpickableWithEnigma) che usa il codice del calendario e si trova una chiave per aprire Door2to3 : etto
+- class Door2to1 (interface Unpickable) : etto
+- class Door2to3 (interface Unpickable) si apre con la chiave della cassettiera : etto
+- class Door2to4 (interface Unpickable) si deve usare la torcia (la torcia è una chiave pickable) : etto
+
+STANZA 3 : Studio
+- class Computer (interface UnpickableWithEnigma) mostra una password (si deve usare il cifrario di Cesare, si deve usare il biglietto trovato nella prima stanza per decifrare) : ele
+- classe Door3to2 (interface Unpickable) : etto
+
+STANZA 4 : Archivio
+- class Armadio (interface UnpickableWithEnigma) ha bisogno del codice del Computer e apre "automaticamente" la Door4 : etto
+- class CassettaDegliAttrezzi (interface Unpickable) restituisce il Martello (interface Pickable) e ha bisogno della chiaveInglese : ele
+- class Door4to5 (interface Unpickable) si apre se si risolve : etto
+- class Door4to2 (interface Unpickable) : etto
+
+STANZA 5 : Della liberazione
+- class Specchio (interface Unpickable) ha bisogno del Martello per sbloccarsi : ele
+- class Door5to4 (interface Unpickable) : etto
+
+
+
