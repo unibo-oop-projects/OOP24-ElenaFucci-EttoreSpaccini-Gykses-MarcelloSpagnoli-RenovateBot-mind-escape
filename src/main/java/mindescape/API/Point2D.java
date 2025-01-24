@@ -1,4 +1,4 @@
-package it.unibo.API;
+package mindescape.API;
 
 public class Point2D {
 
