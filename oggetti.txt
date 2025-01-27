@@ -1,0 +1,23 @@
+STANZA 1:camera da letto
+Letto(Unpickable -> ti da il biglietto che ti finisce nell'inventario)
+Lavandino(NonInteractable)
+Tavolo(UnpickableWithEnigma->apre il puzzle)
+Porta che si apre con il puzzle
+
+STANZA 2:mensa
+Tavolo(Unpickable -> ti da il biglietto per guardare il calendario)
+Calendario(UnpickableWithEnigma)
+Cassetiera(UnpickableWithEnigma -> Sbloccabile con il codice contenuto nel calendario, ti darà la chiave per accedere alla stanza 3 e la chiave inglese che usi nell'archivio)
+Porta che collega la stanza 2 alla stanza 3 sbloccabile con la chiave trovate nella cassettiera 
+Porta che collega la stanza 2 alla stanza 4 sbloccabile con la torcia 
+
+STANZA 3:studio medico
+Scrivania con disegnato un computer(UnpickableWithEnigma -> ti apre il cifrario di Cesare)
+Poltrona(Unpickable -> ci clicchi e ti trovi la torcia nell'inventario)
+
+STANZA 4: Archivio 
+Armadio(UnpickableWithEnigma -> lo apri mettendo il codice trovcato nel cifrario di cesare, poi ti ritrovi un biglietto nell'inventario con scritto la porta si è aperta)
+Cassetta degli attrezzi(UnpickableWithEnigma ci clicchi ti scompare la chiave inglese e ti ritrovi il martello nell'inventario)
+
+STANZA 5:
+Specchio(UnpickableWithEnigma) se ti avvicini e hai il martello -> schermata di Win 
