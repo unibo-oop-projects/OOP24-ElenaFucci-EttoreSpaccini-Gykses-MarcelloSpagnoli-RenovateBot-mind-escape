@@ -6,7 +6,7 @@ public interface World {
 
     List<Room> getRooms();
 
-    void movePlayer(Direction direction);
+    //void movePlayer(Direction direction);
 
     boolean letPlayerInteract();
 
