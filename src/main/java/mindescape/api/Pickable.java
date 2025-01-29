@@ -12,4 +12,11 @@ public interface Pickable extends Interactable {
      * @return true if the item is picked, false otherwise
      */
     boolean isPicked();
+
+    /**
+     * Provides a description of the pickable item.
+     *
+     * @return a string representing the description of the item.
+     */
+    String getDescription();
 }
