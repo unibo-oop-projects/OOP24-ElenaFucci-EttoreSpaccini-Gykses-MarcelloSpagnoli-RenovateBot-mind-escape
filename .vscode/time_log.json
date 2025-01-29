@@ -485,6 +485,32 @@
         },
         "timeSpent": 1131
       }
+    ],
+    ".mergify.yml.git": [
+      {
+        "date": "2025-01-29T17:25:51.176Z",
+        "user": {
+          "name": "Gykses",
+          "email": "greppi.filippo@gmail.com"
+        },
+        "timeSpent": 8
+      },
+      {
+        "date": "2025-01-29T17:26:12.772Z",
+        "user": {
+          "name": "Gykses",
+          "email": "greppi.filippo@gmail.com"
+        },
+        "timeSpent": 22
+      },
+      {
+        "date": "2025-01-29T17:27:00.291Z",
+        "user": {
+          "name": "Gykses",
+          "email": "greppi.filippo@gmail.com"
+        },
+        "timeSpent": 48
+      }
     ]
   }
 }
