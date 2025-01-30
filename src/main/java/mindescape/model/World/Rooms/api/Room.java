@@ -30,7 +30,7 @@ public interface Room {
     void removeGameObject(GameObject gameObject);
 
     /**
-     * Returns all the objects of the room
+     * Returns all the objects of the room.
      * @return the objects of the room as a (?, to decide)
      */
     Set<GameObject> getGameObjects();
