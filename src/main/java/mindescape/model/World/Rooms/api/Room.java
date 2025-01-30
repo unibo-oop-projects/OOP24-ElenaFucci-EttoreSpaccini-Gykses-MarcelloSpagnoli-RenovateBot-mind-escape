@@ -12,24 +12,25 @@ public interface Room {
     
     
     /**
-     * @return whether the player is prensent in the room or not
+     * Determines if player is in this room.
+     * @return true if player is present, false otherwise.
      */
     boolean isPlayerPresent();
 
     /**
-     * Adds an object to the room
-     * @param gameObject
+     * Adds an object to the room.
+     * @param gameObject the object to add.
      */
     void addGameObject(GameObject gameObject);
 
     /**
-     * Removes and object from the room
-     * @param gameObject
+     * Removes and object from the room.
+     * @param gameObject the object to remove.
      */
     void removeGameObject(GameObject gameObject);
 
     /**
-     * returns all the objects of the room
+     * Returns all the objects of the room
      * @return the objects of the room as a (?, to decide)
      */
     Set<GameObject> getGameObjects();
