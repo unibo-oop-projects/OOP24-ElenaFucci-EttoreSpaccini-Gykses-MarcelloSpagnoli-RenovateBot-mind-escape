@@ -459,6 +459,32 @@
         },
         "timeSpent": 0
       }
+    ],
+    ".gitignore.git": [
+      {
+        "date": "2025-01-30T15:00:51.900Z",
+        "user": {
+          "name": "Filippo Greppi",
+          "email": "145936486+unibo-FilippoGreppi@users.noreply.github.com"
+        },
+        "timeSpent": 19
+      },
+      {
+        "date": "2025-01-30T15:01:39.249Z",
+        "user": {
+          "name": "Filippo Greppi",
+          "email": "145936486+unibo-FilippoGreppi@users.noreply.github.com"
+        },
+        "timeSpent": 47
+      },
+      {
+        "date": "2025-01-30T15:02:42.515Z",
+        "user": {
+          "name": "Filippo Greppi",
+          "email": "145936486+unibo-FilippoGreppi@users.noreply.github.com"
+        },
+        "timeSpent": 63
+      }
     ]
   }
 }
