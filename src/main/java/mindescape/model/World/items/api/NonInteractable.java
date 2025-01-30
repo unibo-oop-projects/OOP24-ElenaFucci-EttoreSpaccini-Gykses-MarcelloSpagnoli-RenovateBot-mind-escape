@@ -1,4 +1,4 @@
-package mindescape.api;
+package mindescape.model.world.items.api;
 
 /**
  * Marker interface representing objects that cannot be interacted with.

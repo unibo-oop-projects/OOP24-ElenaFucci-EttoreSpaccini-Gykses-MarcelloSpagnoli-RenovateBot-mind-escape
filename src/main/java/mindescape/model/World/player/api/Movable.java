@@ -1,4 +1,7 @@
-package mindescape.api;
+package mindescape.model.world.player.api;
+
+import mindescape.model.world.core.api.GameObject;
+import mindescape.model.world.core.api.Movement;
 
 /**
  * Represents an object that can move within the game maps.

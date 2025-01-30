@@ -1,4 +1,4 @@
-package mindescape.api;
+package mindescape.model.world.items.api;
 
 /**
  * The Unpickable interface represents an object that cannot be picked up.

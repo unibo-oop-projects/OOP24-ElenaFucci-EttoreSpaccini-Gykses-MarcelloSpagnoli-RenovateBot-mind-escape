@@ -1,4 +1,4 @@
-package mindescape.api;
+package mindescape.model.world.items.api;
 
 /**
  * Represents an object that can be interacted with in the game.

@@ -1,4 +1,4 @@
-package mindescape.api;
+package mindescape.model.enigma.api;
 
 /**
  * Represents an enigma that can be solved.

@@ -1,4 +1,4 @@
-package mindescape.api;
+package mindescape.model.world.items.api;
 
 /**
  * The Pickable interface represents an object that can be picked up in the game.

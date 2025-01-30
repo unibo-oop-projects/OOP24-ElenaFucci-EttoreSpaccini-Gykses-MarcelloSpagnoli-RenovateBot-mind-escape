@@ -1,7 +1,8 @@
-package mindescape.model.World.Rooms.api;
+package mindescape.model.world.rooms.api;
 
 import java.util.Set;
-import mindescape.api.GameObject;
+
+import mindescape.model.world.core.api.GameObject;
 
 /**
  * Represents a room of the map.

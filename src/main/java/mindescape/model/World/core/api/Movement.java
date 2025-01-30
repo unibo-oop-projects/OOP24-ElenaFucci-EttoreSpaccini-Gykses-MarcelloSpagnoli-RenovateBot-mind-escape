@@ -1,4 +1,4 @@
-package mindescape.api;
+package mindescape.model.world.core.api;
 
 /**
  * The {@code Movement} enum represents the possible directions 

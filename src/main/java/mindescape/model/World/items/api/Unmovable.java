@@ -1,4 +1,7 @@
-package mindescape.api;
+package mindescape.model.world.items.api;
+
+import mindescape.model.world.core.api.GameObject;
+import mindescape.model.world.player.api.Player;
 
 /**
  * The Unmovable interface represents a game object that cannot be moved.

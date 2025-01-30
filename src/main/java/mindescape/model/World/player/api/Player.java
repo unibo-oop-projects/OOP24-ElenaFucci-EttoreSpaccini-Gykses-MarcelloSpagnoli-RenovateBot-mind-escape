@@ -1,4 +1,6 @@
-package mindescape.api;
+package mindescape.model.world.player.api;
+
+import mindescape.model.world.items.api.Interactable;
 
 /**
  * Represents a player in the game who can move and interact with objects.
