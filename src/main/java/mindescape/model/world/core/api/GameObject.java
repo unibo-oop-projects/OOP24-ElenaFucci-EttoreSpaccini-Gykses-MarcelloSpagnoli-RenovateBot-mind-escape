@@ -3,7 +3,7 @@ package mindescape.model.world.core.api;
 import java.util.Optional;
 
 /**
- * The GameObject interface represents an object in the game with a position and a name.
+ * Represents a game object in the world with a position, name, and dimensions.
  */
 public interface GameObject {
     
@@ -28,4 +28,12 @@ public interface GameObject {
      * @return the name of the game object as a String.
      */
     String getName();
+
+    /**
+     * Retrieves the dimensions of the game object.
+     *
+     * @return the dimensions of the game object.
+     */
+    Dimensions getDimensions();
+
 }
