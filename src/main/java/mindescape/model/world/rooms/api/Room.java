@@ -11,7 +11,6 @@ import mindescape.model.world.core.api.GameObject;
  */
 public interface Room {
     
-    
     /**
      * Determines if player is in this room.
      * @return true if player is present, false otherwise.

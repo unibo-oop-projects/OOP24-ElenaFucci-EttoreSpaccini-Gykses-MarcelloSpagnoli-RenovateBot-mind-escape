@@ -10,7 +10,7 @@ public class GameObjectImpl implements GameObject {
     private final String name;
     private final Dimensions dimensions;
 
-    public GameObjectImpl(Optional<Point2D> position, String name, Dimensions dimensions) {
+    public GameObjectImpl(final Optional<Point2D> position, final String name, final Dimensions dimensions) {
         this.position = position;
         this.name = name;
         this.dimensions = dimensions;
