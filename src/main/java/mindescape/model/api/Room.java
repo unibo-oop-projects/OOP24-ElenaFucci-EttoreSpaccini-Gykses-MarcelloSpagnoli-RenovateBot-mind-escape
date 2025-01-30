@@ -1,5 +1,15 @@
 package mindescape.model.api;
 
+/**
+ * Represents a room of the map.
+ * 
+ * 
+ */
 public interface Room {
-    // prova
+    
+    
+    /**
+     * @return whether the player is prensent in the room or not
+     */
+    boolean isPlayerPresent();
 }
