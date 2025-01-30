@@ -1,7 +1,6 @@
-package mindescape.model.World.api;
+package mindescape.model.World.Rooms.api;
 
 import java.util.Set;
-
 import mindescape.api.GameObject;
 
 /**

@@ -1,6 +1,7 @@
 package mindescape.model.World.api;
 
 import java.util.List; 
+import mindescape.model.World.Rooms.api.Room;
 
 public interface World {
 
