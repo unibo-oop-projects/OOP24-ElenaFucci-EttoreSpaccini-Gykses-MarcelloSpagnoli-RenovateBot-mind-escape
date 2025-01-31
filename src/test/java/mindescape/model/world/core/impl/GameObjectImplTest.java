@@ -5,10 +5,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import mindescape.model.world.core.api.*;
+import mindescape.model.world.core.api.Dimensions;
+import mindescape.model.world.core.api.Point2D;
 
-
-public class GameObjectImplTest {
+/**
+ * Test class for {@link GameObjectImpl}.
+ */
+class GameObjectImplTest {
 
     private GameObjectImpl gameObject;
     private Point2D initialPosition;
@@ -16,7 +19,7 @@ public class GameObjectImplTest {
     private Dimensions dimensions;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         initialPosition = new Point2D(1, 1);
         name = "TestObject";
         dimensions = new Dimensions(2, 2);
@@ -24,28 +27,28 @@ public class GameObjectImplTest {
     }
 
     @Test
-    public void testGetPosition() {
-        Optional<Point2D> position = gameObject.getPosition();
+    void testGetPosition() {
+        final Optional<Point2D> position = gameObject.getPosition();
         assertTrue(position.isPresent());
         assertEquals(initialPosition, position.get());
     }
 
     @Test
-    public void testSetPosition() {
-        Point2D newPosition = new Point2D(2, 2);
+    void testSetPosition() {
+        final Point2D newPosition = new Point2D(2, 2);
         gameObject.setPosition(newPosition);
-        Optional<Point2D> position = gameObject.getPosition();
+        final Optional<Point2D> position = gameObject.getPosition();
         assertTrue(position.isPresent());
         assertEquals(newPosition, position.get());
     }
 
     @Test
-    public void testGetName() {
+    void testGetName() {
         assertEquals(name, gameObject.getName());
     }
 
     @Test
-    public void testGetDimensions() {
+    void testGetDimensions() {
         assertEquals(dimensions, gameObject.getDimensions());
     }
 }
