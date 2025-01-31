@@ -18,8 +18,7 @@ public class DoorWithEnigma extends GameObjectImpl implements Door {
 
     @Override
     public boolean unlock() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'unlock'");
+        return this.enigma.isSolved(); 
     }
 
     @Override
@@ -41,3 +40,4 @@ public class DoorWithEnigma extends GameObjectImpl implements Door {
     }
     
 }
+

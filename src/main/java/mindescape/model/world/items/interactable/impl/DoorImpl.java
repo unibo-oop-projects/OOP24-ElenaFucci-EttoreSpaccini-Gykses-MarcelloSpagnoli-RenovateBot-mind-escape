@@ -32,7 +32,8 @@ public class DoorImpl extends GameObjectImpl implements Door {
      * @param originRoom     the room where the door starts
      * @param destinationRoom the room where the door leads
      */
-    public DoorImpl(final Optional<Point2D> position, final String name, final Dimensions dimensions, final Room originRoom, final Room destinationRoom) {
+    public DoorImpl(final Optional<Point2D> position, final String name, 
+        final Dimensions dimensions, final Room originRoom, final Room destinationRoom) {
         super(position, name, dimensions);
         this.originRoom = originRoom;
         this.destinationRoom = destinationRoom;

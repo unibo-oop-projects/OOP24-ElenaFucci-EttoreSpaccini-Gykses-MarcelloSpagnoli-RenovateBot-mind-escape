@@ -4,7 +4,15 @@ import mindescape.model.world.core.api.Point2D;
 import mindescape.model.world.rooms.api.Room;
 import mindescape.model.enigma.api.Enigma;
 import mindescape.model.world.core.api.Dimensions;
-
+/**
+ * The {@code InteractableFactory} interface defines methods for creating various types of
+ * interactable objects in the game world, including pickable items, doors, and objects that
+ * require solving enigmas to interact with.
+ *
+ * <p>Implementations of this interface should provide concrete logic for instantiating these
+ * objects and integrating them into the game environment.</p>
+ *
+ */
 public interface InteractableFactory {
 
   /**
@@ -15,7 +23,7 @@ public interface InteractableFactory {
      * @param dimensions the dimensions of the pickable object
      * @return a new instance of Pickable
      */
-    Pickable createPickable(final String name, final Point2D position, final Dimensions dimensions);
+    Pickable createPickable(String name, Point2D position, Dimensions dimensions);
 
     /**
      * Creates a door that can be unlocked using a specific pickable item.
@@ -28,7 +36,8 @@ public interface InteractableFactory {
      * @param destinationRoom the destination room that the door leads to
      * @return a new instance of Door
      */
-    Door createDoor(final String name, final Point2D position, final Dimensions dimensions, final Pickable pickable, final Room originRoom, final Room destinationRoom);
+    Door createDoor(String name, Point2D position, Dimensions dimensions, 
+      Pickable pickable, Room originRoom, Room destinationRoom);
 
     /**
      * Creates a decorated door that requires solving an enigma to unlock.
@@ -41,7 +50,8 @@ public interface InteractableFactory {
      * @param destinationRoom the destination room that the door leads to
      * @return a new instance of a decorated Door with an enigma requirement
      */
-    Door createDoorWithEnigma(final String name, final Point2D position, final Dimensions dimensions, final Enigma enigma, final Room originRoom, final Room destinationRoom);
+    Door createDoorWithEnigma(String name, Point2D position, Dimensions dimensions, 
+      Enigma enigma, Room originRoom, Room destinationRoom);
 
     /**
      * Creates an unpickable object that requires solving an enigma to be unlocked.
@@ -52,6 +62,8 @@ public interface InteractableFactory {
      * @param enigma     the enigma required to unlock the object
      * @return a new instance of an Unpickable with an enigma requirement
      */
-    Unpickable createUnpickableWithEnigma(final String name, final Point2D position, final Dimensions dimensions, final Enigma enigma);
-    
-} 
+    Unpickable createUnpickableWithEnigma(String name, Point2D position, 
+      Dimensions dimensions, Enigma enigma);
+
+}
+
