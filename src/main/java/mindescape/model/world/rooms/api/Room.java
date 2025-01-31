@@ -1,16 +1,12 @@
 package mindescape.model.world.rooms.api;
 
 import java.util.Set;
-
 import mindescape.model.world.core.api.GameObject;
 
 /**
  * Represents a room of the map.
- * 
- * 
  */
 public interface Room {
-    
     /**
      * Determines if player is in this room.
      * @return true if player is present, false otherwise.

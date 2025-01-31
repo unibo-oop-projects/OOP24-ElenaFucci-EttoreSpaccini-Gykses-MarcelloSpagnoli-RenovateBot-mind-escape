@@ -6,7 +6,6 @@ import java.util.Optional;
  * Represents a game object in the world with a position, name, and dimensions.
  */
 public interface GameObject {
-    
     /**
      * Retrieves the position of the game object.
      *

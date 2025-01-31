@@ -1,11 +1,14 @@
 package mindescape.model.world.core.impl;
 
+import java.io.Serializable;
 import java.util.Optional;
 import mindescape.model.world.core.api.Dimensions;
 import mindescape.model.world.core.api.GameObject;
 import mindescape.model.world.core.api.Point2D;
 
-public class GameObjectImpl implements GameObject {
+public class GameObjectImpl implements GameObject, Serializable {
+    
+    private static final long serialVersionUID = 1L;
     private Optional<Point2D> position;
     private final String name;
     private final Dimensions dimensions;
@@ -22,7 +25,7 @@ public class GameObjectImpl implements GameObject {
     }
 
     @Override
-    public void setPosition(Point2D position) {
+    public void setPosition(final Point2D position) {
         this.position = Optional.of(position);
     }
 
