@@ -44,7 +44,7 @@ public class RoomImpl implements Room {
         return Collections.unmodifiableSet(this.gameObjects);
     }
 
-    private boolean isPositionValid(Point2D pos, Dimensions dim) {
+    public boolean isPositionValid(Point2D pos, Dimensions dim) {
         return pos.x() >= 0 &&
             pos.y() >= 0 && 
             pos.x() + dim.height() <= this.dimensions.height() &&
