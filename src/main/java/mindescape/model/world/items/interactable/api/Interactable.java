@@ -1,4 +1,6 @@
-package mindescape.model.world.items.api;
+package mindescape.model.world.items.interactable.api;
+
+import mindescape.model.world.items.api.Unmovable;
 
 /**
  * Represents an object that can be interacted with in the game.
