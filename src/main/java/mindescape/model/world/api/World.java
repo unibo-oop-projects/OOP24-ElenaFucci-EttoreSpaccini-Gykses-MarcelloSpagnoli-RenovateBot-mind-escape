@@ -7,7 +7,7 @@ public interface World {
 
     List<Room> getRooms();
 
-    //void movePlayer(Direction direction);
+    void movePlayer(Direction direction);
 
     boolean letPlayerInteract();
 
@@ -15,5 +15,5 @@ public interface World {
 
     Room getCurrentRoom();
 
-    //TODO: void addRoom(Room room);
+    void addRoom(Room room);
 }
