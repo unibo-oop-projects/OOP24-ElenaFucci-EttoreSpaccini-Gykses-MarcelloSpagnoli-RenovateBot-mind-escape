@@ -25,5 +25,13 @@ public enum UserInput {
     /**
      * Represents the user interacting with an object.
      */
-    INTERACT;
+    INTERACT,
+    /**
+     * Represents the user opening the inventory.
+     */
+    OPEN_INVENTORY, 
+    /**
+     * Represents the user closing the inventory.
+     */
+    CLOSE_INVENTORY;
 }
