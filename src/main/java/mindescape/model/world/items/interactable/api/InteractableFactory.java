@@ -36,7 +36,7 @@ public interface InteractableFactory {
      * @param destinationRoom the destination room that the door leads to
      * @return a new instance of Door
      */
-    Door createDoor(String name, Point2D position, Dimensions dimensions, 
+    Door createDoorWithPickable(String name, Point2D position, Dimensions dimensions, 
       Pickable pickable, Room originRoom, Room destinationRoom);
 
     /**
