@@ -30,5 +30,4 @@ public class RoomImpl implements Room {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getGameObjects'");
     }
-    
 }
