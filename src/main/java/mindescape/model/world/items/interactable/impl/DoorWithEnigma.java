@@ -17,11 +17,6 @@ public class DoorWithEnigma extends GameObjectImpl implements Door {
     }
 
     @Override
-    public boolean unlock() {
-        return this.enigma.isSolved(); 
-    }
-
-    @Override
     public void onAction() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'onAction'");
@@ -37,6 +32,11 @@ public class DoorWithEnigma extends GameObjectImpl implements Door {
     @Override
     public Room getDestinationRoom() {
         return this.baseDoor.getDestinationRoom(); 
+    }
+
+    @Override
+    public boolean isUnlocked() {
+        return this.enigma.isSolved(); 
     }
     
 }

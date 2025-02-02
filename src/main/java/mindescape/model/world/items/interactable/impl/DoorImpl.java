@@ -13,7 +13,7 @@ import mindescape.model.world.rooms.api.Room;
  * It extends {@link GameObjectImpl}, inheriting common properties such as position, name, and dimensions.
  *
  * <p>The door allows transitioning between an origin room and a destination room.
- * The unlocking mechanism should be extended in subclasses or modified at runtime using decorators.</p>
+ * The unlocking mechanism can be extended in subclasses or modified at runtime using decorators.</p>
  *
  * @see Door
  * @see GameObjectImpl
@@ -22,21 +22,23 @@ public class DoorImpl extends GameObjectImpl implements Door {
 
     private Room originRoom;
     private Room destinationRoom;
+    private boolean unlocked; 
 
     /**
      * Constructs a door with a given position, name, dimensions, and associated rooms.
      *
-     * @param position       the optional position of the door in the game world
-     * @param name           the name of the door
-     * @param dimensions     the dimensions of the door
-     * @param originRoom     the room where the door starts
+     * @param position        the optional position of the door in the game world
+     * @param name            the name of the door
+     * @param dimensions      the dimensions of the door
+     * @param originRoom      the room where the door starts
      * @param destinationRoom the room where the door leads
      */
     public DoorImpl(final Optional<Point2D> position, final String name, 
-        final Dimensions dimensions, final Room originRoom, final Room destinationRoom) {
+                    final Dimensions dimensions, final Room originRoom, final Room destinationRoom) {
         super(position, name, dimensions);
         this.originRoom = originRoom;
         this.destinationRoom = destinationRoom;
+        this.unlocked = false; 
     }
 
     /**
@@ -61,22 +63,20 @@ public class DoorImpl extends GameObjectImpl implements Door {
     }
 
     /**
-     * Attempts to unlock the door.
-     * This default implementation always returns false.
-     *
-     * @return {@code false}, as this door implementation does not support unlocking.
-     */
-    @Override
-    public boolean unlock() {
-        return false;
-    }
-
-    /**
      * Defines the interaction behavior when the player interacts with the door.
-     * This method should be overridden to provide specific interaction logic.
      */
     @Override
     public void onAction() {
-        // Default implementation does nothing
+        this.unlocked = true; 
+    }
+
+    /**
+     * Checks if the door is currently unlocked.
+     *
+     * @return {@code true} if the door is unlocked, {@code false} otherwise.
+     */
+    @Override
+    public boolean isUnlocked() {
+        return this.unlocked; 
     }
 }

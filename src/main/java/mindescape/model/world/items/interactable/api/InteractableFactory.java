@@ -23,7 +23,7 @@ public interface InteractableFactory {
      * @param dimensions the dimensions of the pickable object
      * @return a new instance of Pickable
      */
-    Pickable createPickable(String name, Point2D position, Dimensions dimensions);
+    Pickable createPickable(String name, Point2D position, Dimensions dimensions, String description);
 
     /**
      * Creates a door that can be unlocked using a specific pickable item.

@@ -1,14 +1,19 @@
 package mindescape.model.world.items.interactable.api;
 
 /**
- * The Unpickable interface represents an object that cannot be picked up.
+ * The {@code Unpickable} interface represents an {@link Interactable} object that cannot be picked up.
+ * It provides a method to check if the object is currently unlocked.
+ * <p>
+ * This interface is useful for defining objects in the game world that are meant to remain stationary,
+ * such as doors, safes, or fixed containers, which may require specific actions or conditions to unlock.
+ * </p>
  */
 public interface Unpickable extends Interactable {
 
     /**
-     * Attempts to unlock the object.
+     * Checks if the object is currently unlocked.
      *
-     * @return true if the object was successfully unlocked, false otherwise.
+     * @return {@code true} if the object is unlocked, {@code false} otherwise.
      */
-    boolean unlock();
+    boolean isUnlocked();
 }

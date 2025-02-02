@@ -19,11 +19,4 @@ public interface Pickable extends Interactable {
      * @return a string representing the description of the item.
      */
     String getDescription();
-
-    /**
-     * Checks if the object is in the inventory.
-     *
-     * @return {@code true} if the object is in the inventory, {@code false} otherwise
-     */
-    boolean inInventory();
 }
