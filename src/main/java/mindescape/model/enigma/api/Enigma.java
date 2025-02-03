@@ -1,20 +1,19 @@
 package mindescape.model.enigma.api;
 
-/**
- * Represents an enigma that can be solved.
- */
 public interface Enigma {
 
     /**
      * Checks if the enigma has been solved.
      *
-     * @return true if the enigma is solved, false otherwise.
+     * @return {@code true} if the enigma is solved, {@code false} otherwise.
      */
     boolean isSolved();
 
     /**
-     * Initializes the enigma. This method should set up any necessary state or 
-     * configurations required for the enigma to function properly.
+     * Attempts to solve the enigma using the provided value.
+     *
+     * @param value the value used to attempt solving the enigma
+     * @return {@code true} if the provided value solves the enigma, {@code false} otherwise.
      */
-    void init();
+    boolean hit(Object value); 
 }
