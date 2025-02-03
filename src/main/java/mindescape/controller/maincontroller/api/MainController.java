@@ -13,4 +13,23 @@ public interface MainController {
      * @param controller the controller to be set
      */
     void setController(Controller controller);
+
+    /**
+     * Starts the game loop.
+     */
+    void start();
+
+    /**
+     * Stops the game loop.
+     */
+    void stop();
+
+    /**
+     * Returns the current Controller.
+     *
+     * @return the current Controller
+     */
+    Controller getController();
+
+
 }
