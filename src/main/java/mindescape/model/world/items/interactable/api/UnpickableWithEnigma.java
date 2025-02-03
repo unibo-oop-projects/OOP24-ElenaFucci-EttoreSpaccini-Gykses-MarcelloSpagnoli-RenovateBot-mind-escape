@@ -1,4 +1,4 @@
-package mindescape.model.world.items.api;
+package mindescape.model.world.items.interactable.api;
 
 /**
  * This interface represents an unpickable object that is associated with an enigma.
