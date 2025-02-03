@@ -10,7 +10,7 @@ public interface CollisionDetector {
      * @param position the position of the object
      * @param dim its dimensions
      * @param roomObjects the set of the room's object
-     * @return an optional of the object that is collidinf with
+     * @return an optional of the object that is colliding with
      */
     Optional<GameObject> collisions(Point2D position, Dimensions dim, Set<GameObject> roomObjects);
 }
