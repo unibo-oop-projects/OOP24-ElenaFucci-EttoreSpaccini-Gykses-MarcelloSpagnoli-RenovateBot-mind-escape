@@ -10,6 +10,9 @@ import mindescape.model.world.items.api.Interactable;
 import mindescape.model.world.player.api.Player;
 import mindescape.model.inventory.api.Inventory;
 import mindescape.model.inventory.impl.InventoryImpl;
+import mindescape.model.world.items.api.Pickable;
+import mindescape.model.world.items.api.Unpickable;
+
 
 public class PlayerImpl extends GameObjectImpl implements Player{
 
@@ -29,8 +32,37 @@ public class PlayerImpl extends GameObjectImpl implements Player{
 
     @Override
     public boolean interact(Interactable interactable) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'interact'");
+        if(interactable == null){
+            return false;
+        }
+
+        if(interactable.onAction()){
+            if(interactable instanceof Pickable){
+                Pickable pickableItem = (Pickable) interactable;
+                for (Pickable element : inventory.getItems()) {
+                    if(element == pickableItem){
+                        return false;
+                    }                    
+                }
+                inventory.addItems(pickableItem);
+                return true;                
+            }
+
+            if(interactable instanceof Unpickable){
+                Unpickable unpickableItem = (Unpickable) interactable;
+                if(unpickableItem.isLocked()){
+                    //controlla se nell'inventario hai l'oggetto per sbloccare l'unpickable, se è cosi metti unlock a true
+                }
+
+            
+
+
+                
+            }
+            
+        }
+
+
     }
 
 }
