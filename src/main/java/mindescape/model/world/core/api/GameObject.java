@@ -19,7 +19,7 @@ public interface GameObject {
      *
      * @param position the new position of the game object as a Point2D object
      */
-    void setPosition(Point2D position);
+    void setPosition(Optional<Point2D> position);
 
     /**
      * Retrieves the name of the game object.
