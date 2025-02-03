@@ -35,7 +35,6 @@ public class RoomImpl implements Room {
                 //objectLayer.getObjects().stream().forEach(x -> addGameObject(new GameObject()));
             }
         }
-        
     }
 
     //TODO when PlayerImpl will be ready
