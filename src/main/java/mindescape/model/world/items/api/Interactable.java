@@ -18,5 +18,5 @@ public interface Interactable extends Unmovable {
      * 
      * @return true if the action was successful, false otherwise.
      */
-    boolean onAction();
+    boolean onAction(Player player);
 }

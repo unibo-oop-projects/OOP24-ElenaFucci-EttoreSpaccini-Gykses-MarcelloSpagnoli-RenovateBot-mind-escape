@@ -34,35 +34,8 @@ public class PlayerImpl extends GameObjectImpl implements Player{
     public boolean interact(Interactable interactable) {
         if(interactable == null){
             return false;
-        }
-
-        if(interactable.onAction()){
-            if(interactable instanceof Pickable){
-                Pickable pickableItem = (Pickable) interactable;
-                for (Pickable element : inventory.getItems()) {
-                    if(element == pickableItem){
-                        return false;
-                    }                    
-                }
-                inventory.addItems(pickableItem);
-                return true;                
-            }
-
-            if(interactable instanceof Unpickable){
-                Unpickable unpickableItem = (Unpickable) interactable;
-                if(unpickableItem.isLocked()){
-                    //controlla se nell'inventario hai l'oggetto per sbloccare l'unpickable, se è cosi metti unlock a true
-                }
-
-            
-
-
-                
-            }
-            
-        }
-
-
+        }        
+        return interactable.onAction(this);
     }
 
 }
