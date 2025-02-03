@@ -5,6 +5,7 @@ import java.util.Set;
 import mindescape.model.world.core.api.Dimensions;
 import mindescape.model.world.core.api.GameObject;
 import mindescape.model.world.core.api.Point2D;
+import mindescape.model.world.items.api.Pickable;
 
 /**
  * Represents a room of the map.
@@ -26,7 +27,7 @@ public interface Room {
      * Removes and object from the room.
      * @param gameObject the object to remove.
      */
-    void removeGameObject(GameObject gameObject);
+    void removeGameObject(Pickable gameObject);
 
     /**
      * Returns all the objects of the room.

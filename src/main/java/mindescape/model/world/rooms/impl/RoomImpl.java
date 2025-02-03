@@ -1,6 +1,5 @@
 package mindescape.model.world.rooms.impl;
 
-import java.io.FileReader;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,6 +13,7 @@ import org.tiledreader.TiledReader;
 import mindescape.model.world.core.api.Dimensions;
 import mindescape.model.world.core.api.GameObject;
 import mindescape.model.world.core.api.Point2D;
+import mindescape.model.world.items.api.Pickable;
 import mindescape.model.world.rooms.api.Room;
 
 public class RoomImpl implements Room {
@@ -35,6 +35,7 @@ public class RoomImpl implements Room {
                 //objectLayer.getObjects().stream().forEach(x -> addGameObject(new GameObject()));
             }
         }
+        
     }
 
     //TODO when PlayerImpl will be ready
@@ -51,7 +52,7 @@ public class RoomImpl implements Room {
     }
 
     @Override
-    public void removeGameObject(GameObject gameObject) {
+    public void removeGameObject(Pickable gameObject) {
         gameObjects.remove(gameObject);
     }
 
@@ -65,5 +66,13 @@ public class RoomImpl implements Room {
             pos.y() >= 0 && 
             pos.x() + dim.height() <= this.dimensions.height() &&
             pos.y() + dim.height() <= this.dimensions.height();
+    }
+
+    @Override
+    public String toString() {
+        return "RoomImpl{" +
+            "dimensions=" + dimensions +
+            ", gameObjects=" + gameObjects +
+            '}';
     }
 }
