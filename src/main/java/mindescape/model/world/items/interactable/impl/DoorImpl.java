@@ -6,7 +6,6 @@ import mindescape.model.world.core.api.Pair;
 import mindescape.model.world.core.api.Point2D;
 import mindescape.model.world.core.impl.GameObjectImpl;
 import mindescape.model.world.items.interactable.api.Door;
-import mindescape.model.world.items.interactable.api.Pickable;
 import mindescape.model.world.player.api.Player;
 import mindescape.model.world.rooms.api.Room;
 
