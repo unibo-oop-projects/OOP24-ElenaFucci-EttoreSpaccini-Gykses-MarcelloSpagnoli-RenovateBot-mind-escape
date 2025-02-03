@@ -1,7 +1,10 @@
 package mindescape.model.world.rooms.api;
 
 import java.util.Set;
+
+import mindescape.model.world.core.api.Dimensions;
 import mindescape.model.world.core.api.GameObject;
+import mindescape.model.world.core.api.Point2D;
 
 /**
  * Represents a room of the map.
@@ -30,4 +33,12 @@ public interface Room {
      * @return the objects of the room as a (?, to decide)
      */
     Set<GameObject> getGameObjects();
+
+    /**
+     * Checks if a position is valid based on the bounds of the room.
+     * @param pos the position of the object (as the upper left edge)
+     * @param dim the dimensions of the object
+     * @return if the object is in a valid position
+     */
+    boolean isPositionValid(Point2D pos, Dimensions dim);
 }
