@@ -1,6 +1,6 @@
 package mindescape.model.inventory.api;
 
-import java.util.List;
+import java.util.Set;
 
 import mindescape.model.world.items.api.Pickable;
 
@@ -10,11 +10,11 @@ import mindescape.model.world.items.api.Pickable;
 public interface Inventory {
 
     /**
-     * Retrieves a list of items that can be picked up.
+     * Retrieves a set of items that can be picked up.
      *
-     * @return a list of Pickable items currently in the inventory.
+     * @return a set of Pickable items currently in the inventory.
      */
-    List<Pickable> getItems();
+    Set<Pickable> getItems();
 
     /**
      * Add an item to the inventory.

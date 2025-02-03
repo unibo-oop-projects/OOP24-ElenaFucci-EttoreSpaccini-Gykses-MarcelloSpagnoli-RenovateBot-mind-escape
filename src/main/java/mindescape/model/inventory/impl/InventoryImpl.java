@@ -1,8 +1,8 @@
 package mindescape.model.inventory.impl;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import mindescape.model.inventory.api.Inventory;
 import mindescape.model.world.items.api.Pickable;
@@ -10,7 +10,7 @@ import mindescape.model.world.items.api.Pickable;
 /**
  * Implementation of the {@link Inventory} interface.
  * <p>
- * This class represents an inventory that stores {@link Pickable} items in a list.
+ * This class represents an inventory that stores {@link Pickable} items in a set.
  * It allows adding, removing, and retrieving items from the inventory.
  * </p>
  * 
@@ -18,16 +18,16 @@ import mindescape.model.world.items.api.Pickable;
  */
 public class InventoryImpl implements Inventory {
 
-    private final List<Pickable> list = new ArrayList<>();
+    private final Set<Pickable> set = new HashSet();
 
     /**
-     * Returns the list of {@link Pickable} items in the inventory.
+     * Returns the set of {@link Pickable} items in the inventory.
      * 
-     * @return A list of {@link Pickable} items currently in the inventory.
+     * @return A set of {@link Pickable} items currently in the inventory.
      */
     @Override
-    public List<Pickable> getItems() {
-        return this.list;
+    public Set<Pickable> getItems() {
+        return this.set;
     }
 
     /**
@@ -39,7 +39,7 @@ public class InventoryImpl implements Inventory {
     @Override
     public void addItems(Pickable pickable) {
         Objects.requireNonNull(pickable, "Pickable item cannot be null");
-        list.add(pickable);
+        set.add(pickable);
     }
 
     /**
@@ -52,8 +52,8 @@ public class InventoryImpl implements Inventory {
     @Override
     public boolean removeItem(Pickable pickable) {
         Objects.requireNonNull(pickable, "Pickable item cannot be null");
-        if (list.contains(pickable)) {
-            list.remove(pickable);
+        if (set.contains(pickable)) {
+            set.remove(pickable);
             return true;
         }
         return false;
