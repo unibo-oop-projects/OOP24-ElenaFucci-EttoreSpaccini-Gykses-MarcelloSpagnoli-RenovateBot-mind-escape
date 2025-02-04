@@ -1,15 +1,23 @@
 package mindescape.model.world.items.interactable.api;
 
 /**
- * The Pickable interface represents an object that can be picked up in the game.
- * It extends the Interactable interface, indicating that pickable objects can also be interacted with.
+ * The Pickable interface represents an object that can be picked up in the game. 
+ * It extends the Interactable interface, indicating that pickable objects can 
+ * also be interacted with.
  */
 public interface Pickable extends Interactable {
 
     /**
-     * Provides a description of the pickable item.
+     * Returns a description of the pickable item.
      *
-     * @return a string representing the description of the item.
+     * @return a string representing the item's description.
      */
     String getDescription();
+
+    /**
+     * Returns the unique identifier of the pickable item.
+     *
+     * @return an integer representing the item's ID.
+     */
+    Integer getId();
 }
