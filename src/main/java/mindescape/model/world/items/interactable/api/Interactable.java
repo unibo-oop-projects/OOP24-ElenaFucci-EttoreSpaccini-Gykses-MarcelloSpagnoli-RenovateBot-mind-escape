@@ -1,7 +1,5 @@
 package mindescape.model.world.items.interactable.api;
 
-import java.util.Optional;
-
 import mindescape.model.world.items.api.Unmovable;
 import mindescape.model.world.player.api.Player;
 
