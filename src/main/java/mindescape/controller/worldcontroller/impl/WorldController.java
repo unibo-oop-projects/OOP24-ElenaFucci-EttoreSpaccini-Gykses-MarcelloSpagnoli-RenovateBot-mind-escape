@@ -3,6 +3,7 @@ package mindescape.controller.worldcontroller.impl;
 import mindescape.controller.api.Controller;
 import mindescape.controller.api.UserInput;
 import mindescape.controller.maincontroller.api.MainController;
+import mindescape.model.enigma.api.Enigma;
 import mindescape.model.world.api.World;
 import mindescape.model.world.core.api.Movement;
 import mindescape.view.api.View;
@@ -12,14 +13,14 @@ public class WorldController implements Controller {
     private final View worldView;
     private final MainController mainController;
 
-    public WorldController(World world, View worldView, MainController mainController) {
+    public WorldController(final World world, final View worldView, final MainController mainController) {
         this.world = world;
         this.worldView = worldView;
         this.mainController = mainController;
     }
 
     @Override
-    public void handleInput(UserInput input) {
+    public void handleInput(final UserInput input) {
         switch (input) {
             case UP:
                 this.world.movePlayer(Movement.UP);
@@ -34,22 +35,21 @@ public class WorldController implements Controller {
                 this.world.movePlayer(Movement.RIGHT);
                 break;
             case INTERACT:
-                var x = this.world.letPlayerInteract();   
-                this.mainController.setController(null);
+                Enigma enigma = this.world.letPlayerInteract().get();   
+                Controller controller = this.mainController.findController(enigma.getName());
+                this.mainController.setController(controller);
                 break;
             case OPEN_INVENTORY:
-                this.mainController.setController(null);
+                Controller controller = this.mainController.findController("Inventory");
+                this.mainController.setController(controller);
                 break;
-            case CLOSE_INVENTORY:
             default:
                 break;  
-            
         }
-
     }
 
     @Override
     public void loop() {
-
+        this.worldView.start();
     }
 }

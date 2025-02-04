@@ -1,4 +1,4 @@
-package mindescape.controller.impl;
+package mindescape.controller.maincontroller.impl;
 
 import mindescape.controller.api.Controller;
 import mindescape.controller.maincontroller.api.MainController;
