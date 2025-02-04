@@ -46,13 +46,12 @@ public class WorldImpl implements World, Serializable {
     @Override
     public Optional<Enigma> letPlayerInteract() {
         Optional<Enigma> enigma = Optional.empty();
-        Optional<GameObject> collidingObject = this.collisionDetector.collisions(null , this.player.getDimensions(), this.currentRoom.getGameObjects());
         
-        if (collidingObject.get() instanceof UnpickableWithEnigma) {
-            enigma = Optional.of(((UnpickableWithEnigma) collidingObject.get()).getEnigma());
+        if (this.collidingObject.get() instanceof UnpickableWithEnigma) {
+            enigma = Optional.of(((UnpickableWithEnigma) this.collidingObject.get()).getEnigma());
         }
-        if (collidingObject.get() instanceof Interactable) {
-            this.player.interact((Interactable) collidingObject.get());
+        if (this.collidingObject.get() instanceof Interactable) {
+            this.player.interact((Interactable) this.collidingObject.get());
         } 
         return enigma;
     }
@@ -84,15 +83,13 @@ public class WorldImpl implements World, Serializable {
 
         if (collidingObject.isEmpty()) {
             this.player.move(movement);
+        } else {
+            this.setCollidingObject(collidingObject);
         }
     }
 
     private void setCollidingObject(final Optional<GameObject> collidingObject) {
         this.collidingObject = collidingObject;
-    }
-
-    private Optional<GameObject> getCollidingObject() {
-        return this.collidingObject;
     }
     
 }
