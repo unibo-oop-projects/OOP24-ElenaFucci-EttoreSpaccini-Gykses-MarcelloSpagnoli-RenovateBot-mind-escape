@@ -16,9 +16,12 @@ import mindescape.model.world.items.interactable.api.Interactable;
 public class PlayerImpl extends GameObjectImpl implements Player{
 
     private final Inventory inventory = new InventoryImpl();
+    private Room currentRoom;
 
-    public PlayerImpl(Optional<Point2D> position, String name, Dimensions dimensions) {
+
+    public PlayerImpl(Optional<Point2D> position, String name, Dimensions dimensions, Room currentRoom) {
             super(position, name, dimensions);
+            this.currentRoom = currentRoom;
             //TODO Auto-generated constructor stub
     }
 
@@ -37,23 +40,20 @@ public class PlayerImpl extends GameObjectImpl implements Player{
         interactable.onAction(this);
         return true;
     }
-
     @Override
     public void setCurrentRoom(Room room) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setCurrentRoom'");
+        this.currentRoom = room;
+
     }
 
     @Override
     public Room getCurrentRoom() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getCurrentRoom'");
+        return this.currentRoom;
     }
 
     @Override
     public Inventory getInventory() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getInventory'");
+        return this.inventory;
     }
 
 }
