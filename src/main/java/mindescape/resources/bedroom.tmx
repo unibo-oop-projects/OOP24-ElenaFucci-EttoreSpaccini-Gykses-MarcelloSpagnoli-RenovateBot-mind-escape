@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="16" height="16" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="12">
- <tileset firstgid="1" source="../tilesets/Enviroment.tsx"/>
- <tileset firstgid="626" source="../tilesets/Things.tsx"/>
- <layer id="1" name="Tile Layer 1" width="16" height="16">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="16" height="16" tilewidth="16" tileheight="16" infinite="0" nextlayerid="8" nextobjectid="15">
+ <tileset firstgid="1" source="../../../../../../tilesets/Enviroment.tsx"/>
+ <tileset firstgid="626" source="../../../../../../tilesets/Things.tsx"/>
+ <layer id="1" name="Enviroment" width="16" height="16">
   <data encoding="csv">
 2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
 27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,
@@ -42,17 +42,29 @@
 0,0,0,0,0,0,0,329,329,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="3" name="Object Layer 1">
-  <object id="1" name="Bed" type="Unpickable" x="192.667" y="100.333" width="31" height="54.3333"/>
-  <object id="2" name="Door" type="UnpickableWithEnigma" x="112.333" y="246" width="31.3333" height="6"/>
+ <objectgroup id="3" name="Unmovable" opacity="0.79">
+  <object id="1" name="Bed" type="UnpickableImpl" x="192.667" y="100.333" width="31" height="54.3333">
+   <properties>
+    <property name="Reward" value="Code note"/>
+   </properties>
+  </object>
   <object id="3" name="PuzzleTable" type="UnpickableWithEnigma" x="34.3333" y="152.333" width="27.3333" height="39.3333"/>
-  <object id="5" name="Wall" type="Unmovable" x="0.666667" y="0.666667" width="255.667" height="62.6667"/>
-  <object id="6" name="Wall" type="Unmovable" x="0.333333" y="64.3333" width="16" height="191.667"/>
-  <object id="7" name="Wall" type="Unmovable" x="240.667" y="63.6667" width="15.6667" height="192.333"/>
-  <object id="8" name="Wall" type="Unmovable" x="16.3333" y="241" width="95.3333" height="15"/>
-  <object id="9" name="Wall" type="Unmovable" x="144.333" y="241" width="96.3333" height="14.6667"/>
-  <object id="10" name="Chair" type="Unmovable" x="65.6667" y="160.333" width="13.6667" height="28.3333"/>
-  <object id="11" name="Boxes" type="Unmovable" x="17" y="63.5" width="47" height="16"/>
+  <object id="5" name="Wall" type="NonInteractableImpl" x="0.666667" y="0.666667" width="255.667" height="62.6667"/>
+  <object id="6" name="Wall" type="NonInteractableImpl" x="0.333333" y="64.3333" width="16" height="191.667"/>
+  <object id="7" name="Wall" type="NonInteractableImpl" x="240.667" y="59.1667" width="15.6667" height="196.833"/>
+  <object id="8" name="Wall" type="NonInteractableImpl" x="13.3333" y="241" width="98.3333" height="15"/>
+  <object id="9" name="Wall" type="NonInteractableImpl" x="144.333" y="241" width="100.333" height="14.6667"/>
+  <object id="10" name="Chair" type="NonInteractableImpl" x="65.6667" y="160.333" width="13.6667" height="28.3333"/>
+  <object id="11" name="Boxes" type="NonInteractableImpl" x="15.5" y="61.5" width="48.5" height="18"/>
+ </objectgroup>
+ <objectgroup id="7" name="Doors">
+  <object id="2" name="Door" type="UnpickableWithEnigma" x="112.333" y="246" width="31.3333" height="6">
+   <properties>
+    <property name="Enigma" value="EnigmaDoorFirstRoom"/>
+    <property name="Room1" type="int" value="1"/>
+    <property name="Room2" type="int" value="2"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer id="5" name="Decorations" width="16" height="16">
   <data encoding="csv">
