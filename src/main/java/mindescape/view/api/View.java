@@ -14,4 +14,6 @@ public interface View {
      * Updates the view. 
      */
     void update();
+
+    boolean toQuit();
 }
