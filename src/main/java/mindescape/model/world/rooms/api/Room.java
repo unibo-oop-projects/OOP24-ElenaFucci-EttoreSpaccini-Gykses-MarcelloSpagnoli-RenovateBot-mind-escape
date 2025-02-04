@@ -5,7 +5,7 @@ import java.util.Set;
 import mindescape.model.world.core.api.Dimensions;
 import mindescape.model.world.core.api.GameObject;
 import mindescape.model.world.core.api.Point2D;
-import mindescape.model.world.items.api.Pickable;
+import mindescape.model.world.items.interactable.api.Pickable;
 
 /**
  * Represents a room of the map.

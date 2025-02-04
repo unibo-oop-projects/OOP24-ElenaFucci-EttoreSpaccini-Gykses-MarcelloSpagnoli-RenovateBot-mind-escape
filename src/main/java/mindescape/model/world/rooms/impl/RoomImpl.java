@@ -5,15 +5,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.tiledreader.FileSystemTiledReader;
-import org.tiledreader.TiledLayer;
 import org.tiledreader.TiledMap;
-import org.tiledreader.TiledObjectLayer;
 import org.tiledreader.TiledReader;
 
 import mindescape.model.world.core.api.Dimensions;
 import mindescape.model.world.core.api.GameObject;
 import mindescape.model.world.core.api.Point2D;
-import mindescape.model.world.items.api.Pickable;
+import mindescape.model.world.items.interactable.api.Pickable;
+import mindescape.model.world.player.api.Player;
 import mindescape.model.world.rooms.api.Room;
 
 public class RoomImpl implements Room {
@@ -22,25 +21,18 @@ public class RoomImpl implements Room {
 
     private final Set<GameObject> gameObjects = new HashSet<>();
 
+    /*
+     * Construction will later be done with a builder
+     */
     public RoomImpl(String roomFilePath) {
         TiledReader reader = new FileSystemTiledReader();
         TiledMap room = reader.getMap(roomFilePath);
         this.dimensions = new Dimensions(room.getWidth(), room.getHeight());
-        for (TiledLayer layer : room.getNonGroupLayers()) {
-            if (layer instanceof TiledLayer) {
-                TiledObjectLayer objectLayer = (TiledObjectLayer) layer;
-                /**
-                 * TODO when gameobj factory is ok
-                 */
-                //objectLayer.getObjects().stream().forEach(x -> addGameObject(new GameObject()));
-            }
-        }
     }
 
-    //TODO when PlayerImpl will be ready
     @Override
     public boolean isPlayerPresent() {
-        return true;
+        return gameObjects.stream().anyMatch(x -> x instanceof Player);
     }
 
     @Override
