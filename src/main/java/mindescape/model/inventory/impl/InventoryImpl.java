@@ -5,8 +5,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import mindescape.model.inventory.api.Inventory;
-import mindescape.model.world.items.api.Pickable;
-
+import mindescape.model.world.items.interactable.api.Pickable;
 /**
  * Implementation of the {@link Inventory} interface.
  * <p>

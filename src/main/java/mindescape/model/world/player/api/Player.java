@@ -1,6 +1,8 @@
 package mindescape.model.world.player.api;
 
-import mindescape.model.world.items.api.Interactable;
+import mindescape.model.inventory.api.Inventory;
+import mindescape.model.world.items.interactable.api.Interactable;
+import mindescape.model.world.rooms.api.Room;
 
 /**
  * Represents a player in the game who can move and interact with objects.
@@ -17,5 +19,11 @@ public interface Player extends Movable {
      * @return true if the interaction was successful, false otherwise.
      */
     boolean interact(Interactable interactable);
+
+    void setCurrentRoom(Room room);
+
+    Room getCurrentRoom();
+
+    Inventory getInventory(); 
 
 }

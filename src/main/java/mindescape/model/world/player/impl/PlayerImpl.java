@@ -6,12 +6,10 @@ import mindescape.model.world.core.api.Dimensions;
 import mindescape.model.world.core.api.Movement;
 import mindescape.model.world.core.api.Point2D;
 import mindescape.model.world.core.impl.GameObjectImpl;
-import mindescape.model.world.items.api.Interactable;
 import mindescape.model.world.player.api.Player;
 import mindescape.model.inventory.api.Inventory;
 import mindescape.model.inventory.impl.InventoryImpl;
-import mindescape.model.world.items.api.Pickable;
-import mindescape.model.world.items.api.Unpickable;
+import mindescape.model.world.items.interactable.api.Interactable;
 
 
 public class PlayerImpl extends GameObjectImpl implements Player{

@@ -1,7 +1,6 @@
 package mindescape.model.world.items.api;
 
 import mindescape.model.world.player.api.Player;
-
 /**
  * Represents an object that can be interacted with in the game.
  * This interface extends the Unmovable interface, indicating that

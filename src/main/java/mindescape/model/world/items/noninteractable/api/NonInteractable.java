@@ -1,4 +1,6 @@
-package mindescape.model.world.items.api;
+package mindescape.model.world.items.noninteractable.api;
+
+import mindescape.model.world.items.api.Unmovable;
 
 /**
  * Marker interface representing objects that cannot be interacted with.

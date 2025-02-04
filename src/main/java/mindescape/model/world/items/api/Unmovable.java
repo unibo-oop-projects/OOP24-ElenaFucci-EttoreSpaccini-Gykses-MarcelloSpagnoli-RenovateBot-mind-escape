@@ -1,7 +1,6 @@
 package mindescape.model.world.items.api;
 
 import mindescape.model.world.core.api.GameObject;
-import mindescape.model.world.player.api.Player;
 
 /**
  * The Unmovable interface represents a game object that cannot be moved.
@@ -14,11 +13,4 @@ import mindescape.model.world.player.api.Player;
  * @see GameObject
  */
 public interface Unmovable extends GameObject {
-
-    /**
-     * This method is called when a player collides with this object.
-     * 
-     * @param player the player that collided with this object
-     */
-    void onCollision(Player player); 
 }
