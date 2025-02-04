@@ -7,6 +7,7 @@ import mindescape.model.world.core.api.Movement;
 import mindescape.model.world.core.api.Point2D;
 import mindescape.model.world.core.impl.GameObjectImpl;
 import mindescape.model.world.player.api.Player;
+import mindescape.model.world.rooms.api.Room;
 import mindescape.model.inventory.api.Inventory;
 import mindescape.model.inventory.impl.InventoryImpl;
 import mindescape.model.world.items.interactable.api.Interactable;
@@ -33,7 +34,26 @@ public class PlayerImpl extends GameObjectImpl implements Player{
         if(interactable == null){
             return false;
         }        
-        return interactable.onAction(this);
+        interactable.onAction(this);
+        return true;
+    }
+
+    @Override
+    public void setCurrentRoom(Room room) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setCurrentRoom'");
+    }
+
+    @Override
+    public Room getCurrentRoom() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getCurrentRoom'");
+    }
+
+    @Override
+    public Inventory getInventory() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getInventory'");
     }
 
 }
