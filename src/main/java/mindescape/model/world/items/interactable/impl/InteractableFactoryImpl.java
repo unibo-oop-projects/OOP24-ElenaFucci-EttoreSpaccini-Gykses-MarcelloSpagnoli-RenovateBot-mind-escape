@@ -93,7 +93,7 @@ public class InteractableFactoryImpl implements InteractableFactory {
     public Unpickable createUnpickableWithEnigma(final String name, final Optional<Point2D> position,
                                                  final Dimensions dimensions, final Enigma enigma,
                                                  final Optional<Pickable> reward) {
-        return new UnpickableWithEnigma(name, position, dimensions, enigma, reward);
+        return new UnpickableWithEnigmaImpl(name, position, dimensions, enigma, reward);
     }
 
     /**
