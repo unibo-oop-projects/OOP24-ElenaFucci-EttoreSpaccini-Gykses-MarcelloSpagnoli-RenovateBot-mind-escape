@@ -35,8 +35,8 @@ class GameObjectImplTest {
 
     @Test
     void testSetPosition() {
-        final Optional<Point2D> newPosition = Optional.of(new Point2D(2, 2));
-        gameObject.setPosition(newPosition);
+        final Point2D newPosition = new Point2D(2, 2);
+        gameObject.setPosition(Optional.of(newPosition));
         final Optional<Point2D> position = gameObject.getPosition();
         assertTrue(position.isPresent());
         assertEquals(newPosition, position.get());
