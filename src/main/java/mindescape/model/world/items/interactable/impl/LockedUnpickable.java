@@ -23,8 +23,8 @@ import mindescape.model.world.player.api.Player;
  */
 public class LockedUnpickable extends GameObjectImpl implements Unpickable {
 
-    private final Pickable unlockedItem;
-    private final Pickable reward;
+    private final int keyItem_id;
+    private final Pickable reward; 
 
     /**
      * Constructs a locked unpickable object.
@@ -36,10 +36,10 @@ public class LockedUnpickable extends GameObjectImpl implements Unpickable {
      * @param reward     the pickable item rewarded after unlocking
      */
     public LockedUnpickable(final String name, final Optional<Point2D> position,
-                             final Dimensions dimensions, final Pickable keyItem,
+                             final Dimensions dimensions, final int keyItem_id,
                              final Pickable reward) {
         super(position, name, dimensions);
-        this.unlockedItem = keyItem;
+        this.keyItem_id = keyItem_id;
         this.reward = reward;
     }
 
@@ -66,6 +66,8 @@ public class LockedUnpickable extends GameObjectImpl implements Unpickable {
      * @return {@code true} if the player has the required item, {@code false} otherwise
      */
     private boolean isUnlocked(final Player player) {
-        return player.getInventory().getItems().contains(this.unlockedItem);
+        return player.getInventory().getItems().stream()
+                     .map(Pickable::getId)
+                     .anyMatch(id -> id.equals(this.keyItem_id));
     }
 }

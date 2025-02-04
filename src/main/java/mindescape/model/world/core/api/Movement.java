@@ -14,17 +14,43 @@ public enum Movement {
     /**
      * Move upwards.
      */
-    UP, 
+    UP(0, -1), 
     /**
      * Move downwards.
      */
-    DOWN, 
+    DOWN(0, 1), 
     /**
      * Move to the left.
      */
-    LEFT, 
+    LEFT(-1, 0), 
     /**
      * Move to the right.
      */
-    RIGHT
+    RIGHT(1, 0);
+
+    private final double x;
+    private final double y;
+
+    Movement(final double x, final double y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    /**
+     * Returns the x-coordinate of the movement.
+     * 
+     * @return {@code double} x-coordinate of the movement
+     */
+    public double getX() {
+        return this.x;
+    }
+
+    /**
+     * Returns the y-coordinate of the movement.
+     * 
+     * @return {@code double} y-coordinate of the movement
+     */
+    public double getY() {
+        return this.y;
+    }
 }

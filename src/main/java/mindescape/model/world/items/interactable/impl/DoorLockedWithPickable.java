@@ -8,10 +8,9 @@ import mindescape.model.world.player.api.Player;
 /**
  * Represents a door that requires a specific {@link Pickable} item to unlock.
  * <p>
- * This class acts as a decorator for a base {@link Door}, adding a mechanism
- * that checks the player's inventory for the required item to unlock the door.
- * It extends {@link GameObjectImpl} to inherit common properties like position,
- * name, and dimensions.
+ * Acts as a decorator for a base {@link Door}, adding a mechanism to check the
+ * player's inventory for the required item. Extends {@link GameObjectImpl} to
+ * inherit properties like position, name, and dimensions.
  * </p>
  *
  * @see Door
@@ -21,18 +20,18 @@ import mindescape.model.world.player.api.Player;
 public class DoorLockedWithPickable extends GameObjectImpl implements Door {
 
     private final Door baseDoor;
-    private final Pickable unlockedItem;
+    private final int keyItem_id;
 
     /**
-     * Constructs a door that is locked with a specific pickable item.
+     * Constructs a door locked with a specific pickable item.
      *
-     * @param baseDoor     the base door to decorate with the pickable lock
-     * @param unlockedItem the item required to unlock the door
+     * @param baseDoor   the base door to decorate with the pickable lock
+     * @param keyItem_id the ID of the item required to unlock the door
      */
-    public DoorLockedWithPickable(final Door baseDoor, final Pickable unlockedItem) {
+    public DoorLockedWithPickable(final Door baseDoor, final int keyItem_id) {
         super(baseDoor.getPosition(), baseDoor.getName(), baseDoor.getDimensions());
         this.baseDoor = baseDoor;
-        this.unlockedItem = unlockedItem;
+        this.keyItem_id = keyItem_id;
     }
 
     /**
@@ -58,6 +57,8 @@ public class DoorLockedWithPickable extends GameObjectImpl implements Door {
      * @return {@code true} if the player has the required item, {@code false} otherwise
      */
     private boolean isUnlocked(final Player player) {
-        return player.getInventory().getItems().contains(this.unlockedItem);
+        return player.getInventory().getItems().stream()
+                     .map(Pickable::getId)
+                     .anyMatch(id -> id.equals(this.keyItem_id));
     }
 }
