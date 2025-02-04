@@ -13,7 +13,7 @@ import mindescape.model.world.core.api.Movement;
 import mindescape.model.world.core.api.Point2D;
 import mindescape.model.world.core.impl.CollisionDetectorImpl;
 import mindescape.model.world.items.interactable.api.Interactable;
-import mindescape.model.world.items.interactable.impl.UnpickableWithEnigma;
+import mindescape.model.world.items.interactable.api.UnpickableWithEnigma;
 import mindescape.model.world.player.api.Player;
 import mindescape.model.world.rooms.api.Room;
 
@@ -81,7 +81,7 @@ public class WorldImpl implements World, Serializable {
         var playerPosition = this.player.getPosition().get();
         var position = new Point2D(playerPosition.x() + movement.getX(), playerPosition.y() + movement.getY());
         var collidingObject = this.collisionDetector.collisions(position, this.player.getDimensions(), this.currentRoom.getGameObjects());
-        
+
         if (collidingObject.isEmpty()) {
             this.player.move(movement);
         }

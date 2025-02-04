@@ -24,15 +24,26 @@ public class WorldController implements Controller {
             case UP:
                 this.world.movePlayer(Movement.UP);
                 break;
+            case DOWN:
+                this.world.movePlayer(Movement.DOWN);
+                break;
+            case LEFT:
+                this.world.movePlayer(Movement.LEFT);
+                break;
+            case RIGHT:
+                this.world.movePlayer(Movement.RIGHT);
+                break;
             case INTERACT:
                 var x = this.world.letPlayerInteract();   
                 this.mainController.setController(null);
                 break;
-            case
-
-
-            default:
+            case OPEN_INVENTORY:
+                this.mainController.setController(null);
                 break;
+            case CLOSE_INVENTORY:
+            default:
+                break;  
+            
         }
 
     }
