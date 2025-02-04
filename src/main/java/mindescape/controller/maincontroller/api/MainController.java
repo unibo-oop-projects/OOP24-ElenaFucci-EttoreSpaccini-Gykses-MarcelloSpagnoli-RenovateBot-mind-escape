@@ -32,4 +32,12 @@ public interface MainController {
     Controller getController();
 
 
+    /**
+     * Finds a Controller by its name.
+     *
+     * @param name the name of the Controller to be found
+     * @return the found Controller
+     */
+    Controller findController(String name);
+
 }

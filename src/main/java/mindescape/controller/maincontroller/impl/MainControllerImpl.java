@@ -1,12 +1,14 @@
 package mindescape.controller.maincontroller.impl;
 
+import java.util.HashMap;
+import java.util.Map;
 import mindescape.controller.api.Controller;
 import mindescape.controller.maincontroller.api.MainController;
 
 public class MainControllerImpl implements MainController {
     private Controller currentController;
     private boolean running = true;
-
+    private final Map<String, Controller> controllers = new HashMap<>();
 
     public MainControllerImpl(final Controller currentController) {
         this.currentController = currentController;
@@ -27,14 +29,17 @@ public class MainControllerImpl implements MainController {
 
     @Override
     public void stop() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'stop'");
+       this.running = false;
     }
 
     @Override
     public Controller getController() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getController'");
+        return this.currentController;
+    }
+
+    @Override
+    public Controller findController(String name) {
+        return this.controllers.get(name);
     }
 
 }
