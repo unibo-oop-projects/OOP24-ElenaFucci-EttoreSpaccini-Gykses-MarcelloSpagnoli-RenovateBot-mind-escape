@@ -27,7 +27,7 @@ public interface InteractableFactory {
      * @return a new instance of {@link Pickable}
      */
     Pickable createPickable(String name, Optional<Point2D> position, Dimensions dimensions, 
-                            String description, Integer id);
+                            String description, int id);
 
     /**
      * Creates a door that can be unlocked using a specific pickable item.
@@ -40,7 +40,7 @@ public interface InteractableFactory {
      * @return a new instance of {@link Door}
      */
     Door createDoorLockedWithPickable(String name, Optional<Point2D> position, Dimensions dimensions,
-                                      Integer keyItem_id, Room destinationRoom);
+                                      int keyItem_id, Room destinationRoom);
 
     /**
      * Creates a door that requires solving an enigma to unlock.
@@ -82,7 +82,7 @@ public interface InteractableFactory {
      * @return a new instance of {@link Unpickable} requiring a pickable item to unlock
      */
     Unpickable createLockedUnpickable(String name, Optional<Point2D> position,
-                                      Dimensions dimensions, Integer keyItem_id, Pickable reward);
+                                      Dimensions dimensions, int keyItem_id, Pickable reward);
 
     /**
      * Creates an unpickable object that does not require unlocking but can optionally provide a 

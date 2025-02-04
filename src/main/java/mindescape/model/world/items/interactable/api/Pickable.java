@@ -17,7 +17,7 @@ public interface Pickable extends Interactable {
     /**
      * Returns the unique identifier of the pickable item.
      *
-     * @return an integer representing the item's ID.
+     * @return {@code int} representing the item's ID.
      */
-    Integer getId();
+    int getId();
 }

@@ -25,7 +25,7 @@ import mindescape.model.world.player.api.Player;
 public class PickableImpl extends GameObjectImpl implements Pickable {
 
     private final String description;
-    private final Integer id; 
+    private final int id; 
 
     /**
      * Constructs a pickable item with a specified position, name, dimensions, 
@@ -38,7 +38,7 @@ public class PickableImpl extends GameObjectImpl implements Pickable {
      * @param id          the unique identifier of the item
      */
     public PickableImpl(final Optional<Point2D> position, final String name,
-                        final Dimensions dimensions, final String description, final Integer id) {
+                        final Dimensions dimensions, final String description, final int id) {
         super(position, name, dimensions);
         this.description = description;
         this.id = id; 
@@ -74,7 +74,7 @@ public class PickableImpl extends GameObjectImpl implements Pickable {
      * @return the item's unique ID
      */
     @Override
-    public Integer getId() {
+    public int getId() {
         return this.id; 
     }
 }
