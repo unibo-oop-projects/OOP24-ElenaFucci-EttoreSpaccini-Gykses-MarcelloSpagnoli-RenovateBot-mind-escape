@@ -24,10 +24,10 @@ public class PlayerImpl extends GameObjectImpl implements Player{
 
     @Override
     public void move(Movement movement) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'move'");
-        //controlli da definire (con marci) e poi fai somme 
-    }
+        var currentPosition = getPosition().get();
+        var newPosition = new Point2D(currentPosition.x() + movement.getX(), currentPosition.y() + movement.getY()); 
+        setPosition(Optional.of(newPosition));
+   }
 
     @Override
     public boolean interact(Interactable interactable) {
