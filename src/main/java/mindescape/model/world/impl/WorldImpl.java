@@ -5,11 +5,15 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import mindescape.model.enigma.api.Enigma;
 import mindescape.model.world.api.World;
+import mindescape.model.world.core.api.CollisionDetector;
 import mindescape.model.world.core.api.GameObject;
 import mindescape.model.world.core.api.Movement;
 import mindescape.model.world.core.api.Point2D;
-import mindescape.model.world.items.api.Interactable;
+import mindescape.model.world.core.impl.CollisionDetectorImpl;
+import mindescape.model.world.items.interactable.api.Interactable;
+import mindescape.model.world.items.interactable.impl.UnpickableWithEnigma;
 import mindescape.model.world.player.api.Player;
 import mindescape.model.world.rooms.api.Room;
 
@@ -40,15 +44,17 @@ public class WorldImpl implements World, Serializable {
     }
 
     @Override
-    public boolean letPlayerInteract() {
+    public Optional<Enigma> letPlayerInteract() {
+        Optional<Enigma> enigma = Optional.empty();
+        Optional<GameObject> collidingObject = this.collisionDetector.collisions(null , this.player.getDimensions(), this.currentRoom.getGameObjects());
         
-        var collidingObject = this.collisionDetector.collision(Point2D , this.player.getDimensions(), this.currentRoom.getGameObjects());
-        if (collidingObject instanceof Interactable) {
-            this.player.interact((Interactable) collidingObject);
-            return true;
+        if (collidingObject.get() instanceof UnpickableWithEnigma) {
+            enigma = Optional.of(((UnpickableWithEnigma) collidingObject.get()).getEnigma());
+        }
+        if (collidingObject.get() instanceof Interactable) {
+            this.player.interact((Interactable) collidingObject.get());
         } 
-        
-        return false;
+        return enigma;
     }
 
     @Override
@@ -71,12 +77,14 @@ public class WorldImpl implements World, Serializable {
     public void movePlayer(final Movement movement) {
         Objects.requireNonNull(movement, "Movement must not be null");
 
-        // check if the player is colliding with any object in the room before moving   
-        var collidingObject = this.collisionDetector.collision(this.player.getPosition() + movement, this.player.getDimensions(), this.currentRoom.getGameObjects());
-        if (collidingObject != null) {
-            return;
+        // check if the player is colliding with any object in the room before moving
+        var playerPosition = this.player.getPosition().get();
+        var position = new Point2D(playerPosition.x() + movement.getX(), playerPosition.y() + movement.getY());
+        var collidingObject = this.collisionDetector.collisions(position, this.player.getDimensions(), this.currentRoom.getGameObjects());
+        
+        if (collidingObject.isEmpty()) {
+            this.player.move(movement);
         }
-        this.player.move(movement);
     }
 
     private void setCollidingObject(final Optional<GameObject> collidingObject) {
