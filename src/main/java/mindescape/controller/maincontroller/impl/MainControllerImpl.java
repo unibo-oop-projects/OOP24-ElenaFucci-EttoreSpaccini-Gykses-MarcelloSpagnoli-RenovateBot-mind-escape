@@ -1,9 +1,10 @@
 package mindescape.controller.maincontroller.impl;
 
 import java.util.Map;
+
+import mindescape.controller.api.ClickableController;
 import mindescape.controller.api.Controller;
-import mindescape.controller.maincontroller.api.ClickableController;
-import mindescape.controller.maincontroller.api.LoopController;
+import mindescape.controller.api.LoopController;
 import mindescape.controller.maincontroller.api.MainController;
 import mindescape.controller.menu.MenuController;
 import mindescape.view.impl.MainViewImpl;
