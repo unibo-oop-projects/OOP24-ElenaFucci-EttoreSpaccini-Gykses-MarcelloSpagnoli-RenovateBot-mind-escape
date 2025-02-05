@@ -13,7 +13,6 @@ import org.tiledreader.TiledObjectLayer;
 import mindescape.model.enigma.impl.EnigmaFactory;
 import mindescape.model.world.core.api.Dimensions;
 import mindescape.model.world.core.api.GameObject;
-import mindescape.model.world.core.api.Pair;
 import mindescape.model.world.core.api.Point2D;
 import mindescape.model.world.items.interactable.api.InteractableFactory;
 import mindescape.model.world.items.interactable.impl.InteractableFactoryImpl;
@@ -51,21 +50,12 @@ public class ObjectsExtractor {
                         enigmas.getEnigma((String) object.getProperties().get("Enigma")),
                         rewards.getReward((String) object.getProperties().get("Reward"))));
                     break;
-                case "DoorLockedWithPickable":
-                    gameObjects.add(factory.createDoorLockedWithPickable(roomPath, position, dimensions,
-                        factory.createPickable(roomPath, Optional.empty(), dimensions, roomPath),
-                        new Pair<>(null, null)));
-                    break;
-                case "DoorLockedWithEnigma":
-                    gameObjects.add(factory.createDoorLockedWithEnigma(roomPath, position, dimensions,
-                        enigmas.getEnigma((String) object.getProperties().get("Enigma")),
-                        new Pair<>(null, null)));
-                    break;
                 case "Pickable":
                     gameObjects.add(factory.createPickable(roomPath,
                         position,
                         dimensions,
-                        (String) object.getProperties().get("Description")));
+                        (String) object.getProperties().get("Description"),
+                        (Integer) object.getProperties().get("ID")));
                     break;
                 case "Unpickable":
                     gameObjects.add(factory.createUnpickable(roomPath, position, dimensions, null));

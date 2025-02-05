@@ -42,7 +42,7 @@
 0,0,0,0,0,0,0,329,329,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="3" name="Unmovable" opacity="0.79">
+ <objectgroup id="3" name="Unmovable">
   <object id="1" name="Bed" type="UnpickableImpl" x="192.667" y="100.333" width="31" height="54.3333">
    <properties>
     <property name="Reward" value="Code note"/>
@@ -60,9 +60,8 @@
  <objectgroup id="7" name="Doors">
   <object id="2" name="Door" type="UnpickableWithEnigma" x="112.333" y="246" width="31.3333" height="6">
    <properties>
+    <property name="DestRoom" type="int" value="2"/>
     <property name="Enigma" value="EnigmaDoorFirstRoom"/>
-    <property name="Room1" type="int" value="1"/>
-    <property name="Room2" type="int" value="2"/>
    </properties>
   </object>
  </objectgroup>
