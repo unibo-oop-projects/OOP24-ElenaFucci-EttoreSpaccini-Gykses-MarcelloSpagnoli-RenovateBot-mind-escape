@@ -20,16 +20,19 @@ public interface MainController {
     void start();
 
     /**
-     * Stops the game loop.
-     */
-    void stop();
-
-    /**
      * Returns the current Controller.
      *
      * @return the current Controller
      */
     Controller getController();
 
+
+    /**
+     * Finds a Controller by its name.
+     *
+     * @param name the name of the Controller to be found
+     * @return the found Controller
+     */
+    Controller findController(String name);
 
 }

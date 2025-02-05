@@ -2,25 +2,31 @@ package mindescape.controller.worldcontroller.impl;
 
 import mindescape.controller.api.Controller;
 import mindescape.controller.api.UserInput;
+import mindescape.controller.maincontroller.api.LoopController;
 import mindescape.controller.maincontroller.api.MainController;
+import mindescape.model.enigma.api.Enigma;
 import mindescape.model.world.api.World;
 import mindescape.model.world.core.api.Movement;
 import mindescape.view.api.View;
 
-public class WorldController implements Controller {
+public class WorldController implements Controller, LoopController {
+
     private final World world;
     private final View worldView;
     private final MainController mainController;
+    private boolean running = true;
 
-    public WorldController(World world, View worldView, MainController mainController) {
+    public WorldController(final World world, final View worldView, final MainController mainController) {
         this.world = world;
         this.worldView = worldView;
         this.mainController = mainController;
     }
 
     @Override
-    public void handleInput(UserInput input) {
-        switch (input) {
+    public void handleInput(final Object input) {
+        Enigma enigma;
+        Controller controller;
+        switch ((UserInput) input) {
             case UP:
                 this.world.movePlayer(Movement.UP);
                 break;
@@ -34,22 +40,34 @@ public class WorldController implements Controller {
                 this.world.movePlayer(Movement.RIGHT);
                 break;
             case INTERACT:
-                var x = this.world.letPlayerInteract();   
-                this.mainController.setController(null);
+                enigma = this.world.letPlayerInteract().get();   
+                controller = this.mainController.findController(enigma.getName());
+                this.mainController.setController(controller);
                 break;
-            case OPEN_INVENTORY:
-                this.mainController.setController(null);
+            case INVENTORY:
+                controller = this.mainController.findController("Inventory");
+                this.mainController.setController(controller);
                 break;
-            case CLOSE_INVENTORY:
             default:
                 break;  
-            
         }
+    }
 
+    @Override
+    public void quit() {
+        this.running = false;
     }
 
     @Override
     public void loop() {
-
+        while (this.isRunning()) {
+            //TODO implement game loop logic here : game has to run with 60fps
+            
+        }
     }
+
+    private boolean isRunning() {
+        return this.running;
+    }
+ 
 }
