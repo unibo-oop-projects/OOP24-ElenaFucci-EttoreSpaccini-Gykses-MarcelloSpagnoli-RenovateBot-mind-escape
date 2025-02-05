@@ -34,7 +34,7 @@ public class InteractableFactoryImpl implements InteractableFactory {
      */
     @Override
     public Pickable createPickable(final String name, final Optional<Point2D> position,
-                                   final Dimensions dimensions, final String description, final Integer id) {
+                                   final Dimensions dimensions, final String description, final int id) {
         return new PickableImpl(position, name, dimensions, description, id);
     }
 
@@ -50,7 +50,7 @@ public class InteractableFactoryImpl implements InteractableFactory {
      */
     @Override
     public Door createDoorLockedWithPickable(final String name, final Optional<Point2D> position,
-                                             final Dimensions dimensions, final Integer key_item_id,
+                                             final Dimensions dimensions, final int key_item_id,
                                              final Room destinationRoom) {
         return new DoorLockedWithPickable(
             new DoorImpl(position, name, dimensions, destinationRoom),
@@ -93,7 +93,7 @@ public class InteractableFactoryImpl implements InteractableFactory {
     public Unpickable createUnpickableWithEnigma(final String name, final Optional<Point2D> position,
                                                  final Dimensions dimensions, final Enigma enigma,
                                                  final Optional<Pickable> reward) {
-        return new UnpickableWithEnigma(name, position, dimensions, enigma, reward);
+        return new UnpickableWithEnigmaImpl(name, position, dimensions, enigma, reward);
     }
 
     /**
@@ -109,7 +109,7 @@ public class InteractableFactoryImpl implements InteractableFactory {
      */
     @Override
     public Unpickable createLockedUnpickable(final String name, final Optional<Point2D> position,
-                                             final Dimensions dimensions, final Integer keyItem_id,
+                                             final Dimensions dimensions, final int keyItem_id,
                                              final Pickable reward) {
         return new LockedUnpickable(name, position, dimensions, keyItem_id, reward);
     }

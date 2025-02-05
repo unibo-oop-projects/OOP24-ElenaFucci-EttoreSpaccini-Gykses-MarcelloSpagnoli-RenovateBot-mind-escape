@@ -23,7 +23,7 @@ import mindescape.model.world.player.api.Player;
  */
 public class LockedUnpickable extends GameObjectImpl implements Unpickable {
 
-    private final Integer keyItem_id;
+    private final int keyItem_id;
     private final Pickable reward; 
 
     /**
@@ -36,7 +36,7 @@ public class LockedUnpickable extends GameObjectImpl implements Unpickable {
      * @param reward     the pickable item rewarded after unlocking
      */
     public LockedUnpickable(final String name, final Optional<Point2D> position,
-                             final Dimensions dimensions, final Integer keyItem_id,
+                             final Dimensions dimensions, final int keyItem_id,
                              final Pickable reward) {
         super(position, name, dimensions);
         this.keyItem_id = keyItem_id;

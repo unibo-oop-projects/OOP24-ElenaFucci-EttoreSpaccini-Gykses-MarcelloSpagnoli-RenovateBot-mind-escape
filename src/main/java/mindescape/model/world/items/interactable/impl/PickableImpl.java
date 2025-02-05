@@ -10,13 +10,13 @@ import mindescape.model.world.player.api.Player;
 /**
  * Represents a concrete implementation of the {@link Pickable} interface.
  * <p>
- * Defines an item within the game world that can be picked up by the player. 
- * Extends {@link GameObjectImpl}, inheriting properties like position, name, 
- * and dimensions.
+ * Defines an item in the game world that can be picked up by the player. 
+ * Extends {@link GameObjectImpl}, inheriting properties like position, 
+ * name, and dimensions.
  * </p>
  * <p>
- * Tracks whether the item has been picked up and provides a description for 
- * additional context within the game.
+ * Tracks whether the item has been picked up and provides a description 
+ * for additional context within the game.
  * </p>
  *
  * @see Pickable
@@ -25,7 +25,7 @@ import mindescape.model.world.player.api.Player;
 public class PickableImpl extends GameObjectImpl implements Pickable {
 
     private final String description;
-    private final Integer id; 
+    private final int id; 
 
     /**
      * Constructs a pickable item with a specified position, name, dimensions, 
@@ -38,7 +38,7 @@ public class PickableImpl extends GameObjectImpl implements Pickable {
      * @param id          the unique identifier of the item
      */
     public PickableImpl(final Optional<Point2D> position, final String name,
-                        final Dimensions dimensions, final String description, final Integer id) {
+                        final Dimensions dimensions, final String description, final int id) {
         super(position, name, dimensions);
         this.description = description;
         this.id = id; 
@@ -74,7 +74,50 @@ public class PickableImpl extends GameObjectImpl implements Pickable {
      * @return the item's unique ID
      */
     @Override
-    public Integer getId() {
+    public int getId() {
         return this.id; 
+    }
+
+    /**
+     * Generates a hash code for the item based on its properties.
+     *
+     * @return the hash code representing the item
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + ((description == null) ? 0 : description.hashCode());
+        result = prime * result + id;
+        return result;
+    }
+
+    /**
+     * Compares this item with another object for equality.
+     * <p>
+     * Returns {@code true} if the other object is also a {@link PickableImpl} 
+     * with the same description and ID.
+     * </p>
+     *
+     * @param obj the object to compare with
+     * @return {@code true} if both objects are equal, {@code false} otherwise
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (!super.equals(obj))
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        PickableImpl other = (PickableImpl) obj;
+        if (description == null) {
+            if (other.description != null)
+                return false;
+        } else if (!description.equals(other.description))
+            return false;
+        if (id != other.id)
+            return false;
+        return true;
     }
 }
