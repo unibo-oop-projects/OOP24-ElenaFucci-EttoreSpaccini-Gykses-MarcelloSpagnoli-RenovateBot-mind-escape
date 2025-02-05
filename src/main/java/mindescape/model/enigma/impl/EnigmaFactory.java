@@ -10,9 +10,9 @@ public class EnigmaFactory {
     public Enigma getEnigma(String name) {
         switch (name) {
             case "EnigmaDoorFirstRoom":
-                return new EnigmaDoorFirstRoom();
+                return new EnigmaDoorFirstRoomImpl(name);
             default:
-                throw new IllegalArgumentException("Enigma not found");
+                return null;
         }
     }
 }

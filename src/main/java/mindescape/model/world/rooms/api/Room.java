@@ -42,4 +42,11 @@ public interface Room {
      * @return if the object is in a valid position
      */
     boolean isPositionValid(Point2D pos, Dimensions dim);
+
+    /**
+     * Returns the name of the room.
+     * @return a string containing the name of the room.
+     */
+    String getName();
+
 }
