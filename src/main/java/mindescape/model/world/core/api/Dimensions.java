@@ -10,7 +10,9 @@ import java.io.Serializable;
  * @param height the height of the object, must be a positive integer
  * @throws IllegalArgumentException if either width or height is not positive
  */
-public record Dimensions(int width, int height) implements Serializable {
+public record Dimensions(double width, double height) implements Serializable {
+    public static Dimensions TILE = new Dimensions(16, 16);
+
     public Dimensions {
         if (width <= 0 || height <= 0) {
             throw new IllegalArgumentException("Dimensions must be positive");
