@@ -35,4 +35,11 @@ public class WorldViewImpl implements View {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
+
+
+    @Override
+    public boolean toQuit() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'toQuit'");
+    }
 }

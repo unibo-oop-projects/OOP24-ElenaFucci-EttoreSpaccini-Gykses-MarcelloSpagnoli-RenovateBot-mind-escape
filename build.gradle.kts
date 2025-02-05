@@ -17,6 +17,7 @@ plugins {
 
 repositories { // Where to search for dependencies
     mavenCentral()
+    maven { url = uri("https://jitpack.io") }
 }
 
 dependencies {
@@ -26,6 +27,11 @@ dependencies {
     // Maven dependencies are composed by a group name, a name and a version, separated by colons
     implementation("com.omertron:API-OMDB:1.5")
     implementation("org.jooq:jool:0.9.15")
+    implementation("com.github.AlexHeyman:TiledReader:master")
+    implementation("com.google.guava:guava:33.4.0-jre")
+
+    //tiled reader to read rooms files
+    //implementation("org.tiledreader:TiledReader:1.1.0")
 
     /*
      * Simple Logging Facade for Java (SLF4J) with Apache Log4j
