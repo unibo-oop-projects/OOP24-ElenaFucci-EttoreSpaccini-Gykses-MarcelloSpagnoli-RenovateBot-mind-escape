@@ -1,20 +1,23 @@
 package mindescape.controller.worldcontroller.impl;
 
+import javax.swing.JPanel;
+
 import mindescape.controller.api.Controller;
+import mindescape.controller.api.LoopController;
 import mindescape.controller.api.UserInput;
-import mindescape.controller.maincontroller.api.LoopController;
 import mindescape.controller.maincontroller.api.MainController;
 import mindescape.model.enigma.api.Enigma;
 import mindescape.model.world.api.World;
 import mindescape.model.world.core.api.Movement;
 import mindescape.view.api.View;
 
-public class WorldController implements Controller, LoopController {
+public class WorldController implements LoopController {
 
     private final World world;
     private final View worldView;
     private final MainController mainController;
     private boolean running = true;
+    private final String name = "World";
 
     public WorldController(final World world, final View worldView, final MainController mainController) {
         this.world = world;
@@ -68,6 +71,16 @@ public class WorldController implements Controller, LoopController {
 
     private boolean isRunning() {
         return this.running;
+    }
+
+    @Override
+    public String getName() {
+        return this.name;
+    }
+
+    @Override
+    public JPanel getPanel() {
+        return (JPanel) this.worldView;
     }
  
 }
