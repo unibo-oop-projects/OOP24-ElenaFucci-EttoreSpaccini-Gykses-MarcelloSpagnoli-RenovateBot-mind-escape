@@ -20,11 +20,6 @@ public interface MainController {
     void start();
 
     /**
-     * Stops the game loop.
-     */
-    void stop();
-
-    /**
      * Returns the current Controller.
      *
      * @return the current Controller

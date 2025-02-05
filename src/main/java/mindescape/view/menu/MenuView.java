@@ -56,6 +56,6 @@ public class MenuView extends JPanel implements View {
 
 
     @Override
-    public void update() {
+    public void draw() {
     }
 }
