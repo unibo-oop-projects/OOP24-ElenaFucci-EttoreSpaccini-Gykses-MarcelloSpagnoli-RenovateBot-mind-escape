@@ -1,22 +1,124 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="16" height="16" tilewidth="16" tileheight="16" infinite="0" nextlayerid="2" nextobjectid="1">
- <layer id="1" name="Tile Layer 1" width="16" height="16">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="16" height="16" tilewidth="16" tileheight="16" infinite="0" nextlayerid="7" nextobjectid="34">
+ <tileset firstgid="1" source="../tilesets/Enviroment.tsx"/>
+ <tileset firstgid="626" source="../tilesets/Things.tsx"/>
+ <tileset firstgid="1251" source="../tilesets/Enviroment2.tsx"/>
+ <layer id="1" name="Enviroment" width="16" height="16">
+  <data encoding="csv">
+2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
+27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,
+27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,
+27,52,52,52,52,52,52,52,52,52,52,52,52,52,52,27,
+27,15,16,16,16,16,16,16,16,16,16,142,140,16,17,27,
+41,142,41,41,41,41,41,41,41,41,41,41,41,41,42,27,
+41,92,41,41,41,41,41,41,41,41,41,41,41,41,42,27,
+27,40,41,41,41,41,41,41,41,41,41,41,41,41,42,27,
+27,40,41,41,41,41,41,41,41,41,41,41,41,41,140,41,
+27,40,41,41,41,41,41,41,41,41,41,41,41,41,90,41,
+27,40,41,41,41,41,41,41,41,41,41,41,41,41,42,27,
+27,40,41,41,41,41,41,41,41,41,41,41,41,41,42,27,
+27,40,41,41,41,41,41,41,41,41,41,41,41,41,42,27,
+27,40,41,41,41,41,41,41,41,41,41,41,41,41,42,27,
+27,65,66,66,66,66,66,66,66,66,66,66,66,66,67,27,
+27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27
+</data>
+ </layer>
+ <objectgroup id="5" name="Objects" class="Unpickable">
+  <properties>
+   <property name="Reward" value="Calendar note"/>
+  </properties>
+  <object id="1" name="Calendar" type="UnpickableWithEnigma" x="32" y="32" width="32" height="32">
+   <properties>
+    <property name="Enigma" value="Calendar"/>
+    <property name="Reward" value=""/>
+   </properties>
+  </object>
+  <object id="2" name="Wall" type="NonInteractableImpl" x="0" y="48" width="32" height="16"/>
+  <object id="3" x="0" y="64" width="16" height="16"/>
+  <object id="5" name="Wall" type="NonInteractableImpl" x="0.458716" y="112" width="16" height="144"/>
+  <object id="6" x="15.1376" y="239.908" width="241.284" height="16"/>
+  <object id="7" name="Wall" type="NonInteractableImpl" x="240" y="160" width="16" height="95.8716"/>
+  <object id="10" name="Wall" type="NOnInteractableImpl" x="208" y="48" width="48" height="16"/>
+  <object id="12" name="Wall" type="NonInteractableImpl" x="240" y="64" width="16" height="64"/>
+  <object id="13" name="Wall" type="NonInteractableImpl" x="64" y="48" width="16" height="16"/>
+  <object id="14" name="Wall" type="NonInteractableImpl" x="128" y="48" width="48" height="16"/>
+  <object id="17" name="Barrel" type="NonInteractableImpl" x="144.495" y="105.963" width="15.5963" height="22.9358"/>
+  <object id="19" name="Barrel" type="NonInteractableImpl" x="224.771" y="74.7706" width="14.6789" height="22.4771"/>
+  <object id="20" name="Table" type="NonInteractableImpl" x="112.844" y="160.55" width="47.7064" height="28.8991"/>
+  <object id="21" name="Chair" type="NonInteractableImpl" x="161.468" y="161.009" width="13.3028" height="27.9817"/>
+  <object id="22" name="Table" type="NonInteractableImpl" x="33.0275" y="128.44" width="47.2477" height="28.8991"/>
+  <object id="23" name="Chair" type="NonInteractableImpl" x="80.7339" y="128.44" width="13.7615" height="27.9817"/>
+  <object id="25" name="Table" type="Unpickable" x="32.5688" y="192.661" width="46.789" height="26.6055">
+   <properties>
+    <property name="Reward" value="Calendar Note"/>
+   </properties>
+  </object>
+  <object id="26" name="Chairs" type="NonInteractableImpl" x="33.0275" y="220.183" width="46.3303" height="16.5138"/>
+  <object id="27" name="Chair" type="NonInteractableImpl" x="128.44" y="189.45" width="15.5963" height="15.5963"/>
+  <object id="29" name="Barrel" type="NonInteractableImpl" x="207.798" y="218.807" width="16.5138" height="21.1009"/>
+  <object id="30" name="Chair" type="NonInteractableImpl" x="32.5688" y="156.422" width="15.5963" height="16.5138"/>
+  <object id="31" name="Chest" type="UnpickableWithEnigma" x="80.2752" y="55.0459" width="47.2477" height="22.0183">
+   <properties>
+    <property name="Enigma" value="Chest"/>
+    <property name="Reward" value="Office key"/>
+   </properties>
+  </object>
+  <object id="33" x="309.174" y="121.101" width="0.458716"/>
+ </objectgroup>
+ <objectgroup id="6" name="Doors">
+  <object id="32" name="Door" type="DoorLockedWithPickable" x="245.413" y="128.44" width="6.88073" height="32.5688">
+   <properties>
+    <property name="keyItem_id" value="//todo"/>
+   </properties>
+  </object>
+  <object id="15" name="Door" type="DoorLockedWithPickable" x="176" y="32" width="32" height="32">
+   <properties>
+    <property name="Destination" value="office"/>
+   </properties>
+  </object>
+  <object id="4" name="Door" type="SimpleDoor" x="2.75229" y="79.3578" width="8.7156" height="33.4862">
+   <properties>
+    <property name="Destination" value="bedroom"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer id="2" name="Furniture" width="16" height="16">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,1267,1267,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,884,885,886,0,0,0,0,0,0,0,0,
+0,0,0,0,0,909,910,911,0,0,0,0,0,0,627,0,
+2684354889,0,0,0,0,0,0,0,0,0,0,0,0,0,652,0,
+2684354889,0,0,0,0,0,0,0,0,627,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,652,0,0,0,0,0,0,
+0,0,763,764,765,0,0,0,0,0,0,0,0,0,0,1610613065,
+0,0,788,789,790,0,0,0,0,0,0,0,0,0,0,1610613065,
+0,0,0,0,0,0,0,763,764,765,0,0,0,0,0,0,
+0,0,0,0,0,0,0,788,789,790,0,0,0,0,0,0,
+0,0,763,764,765,0,0,0,0,0,0,0,0,0,0,0,
+0,0,788,789,790,0,0,0,0,0,0,0,0,627,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,652,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="4" name="Decorations" width="16" height="16">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,208,209,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,233,234,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,937,0,913,664,0,0,0,0,0,0,0,0,0,0,
+0,0,713,0,0,689,0,0,0,0,0,0,0,0,0,0,
+0,0,738,0,0,0,0,0,913,937,664,0,0,0,0,0,
+0,0,0,0,0,0,0,0,713,0,689,0,0,0,0,0,
+0,0,913,913,1301,0,0,0,738,0,0,0,0,0,0,0,
+0,0,713,0,713,0,0,0,0,0,0,0,0,0,0,0,
+0,0,738,0,738,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
