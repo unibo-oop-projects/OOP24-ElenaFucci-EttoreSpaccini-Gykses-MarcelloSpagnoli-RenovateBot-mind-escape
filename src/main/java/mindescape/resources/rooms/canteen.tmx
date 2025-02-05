@@ -63,17 +63,18 @@
     <property name="Reward" value="Office key"/>
    </properties>
   </object>
-  <object id="33" x="309.174" y="121.101" width="0.458716"/>
  </objectgroup>
  <objectgroup id="6" name="Doors">
   <object id="32" name="Door" type="DoorLockedWithPickable" x="245.413" y="128.44" width="6.88073" height="32.5688">
    <properties>
-    <property name="keyItem_id" value="//todo"/>
+    <property name="Destination" value="archive"/>
+    <property name="keyItem_id" type="int" value="3"/>
    </properties>
   </object>
   <object id="15" name="Door" type="DoorLockedWithPickable" x="176" y="32" width="32" height="32">
    <properties>
     <property name="Destination" value="office"/>
+    <property name="keyItem_id" type="int" value="3"/>
    </properties>
   </object>
   <object id="4" name="Door" type="SimpleDoor" x="2.75229" y="79.3578" width="8.7156" height="33.4862">

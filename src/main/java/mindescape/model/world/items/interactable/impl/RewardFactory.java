@@ -14,7 +14,21 @@ public class RewardFactory {
     public Optional<Pickable> getReward(String name) {
         switch (name) {
             case "Code note":
-                return Optional.of(new PickableImpl(Optional.empty(), name, Dimensions.TILE, "15674", 1));
+                return Optional.of(new PickableImpl(Optional.empty(), name, Dimensions.TILE,
+                    "15674",
+                    1));
+            case "Calendar note":
+                return Optional.of(new PickableImpl(Optional.empty(), name, Dimensions.TILE,
+                    "The key is in the routine",
+                    2));
+            case "Office key":
+                return Optional.of(new PickableImpl(Optional.empty(), name, Dimensions.TILE,
+                    "A key",
+                    2));
+            case "Torch":
+                return Optional.of(new PickableImpl(Optional.empty(), name, Dimensions.TILE,
+                "A torch",
+                3));
             default:
                 return Optional.empty();
         }
