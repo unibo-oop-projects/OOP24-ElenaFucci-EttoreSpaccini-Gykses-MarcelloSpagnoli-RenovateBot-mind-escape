@@ -21,6 +21,8 @@ public class WorldController implements Controller {
 
     @Override
     public void handleInput(final UserInput input) {
+        Enigma enigma;
+        Controller controller;
         switch (input) {
             case UP:
                 this.world.movePlayer(Movement.UP);
@@ -35,12 +37,12 @@ public class WorldController implements Controller {
                 this.world.movePlayer(Movement.RIGHT);
                 break;
             case INTERACT:
-                Enigma enigma = this.world.letPlayerInteract().get();   
-                Controller controller = this.mainController.findController(enigma.getName());
+                enigma = this.world.letPlayerInteract().get();   
+                controller = this.mainController.findController(enigma.getName());
                 this.mainController.setController(controller);
                 break;
             case OPEN_INVENTORY:
-                Controller controller = this.mainController.findController("Inventory");
+                controller = this.mainController.findController("Inventory");
                 this.mainController.setController(controller);
                 break;
             default:
@@ -50,6 +52,9 @@ public class WorldController implements Controller {
 
     @Override
     public void loop() {
-        this.worldView.start();
+        while (true) {
+            this.worldView.start();
+        }
     }
+ 
 }

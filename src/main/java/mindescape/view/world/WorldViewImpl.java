@@ -1,4 +1,4 @@
-package mindescape.view.impl;
+package mindescape.view.world;
 
 import java.awt.event.KeyEvent;
 import java.util.Map;

@@ -1,14 +1,14 @@
 package mindescape.controller.maincontroller.impl;
 
-import java.util.HashMap;
 import java.util.Map;
 import mindescape.controller.api.Controller;
 import mindescape.controller.maincontroller.api.MainController;
 
 public class MainControllerImpl implements MainController {
+    
     private Controller currentController;
     private boolean running = true;
-    private final Map<String, Controller> controllers = new HashMap<>();
+    private final Map<String, Controller> controllers = Map.of();
 
     public MainControllerImpl(final Controller currentController) {
         this.currentController = currentController;
@@ -21,9 +21,6 @@ public class MainControllerImpl implements MainController {
 
     @Override
     public void start() {
-        while (running) {
-            
-        }
         this.currentController.loop();
     }
 
@@ -41,5 +38,4 @@ public class MainControllerImpl implements MainController {
     public Controller findController(String name) {
         return this.controllers.get(name);
     }
-
 }
