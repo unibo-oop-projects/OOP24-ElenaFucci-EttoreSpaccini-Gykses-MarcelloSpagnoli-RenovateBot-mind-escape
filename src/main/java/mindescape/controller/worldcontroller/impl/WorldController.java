@@ -48,8 +48,7 @@ public class WorldController implements LoopController {
                 this.mainController.setController(controller);
                 break;
             case INVENTORY:
-                controller = this.mainController.findController("Inventory");
-                this.mainController.setController(controller);
+                this.mainController.switchToInventory();
                 break;
             default:
                 break;  
@@ -66,18 +65,11 @@ public class WorldController implements LoopController {
         while (this.isRunning()) {
             //TODO implement game loop logic here : game has to run with 60fps
 
-
             if (this.world.hasWon()) {
-                //this.mainController.setController(new WinningView());
+                this.mainController.winning();
             }
 
-            try {
-                Thread.sleep(1000 / 60);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-
+            this.worldView.draw(this.world.getCurrentRoom());
         }
     }
 
@@ -92,7 +84,7 @@ public class WorldController implements LoopController {
 
     @Override
     public JPanel getPanel() {
-        return (JPanel) this.worldView;
+        return this.worldView.getPanel();
     }
  
 }
