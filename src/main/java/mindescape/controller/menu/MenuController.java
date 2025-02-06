@@ -21,15 +21,14 @@ public class MenuController implements ClickableController {
     @Override
     public void handleInput(final Object input) {
         switch ((String) input) {
-            case "NEW_GAME":
+            case Options.NEW_GAME:
                 System.out.println("Starting new game..."); // TODO: remove
                 this.mainController.switchToGame();
                 break;
-            case "LOAD_GAME":
+            case Options.LOAD_GAME:
                 System.out.println("Loading game..."); // TODO: remove
                 break;
-
-            case "QUIT":
+            case Options.QUIT:
                 System.exit(0);
                 break;
         }
@@ -43,5 +42,11 @@ public class MenuController implements ClickableController {
     @Override
     public JPanel getPanel() {
         return this.menuView.getPanel();
+    }
+
+    private class Options {
+        public static final String NEW_GAME = "NEW_GAME";
+        public static final String LOAD_GAME = "LOAD_GAME";
+        public static final String QUIT = "QUIT";
     }
 }

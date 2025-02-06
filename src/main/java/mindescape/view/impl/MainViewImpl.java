@@ -29,7 +29,7 @@ public class MainViewImpl implements MainView {
 
     public MainViewImpl(final MainController controller) {
         this.mainController = controller;
-        this.currentPanel = new JPanel(); // Inizializza un pannello vuoto
+        this.currentPanel = new JPanel(); // Initialize with an empty panel
 
         this.frame.addKeyListener(new KeyAdapter() {
             @Override
@@ -42,18 +42,22 @@ public class MainViewImpl implements MainView {
             }
         });
 
-       
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // TODO: add save on file
         frame.setSize(800, 600);
         frame.setVisible(true);
     }
-    
+
     @Override
     public void setPanel(final JPanel panel) {
-        this.frame.remove(this.currentPanel);
+        this.frame.remove(this.currentPanel);  
         this.currentPanel = panel;
-        this.frame.getContentPane().add(this.currentPanel);
+        this.frame.add(this.currentPanel);  
+        this.currentPanel.setVisible(true);
+        this.currentPanel.setFocusable(true);
+        this.currentPanel.requestFocusInWindow(); 
         this.show();
+        this.currentPanel.revalidate();
+        this.currentPanel.repaint();
     }
 
     @Override
@@ -64,5 +68,4 @@ public class MainViewImpl implements MainView {
             frame.revalidate();
         });
     }
- 
 }
