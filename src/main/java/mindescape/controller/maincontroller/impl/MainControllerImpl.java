@@ -1,16 +1,13 @@
 package mindescape.controller.maincontroller.impl;
 
 import java.util.Map;
-
 import javax.swing.SwingUtilities;
-
 import mindescape.controller.core.api.Controller;
 import mindescape.controller.core.api.LoopController;
 import mindescape.controller.maincontroller.api.MainController;
 import mindescape.controller.menu.MenuController;
 import mindescape.view.impl.MainViewImpl;
 import mindescape.view.api.MainView;
-
 
 public class MainControllerImpl implements MainController {
     
