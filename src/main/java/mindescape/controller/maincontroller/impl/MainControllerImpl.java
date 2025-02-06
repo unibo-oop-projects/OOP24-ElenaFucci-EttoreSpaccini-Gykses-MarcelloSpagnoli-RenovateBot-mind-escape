@@ -69,4 +69,20 @@ public class MainControllerImpl implements MainController {
         this.mainView.won();
     }
 
+    @Override
+    public void switchToInventory() {
+        this.setController(this.findController("Inventory"));
+    }
+
+    @Override
+    public void exit() {
+        System.exit(0);
+    }
+
+    @Override
+    public void save() {
+        
+        this.exit();
+    }
+
 }

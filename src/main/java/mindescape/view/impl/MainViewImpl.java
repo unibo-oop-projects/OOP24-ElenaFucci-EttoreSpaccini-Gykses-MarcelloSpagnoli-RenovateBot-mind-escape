@@ -45,20 +45,24 @@ public class MainViewImpl implements MainView {
             }
         });
 
-        this.frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // TODO: add save on file
+        this.frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
+        // Add a listener to the window to ask for saving before closing 
         this.frame.addWindowListener(new WindowAdapter() {
+
             @Override
-            public void windowClosing(WindowEvent e) {
-                int scelta = JOptionPane.showConfirmDialog(
+            public void windowClosing(final WindowEvent e) {
+                var option = JOptionPane.showConfirmDialog(
                     frame, 
-                    "Vuoi davvero uscire?", 
-                    "Conferma Uscita", 
+                    "Do you want to save before exiting?", 
+                    "Save before exiting", 
                     JOptionPane.YES_NO_OPTION
                 );
                 
-                if (scelta == JOptionPane.YES_OPTION) {
-                    System.exit(0); // Chiude il programma
+                if (option == JOptionPane.YES_OPTION) {
+                    mainController.save();
+                } else {
+                    mainController.exit();
                 }
             }
         });

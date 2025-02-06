@@ -47,7 +47,24 @@ public interface MainController {
      */
     void winning();
 
+    /**
+     * Switches the current view to the inventory screen.
+     */
+    void switchToInventory();
 
+    /**
+     * Switches the current view to the menu screen.
+     */
     void switchToMenu();
+
+    /**
+     * Exit the game.
+     */
+    void exit();
+
+    /**
+     * Save the game.
+     */
+    void save();
 
 }
