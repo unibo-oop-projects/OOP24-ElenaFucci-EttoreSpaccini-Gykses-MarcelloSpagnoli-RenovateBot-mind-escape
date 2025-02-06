@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -12,6 +13,8 @@ import mindescape.controller.maincontroller.api.MainController;
 import mindescape.view.api.MainView;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class MainViewImpl implements MainView {
 
@@ -42,8 +45,29 @@ public class MainViewImpl implements MainView {
             }
         });
 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // TODO: add save on file
+        this.frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+        // Add a listener to the window to ask for saving before closing 
+        this.frame.addWindowListener(new WindowAdapter() {
+
+            @Override
+            public void windowClosing(final WindowEvent e) {
+                var option = JOptionPane.showConfirmDialog(
+                    frame, 
+                    "Do you want to save before exiting?", 
+                    "Save before exiting", 
+                    JOptionPane.YES_NO_OPTION
+                );
+                
+                if (option == JOptionPane.YES_OPTION) {
+                    mainController.save();
+                } else {
+                    mainController.exit();
+                }
+            }
+        });
         frame.setSize(800, 600);
+        frame.setResizable(true);
         frame.setVisible(true);
     }
 
@@ -67,5 +91,14 @@ public class MainViewImpl implements MainView {
             frame.repaint();
             frame.revalidate();
         });
+    }
+
+    @Override
+    public void won() {
+        JOptionPane.showMessageDialog(frame, "You won!");
+    }
+
+    private void onClose() {
+
     }
 }

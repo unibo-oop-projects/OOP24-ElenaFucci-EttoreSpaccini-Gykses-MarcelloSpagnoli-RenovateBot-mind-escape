@@ -15,4 +15,10 @@ public interface MainView {
      * Shows the current panel.
      */ 
     void show();
+
+    /**
+     * This method is called when the player wins the game.
+     */
+    void won();
+
 }

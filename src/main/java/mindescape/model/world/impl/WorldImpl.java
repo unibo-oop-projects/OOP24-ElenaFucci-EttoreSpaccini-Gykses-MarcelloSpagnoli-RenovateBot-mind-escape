@@ -36,6 +36,7 @@ public class WorldImpl implements World, Serializable {
         this.currentRoom = currentRoom;
         this.hasWon = hasWon;
         this.collisionDetector = new CollisionDetectorImpl();
+        this.collidingObject = Optional.empty();
     }
 
     @Override
@@ -73,7 +74,7 @@ public class WorldImpl implements World, Serializable {
     }
 
     @Override
-    public void movePlayer(final Movement movement) {
+    public void movePlayer(final Movement movement) throws NullPointerException {
         Objects.requireNonNull(movement, "Movement must not be null");
 
         // check if the player is colliding with any object in the room before moving
@@ -91,5 +92,4 @@ public class WorldImpl implements World, Serializable {
     private void setCollidingObject(final Optional<GameObject> collidingObject) {
         this.collidingObject = collidingObject;
     }
-    
 }
