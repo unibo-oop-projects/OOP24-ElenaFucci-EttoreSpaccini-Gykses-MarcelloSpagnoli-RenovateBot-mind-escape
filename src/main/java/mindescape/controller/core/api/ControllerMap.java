@@ -21,6 +21,15 @@ public interface ControllerMap {
         public String getName() {
             return this.name;
         }
+        
+        public static ControllerName fromString(String name) {
+            for (ControllerName controllerName : ControllerName.values()) {
+                if (controllerName.name.equals(name)) {
+                    return controllerName;
+                }
+            }
+            return null;
+        }
     }
 
     /**

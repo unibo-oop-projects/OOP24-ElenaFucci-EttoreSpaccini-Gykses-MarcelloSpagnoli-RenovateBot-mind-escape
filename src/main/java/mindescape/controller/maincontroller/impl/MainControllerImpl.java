@@ -1,13 +1,12 @@
 package mindescape.controller.maincontroller.impl;
 
-import java.util.Map;
 import javax.swing.SwingUtilities;
 import mindescape.controller.core.api.Controller;
 import mindescape.controller.core.api.ControllerMap;
 import mindescape.controller.core.api.LoopController;
-import mindescape.controller.core.impl.ControllerMapImpl;
+import mindescape.controller.core.api.ControllerMap.ControllerName;
+import mindescape.controller.core.impl.ControllerBuilderImpl;
 import mindescape.controller.maincontroller.api.MainController;
-import mindescape.controller.menu.MenuController;
 import mindescape.view.impl.MainViewImpl;
 import mindescape.view.api.MainView;
 
@@ -18,11 +17,11 @@ public class MainControllerImpl implements MainController {
     private final MainView mainView;
 
     public MainControllerImpl() {
-        this.currentController = new MenuController(this);
         this.mainView = new MainViewImpl(this);
-        this.controllerMap = new ControllerMapImpl(Map.of());
-
-        this.setController(currentController);
+        var controllerBuilder = new ControllerBuilderImpl(this);
+        controllerBuilder.buildMenu();
+        this.controllerMap = controllerBuilder.getResult();
+        this.setController(this.findController("Menu"));
     }
 
     @Override
@@ -50,8 +49,7 @@ public class MainControllerImpl implements MainController {
 
     @Override
     public Controller findController(final String name) {
-        //return this.controllerMap.findController(name);
-        return null;
+        return this.controllerMap.findController(ControllerName.fromString(name));
     }
 
     @Override
