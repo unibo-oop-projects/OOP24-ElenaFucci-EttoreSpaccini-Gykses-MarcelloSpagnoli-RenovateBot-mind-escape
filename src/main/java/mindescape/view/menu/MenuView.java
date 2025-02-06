@@ -1,61 +1,59 @@
 package mindescape.view.menu;
 
-import mindescape.controller.api.Controller;
-import mindescape.controller.menu.MenuController;
-import mindescape.view.api.View;
 import javax.swing.*;
 import java.awt.*;
+import mindescape.controller.core.api.ClickableController;
+import mindescape.view.api.View;
+import mindescape.view.utils.ViewUtils;
 
-public class MenuView extends JPanel implements View {
+public class MenuView implements View {
 
-    private JButton newGameButton;
-    private JButton loadGameButton;
-    private JButton quitButton;
     private static final long serialVersionUID = 1L;
-    private final Controller controller;
+    private final ClickableController menuController;
+    private final JPanel panel = new JPanel();
 
-    public MenuView(final Controller controller) {
-        this.controller = controller;
-        setLayout(new GridBagLayout());
-        setBackground(new Color(30, 30, 30));
-        
+    public MenuView(final ClickableController menuController) {
+        this.menuController = menuController;
+        panel.setLayout(new BorderLayout());
+        panel.setBackground(new Color(20, 20, 20));
+        panel.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50));
+        JLabel titleLabel = new JLabel("Mind Escape", SwingConstants.CENTER);
+        titleLabel.setFont(new Font("Serif", Font.BOLD, 48));
+        titleLabel.setForeground(Color.WHITE);
+        titleLabel.setOpaque(false);
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new GridBagLayout());
+        buttonPanel.setOpaque(false);
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(15, 15, 15, 15);
+        gbc.insets = new Insets(20, 20, 20, 20);
+        JButton newGameButton = ViewUtils.createStyledButton("New Game");
+        JButton loadGameButton = ViewUtils.createStyledButton("Load Game");
+        JButton quitButton = ViewUtils.createStyledButton("Quit");
         gbc.gridx = 0;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        
-        newGameButton = createStyledButton("New Game");
         gbc.gridy = 0;
-        add(newGameButton, gbc);
-        
-        loadGameButton = createStyledButton("Load Game");
+        buttonPanel.add(newGameButton, gbc);
         gbc.gridy = 1;
-        add(loadGameButton, gbc);
-        
-        quitButton = createStyledButton("Quit");
+        buttonPanel.add(loadGameButton, gbc);
         gbc.gridy = 2;
-        add(quitButton, gbc);
-
-        quitButton.addActionListener(e -> {
-        });
-        newGameButton.addActionListener(e -> {
-
-        });
+        buttonPanel.add(quitButton, gbc);
+        panel.add(titleLabel, BorderLayout.NORTH);
+        panel.add(buttonPanel, BorderLayout.CENTER);
+        /*
+         * handlers for the buttons
+         */
+        newGameButton.addActionListener(e -> menuController.handleInput("NEW_GAME"));
+        loadGameButton.addActionListener(e -> menuController.handleInput("LOAD_GAME"));
+        quitButton.addActionListener(e -> menuController.handleInput("QUIT"));
     }
-    
-    private JButton createStyledButton(String text) {
-        JButton button = new JButton(text);
-        button.setFont(new Font("Arial", Font.BOLD, 16));
-        button.setForeground(Color.WHITE);
-        button.setBackground(new Color(50, 50, 50));
-        button.setFocusPainted(false);
-        button.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
-        button.setPreferredSize(new Dimension(200, 50));
-        return button;
-    }
-
 
     @Override
     public void draw() {
+        panel.revalidate();
+        panel.repaint();
+    }
+
+    @Override
+    public JPanel getPanel() {
+        return this.panel;
     }
 }

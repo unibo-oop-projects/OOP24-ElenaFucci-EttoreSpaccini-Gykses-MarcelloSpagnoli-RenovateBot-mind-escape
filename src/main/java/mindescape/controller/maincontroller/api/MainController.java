@@ -1,6 +1,6 @@
 package mindescape.controller.maincontroller.api;
 
-import mindescape.controller.api.Controller;
+import mindescape.controller.core.api.Controller;
 
 /**
  * The MainController interface provides a method to set a Controller.
@@ -34,5 +34,11 @@ public interface MainController {
      * @return the found Controller
      */
     Controller findController(String name);
+
+
+    /**
+     * Switches to the game Controller.
+     */
+    void switchToGame();
 
 }

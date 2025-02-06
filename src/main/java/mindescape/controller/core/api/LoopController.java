@@ -1,6 +1,6 @@
-package mindescape.controller.maincontroller.api;
+package mindescape.controller.core.api;
 
-public interface LoopController {
+public interface LoopController extends Controller {
 
     /**
      * Starts the game loop.
