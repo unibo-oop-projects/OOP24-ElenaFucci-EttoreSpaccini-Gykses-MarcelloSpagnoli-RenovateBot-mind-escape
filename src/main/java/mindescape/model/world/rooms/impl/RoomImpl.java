@@ -82,20 +82,20 @@ public class RoomImpl implements Room {
         return this.name;
     }
 
-    public static List<RoomImpl> createRooms() {
+    public static List<Room> createRooms() {
         File resources = new File("src/main/java/mindescape/resources/rooms");
         ObjectsExtractor objectsExtractor = new ObjectsExtractor();
         File[] files = resources.listFiles();
-        List<RoomImpl> rooms = Arrays.asList(files)
+        List<Room> rooms = Arrays.asList(files)
             .stream()
-            .map(x -> new RoomImpl(x.getPath()))
+            .map(x -> (Room) new RoomImpl(x.getPath()))
             .toList();
         rooms.forEach(room -> {
-            objectsExtractor.extractfrom(room.source)
+            objectsExtractor.extractfrom(room.getSource())
                 .forEach(obj -> room.addGameObject(obj));
         });
         rooms.forEach(room -> {
-            objectsExtractor.addDoors(room.source, rooms.stream().collect(Collectors.toSet()))
+            objectsExtractor.addDoors(room.getSource(), rooms.stream().collect(Collectors.toSet()))
                 .forEach(door -> room.addGameObject(door));
         });
         return rooms;
