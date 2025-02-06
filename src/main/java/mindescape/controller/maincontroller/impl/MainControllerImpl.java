@@ -3,7 +3,9 @@ package mindescape.controller.maincontroller.impl;
 import java.util.Map;
 import javax.swing.SwingUtilities;
 import mindescape.controller.core.api.Controller;
+import mindescape.controller.core.api.ControllerMap;
 import mindescape.controller.core.api.LoopController;
+import mindescape.controller.core.impl.ControllerMapImpl;
 import mindescape.controller.maincontroller.api.MainController;
 import mindescape.controller.menu.MenuController;
 import mindescape.controller.worldcontroller.impl.WorldController;
@@ -13,13 +15,14 @@ import mindescape.view.api.MainView;
 public class MainControllerImpl implements MainController {
     
     private Controller currentController;
-    private final Map<String, Controller> controllers;
+    private final ControllerMap controllerMap;
     private final MainView mainView;
 
     public MainControllerImpl() {
         this.currentController = new MenuController();
         this.mainView = new MainViewImpl(this);
-        this.controllers = Map.of(currentController.getName(), currentController);
+        this.controllerMap = new ControllerMapImpl(Map.of());
+
         this.setController(currentController);
     }
 
@@ -48,12 +51,39 @@ public class MainControllerImpl implements MainController {
 
     @Override
     public Controller findController(final String name) {
-        return this.controllers.get(name);
+        //return this.controllerMap.findController(name);
+        return null;
     }
 
     @Override
     public void switchToGame() {
         this.setController(this.findController("World"));
+    }
+
+    @Override
+    public void switchToMenu() {
+        this.setController(this.findController("Menu"));
+    }
+
+    @Override
+    public void winning() {
+        this.mainView.won();
+    }
+
+    @Override
+    public void switchToInventory() {
+        this.setController(this.findController("Inventory"));
+    }
+
+    @Override
+    public void exit() {
+        System.exit(0);
+    }
+
+    @Override
+    public void save() {
+        
+        this.exit();
     }
 
 }
