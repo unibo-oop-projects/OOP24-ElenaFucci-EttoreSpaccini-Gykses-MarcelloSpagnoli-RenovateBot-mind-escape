@@ -32,15 +32,15 @@ public class InventoryViewImpl implements View {
         inventoryPanel.add(scrollPane, BorderLayout.SOUTH);
     }
 
-    @Override
-    public void start() {
+    
+    private void start() {
         buttonPanel.removeAll();
         buttonPanel.revalidate();
         buttonPanel.repaint();
     }
 
     @Override
-    public void update() {
+    public void draw() {
         // Ogni volta che l'inventario cambia, aggiorniamo la view
 
         Set<Pickable> items = inventory.getItems();
@@ -58,16 +58,11 @@ public class InventoryViewImpl implements View {
         buttonPanel.repaint();     // Rende visibile il cambiamento
     }
 
-    @Override
-    public boolean toQuit() {
-        return JOptionPane.showConfirmDialog(inventoryPanel, "Vuoi uscire?", "Conferma uscita", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
-    }
-
     private void showItemDescription(Pickable item) {
         descriptionArea.setText(item.getDescription());
     }
-
-    public JPanel getInventoryPanel() {
+    @Override
+    public JPanel getPanel() {
         return inventoryPanel;
     }
 }
