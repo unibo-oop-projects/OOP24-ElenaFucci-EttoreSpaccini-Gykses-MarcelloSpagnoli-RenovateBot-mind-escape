@@ -1,10 +1,8 @@
-package mindescape.view.impl;
+package mindescape.view.inventory;
 
 import mindescape.view.api.View;
-
 import mindescape.model.inventory.api.Inventory;
 import mindescape.model.world.items.interactable.api.Pickable;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.Set;
