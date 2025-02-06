@@ -26,7 +26,6 @@ public interface MainController {
      */
     Controller getController();
 
-
     /**
      * Finds a Controller by its name.
      *
@@ -35,10 +34,20 @@ public interface MainController {
      */
     Controller findController(String name);
 
-
     /**
      * Switches to the game Controller.
      */
     void switchToGame();
+
+    /**
+     * This method is called when the player wins the game.
+     * It should handle the logic that needs to be executed upon winning,
+     * such as updating the game state, displaying a winning message, 
+     * and any other necessary actions.
+     */
+    void winning();
+
+
+    void switchToMenu();
 
 }
