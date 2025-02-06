@@ -24,7 +24,7 @@ public class ControllerBuilderImpl implements ControllerBuilder {
 
     @Override
     public void buildWorld() {
-        this.controllerMap.addController(new WorldController(null, new WorldViewImpl(), mainController));
+        this.controllerMap.addController(new WorldController(null, new WorldViewImpl(null), mainController));
     }
 
     @Override

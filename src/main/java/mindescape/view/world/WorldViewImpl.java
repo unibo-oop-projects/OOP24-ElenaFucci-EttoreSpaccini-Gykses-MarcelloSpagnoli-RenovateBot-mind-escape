@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -17,18 +18,34 @@ import org.tiledreader.TiledMap;
 import org.tiledreader.TiledTile;
 import org.tiledreader.TiledTileLayer;
 
+import mindescape.controller.core.api.UserInput;
 import mindescape.controller.worldcontroller.impl.WorldController;
 import mindescape.model.world.core.api.Dimensions;
+import mindescape.model.world.core.api.GameObject;
+import mindescape.model.world.player.api.Player;
 import mindescape.model.world.rooms.api.Room;
-import mindescape.view.api.View;
+import mindescape.view.api.WorldView;
 
-public class WorldViewImpl extends JPanel implements View, KeyListener {
+public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
+
+    private static final Map<Integer, UserInput> KEY_MAPPER = Map.of(
+        KeyEvent.VK_W, UserInput.UP,
+        KeyEvent.VK_S, UserInput.DOWN,
+        KeyEvent.VK_A, UserInput.LEFT,
+        KeyEvent.VK_D, UserInput.RIGHT,
+        KeyEvent.VK_E, UserInput.INTERACT,
+        KeyEvent.VK_I, UserInput.INVENTORY
+    );
 
     private final WorldController worldController;
     private Room currentRoom;
 
-    public WorldViewImpl() {
+    public WorldViewImpl(WorldController worldController) {
+        this.worldController = worldController;
         currentRoom = null;
+        addKeyListener(this);
+        setFocusable(true);
+        setFocusTraversalKeysEnabled(false);
     }
 
     @Override
@@ -49,6 +66,18 @@ public class WorldViewImpl extends JPanel implements View, KeyListener {
         getTileLayers(map).forEach(layer -> drawLayer(layer, g, map));
     }
 
+    private void drawPlayer(Graphics g) {
+        try {
+            GameObject p = currentRoom.getGameObjects().stream().filter(x -> x instanceof Player).findAny().get();
+            g.drawRect(
+                (int) p.getPosition().get().x(), 
+                (int) p.getPosition().get().y(), 
+                (int) p.getDimensions().width(), 
+                (int) p.getDimensions().height());
+        } catch (Exception e) {
+            throw new IllegalStateException("The room which is being displayed does not contains the player");
+        }
+    }
 
     private void drawLayer(TiledTileLayer layer, Graphics g, TiledMap map) {
         for (int x = 0; x < map.getWidth(); x++) {
@@ -91,20 +120,16 @@ public class WorldViewImpl extends JPanel implements View, KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'keyTyped'");
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'keyPressed'");
+        int pressed = e.getKeyCode();
+        worldController.handleInput(KEY_MAPPER.get(pressed));
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'keyReleased'");
     }
     
 }

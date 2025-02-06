@@ -9,17 +9,17 @@ import mindescape.controller.maincontroller.api.MainController;
 import mindescape.model.enigma.api.Enigma;
 import mindescape.model.world.api.World;
 import mindescape.model.world.core.api.Movement;
-import mindescape.view.api.View;
+import mindescape.view.api.WorldView;
 
 public class WorldController implements LoopController {
 
     private final World world;
-    private final View worldView;
+    private final WorldView worldView;
     private final MainController mainController;
     private boolean running = true;
     private final String name = "World";
 
-    public WorldController(final World world, final View worldView, final MainController mainController) {
+    public WorldController(final World world, final WorldView worldView, final MainController mainController) {
         this.world = world;
         this.worldView = worldView;
         this.mainController = mainController;

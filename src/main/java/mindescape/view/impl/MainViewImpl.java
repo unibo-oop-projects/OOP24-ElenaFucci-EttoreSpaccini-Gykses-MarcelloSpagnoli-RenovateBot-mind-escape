@@ -17,7 +17,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class MainViewImpl implements MainView {
-
     private static final Map<Integer, UserInput> KEY_MAPPER = Map.of(
         KeyEvent.VK_W, UserInput.UP,
         KeyEvent.VK_S, UserInput.DOWN,
