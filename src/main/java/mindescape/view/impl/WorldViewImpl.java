@@ -42,4 +42,11 @@ public class WorldViewImpl implements View {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'toQuit'");
     }
+
+
+    @Override
+    public void draw() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'draw'");
+    }
 }

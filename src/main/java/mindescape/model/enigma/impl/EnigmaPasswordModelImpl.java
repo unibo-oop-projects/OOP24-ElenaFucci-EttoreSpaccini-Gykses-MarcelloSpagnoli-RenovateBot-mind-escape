@@ -1,6 +1,6 @@
 package mindescape.model.enigma.impl;
 
-import mindescape.model.enigma.api.EnigmaDoorFirstRoom;
+import mindescape.model.enigma.enigmapassword.EnigmaPasswordModel;
 
 /**
  * Represents the enigma required to unlock the door in the first room.
@@ -10,27 +10,24 @@ import mindescape.model.enigma.api.EnigmaDoorFirstRoom;
  *
  * @see EnigmaDoorFirstRoom
  */
-public class EnigmaDoorFirstRoomImpl implements EnigmaDoorFirstRoom {
-
-    /**
-     * The correct password to solve the enigma.
-     */
-    private static final String PASSWORD = "Sergio Mattarella"; 
+public class EnigmaPasswordModelImpl implements EnigmaPasswordModel { 
 
     /**
      * Indicates whether the enigma has been solved.
      */
     private boolean solved;
     private final String name; 
+    private final String password; 
 
     /**
      * Constructs a new {@code EnigmaDoorFirstRoom} with an unsolved state.
      *
      * @param name the name of the enigma
      */
-    public EnigmaDoorFirstRoomImpl(final String name) {
+    public EnigmaPasswordModelImpl(final String name, final String password) {
         this.solved = false;
         this.name = name; 
+        this.password = password; 
     }
 
     /**
@@ -54,7 +51,7 @@ public class EnigmaDoorFirstRoomImpl implements EnigmaDoorFirstRoom {
      */
     @Override
     public boolean hit(Object value) {
-        if (value instanceof String && value.equals(PASSWORD)) {
+        if (value instanceof String && value.equals(this.password)) {
             this.solved = true; 
         }
         return this.isSolved(); 

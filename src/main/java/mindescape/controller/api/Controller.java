@@ -3,30 +3,35 @@ package mindescape.controller.api;
 import javax.swing.JPanel;
 
 /**
- * The Controller interface defines the methods required to handle user input
- * and update the game state in the application.
+ * The {@code Controller} interface defines the methods required to manage 
+ * user interactions and update the game state within the application.
  */
 public interface Controller {
+
     /**
-     * Method to handle user input.
+     * Handles user input and processes it accordingly to update the game state.
      *
-     * @param input the user input to be handled
+     * @param input the user input to be processed
      */
     void handleInput(Object input);
 
-
     /**
-     * Retrieves the name of the controller.
+     * Retrieves the name of this controller.
      *
-     * @return the name as a {@code String}
+     * @return the name of the controller as a {@code String}
      */
     String getName();
 
     /**
-     * Retrieves the panel of the controller.
+     * Retrieves the main panel associated with this controller.
      *
-     * @return the panel as a {@code JPanel}
+     * @return the panel managed by this controller as a {@code JPanel}
      */
     JPanel getPanel();
 
+    /**
+     * Requests to quit the current controller, triggering a transition 
+     * to the next controller in the {@code MainController}.
+     */
+    void quit();
 }
