@@ -100,4 +100,9 @@ public class RoomImpl implements Room {
         });
         return rooms;
     }
+
+    @Override
+    public String getSource() {
+        return this.source;
+    }
 }

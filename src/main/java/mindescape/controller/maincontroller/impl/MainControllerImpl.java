@@ -6,6 +6,7 @@ import mindescape.controller.maincontroller.api.ClickableController;
 import mindescape.controller.maincontroller.api.LoopController;
 import mindescape.controller.maincontroller.api.MainController;
 import mindescape.controller.menu.MenuController;
+import mindescape.controller.worldcontroller.impl.WorldController;
 import mindescape.view.impl.MainViewImpl;
 import mindescape.view.api.MainView;
 
@@ -17,7 +18,7 @@ public class MainControllerImpl implements MainController {
     private final MainView mainView;
 
     public MainControllerImpl() {
-        this.currentController = new MenuController(this);
+        this.currentController = new MenuController();
         this.mainView = new MainViewImpl(this);
         //TODO: add map of controllers
         this.controllers = Map.of(currentController.getName(), currentController);

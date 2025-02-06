@@ -55,7 +55,7 @@ public class MainViewImpl extends JFrame implements MainView {
 
     @Override
     public void show() {
-       this.currentPanel.draw();
+       //this.currentPanel.draw();
     }
  
 }

@@ -1,5 +1,7 @@
 package mindescape.controller.worldcontroller.impl;
 
+import javax.swing.JPanel;
+
 import mindescape.controller.api.Controller;
 import mindescape.controller.api.UserInput;
 import mindescape.controller.maincontroller.api.LoopController;
@@ -68,6 +70,18 @@ public class WorldController implements Controller, LoopController {
 
     private boolean isRunning() {
         return this.running;
+    }
+
+    @Override
+    public String getName() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getName'");
+    }
+
+    @Override
+    public JPanel getPanel() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getPanel'");
     }
  
 }
