@@ -1,4 +1,4 @@
-package mindescape.controller.api;
+package mindescape.controller.core.api;
 
 public interface LoopController extends Controller {
 

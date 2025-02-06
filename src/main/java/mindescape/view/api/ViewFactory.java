@@ -1,6 +1,6 @@
 package mindescape.view.api;
 
-import mindescape.controller.api.Controller;
+import mindescape.controller.core.api.Controller;
 
 public interface ViewFactory {
 

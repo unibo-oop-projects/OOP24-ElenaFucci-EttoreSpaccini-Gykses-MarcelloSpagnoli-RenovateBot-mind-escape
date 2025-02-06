@@ -1,9 +1,10 @@
 package mindescape.controller.worldcontroller.impl;
 
 import javax.swing.JPanel;
-import mindescape.controller.api.Controller;
-import mindescape.controller.api.LoopController;
-import mindescape.controller.api.UserInput;
+
+import mindescape.controller.core.api.Controller;
+import mindescape.controller.core.api.LoopController;
+import mindescape.controller.core.api.UserInput;
 import mindescape.controller.maincontroller.api.MainController;
 import mindescape.model.enigma.api.Enigma;
 import mindescape.model.world.api.World;

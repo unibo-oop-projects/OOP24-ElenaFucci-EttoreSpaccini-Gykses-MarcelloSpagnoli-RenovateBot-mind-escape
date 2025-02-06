@@ -1,7 +1,8 @@
 package mindescape.controller.menu;
 
 import javax.swing.JPanel;
-import mindescape.controller.api.ClickableController;
+
+import mindescape.controller.core.api.ClickableController;
 import mindescape.controller.maincontroller.api.MainController;
 import mindescape.view.api.View;
 import mindescape.view.menu.MenuView;
@@ -44,7 +45,7 @@ public class MenuController implements ClickableController {
         return this.menuView.getPanel();
     }
 
-    private class Options {
+    private static class Options {
         public static final String NEW_GAME = "NEW_GAME";
         public static final String LOAD_GAME = "LOAD_GAME";
         public static final String QUIT = "QUIT";

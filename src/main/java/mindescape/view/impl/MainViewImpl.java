@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import mindescape.controller.api.UserInput;
+import mindescape.controller.core.api.UserInput;
 import mindescape.controller.maincontroller.api.MainController;
 import mindescape.view.api.MainView;
 import java.awt.event.KeyAdapter;
