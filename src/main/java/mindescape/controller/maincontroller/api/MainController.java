@@ -35,4 +35,10 @@ public interface MainController {
      */
     Controller findController(String name);
 
+
+    /**
+     * Switches to the game Controller.
+     */
+    void switchToGame();
+
 }

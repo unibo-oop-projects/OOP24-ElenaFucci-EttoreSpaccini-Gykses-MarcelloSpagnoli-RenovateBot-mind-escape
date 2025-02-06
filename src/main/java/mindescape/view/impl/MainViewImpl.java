@@ -5,15 +5,15 @@ import java.util.Objects;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import mindescape.controller.api.UserInput;
 import mindescape.controller.maincontroller.api.MainController;
 import mindescape.view.api.MainView;
-
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class MainViewImpl extends JFrame implements MainView {
+public class MainViewImpl implements MainView {
 
     private static final Map<Integer, UserInput> KEY_MAPPER = Map.of(
         KeyEvent.VK_W, UserInput.UP,
@@ -25,10 +25,13 @@ public class MainViewImpl extends JFrame implements MainView {
     );
     private final MainController mainController;
     private JPanel currentPanel;
+    private final JFrame frame = new JFrame("Mind Escape");
 
     public MainViewImpl(final MainController controller) {
         this.mainController = controller;
-        this.addKeyListener(new KeyAdapter() {
+        this.currentPanel = new JPanel(); // Inizializza un pannello vuoto
+
+        this.frame.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(final KeyEvent e) {
                 Objects.requireNonNull(e);
@@ -38,24 +41,28 @@ public class MainViewImpl extends JFrame implements MainView {
                 }
             }
         });
-        this.add(this.currentPanel);
-        
-        super.setName("Mind Escape");
-        super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // TODO: add save on file
+
+       
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // TODO: add save on file
+        frame.setSize(800, 600);
+        frame.setVisible(true);
     }
     
     @Override
     public void setPanel(final JPanel panel) {
-        this.remove(this.currentPanel);
+        this.frame.remove(this.currentPanel);
         this.currentPanel = panel;
-        this.add(this.currentPanel);
-        this.revalidate();
-        this.repaint();
+        this.frame.getContentPane().add(this.currentPanel);
+        this.show();
     }
 
     @Override
     public void show() {
-       this.currentPanel.draw();
+        SwingUtilities.invokeLater(() -> {
+            this.currentPanel.setVisible(true);
+            frame.repaint();
+            frame.revalidate();
+        });
     }
  
 }

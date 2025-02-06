@@ -1,7 +1,6 @@
 package mindescape.controller.worldcontroller.impl;
 
 import javax.swing.JPanel;
-
 import mindescape.controller.api.Controller;
 import mindescape.controller.api.LoopController;
 import mindescape.controller.api.UserInput;
@@ -65,7 +64,19 @@ public class WorldController implements LoopController {
     public void loop() {
         while (this.isRunning()) {
             //TODO implement game loop logic here : game has to run with 60fps
-            
+
+
+            if (this.world.hasWon()) {
+                //this.mainController.setController(new WinningView());
+            }
+
+            try {
+                Thread.sleep(1000 / 60);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+
         }
     }
 
