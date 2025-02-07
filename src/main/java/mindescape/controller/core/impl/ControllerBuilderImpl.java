@@ -4,7 +4,9 @@ import mindescape.controller.core.api.ControllerBuilder;
 import mindescape.controller.core.api.ControllerMap;
 import mindescape.controller.maincontroller.api.MainController;
 import mindescape.controller.menu.MenuController;
+import mindescape.controller.worldcontroller.impl.WorldController;
 import mindescape.model.world.api.World;
+import mindescape.model.world.impl.WorldImpl;
 
 /**
  * Implementation of the ControllerBuilder interface.
@@ -55,8 +57,7 @@ public class ControllerBuilderImpl implements ControllerBuilder {
 
     @Override
     public void buildNewWorld() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buildNewWorld'");
+        this.controllerMap.addController(new WorldController(new WorldImpl(), mainController));
     }
 
     @Override

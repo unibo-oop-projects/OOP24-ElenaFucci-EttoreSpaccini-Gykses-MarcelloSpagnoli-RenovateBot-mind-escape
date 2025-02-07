@@ -25,7 +25,7 @@ public class MenuController implements ClickableController {
     public void handleInput(final Object input) throws IllegalArgumentException {
         Objects.requireNonNull(input);
         switch ((String) input) {
-            case Options.NEW_GAME -> this.mainController.setController(this.mainController.findController("InsertName"));
+            case Options.NEW_GAME -> this.mainController.setController(this.mainController.findController("World"));
             case Options.LOAD_GAME -> this.mainController.setController(this.mainController.findController("LoadGame"));
             case Options.QUIT -> this.quit();
             default -> throw new IllegalArgumentException("Invalid input: " + input);
