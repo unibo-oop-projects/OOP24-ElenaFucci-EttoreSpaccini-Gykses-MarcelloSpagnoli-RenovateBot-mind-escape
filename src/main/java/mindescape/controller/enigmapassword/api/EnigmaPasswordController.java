@@ -1,6 +1,10 @@
 package mindescape.controller.enigmapassword.api;
 
-import mindescape.controller.api.Controller;
+import mindescape.controller.api.ClickableController;
 
-public interface EnigmaPasswordController extends Controller {
-} 
+/**
+ * The {@code EnigmaPasswordController} interface extends {@code ClickableController} to manage
+ * user interactions for password-based enigmas.
+ */
+public interface EnigmaPasswordController extends ClickableController {
+}

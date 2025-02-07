@@ -15,12 +15,21 @@ import javax.swing.SwingConstants;
 import mindescape.controller.enigmapassword.api.EnigmaPasswordController;
 import mindescape.view.enigmapassword.api.EnigmaPasswordView;
 
+/**
+ * The {@code EnigmaPasswordViewImpl} class implements {@code EnigmaPasswordView} to provide a user interface
+ * for entering a password and verifying it against the enigma's solution.
+ */
 public class EnigmaPasswordViewImpl implements EnigmaPasswordView {
 
     private final JPanel panel; 
     private final JTextField passwordField;
     private final JLabel resultLabel;
 
+    /**
+     * Constructs an {@code EnigmaPasswordViewImpl} with the given controller.
+     *
+     * @param controller the controller managing the password enigma
+     */
     public EnigmaPasswordViewImpl(final EnigmaPasswordController controller) {
         this.panel = new JPanel();
         this.panel.setLayout(new GridBagLayout());
@@ -66,27 +75,34 @@ public class EnigmaPasswordViewImpl implements EnigmaPasswordView {
         gbc.gridwidth = 2;
         this.panel.add(resultLabel, gbc);
 
-        checkButton.addActionListener(e ->  {
-                controller.handleInput(passwordField.getText());
-            });
-
-        quitButton.addActionListener(e -> {
-                controller.quit();
-            });
+        checkButton.addActionListener(e -> controller.handleInput(passwordField.getText()));
+        quitButton.addActionListener(e -> controller.quit());
     }
 
+    /**
+     * Does nothing in this implementation.
+     */
     @Override
     public void draw() {
     }
 
+    /**
+     * Retrieves the panel associated with this view.
+     *
+     * @return the {@code JPanel} component of the view
+     */
     @Override
     public JPanel getPanel() {
         return this.panel; 
     }
 
+    /**
+     * Displays the result of the password check.
+     *
+     * @param solved {@code true} if the enigma is solved, {@code false} otherwise
+     */
     @Override
     public void showResult(boolean solved) {
         resultLabel.setText(solved ? "The enigma has been solved!" : "Wrong password. Try again.");
     }
-    
 }
