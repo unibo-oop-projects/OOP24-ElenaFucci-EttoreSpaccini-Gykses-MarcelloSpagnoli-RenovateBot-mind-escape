@@ -10,7 +10,7 @@ import org.tiledreader.FileSystemTiledReader;
 import org.tiledreader.TiledMap;
 import org.tiledreader.TiledObjectLayer;
 
-import mindescape.model.enigma.impl.EnigmaFactory;
+import mindescape.model.enigma.EnigmaFactory;
 import mindescape.model.world.core.api.Dimensions;
 import mindescape.model.world.core.api.GameObject;
 import mindescape.model.world.core.api.Point2D;
@@ -99,6 +99,12 @@ public class ObjectsExtractor {
                         .findFirst()
                         .get()));
                         break;
+                    case "SimpleDoor":
+                        factory.createSimpleDoor(object.getName(), position, dimensions, 
+                        rooms.stream()
+                        .filter(x -> x.getName().equals((String) object.getProperties().get("Destination")))
+                        .findFirst()
+                        .get());
                     default:
                         break;
                 }
