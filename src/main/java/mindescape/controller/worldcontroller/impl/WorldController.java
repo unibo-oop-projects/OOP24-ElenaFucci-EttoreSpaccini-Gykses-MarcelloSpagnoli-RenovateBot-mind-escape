@@ -18,7 +18,7 @@ import mindescape.view.api.WorldView;
 public class WorldController implements LoopController {
 
     private final World world;
-    private final View worldView;
+    private final WorldView worldView;
     private final MainController mainController;
     private boolean running = true;
     private final String name = "World"; 
@@ -32,7 +32,7 @@ public class WorldController implements LoopController {
      * @param worldView the view associated with the world
      * @param mainController the main controller managing the overall application
      */
-    public WorldController(final World world, final View worldView, final MainController mainController) {
+    public WorldController(final World world, final WorldView worldView, final MainController mainController) {
         this.world = world;
         this.worldView = worldView;
         this.mainController = mainController;
