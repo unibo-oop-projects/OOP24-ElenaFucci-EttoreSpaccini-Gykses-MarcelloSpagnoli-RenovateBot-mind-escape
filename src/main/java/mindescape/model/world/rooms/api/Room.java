@@ -55,4 +55,10 @@ public interface Room {
      */
     String getSource();
 
+    /**
+     * Dimensions of the room.
+     * @return
+     */
+    Dimensions getDimensions();
+
 }

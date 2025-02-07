@@ -105,4 +105,9 @@ public class RoomImpl implements Room {
     public String getSource() {
         return this.source;
     }
+
+    @Override
+    public Dimensions getDimensions() {
+        return dimensions;
+    }
 }
