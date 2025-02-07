@@ -7,13 +7,15 @@ import javax.swing.JPanel;
  * user interactions and update the game state within the application.
  */
 public interface Controller {
-
+    
     /**
-     * Handles user input and processes it accordingly to update the game state.
+     * Handles the given input.
      *
-     * @param input the user input to be processed
+     * @param input the input to be handled
+     * @throws IllegalArgumentException if the input is invalid
+     * @throws NullPointerException if the input is null
      */
-    void handleInput(Object input);
+    void handleInput(Object input) throws IllegalArgumentException, NullPointerException;
 
     /**
      * Retrieves the name of this controller.

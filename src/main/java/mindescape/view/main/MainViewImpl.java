@@ -1,4 +1,4 @@
-package mindescape.view.impl;
+package mindescape.view.main;
 
 import java.util.Map;
 import java.util.Objects;
@@ -55,12 +55,12 @@ public class MainViewImpl implements MainView {
                     frame, 
                     "Do you want to save before exiting?", 
                     "Save before exiting", 
-                    JOptionPane.YES_NO_OPTION
+                    JOptionPane.YES_NO_CANCEL_OPTION
                 );
                 
                 if (option == JOptionPane.YES_OPTION) {
                     mainController.save();
-                } else {
+                } else if (option == JOptionPane.NO_OPTION) {
                     mainController.exit();
                 }
             }
@@ -95,9 +95,5 @@ public class MainViewImpl implements MainView {
     @Override
     public void won() {
         JOptionPane.showMessageDialog(frame, "You won!");
-    }
-
-    private void onClose() {
-
     }
 }

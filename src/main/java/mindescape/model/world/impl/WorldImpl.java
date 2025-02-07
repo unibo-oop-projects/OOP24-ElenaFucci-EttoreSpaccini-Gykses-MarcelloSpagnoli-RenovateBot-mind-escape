@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-
 import mindescape.model.enigma.api.Enigma;
 import mindescape.model.world.api.World;
 import mindescape.model.world.core.api.CollisionDetector;
@@ -94,5 +93,10 @@ public class WorldImpl implements World, Serializable {
 
     private void setCollidingObject(final Optional<GameObject> collidingObject) {
         this.collidingObject = collidingObject;
+    }
+
+    @Override
+    public Player getPlayer() {
+        return this.player;
     }
 }
