@@ -16,5 +16,6 @@ public class WorldViewImplTest extends JFrame{
         this.getContentPane().add(view);
         view.draw(bedroom);
         this.setVisible(true);
+        this.setResizable(true);
     }
 }

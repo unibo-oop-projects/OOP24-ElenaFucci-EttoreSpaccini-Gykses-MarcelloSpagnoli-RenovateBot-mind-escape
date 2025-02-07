@@ -1,8 +1,10 @@
 package mindescape.view.world;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -48,6 +50,7 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
         addKeyListener(this);
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
+        
     }
 
     @Override
@@ -83,6 +86,9 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
 
     private void drawLayer(TiledTileLayer layer, Graphics g, TiledMap map) {
         int dim = (int) Dimensions.TILE.height();
+        double scaling = getScalingFactor(map);
+        int posX;
+        int posY;
         for (int x = 0; x < map.getWidth(); x++) {
             for (int y = 0; y < map.getHeight(); y++) {
                 TiledTile tile = layer.getTile(x, y);
@@ -90,9 +96,12 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
                     BufferedImage img = tilesCache.get(tile);
                     if (img == null) {
                         img = getTileImage(tile);
+                        img = applyTransformations(img, map);
                         tilesCache.put(tile, img);
                     }
-                    g.drawImage(img, x * dim, y * dim, this);
+                    posX = (int) Math.round(x * dim * scaling);
+                    posY = (int) Math.round(y * dim * scaling);
+                    g.drawImage(img, posX,  posY, this);
                 }
             }
         }
@@ -121,8 +130,32 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
         }
     }
 
+    private BufferedImage scaleImage(BufferedImage image, double scaleX, double scaleY) {
+        int newWidth = (int) (image.getWidth() * scaleX);
+        int newHeight = (int) (image.getHeight() * scaleY);
+        BufferedImage scaledImage = new BufferedImage(newWidth, newHeight, image.getType());
+    
+        Graphics2D g2d = scaledImage.createGraphics();
+        AffineTransform at = AffineTransform.getScaleInstance(scaleX, scaleY);
+        g2d.drawImage(image, at, null);
+        g2d.dispose();
+        return scaledImage;
+    }
+
+    private BufferedImage applyTransformations(BufferedImage img, TiledMap room) {
+        double scaling = getScalingFactor(room);
+        img = scaleImage(img, scaling, scaling);
+        return img;
+    }
+    
+
     private Point2D getPositionFromId(TiledTile tile, int mapWidth) {
         return new Point2D(tile.getID() % mapWidth, tile.getID() / mapWidth);
+    }
+
+    private double getScalingFactor(TiledMap room) {
+        double tileScaledDim = this.getHeight() / (double) room.getHeight();
+        return tileScaledDim / Dimensions.TILE.height();
     }
 
     @Override
