@@ -4,6 +4,8 @@ import mindescape.controller.core.api.ControllerBuilder;
 import mindescape.controller.core.api.ControllerMap;
 import mindescape.controller.maincontroller.api.MainController;
 import mindescape.controller.menu.MenuController;
+import mindescape.model.enigma.EnigmaFactoryImpl;
+import mindescape.model.enigma.api.EnigmaFactory;
 import mindescape.model.world.api.World;
 
 /**
@@ -14,6 +16,7 @@ public class ControllerBuilderImpl implements ControllerBuilder {
 
     private final ControllerMap controllerMap = new ControllerMapImpl();
     private final MainController mainController;
+    private final EnigmaFactory enigmaFactory = new EnigmaFactoryImpl();
 
     public ControllerBuilderImpl(final MainController mainController) {
         this.mainController = mainController;

@@ -10,7 +10,7 @@ import org.tiledreader.FileSystemTiledReader;
 import org.tiledreader.TiledMap;
 import org.tiledreader.TiledObjectLayer;
 
-import mindescape.model.enigma.EnigmaFactory;
+import mindescape.model.enigma.api.EnigmaFactory;
 import mindescape.model.world.core.api.Dimensions;
 import mindescape.model.world.core.api.GameObject;
 import mindescape.model.world.core.api.Point2D;
