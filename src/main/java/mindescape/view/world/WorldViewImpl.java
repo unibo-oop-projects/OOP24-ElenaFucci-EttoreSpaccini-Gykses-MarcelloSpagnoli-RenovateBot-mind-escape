@@ -6,6 +6,7 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -38,6 +39,7 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
     );
 
     private final WorldController worldController;
+    private final Map<TiledTile, BufferedImage> tilesCache = new HashMap<>();
     private Room currentRoom;
 
     public WorldViewImpl(WorldController worldController) {
@@ -80,12 +82,17 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
     }
 
     private void drawLayer(TiledTileLayer layer, Graphics g, TiledMap map) {
+        int dim = (int) Dimensions.TILE.height();
         for (int x = 0; x < map.getWidth(); x++) {
             for (int y = 0; y < map.getHeight(); y++) {
-                var tile = layer.getTile(x, y);
+                TiledTile tile = layer.getTile(x, y);
                 if (tile != null) {
-                    int dim = (int) Dimensions.TILE.height();
-                    g.drawImage(getTileImage(tile), x * dim, y * dim, this);
+                    BufferedImage img = tilesCache.get(tile);
+                    if (img == null) {
+                        img = getTileImage(tile);
+                        tilesCache.put(tile, img);
+                    }
+                    g.drawImage(img, x * dim, y * dim, this);
                 }
             }
         }
