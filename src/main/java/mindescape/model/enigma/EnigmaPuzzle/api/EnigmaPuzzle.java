@@ -1,4 +1,4 @@
-package mindescape.model.enigma.EnigmaPuzzle.api;
+package mindescape.model.enigma.enigmapuzzle.api;
 
 public interface EnigmaPuzzle {
 

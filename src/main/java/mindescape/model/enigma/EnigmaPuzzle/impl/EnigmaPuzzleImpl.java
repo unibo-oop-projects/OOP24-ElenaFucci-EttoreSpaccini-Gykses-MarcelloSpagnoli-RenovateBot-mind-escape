@@ -1,4 +1,4 @@
-package mindescape.model.enigma.EnigmaPuzzle.impl;
+package mindescape.model.enigma.enigmapuzzle.impl;
 
 public class EnigmaPuzzleImpl {
 

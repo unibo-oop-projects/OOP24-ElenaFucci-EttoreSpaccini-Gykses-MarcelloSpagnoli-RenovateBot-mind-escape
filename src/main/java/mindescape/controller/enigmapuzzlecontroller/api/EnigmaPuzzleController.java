@@ -1,5 +1,7 @@
 package mindescape.controller.enigmapuzzlecontroller.api;
 
-public interface EnigmaPuzzleController {
+import mindescape.controller.core.api.ClickableController;
+
+public interface EnigmaPuzzleController extends ClickableController{
 
 }
