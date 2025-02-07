@@ -1,5 +1,7 @@
 package mindescape.controller.menu;
 
+import java.util.Objects;
+
 import javax.swing.JPanel;
 
 import mindescape.controller.core.api.ClickableController;
@@ -21,17 +23,12 @@ public class MenuController implements ClickableController {
 
     @Override
     public void handleInput(final Object input) {
+        Objects.requireNonNull(input);
         switch ((String) input) {
-            case Options.NEW_GAME:
-                System.out.println("Starting new game..."); // TODO: remove
-                this.mainController.switchToGame();
-                break;
-            case Options.LOAD_GAME:
-                System.out.println("Loading game..."); // TODO: remove
-                break;
-            case Options.QUIT:
-                System.exit(0);
-                break;
+            case Options.NEW_GAME -> this.mainController.switchToGame();
+            case Options.LOAD_GAME -> System.out.println("TODO: Load game"); // TODO: Load game from file
+            case Options.QUIT -> System.exit(0);
+            default -> throw new IllegalArgumentException("Invalid input: " + input);
         }
     }
 

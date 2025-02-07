@@ -3,13 +3,17 @@ package mindescape.controller.maincontroller.impl;
 import javax.swing.SwingUtilities;
 import mindescape.controller.core.api.Controller;
 import mindescape.controller.core.api.ControllerMap;
+import mindescape.controller.core.api.ControllerName;
 import mindescape.controller.core.api.LoopController;
-import mindescape.controller.core.api.ControllerMap.ControllerName;
 import mindescape.controller.core.impl.ControllerBuilderImpl;
 import mindescape.controller.maincontroller.api.MainController;
-import mindescape.view.impl.MainViewImpl;
+import mindescape.model.saveload.SaveManager;
 import mindescape.view.api.MainView;
+import mindescape.view.main.MainViewImpl;
 
+/**
+ * Implementation of the MainController interface.
+ */
 public class MainControllerImpl implements MainController {
     
     private Controller currentController;
@@ -54,12 +58,12 @@ public class MainControllerImpl implements MainController {
 
     @Override
     public void switchToGame() {
-        this.setController(this.findController("World"));
+        this.setController(this.controllerMap.findController(ControllerName.WORLD));
     }
 
     @Override
     public void switchToMenu() {
-        this.setController(this.findController("Menu"));
+        this.setController(this.controllerMap.findController(ControllerName.MENU));
     }
 
     @Override
@@ -69,7 +73,7 @@ public class MainControllerImpl implements MainController {
 
     @Override
     public void switchToInventory() {
-        this.setController(this.findController("Inventory"));
+        this.setController(this.controllerMap.findController(ControllerName.INVENTORY));
     }
 
     @Override
@@ -79,8 +83,8 @@ public class MainControllerImpl implements MainController {
 
     @Override
     public void save() {
-        
+        // TODO: Implement save method
+        // SaveManager.saveGameStatus(this.controllerMap.findController(ControllerName.WORLD).getWorld());
         this.exit();
     }
-
 }

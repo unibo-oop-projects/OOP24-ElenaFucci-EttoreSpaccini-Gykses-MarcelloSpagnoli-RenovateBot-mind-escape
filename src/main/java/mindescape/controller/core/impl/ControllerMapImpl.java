@@ -4,21 +4,28 @@ import java.util.HashMap;
 import java.util.Map;
 import mindescape.controller.core.api.Controller;
 import mindescape.controller.core.api.ControllerMap;
+import mindescape.controller.core.api.ControllerName;
 
 /**
  * Implementation of the ControllerMap interface that manages a collection of controllers.
- * This class provides methods to find and add controllers to the map.
  */
 public class ControllerMapImpl implements ControllerMap {
 
-    private final Map<String, Controller> controllers = new HashMap<>();
+    private final Map<String, Controller> controllers;
 
+    /**
+     * Default constructor that initializes an empty controller map.
+     */
+    public ControllerMapImpl() {
+        this.controllers = new HashMap<>();
+    }
+
+    /**
+     * Constructor that initializes the controller map with the given controllers.
+     * @param controllersMap The initial map of controllers.
+     */
     public ControllerMapImpl(final Map<String, Controller> controllersMap) {
-        if (!controllersMap.isEmpty()) {
-            for (final var controller : controllersMap.entrySet()) {
-                this.controllers.put(controller.getKey(), controller.getValue());
-            }
-        }
+        this.controllers = new HashMap<>(controllersMap);
     }
 
     @Override
@@ -29,5 +36,15 @@ public class ControllerMapImpl implements ControllerMap {
     @Override
     public void addController(final Controller controller) {
         this.controllers.put(controller.getName(), controller);
+    }
+
+    @Override
+    public void removeController(final ControllerName name) {
+        this.controllers.remove(name.getName());
+    }
+
+    @Override
+    public void clear() {
+        this.controllers.clear();
     }
 }

@@ -1,36 +1,10 @@
 package mindescape.controller.core.api;
 
+/**
+ * Interface for managing a collection of controllers.
+ * Provides methods to find, add, remove, and clear controllers.
+ */
 public interface ControllerMap {
-
-    enum ControllerName {
-        MENU("Menu"),
-        WORLD("World"),
-        PUZZLE("Puzzle"),
-        ENIGMA_FIRST_DOOR("EnigmaFirstDoor"),
-        CALENDAR("Calendar"),
-        DRAWER("Drawer"),
-        COMPUTER("Computer"),
-        WARDROBE("Wardrobe");
-        
-        private final String name;
-
-        ControllerName(final String name) {
-            this.name = name;
-        }
-
-        public String getName() {
-            return this.name;
-        }
-        
-        public static ControllerName fromString(String name) {
-            for (ControllerName controllerName : ControllerName.values()) {
-                if (controllerName.name.equals(name)) {
-                    return controllerName;
-                }
-            }
-            return null;
-        }
-    }
 
     /**
      * Finds and returns a controller based on the given controller name.
@@ -47,4 +21,19 @@ public interface ControllerMap {
      * @param controller the controller to add
      */
     void addController(Controller controller);
+
+    /**
+     * Removes a controller from the map.
+     *
+     * @param name the name of the controller to remove
+     */
+    void removeController(ControllerName name);
+
+    /**
+     * Clears the current state or data of the implementing class.
+     * This method is intended to reset or remove all relevant information,
+     * effectively returning the object to its initial state.
+     */
+    void clear();
+
 }

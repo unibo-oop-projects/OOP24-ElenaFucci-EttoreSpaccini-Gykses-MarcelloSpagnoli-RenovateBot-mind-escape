@@ -1,16 +1,18 @@
 package mindescape.controller.core.impl;
 
-import java.util.Map;
 import mindescape.controller.core.api.ControllerBuilder;
 import mindescape.controller.core.api.ControllerMap;
 import mindescape.controller.maincontroller.api.MainController;
 import mindescape.controller.menu.MenuController;
-import mindescape.controller.worldcontroller.impl.WorldController;
-import mindescape.view.world.WorldViewImpl;
+import mindescape.model.world.api.World;
 
+/**
+ * Implementation of the ControllerBuilder interface.
+ * This class is responsible for building various controllers and managing them through a ControllerMap.
+ */
 public class ControllerBuilderImpl implements ControllerBuilder {
 
-    private final ControllerMap controllerMap = new ControllerMapImpl(Map.of());
+    private final ControllerMap controllerMap = new ControllerMapImpl();
     private final MainController mainController;
 
     public ControllerBuilderImpl(final MainController mainController) {
@@ -20,11 +22,6 @@ public class ControllerBuilderImpl implements ControllerBuilder {
     @Override
     public void buildMenu() {
         this.controllerMap.addController(new MenuController(this.mainController));
-    }
-
-    @Override
-    public void buildWorld() {
-        this.controllerMap.addController(new WorldController(null, new WorldViewImpl(), mainController));
     }
 
     @Override
@@ -67,5 +64,22 @@ public class ControllerBuilderImpl implements ControllerBuilder {
     public ControllerMap getResult() {
         return this.controllerMap;
     }
-    
+
+    @Override
+    public void buildNewWorld() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'buildNewWorld'");
+    }
+
+    @Override
+    public void buildExistingWorld(final World world) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'buildExistingWorld'");
+    }
+
+    @Override
+    public void reset() {
+        this.controllerMap.clear();
+    }
+
 }
