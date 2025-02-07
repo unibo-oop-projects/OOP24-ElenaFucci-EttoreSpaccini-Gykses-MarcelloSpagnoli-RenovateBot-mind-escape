@@ -3,7 +3,6 @@ package mindescape.view.world;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -22,6 +21,7 @@ import mindescape.controller.core.api.UserInput;
 import mindescape.controller.worldcontroller.impl.WorldController;
 import mindescape.model.world.core.api.Dimensions;
 import mindescape.model.world.core.api.GameObject;
+import mindescape.model.world.core.api.Point2D;
 import mindescape.model.world.player.api.Player;
 import mindescape.model.world.rooms.api.Room;
 import mindescape.view.api.WorldView;
@@ -101,10 +101,10 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
     private BufferedImage getTileImage (TiledTile tile) {
         try {
             BufferedImage image = ImageIO.read(new File(tile.getTileset().getImage().getSource()));
-            Point2D pos = getPositionFromId(tile, tile.getTileset().getTileWidth(), tile.getTileset().getTileHeight());
+            Point2D pos = getPositionFromId(tile, tile.getTileset().getWidth());
             return image.getSubimage(
-                (int) pos.getX(),
-                (int) pos.getY(),
+                (int) pos.x() * (int) Dimensions.TILE.height(),
+                (int) pos.y() * (int) Dimensions.TILE.height(),
                 (int) Dimensions.TILE.height(),
                 (int) Dimensions.TILE.width()
             );
@@ -114,8 +114,8 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
         }
     }
 
-    private Point2D getPositionFromId(TiledTile tile, int mapWidth, int mapHeight) {
-        return new Point2D.Double(tile.getID() % mapHeight, tile.getID() / mapHeight);
+    private Point2D getPositionFromId(TiledTile tile, int mapWidth) {
+        return new Point2D(tile.getID() % mapWidth, tile.getID() / mapWidth);
     }
 
     @Override

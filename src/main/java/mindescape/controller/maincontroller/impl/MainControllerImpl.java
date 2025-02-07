@@ -80,7 +80,6 @@ public class MainControllerImpl implements MainController {
 
     @Override
     public void save() {
-        
         this.exit();
     }
 
