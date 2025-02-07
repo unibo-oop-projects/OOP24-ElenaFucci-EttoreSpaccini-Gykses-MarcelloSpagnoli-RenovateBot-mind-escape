@@ -1,7 +1,5 @@
 package mindescape.controller.menu;
 
-import java.util.Objects;
-
 import javax.swing.JPanel;
 
 import mindescape.controller.core.api.ClickableController;
@@ -22,13 +20,18 @@ public class MenuController implements ClickableController {
     }
 
     @Override
-    public void handleInput(final Object input) throws IllegalArgumentException {
-        Objects.requireNonNull(input);
+    public void handleInput(final Object input) {
         switch ((String) input) {
-            case Options.NEW_GAME -> this.mainController.setController(this.mainController.findController("InsertName"));
-            case Options.LOAD_GAME -> this.mainController.setController(this.mainController.findController("LoadGame"));
-            case Options.QUIT -> this.quit();
-            default -> throw new IllegalArgumentException("Invalid input: " + input);
+            case Options.NEW_GAME:
+                System.out.println("Starting new game..."); // TODO: remove
+                this.mainController.switchToGame();
+                break;
+            case Options.LOAD_GAME:
+                System.out.println("Loading game..."); // TODO: remove
+                break;
+            case Options.QUIT:
+                System.exit(0);
+                break;
         }
     }
 
@@ -50,7 +53,7 @@ public class MenuController implements ClickableController {
 
     @Override
     public void quit() {
-        System.exit(0);
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'quit'");
     }
-
 }
