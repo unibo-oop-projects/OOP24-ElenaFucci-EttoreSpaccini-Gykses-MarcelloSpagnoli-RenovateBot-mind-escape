@@ -9,8 +9,8 @@ import mindescape.controller.maincontroller.api.MainController;
 import mindescape.model.enigma.api.Enigma;
 import mindescape.model.world.api.World;
 import mindescape.model.world.core.api.Movement;
-import mindescape.model.world.impl.WorldImpl;
 import mindescape.view.api.WorldView;
+import mindescape.view.world.WorldViewImpl;
 
 public class WorldController implements LoopController {
 
@@ -18,11 +18,20 @@ public class WorldController implements LoopController {
     private final WorldView worldView;
     private final MainController mainController;
     private boolean running = true;
-    private final String name = "World";
+    private final String name = "World"; 
+    private static final int FPS = 60; 
+    private static final long TIME = 1_000; // 1 second in milliseconds
 
-    public WorldController(final WorldView worldView, final MainController mainController) {
-        this.world = new WorldImpl();
-        this.worldView = worldView;
+    /**
+     * Constructs a new WorldController with the specified world, world view, and the reference to the main controller.
+     *
+     * @param world the world model to be controlled
+     * @param worldView the view associated with the world
+     * @param mainController the main controller managing the overall application
+     */
+    public WorldController(final World world, final MainController mainController) {
+        this.world = world;
+        this.worldView = new WorldViewImpl(this);
         this.mainController = mainController;
     }
 

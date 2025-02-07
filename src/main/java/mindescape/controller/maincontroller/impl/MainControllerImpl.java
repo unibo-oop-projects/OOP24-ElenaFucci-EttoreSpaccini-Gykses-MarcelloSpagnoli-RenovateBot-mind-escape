@@ -23,7 +23,9 @@ public class MainControllerImpl implements MainController {
         this.mainView = new MainViewImpl(this);
         var controllerBuilder = new ControllerBuilderImpl(this);
         controllerBuilder.buildMenu();
+        controllerBuilder.buildNewWorld();
         this.controllerMap = controllerBuilder.getResult();
+        System.out.println(this.controllerMap);
         this.setController(this.findController("Menu"));
     }
 
