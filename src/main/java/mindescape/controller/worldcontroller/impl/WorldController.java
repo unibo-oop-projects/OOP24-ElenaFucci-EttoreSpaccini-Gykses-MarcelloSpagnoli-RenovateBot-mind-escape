@@ -7,8 +7,8 @@ import mindescape.controller.core.api.UserInput;
 import mindescape.controller.maincontroller.api.MainController;
 import mindescape.model.world.api.World;
 import mindescape.model.world.core.api.Movement;
-import mindescape.view.api.View;
 import mindescape.view.api.WorldView;
+import mindescape.view.world.WorldViewImpl;
 
 /**
  * The WorldController class is responsible for managing the game world and handling user input.
@@ -32,9 +32,9 @@ public class WorldController implements LoopController {
      * @param worldView the view associated with the world
      * @param mainController the main controller managing the overall application
      */
-    public WorldController(final World world, final WorldView worldView, final MainController mainController) {
+    public WorldController(final World world, final MainController mainController) {
         this.world = world;
-        this.worldView = worldView;
+        this.worldView = new WorldViewImpl(this);
         this.mainController = mainController;
     }
 

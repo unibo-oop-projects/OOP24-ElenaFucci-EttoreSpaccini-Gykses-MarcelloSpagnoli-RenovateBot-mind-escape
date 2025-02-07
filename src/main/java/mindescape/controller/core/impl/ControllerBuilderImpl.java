@@ -2,11 +2,16 @@ package mindescape.controller.core.impl;
 
 import mindescape.controller.core.api.ControllerBuilder;
 import mindescape.controller.core.api.ControllerMap;
+import mindescape.controller.enigmapassword.impl.EnigmaPasswordControllerImpl;
 import mindescape.controller.maincontroller.api.MainController;
 import mindescape.controller.menu.MenuController;
+import mindescape.controller.worldcontroller.impl.WorldController;
 import mindescape.model.enigma.EnigmaFactoryImpl;
 import mindescape.model.enigma.api.EnigmaFactory;
+import mindescape.model.enigma.api.EnigmaFactory.EnigmaType;
+import mindescape.model.enigma.enigmapassword.api.EnigmaPasswordModel;
 import mindescape.model.world.api.World;
+import mindescape.model.world.impl.WorldImpl;
 
 /**
  * Implementation of the ControllerBuilder interface.
@@ -35,7 +40,7 @@ public class ControllerBuilderImpl implements ControllerBuilder {
 
     @Override
     public void buildEnigmaFirstDoor() {
-        // this.controllerMap.addController(new EnigmaPasswordControllerImpl(new EnigmaPasswordModelImpl("EnigmaFirstDoor", "Sergio Mattarella"), mainController));
+        this.controllerMap.addController(new EnigmaPasswordControllerImpl((EnigmaPasswordModel) this.enigmaFactory.getEnigma(EnigmaType.ENIGMA_FIRST_DOOR.getName()), mainController));
     }
 
     @Override
@@ -58,8 +63,7 @@ public class ControllerBuilderImpl implements ControllerBuilder {
 
     @Override
     public void buildNewWorld() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buildNewWorld'");
+        this.controllerMap.addController(new WorldController(new WorldImpl(), mainController));
     }
 
     @Override
