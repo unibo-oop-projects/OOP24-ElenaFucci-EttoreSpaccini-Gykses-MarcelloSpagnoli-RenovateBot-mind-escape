@@ -62,6 +62,10 @@ public class ObjectsExtractor {
                         gameObjects.add(factory.createUnpickable(object.getName(), position, dimensions,
                             rewards.getReward((String) object.getProperties().get("Reward"))));
                         break;
+                    case "LockedUnpickable":
+                        gameObjects.add(factory.createLockedUnpickable(object.getName(), position, dimensions, 
+                        (Integer) object.getProperties().get("keyItem_id"),
+                        rewards.getReward((String) object.getProperties().get("Reward")).get()));
                     default:
                         break;
                 }
