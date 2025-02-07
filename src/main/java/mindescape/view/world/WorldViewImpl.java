@@ -40,7 +40,8 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
         KeyEvent.VK_E, UserInput.INTERACT,
         KeyEvent.VK_I, UserInput.INVENTORY
     );
-
+    
+    private static final double ROTATING_ANGLE = -90;
     private final WorldController worldController;
     private final Map<TiledTile, BufferedImage> tilesCache = new HashMap<>();
     private Room currentRoom;
@@ -108,7 +109,7 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
             }
         }
     }
-
+    
     private List<TiledTileLayer> getTileLayers(TiledMap map) {
         return map.getNonGroupLayers().stream()
         .filter(layer -> layer instanceof TiledTileLayer)
@@ -134,7 +135,7 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
 
     private BufferedImage applyTransformations(BufferedImage img, boolean horizontal, boolean diagonal) {
         if (diagonal) {
-            img = rotateImage(img, -90);
+            img = rotateImage(img, ROTATING_ANGLE);
         }
         if (horizontal) {
             img = flipImageHorizontally(img);
