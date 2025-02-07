@@ -17,7 +17,7 @@ import mindescape.model.world.items.interactable.api.Pickable;
  */
 public class InventoryImpl implements Inventory {
 
-    private final Set<Pickable> set = new HashSet();
+    private final Set<Pickable> set = new HashSet<>();
 
     /**
      * Returns the set of {@link Pickable} items in the inventory.
