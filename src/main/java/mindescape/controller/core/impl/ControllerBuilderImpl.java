@@ -32,7 +32,6 @@ public class ControllerBuilderImpl implements ControllerBuilder {
 
     @Override
     public void buildEnigmaFirstDoor() {
-        // TODO: Implement this method
         // this.controllerMap.addController(new EnigmaPasswordControllerImpl(new EnigmaPasswordModelImpl("EnigmaFirstDoor", "Sergio Mattarella"), mainController));
     }
 
@@ -40,12 +39,6 @@ public class ControllerBuilderImpl implements ControllerBuilder {
     public void buildCalendar() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'buildCalendar'");
-    }
-
-    @Override
-    public void buildDrawer() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buildDrawer'");
     }
 
     @Override
@@ -58,11 +51,6 @@ public class ControllerBuilderImpl implements ControllerBuilder {
     public void buildWardrobe() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'buildWardrobe'");
-    }
-
-    @Override
-    public ControllerMap getResult() {
-        return this.controllerMap;
     }
 
     @Override
@@ -82,4 +70,8 @@ public class ControllerBuilderImpl implements ControllerBuilder {
         this.controllerMap.clear();
     }
 
+    @Override
+    public ControllerMap getResult() {
+        return this.controllerMap;
+    }
 }

@@ -40,11 +40,6 @@ public interface ControllerBuilder {
     void buildCalendar();
 
     /**
-     * Builds the drawer component.
-     */
-    void buildDrawer();
-
-    /**
      * Builds the computer component.
      */
     void buildComputer();

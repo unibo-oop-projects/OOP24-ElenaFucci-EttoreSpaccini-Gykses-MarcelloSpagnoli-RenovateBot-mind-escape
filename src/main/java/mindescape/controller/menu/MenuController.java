@@ -22,11 +22,11 @@ public class MenuController implements ClickableController {
     }
 
     @Override
-    public void handleInput(final Object input) {
+    public void handleInput(final Object input) throws IllegalArgumentException {
         Objects.requireNonNull(input);
         switch ((String) input) {
-            case Options.NEW_GAME -> this.mainController.switchToGame();
-            case Options.LOAD_GAME -> System.out.println("TODO: Load game"); // TODO: Load game from file
+            case Options.NEW_GAME -> this.mainController.setController(this.mainController.findController("InsertName"));
+            case Options.LOAD_GAME -> this.mainController.setController(this.mainController.findController("LoadGame"));
             case Options.QUIT -> System.exit(0);
             default -> throw new IllegalArgumentException("Invalid input: " + input);
         }
