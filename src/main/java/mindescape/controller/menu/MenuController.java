@@ -27,7 +27,7 @@ public class MenuController implements ClickableController {
         switch ((String) input) {
             case Options.NEW_GAME -> this.mainController.setController(this.mainController.findController("InsertName"));
             case Options.LOAD_GAME -> this.mainController.setController(this.mainController.findController("LoadGame"));
-            case Options.QUIT -> System.exit(0);
+            case Options.QUIT -> this.quit();
             default -> throw new IllegalArgumentException("Invalid input: " + input);
         }
     }
@@ -47,4 +47,10 @@ public class MenuController implements ClickableController {
         public static final String LOAD_GAME = "LOAD_GAME";
         public static final String QUIT = "QUIT";
     }
+
+    @Override
+    public void quit() {
+        System.exit(0);
+    }
+
 }

@@ -7,6 +7,7 @@ import mindescape.controller.core.api.UserInput;
 import mindescape.controller.maincontroller.api.MainController;
 import mindescape.model.world.api.World;
 import mindescape.model.world.core.api.Movement;
+import mindescape.view.api.View;
 import mindescape.view.api.WorldView;
 
 /**
@@ -17,7 +18,7 @@ import mindescape.view.api.WorldView;
 public class WorldController implements LoopController {
 
     private final World world;
-    private final WorldView worldView;
+    private final View worldView;
     private final MainController mainController;
     private boolean running = true;
     private final String name = "World"; 
@@ -63,6 +64,7 @@ public class WorldController implements LoopController {
 
         while (this.running) {
             long startTime = System.currentTimeMillis();
+            this.worldView.draw(this.world.getCurrentRoom());
             
             if (world.hasWon()) {
                 this.mainController.winning();

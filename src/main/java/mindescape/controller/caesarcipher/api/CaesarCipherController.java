@@ -1,6 +1,6 @@
 package mindescape.controller.caesarcipher.api;
 
-import mindescape.controller.api.ClickableController;
+import mindescape.controller.core.api.ClickableController;
 
 /**
  * The {@code CaesarCipherController} interface extends {@code ClickableController} to 
