@@ -41,9 +41,9 @@ public class MenuView implements View {
         /*
          * handlers for the buttons
          */
-        newGameButton.addActionListener(e -> menuController.handleInput("NEW_GAME"));
-        loadGameButton.addActionListener(e -> menuController.handleInput("LOAD_GAME"));
-        quitButton.addActionListener(e -> menuController.handleInput("QUIT"));
+        newGameButton.addActionListener(e -> this.menuController.handleInput("NEW_GAME"));
+        loadGameButton.addActionListener(e -> this.menuController.handleInput("LOAD_GAME"));
+        quitButton.addActionListener(e -> this.menuController.handleInput("QUIT"));
     }
 
     @Override

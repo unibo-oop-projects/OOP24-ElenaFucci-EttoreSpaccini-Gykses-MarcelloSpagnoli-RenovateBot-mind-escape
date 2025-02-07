@@ -11,11 +11,12 @@ import mindescape.model.world.core.impl.GameObjectImpl;
 import mindescape.model.world.items.interactable.api.Pickable;
 import mindescape.model.world.items.interactable.impl.DoorLockedWithEnigma;
 import mindescape.model.world.items.interactable.impl.PickableImpl;
+import mindescape.model.world.rooms.api.Room;
 import mindescape.model.world.rooms.impl.RoomImpl;
 
 public class RoomImplTest {
-    private List<RoomImpl> rooms;
-    private RoomImpl bedroom; 
+    private List<Room> rooms;
+    private Room bedroom; 
 
     @BeforeEach
     public void setUp() {

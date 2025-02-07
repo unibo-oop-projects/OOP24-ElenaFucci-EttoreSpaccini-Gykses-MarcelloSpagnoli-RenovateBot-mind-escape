@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * The ViewUtils class provides utility methods for creating and styling UI components.
+ */
 public class ViewUtils {
 
     /**
@@ -15,7 +18,7 @@ public class ViewUtils {
      * @param text the text to be displayed on the button
      * @return a styled JButton with the specified text
      */
-    public static JButton createStyledButton(String text) {
+    public static JButton createStyledButton(final String text) {
         JButton button = new JButton(text);
         button.setPreferredSize(new Dimension(250, 60));
         button.setFont(new Font("Arial", Font.BOLD, 18));

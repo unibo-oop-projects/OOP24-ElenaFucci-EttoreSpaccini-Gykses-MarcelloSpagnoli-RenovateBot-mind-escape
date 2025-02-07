@@ -1,25 +1,31 @@
 package mindescape.controller.maincontroller.impl;
 
-import java.util.Map;
 import javax.swing.SwingUtilities;
 import mindescape.controller.core.api.Controller;
+import mindescape.controller.core.api.ControllerMap;
+import mindescape.controller.core.api.ControllerName;
 import mindescape.controller.core.api.LoopController;
+import mindescape.controller.core.impl.ControllerBuilderImpl;
 import mindescape.controller.maincontroller.api.MainController;
-import mindescape.controller.menu.MenuController;
-import mindescape.view.impl.MainViewImpl;
+import mindescape.model.saveload.SaveManager;
 import mindescape.view.api.MainView;
+import mindescape.view.main.MainViewImpl;
 
+/**
+ * Implementation of the MainController interface.
+ */
 public class MainControllerImpl implements MainController {
     
     private Controller currentController;
-    private final Map<String, Controller> controllers;
+    private final ControllerMap controllerMap;
     private final MainView mainView;
 
     public MainControllerImpl() {
-        this.currentController = new MenuController(this);
         this.mainView = new MainViewImpl(this);
-        this.controllers = Map.of(currentController.getName(), currentController);
-        this.setController(currentController);
+        var controllerBuilder = new ControllerBuilderImpl(this);
+        controllerBuilder.buildMenu();
+        this.controllerMap = controllerBuilder.getResult();
+        this.setController(this.findController("Menu"));
     }
 
     @Override
@@ -47,12 +53,38 @@ public class MainControllerImpl implements MainController {
 
     @Override
     public Controller findController(final String name) {
-        return this.controllers.get(name);
+        return this.controllerMap.findController(ControllerName.fromString(name));
     }
 
     @Override
     public void switchToGame() {
-        this.setController(this.findController("World"));
+        this.setController(this.controllerMap.findController(ControllerName.WORLD));
     }
 
+    @Override
+    public void switchToMenu() {
+        this.setController(this.controllerMap.findController(ControllerName.MENU));
+    }
+
+    @Override
+    public void winning() {
+        this.mainView.won();
+    }
+
+    @Override
+    public void switchToInventory() {
+        this.setController(this.controllerMap.findController(ControllerName.INVENTORY));
+    }
+
+    @Override
+    public void exit() {
+        System.exit(0);
+    }
+
+    @Override
+    public void save() {
+        // TODO: Implement save method
+        // SaveManager.saveGameStatus(this.controllerMap.findController(ControllerName.WORLD).getWorld());
+        this.exit();
+    }
 }

@@ -7,12 +7,10 @@ import mindescape.model.enigma.api.Enigma;
 import mindescape.model.world.core.api.Dimensions;
 
 /**
- * The {@code InteractableFactory} interface defines methods for creating interactable objects 
- * in the game world, including pickable items, doors, and objects that require solving enigmas 
- * or using specific items to interact with.
+ * The {@code InteractableFactory} interface defines methods for creating interactable objects, including pickable 
+ * items, doors, and objects requiring enigmas or specific items to interact with.
  *
- * <p>Implementations should provide logic for instantiating these objects and integrating 
- * them into the game environment.</p>
+ * <p>Implementations should handle the instantiation and integration of these objects in the game environment.</p>
  */
 public interface InteractableFactory {
 
@@ -30,12 +28,24 @@ public interface InteractableFactory {
                             String description, int id);
 
     /**
-     * Creates a door that can be unlocked using a specific pickable item.
+     * Creates a simple door that is always open and does not require unlocking.
      *
      * @param name        the name of the door
      * @param position    the position of the door in the game world
      * @param dimensions  the dimensions of the door
-     * @param keyItem_id  the ID of the pickable item required to unlock the door
+     * @param destinationRoom the room connected to the door as the destination
+     * @return a new instance of {@link Door}
+     */
+    Door createSimpleDoor(String name, Optional<Point2D> position, Dimensions dimensions, 
+                          Room destinationRoom); 
+
+    /**
+     * Creates a door that can be unlocked using a specific pickable item.
+     *
+     * @param name           the name of the door
+     * @param position       the position of the door in the game world
+     * @param dimensions     the dimensions of the door
+     * @param keyItem_id     the ID of the pickable item required to unlock the door
      * @param destinationRoom the room connected to the door as the destination
      * @return a new instance of {@link Door}
      */
@@ -45,10 +55,10 @@ public interface InteractableFactory {
     /**
      * Creates a door that requires solving an enigma to unlock.
      *
-     * @param name        the name of the door
-     * @param position    the position of the door in the game world
-     * @param dimensions  the dimensions of the door
-     * @param enigma      the enigma required to unlock the door
+     * @param name           the name of the door
+     * @param position       the position of the door in the game world
+     * @param dimensions     the dimensions of the door
+     * @param enigma         the enigma required to unlock the door
      * @param destinationRoom the room connected to the door as the destination
      * @return a new instance of {@link Door} with an enigma requirement
      */
@@ -56,42 +66,38 @@ public interface InteractableFactory {
                                     Enigma enigma, Room destinationRoom);
 
     /**
-     * Creates an unpickable object that requires solving an enigma to unlock. Optionally rewards 
-     * the player with a pickable item upon solving the enigma.
+     * Creates an unpickable object requiring an enigma to unlock, optionally rewarding a pickable item upon solving.
      *
-     * @param name        the name of the unpickable object
-     * @param position    the position of the unpickable object in the game world
-     * @param dimensions  the dimensions of the unpickable object
-     * @param enigma      the enigma required to unlock the object
-     * @param reward      an {@link Optional} containing a {@link Pickable} item rewarded upon solving 
-     *                    the enigma, or empty if none
+     * @param name       the name of the unpickable object
+     * @param position   the position of the unpickable object in the game world
+     * @param dimensions the dimensions of the unpickable object
+     * @param enigma     the enigma required to unlock the object
+     * @param reward     an {@link Optional} pickable item rewarded upon solving, or empty if none
      * @return a new instance of {@link Unpickable} with an enigma requirement
      */
     Unpickable createUnpickableWithEnigma(String name, Optional<Point2D> position,
                                           Dimensions dimensions, Enigma enigma, Optional<Pickable> reward);
 
     /**
-     * Creates an unpickable object that can be unlocked using a specific pickable item. Optionally 
-     * rewards the player with another pickable item after unlocking.
+     * Creates an unpickable object requiring a specific pickable item to unlock, optionally rewarding another item.
      *
-     * @param name        the name of the unpickable object
-     * @param position    the position of the unpickable object in the game world
-     * @param dimensions  the dimensions of the unpickable object
-     * @param keyItem_id  the ID of the pickable item required to unlock the object
-     * @param reward      the {@link Pickable} item rewarded after unlocking
+     * @param name       the name of the unpickable object
+     * @param position   the position of the unpickable object in the game world
+     * @param dimensions the dimensions of the unpickable object
+     * @param keyItem_id the ID of the pickable item required to unlock the object
+     * @param reward     the {@link Pickable} item rewarded after unlocking
      * @return a new instance of {@link Unpickable} requiring a pickable item to unlock
      */
     Unpickable createLockedUnpickable(String name, Optional<Point2D> position,
                                       Dimensions dimensions, int keyItem_id, Pickable reward);
 
     /**
-     * Creates an unpickable object that does not require unlocking but can optionally provide a 
-     * pickable item as a reward when interacted with.
+     * Creates an unpickable object that does not require unlocking but can optionally provide a pickable item.
      *
-     * @param name        the name of the unpickable object
-     * @param position    the position of the unpickable object in the game world
-     * @param dimensions  the dimensions of the unpickable object
-     * @param reward      an {@link Optional} containing a {@link Pickable} item as a reward, or empty if none
+     * @param name       the name of the unpickable object
+     * @param position   the position of the unpickable object in the game world
+     * @param dimensions the dimensions of the unpickable object
+     * @param reward     an {@link Optional} pickable item as a reward, or empty if none
      * @return a new instance of {@link Unpickable} with an optional reward
      */
     Unpickable createUnpickable(String name, Optional<Point2D> position,

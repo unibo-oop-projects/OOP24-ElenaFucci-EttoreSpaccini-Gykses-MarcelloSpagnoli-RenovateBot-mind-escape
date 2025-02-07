@@ -10,7 +10,7 @@ import org.tiledreader.FileSystemTiledReader;
 import org.tiledreader.TiledMap;
 import org.tiledreader.TiledObjectLayer;
 
-import mindescape.model.enigma.impl.EnigmaFactory;
+import mindescape.model.enigma.EnigmaFactory;
 import mindescape.model.world.core.api.Dimensions;
 import mindescape.model.world.core.api.GameObject;
 import mindescape.model.world.core.api.Point2D;
@@ -47,20 +47,19 @@ public class ObjectsExtractor {
                         gameObjects.add(new NonInteractableImpl(position, object.getName(), dimensions));
                         break;
                     case "UnpickableWithEnigma":
-                        System.out.println(enigmas.getEnigma((String) object.getProperties().get("Enigma")));
                         gameObjects.add(factory.createUnpickableWithEnigma(object.getName(), position, dimensions,
                             enigmas.getEnigma((String) object.getProperties().get("Enigma")),
                             rewards.getReward((String) object.getProperties().get("Reward"))));
                         break;
                     case "Pickable":
-                        gameObjects.add(factory.createPickable(roomPath,
+                        gameObjects.add(factory.createPickable(object.getName(),
                             position,
                             dimensions,
                             (String) object.getProperties().get("Description"),
                             (Integer) object.getProperties().get("ID")));
                         break;
                     case "Unpickable":
-                        gameObjects.add(factory.createUnpickable(roomPath, position, dimensions,
+                        gameObjects.add(factory.createUnpickable(object.getName(), position, dimensions,
                             rewards.getReward((String) object.getProperties().get("Reward"))));
                         break;
                     default:
@@ -100,6 +99,12 @@ public class ObjectsExtractor {
                         .findFirst()
                         .get()));
                         break;
+                    case "SimpleDoor":
+                        factory.createSimpleDoor(object.getName(), position, dimensions, 
+                        rooms.stream()
+                        .filter(x -> x.getName().equals((String) object.getProperties().get("Destination")))
+                        .findFirst()
+                        .get());
                     default:
                         break;
                 }
