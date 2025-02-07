@@ -69,10 +69,10 @@ public class CaesarCipherModelImpl implements CaesarCipherModel {
     @Override
     public String encrypt(final int shift) {
         final StringBuilder result = new StringBuilder();
-        for (char c : ENCRYPTED_TEXT.toCharArray()) {
+        for (final char c : ENCRYPTED_TEXT.toCharArray()) {
             if (Character.isLetter(c)) {
-                char base = Character.isUpperCase(c) ? 'A' : 'a';
-                result.append((char) ((c - base - shift + 26) % 26 + base));
+                final char base = Character.isUpperCase(c) ? 'A' : 'a';
+                result.append((char) ((c - base - (shift%26) + 26) % 26 + base));
             } else {
                 result.append(c);
             }
