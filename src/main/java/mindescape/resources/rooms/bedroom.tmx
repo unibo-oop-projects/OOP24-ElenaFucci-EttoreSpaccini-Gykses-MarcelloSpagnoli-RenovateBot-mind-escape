@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="16" height="16" tilewidth="16" tileheight="16" infinite="0" nextlayerid="9" nextobjectid="15">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="16" height="16" tilewidth="16" tileheight="16" infinite="0" nextlayerid="9" nextobjectid="18">
  <tileset firstgid="1" source="../tilesets/Enviroment.tsx"/>
  <tileset firstgid="626" source="../tilesets/Things.tsx"/>
+ <tileset firstgid="1251" source="../tilesets/Things2.tsx"/>
  <layer id="1" name="Enviroment" width="16" height="16">
   <data encoding="csv">
 2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
@@ -25,18 +26,18 @@
  <layer id="2" name="Furniture" width="16" height="16">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,626,626,626,0,0,0,0,0,0,0,0,0,0,0,0,
-0,651,651,651,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,2372,0,0,0,0,0,0,2371,0,0,2373,0,
+0,0,0,0,2388,0,0,0,0,0,0,2387,0,0,2389,0,
+0,626,626,626,0,0,0,0,0,0,0,0,0,0,677,0,
+0,651,651,651,0,0,0,0,0,0,0,0,0,0,702,0,
 0,0,0,0,0,0,0,0,0,0,0,0,843,843,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,786,787,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,811,812,0,0,
+0,0,0,0,0,0,0,676,0,0,0,0,786,787,0,0,
+0,0,0,0,0,0,0,701,0,0,0,0,811,812,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,836,837,0,0,
 0,0,680,681,0,0,0,0,0,0,0,0,861,862,0,0,
 0,0,705,706,664,0,0,0,0,0,0,0,0,0,0,0,
-0,0,730,731,689,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,730,731,689,0,0,0,0,0,932,933,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,957,958,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,329,329,0,0,0,0,0,0,0
@@ -61,6 +62,9 @@
   <object id="9" name="Wall" type="NonInteractableImpl" x="144.333" y="241" width="100.333" height="14.6667"/>
   <object id="10" name="Chair" type="NonInteractableImpl" x="65.6667" y="160.333" width="13.6667" height="28.3333"/>
   <object id="11" name="Boxes" type="NonInteractableImpl" x="15.5" y="61.5" width="48.5" height="18"/>
+  <object id="15" name="Broken Box" type="NoninteractableImpl" x="111" y="105.667" width="17.3333" height="22.6667"/>
+  <object id="16" name="BrokenBarrel" type="NonInteractableImpl" x="224.333" y="64.6667" width="16.6667" height="16.3333"/>
+  <object id="17" name="Chest" type="NonInteractableImpl" x="161.667" y="188.667" width="29.3333" height="19.6667"/>
  </objectgroup>
  <objectgroup id="7" name="Doors">
   <object id="2" name="Door" type="DoorLockedWithEnigma" x="112.333" y="246" width="31.3333" height="6">

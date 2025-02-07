@@ -1,4 +1,4 @@
-package mindescape.controller.api;
+package mindescape.controller.core.api;
 
 /**
  * Enum representing possible user inputs in the game.

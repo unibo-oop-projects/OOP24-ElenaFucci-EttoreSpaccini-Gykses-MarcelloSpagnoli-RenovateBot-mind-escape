@@ -8,6 +8,7 @@ import java.util.Optional;
 import mindescape.model.enigma.api.Enigma;
 import mindescape.model.world.api.World;
 import mindescape.model.world.core.api.CollisionDetector;
+import mindescape.model.world.core.api.Dimensions;
 import mindescape.model.world.core.api.GameObject;
 import mindescape.model.world.core.api.Movement;
 import mindescape.model.world.core.api.Point2D;
@@ -15,7 +16,9 @@ import mindescape.model.world.core.impl.CollisionDetectorImpl;
 import mindescape.model.world.items.interactable.api.Interactable;
 import mindescape.model.world.items.interactable.api.UnpickableWithEnigma;
 import mindescape.model.world.player.api.Player;
+import mindescape.model.world.player.impl.PlayerImpl;
 import mindescape.model.world.rooms.api.Room;
+import mindescape.model.world.rooms.impl.RoomImpl;
 
 /**
  * Implementation of the World interface.
@@ -30,12 +33,13 @@ public class WorldImpl implements World, Serializable {
     private final transient CollisionDetector collisionDetector;
     private Optional<GameObject> collidingObject;
     
-    public WorldImpl(final Player player, final List<Room> rooms, final Room currentRoom, final boolean hasWon) {
-        this.player = player;
-        this.rooms = rooms;
-        this.currentRoom = currentRoom;
-        this.hasWon = hasWon;
+    public WorldImpl() {
+        this.rooms = RoomImpl.createRooms();
+        this.currentRoom = rooms.stream().filter(x -> x.getName().equals("bedroom")).findFirst().get();
+        this.player = new PlayerImpl(Optional.of(new Point2D(120, 120)), "player", Dimensions.TILE, currentRoom);
+        this.hasWon = false;
         this.collisionDetector = new CollisionDetectorImpl();
+        this.collidingObject = Optional.empty();
     }
 
     @Override
@@ -73,7 +77,7 @@ public class WorldImpl implements World, Serializable {
     }
 
     @Override
-    public void movePlayer(final Movement movement) {
+    public void movePlayer(final Movement movement) throws NullPointerException {
         Objects.requireNonNull(movement, "Movement must not be null");
 
         // check if the player is colliding with any object in the room before moving
@@ -91,5 +95,4 @@ public class WorldImpl implements World, Serializable {
     private void setCollidingObject(final Optional<GameObject> collidingObject) {
         this.collidingObject = collidingObject;
     }
-    
 }

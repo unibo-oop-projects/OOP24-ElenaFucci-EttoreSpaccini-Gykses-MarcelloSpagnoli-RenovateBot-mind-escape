@@ -50,3 +50,4 @@ public class WorldViewImpl implements View {
         throw new UnsupportedOperationException("Unimplemented method 'draw'");
     }
 }
+

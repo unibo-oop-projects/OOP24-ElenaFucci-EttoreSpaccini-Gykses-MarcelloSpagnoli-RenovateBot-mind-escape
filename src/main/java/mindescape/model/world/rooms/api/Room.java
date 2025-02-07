@@ -49,4 +49,16 @@ public interface Room {
      */
     String getName();
 
+    /**
+     * Returns the resource file of the room.
+     * @return string containing the path.
+     */
+    String getSource();
+
+    /**
+     * Dimensions of the room.
+     * @return
+     */
+    Dimensions getDimensions();
+
 }
