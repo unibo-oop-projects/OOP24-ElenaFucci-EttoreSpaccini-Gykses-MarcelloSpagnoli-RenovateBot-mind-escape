@@ -97,7 +97,10 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
                     BufferedImage img = tilesCache.get(tile);
                     if (img == null) {
                         img = getTileImage(tile);
-                        img = applyTransformations(img, tile);
+                        img = applyTransformations(img, 
+                            layer.getTileHorizontalFlip(x, y),
+                            layer.getTileDiagonalFlip(x, y)
+                            );
                         tilesCache.put(tile, img);
                     }
                     g.drawImage(img, x * dim, y * dim, this);
@@ -129,6 +132,15 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
         }
     }
 
+    private BufferedImage applyTransformations(BufferedImage img, boolean horizontal, boolean diagonal) {
+        if (diagonal) {
+            img = rotateImage(img, -90);
+        }
+        if (horizontal) {
+            img = flipImageHorizontally(img);
+        }
+        return img;
+    }
 
     private BufferedImage adapt(BufferedImage image) {
         double scaling = getScalingFactor();
@@ -142,11 +154,50 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
         g2d.dispose();
         return scaledImage;
     }
-
-    private BufferedImage applyTransformations(BufferedImage img, TiledTile tile) {
-        return img;
-    }
     
+    private BufferedImage rotateImage(BufferedImage image, double angle) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+
+        // Creazione di una trasformazione
+        AffineTransform transform = new AffineTransform();
+
+        // Imposta il punto di rotazione al centro dell'immagine
+        transform.rotate(Math.toRadians(angle), width / 2.0, height / 2.0);
+
+        // Creazione di un nuovo BufferedImage per contenere l'immagine ruotata
+        BufferedImage rotatedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+
+        // Ottenere il contesto grafico della nuova immagine
+        Graphics2D g2d = rotatedImage.createGraphics();
+
+        // Applicare la trasformazione e disegnare l'immagine originale
+        g2d.setTransform(transform);
+        g2d.drawImage(image, 0, 0, null);
+
+        // Liberare le risorse
+        g2d.dispose();
+
+        return rotatedImage;
+    }
+
+    private BufferedImage flipImageHorizontally(BufferedImage image) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+    
+        AffineTransform transform = new AffineTransform();
+        transform.scale(-1, 1); // Specchia orizzontalmente
+        transform.translate(-width, 0); // Riporta l'immagine nella posizione giusta
+    
+        BufferedImage flippedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        
+        Graphics2D g2d = flippedImage.createGraphics();
+        g2d.setTransform(transform);
+        g2d.drawImage(image, 0, 0, null);
+        g2d.dispose();
+    
+        return flippedImage;
+    }
 
     private Point2D getPositionFromId(TiledTile tile, int mapWidth) {
         return new Point2D(tile.getID() % mapWidth, tile.getID() / mapWidth);
