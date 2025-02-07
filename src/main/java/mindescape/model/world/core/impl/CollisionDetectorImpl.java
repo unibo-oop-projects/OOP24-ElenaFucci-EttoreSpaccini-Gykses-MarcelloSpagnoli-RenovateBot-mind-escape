@@ -25,7 +25,7 @@ public class CollisionDetectorImpl implements CollisionDetector{
 
     private boolean isInRect(Point2D point, Point2D objPos, Dimensions objDim) {
         return (point.x() >= objPos.x() && point.x() <= objPos.x() + objDim.width())
-            || (point.y() >= objPos.y() && point.y() <= objPos.y() + objDim.height());
+            && (point.y() >= objPos.y() && point.y() <= objPos.y() + objDim.height());
     }
  
 }

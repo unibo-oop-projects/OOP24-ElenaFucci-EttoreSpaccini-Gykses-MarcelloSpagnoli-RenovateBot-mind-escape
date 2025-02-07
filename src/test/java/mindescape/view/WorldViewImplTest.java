@@ -9,7 +9,7 @@ import mindescape.view.world.WorldViewImpl;
 public class WorldViewImplTest extends JFrame{
 
     WorldViewImpl view = new WorldViewImpl(null);
-    Room bedroom = RoomImpl.createRooms().stream().filter(x -> x.getName().equals("office")).findAny().get();
+    Room bedroom = RoomImpl.createRooms().stream().filter(x -> x.getName().equals("bedroom")).findAny().get();
 
     public WorldViewImplTest() {
         setSize(getMaximumSize());
