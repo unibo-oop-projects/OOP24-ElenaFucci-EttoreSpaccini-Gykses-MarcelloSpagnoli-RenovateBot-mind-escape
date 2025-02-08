@@ -1,6 +1,5 @@
 package mindescape.view.enigmapuzzle.impl;
 
-
 import javax.swing.*;
 import java.awt.*;
 
