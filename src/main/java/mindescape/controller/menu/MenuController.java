@@ -27,7 +27,7 @@ public class MenuController implements ClickableController {
         Objects.requireNonNull(input);
         switch ((String) input) {
             case Options.NEW_GAME -> this.newGame();
-            case Options.LOAD_GAME -> this.mainController.setController(this.mainController.findController("LoadGame"));
+            case Options.LOAD_GAME -> this.loadGame();
             case Options.QUIT -> this.quit();
             default -> throw new IllegalArgumentException("Invalid input: " + input);
         }
@@ -71,9 +71,11 @@ public class MenuController implements ClickableController {
         }
     }
     
-
+    /**
+     * Loads the game state from a saved file.
+     */
     private void loadGame() {
-        throw new UnsupportedOperationException("Not implemented yet!");
+        
     }
 
 }

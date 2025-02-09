@@ -1,4 +1,4 @@
-package mindescape.model.enigma;
+package mindescape.model.enigma.impl;
 
 import mindescape.model.enigma.api.Enigma;
 import mindescape.model.enigma.api.EnigmaFactory;

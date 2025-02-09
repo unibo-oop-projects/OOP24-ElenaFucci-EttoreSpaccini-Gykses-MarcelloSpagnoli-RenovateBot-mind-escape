@@ -6,10 +6,10 @@ import mindescape.controller.enigmapassword.impl.EnigmaPasswordControllerImpl;
 import mindescape.controller.maincontroller.api.MainController;
 import mindescape.controller.menu.MenuController;
 import mindescape.controller.worldcontroller.impl.WorldController;
-import mindescape.model.enigma.EnigmaFactoryImpl;
 import mindescape.model.enigma.api.EnigmaFactory;
 import mindescape.model.enigma.api.EnigmaFactory.EnigmaType;
 import mindescape.model.enigma.enigmapassword.api.EnigmaPasswordModel;
+import mindescape.model.enigma.impl.EnigmaFactoryImpl;
 import mindescape.model.world.api.World;
 import mindescape.model.world.impl.WorldImpl;
 
@@ -62,8 +62,8 @@ public class ControllerBuilderImpl implements ControllerBuilder {
     }
 
     @Override
-    public void buildNewWorld() {
-        this.controllerMap.addController(new WorldController(new WorldImpl(), mainController));
+    public void buildNewWorld(final String username) {
+        this.controllerMap.addController(new WorldController(new WorldImpl(username), mainController));
     }
 
     @Override

@@ -7,7 +7,7 @@ import mindescape.controller.core.api.ControllerName;
 import mindescape.controller.core.api.LoopController;
 import mindescape.controller.core.impl.ControllerBuilderImpl;
 import mindescape.controller.maincontroller.api.MainController;
-import mindescape.model.saveload.SaveManager;
+import mindescape.model.saveload.util.SaveManager;
 import mindescape.view.api.MainView;
 import mindescape.view.main.MainViewImpl;
 

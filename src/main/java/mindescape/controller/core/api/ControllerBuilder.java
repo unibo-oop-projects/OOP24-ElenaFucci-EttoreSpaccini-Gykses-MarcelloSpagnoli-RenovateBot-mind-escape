@@ -14,8 +14,10 @@ public interface ControllerBuilder {
 
     /**
      * Builds a new world component.
+     *
+     * @param username the username of the player
      */
-    void buildNewWorld();
+    void buildNewWorld(String username);
 
     /**
      * Builds an existing world component.
