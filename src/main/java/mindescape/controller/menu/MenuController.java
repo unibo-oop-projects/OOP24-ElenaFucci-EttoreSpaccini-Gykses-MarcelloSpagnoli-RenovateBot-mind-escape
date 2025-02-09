@@ -12,6 +12,12 @@ import mindescape.view.menu.MenuView;
 
 public class MenuController implements ClickableController {
 
+    private static class Options {
+        public static final String NEW_GAME = "NEW_GAME";
+        public static final String LOAD_GAME = "LOAD_GAME";
+        public static final String QUIT = "QUIT";
+    }
+
     private final static String NAME = ControllerName.MENU.getName();
     private final View menuView;
     private final MainController mainController;
@@ -40,12 +46,6 @@ public class MenuController implements ClickableController {
     @Override
     public JPanel getPanel() {
         return this.menuView.getPanel();
-    }
-
-    private static class Options {
-        public static final String NEW_GAME = "NEW_GAME";
-        public static final String LOAD_GAME = "LOAD_GAME";
-        public static final String QUIT = "QUIT";
     }
 
     @Override
