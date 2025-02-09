@@ -6,10 +6,10 @@ import mindescape.controller.core.api.LoopController;
 import mindescape.controller.core.api.UserInput;
 import mindescape.controller.maincontroller.api.MainController;
 import mindescape.model.api.Model;
+import mindescape.model.enigma.api.Enigma;
 import mindescape.model.world.api.World;
 import mindescape.model.world.core.api.Movement;
 import mindescape.view.api.WorldView;
-import mindescape.view.world.WorldViewImpl;
 import mindescape.view.world.WorldViewImpl;
 
 public class WorldController implements LoopController {
@@ -30,17 +30,13 @@ public class WorldController implements LoopController {
      * @param mainController the main controller managing the overall application
      */
     public WorldController(final World world, final MainController mainController) {
-    public WorldController(final World world, final MainController mainController) {
         this.world = world;
-        this.worldView = new WorldViewImpl(this);
         this.worldView = new WorldViewImpl(this);
         this.mainController = mainController;
     }
 
     @Override
     public void handleInput(final Object input) {
-        Enigma enigma;
-        Controller controller;
         switch ((UserInput) input) {
             case UP -> this.world.movePlayer(Movement.UP);
             case DOWN -> this.world.movePlayer(Movement.DOWN);
