@@ -23,8 +23,7 @@ public class MenuController implements ClickableController {
     }
 
     @Override
-    public void handleInput(final Object input) throws IllegalArgumentException {
-        Objects.requireNonNull(input);
+    public void handleInput(final Object input) {
         switch ((String) input) {
             case Options.NEW_GAME -> this.newGame();
             case Options.LOAD_GAME -> this.loadGame();
@@ -51,7 +50,8 @@ public class MenuController implements ClickableController {
 
     @Override
     public void quit() {
-        System.exit(0);
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'quit'");
     }
 
     private void newGame() {

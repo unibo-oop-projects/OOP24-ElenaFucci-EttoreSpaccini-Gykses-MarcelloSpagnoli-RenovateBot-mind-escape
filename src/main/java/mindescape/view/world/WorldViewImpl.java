@@ -73,7 +73,8 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(adapt(roomImage), 0, 0, this);
+        BufferedImage image = adapt(roomImage);
+        g.drawImage(image, (this.getWidth() - image.getWidth()) / 2, 0, this);
     }
 
     private void drawPlayer(Graphics g) {

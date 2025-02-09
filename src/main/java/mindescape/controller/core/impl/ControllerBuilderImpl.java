@@ -13,6 +13,7 @@ import mindescape.model.enigma.enigmapassword.api.EnigmaPasswordModel;
 import mindescape.model.enigma.impl.EnigmaFactoryImpl;
 import mindescape.model.world.api.World;
 import mindescape.model.world.impl.WorldImpl;
+import mindescape.model.world.impl.WorldImpl;
 
 /**
  * Implementation of the ControllerBuilder interface.
