@@ -2,6 +2,8 @@ package mindescape.controller.worldcontroller.impl;
 
 import java.util.Objects;
 import javax.swing.JPanel;
+
+import mindescape.controller.core.api.ControllerName;
 import mindescape.controller.core.api.LoopController;
 import mindescape.controller.core.api.UserInput;
 import mindescape.controller.maincontroller.api.MainController;
@@ -47,7 +49,7 @@ public class WorldController implements LoopController {
             case LEFT -> this.world.movePlayer(Movement.LEFT);
             case RIGHT -> this.world.movePlayer(Movement.RIGHT);
             case INTERACT -> this.world.letPlayerInteract().ifPresent(enigma -> 
-                this.mainController.setController(this.mainController.findController(enigma.getName())));
+                this.mainController.setController(this.mainController.findController(ControllerName.fromString(enigma.getName()))));
             case INVENTORY -> this.mainController.switchToInventory();
             default -> throw new IllegalArgumentException("Unknown input: " + input);
         }
@@ -90,5 +92,9 @@ public class WorldController implements LoopController {
     public JPanel getPanel() {
         return this.worldView.getPanel();
     }
- 
+
+    @Override
+    public boolean canSave() {
+        return true;
+    }
 }

@@ -6,7 +6,9 @@ import mindescape.view.utils.ViewUtils;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Date;
 
 public class SavesView extends JPanel implements View {
     private final SavesController controller;
@@ -29,35 +31,43 @@ public class SavesView extends JPanel implements View {
 
         loadButton = ViewUtils.createStyledButton("Load Save");
         loadButton.addActionListener(e -> this.loadSelectedSave());
-        
-        this.menuButton = ViewUtils.createStyledButton("Menu");
-        this.menuButton.addActionListener(e -> this.controller.quit());
+
+        menuButton = ViewUtils.createStyledButton("Menu");
+        menuButton.addActionListener(e -> this.controller.quit());
 
         final JPanel buttonPanel = ViewUtils.createStyledPanel();
-        buttonPanel.add(loadButton);
-        buttonPanel.add(menuButton);
+        buttonPanel.setLayout(new BorderLayout());
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        buttonPanel.add(menuButton, BorderLayout.WEST);
+        buttonPanel.add(loadButton, BorderLayout.EAST);
 
         this.add(scrollPane, BorderLayout.CENTER);
         this.add(buttonPanel, BorderLayout.SOUTH);
+
+        this.revalidate();
+        this.repaint();
     }
 
     private void styleSaveList() {
         saveList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         saveList.setBackground(new Color(0, 0, 0));
         saveList.setForeground(new Color(255, 215, 0));
-        saveList.setFont(new Font("Arial", Font.PLAIN, 16));
+        saveList.setFont(new Font("Arial", Font.BOLD, 18));
         saveList.setBorder(BorderFactory.createLineBorder(new Color(255, 215, 0), 2));
     }
 
     public void updateSaveFiles(List<File> saveFiles) {
         saveListModel.clear();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
         if (saveFiles.isEmpty()) {
             saveListModel.addElement("No save files found.");
             loadButton.setEnabled(false);
         } else {
             for (File file : saveFiles) {
-                saveListModel.addElement(file.getName());
+                String fileName = file.getName().replace(".sav", "");
+                String lastModified = dateFormat.format(new Date(file.lastModified()));
+                saveListModel.addElement(fileName + "\t" + lastModified);
             }
             loadButton.setEnabled(true);
         }

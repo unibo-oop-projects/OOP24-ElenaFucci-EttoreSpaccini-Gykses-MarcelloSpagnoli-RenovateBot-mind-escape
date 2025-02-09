@@ -52,11 +52,6 @@ public class MainControllerImpl implements MainController {
     }
 
     @Override
-    public Controller findController(final String name) {
-        return this.controllerMap.findController(ControllerName.fromString(name));
-    }
-
-    @Override
     public void switchToGame() {
         this.setController(this.controllerMap.findController(ControllerName.WORLD));
     }
@@ -92,7 +87,7 @@ public class MainControllerImpl implements MainController {
     public void loadGame(final World world) {
         this.controllerBuilder.buildExistingWorld(world);
         this.controllerMap = this.controllerBuilder.getResult();
-        this.setController(this.findController("World"));
+        this.setController(this.findController(ControllerName.WORLD));
     }
 
     private void onStart() {
@@ -100,6 +95,12 @@ public class MainControllerImpl implements MainController {
         this.controllerBuilder.buildLoad();
         this.controllerMap = controllerBuilder.getResult();
         System.out.println("After buildLoad, ControllerMap contains: " + controllerBuilder.getResult());        
-        this.setController(this.findController("Menu"));
+        this.setController(this.findController(ControllerName.MENU));
+    }
+
+    @Override
+    public Controller findController(final ControllerName name) {
+        return this.controllerMap.findController(name);
+
     }
 }

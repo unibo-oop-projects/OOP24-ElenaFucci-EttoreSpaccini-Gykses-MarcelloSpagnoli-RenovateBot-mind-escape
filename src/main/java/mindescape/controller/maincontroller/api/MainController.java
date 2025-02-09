@@ -1,6 +1,7 @@
 package mindescape.controller.maincontroller.api;
 
 import mindescape.controller.core.api.Controller;
+import mindescape.controller.core.api.ControllerName;
 import mindescape.model.world.api.World;
 
 /**
@@ -33,7 +34,7 @@ public interface MainController {
      * @param name the name of the Controller to be found
      * @return the found Controller
      */
-    Controller findController(String name);
+    Controller findController(ControllerName name);
 
     /**
      * Switches to the game Controller.

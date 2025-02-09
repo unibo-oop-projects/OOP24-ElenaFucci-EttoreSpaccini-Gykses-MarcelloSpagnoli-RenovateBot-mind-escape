@@ -4,13 +4,14 @@ import java.util.Objects;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import mindescape.controller.core.api.ClickableController;
+import mindescape.controller.core.api.ControllerName;
 import mindescape.controller.maincontroller.api.MainController;
 import mindescape.view.api.View;
 import mindescape.view.menu.MenuView;
 
 public class MenuController implements ClickableController {
 
-    private final static String NAME = "Menu";
+    private final static String NAME = ControllerName.MENU.getName();
     private final View menuView;
     private final MainController mainController;
     private static final long serialVersionUID = 1L;
@@ -73,8 +74,13 @@ public class MenuController implements ClickableController {
      * Loads the game state from a saved file.
      */
     private void loadGame() {
-        this.mainController.setController(this.mainController.findController("LoadGame"));
+        this.mainController.setController(this.mainController.findController(ControllerName.LOAD));
         this.mainController.start();
+    }
+
+    @Override
+    public boolean canSave() {
+        return false;
     }
 
 }

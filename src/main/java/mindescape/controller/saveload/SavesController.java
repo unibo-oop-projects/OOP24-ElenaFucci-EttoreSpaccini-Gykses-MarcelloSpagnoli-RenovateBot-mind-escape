@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 import javax.swing.JPanel;
 import mindescape.controller.core.api.ClickableController;
+import mindescape.controller.core.api.ControllerName;
 import mindescape.controller.maincontroller.api.MainController;
 import mindescape.model.saveload.api.Saves;
 import mindescape.model.saveload.impl.SavesImpl;
@@ -54,9 +55,9 @@ public class SavesController implements ClickableController {
     private void load(final File saveFile) {
         try {
             var saveData = SaveManager.loadGameStatus(saveFile);
-            mainController.findController("LoadGame");
+            mainController.loadGame(saveData);
         } catch (NullPointerException | IllegalArgumentException e) {
-            e.printStackTrace();
+            // mainController.newGame();
         }
     }
 
@@ -77,5 +78,10 @@ public class SavesController implements ClickableController {
     @Override
     public void quit() {
         this.mainController.switchToMenu();
+    }
+
+    @Override
+    public boolean canSave() {
+        return false;
     }
 }

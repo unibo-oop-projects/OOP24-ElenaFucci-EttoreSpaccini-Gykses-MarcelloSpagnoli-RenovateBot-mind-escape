@@ -36,4 +36,11 @@ public interface Controller {
      * to the next controller in the {@code MainController}.
      */
     void quit();
+
+    /**
+     * Checks if the current state can be saved.
+     *
+     * @return {@code true} if the state can be saved, {@code false} otherwise
+     */
+    boolean canSave();
 }
