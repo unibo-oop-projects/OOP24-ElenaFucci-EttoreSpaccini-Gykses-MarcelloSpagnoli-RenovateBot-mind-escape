@@ -15,7 +15,7 @@ public class SavesController implements ClickableController {
     private final Saves model;
     private final SavesView view;
     private final MainController mainController;
-    private final String name = "Saves";
+    private final String name = "LoadGame";
 
     public SavesController(final MainController mainController) {
         this.model = new SavesImpl();

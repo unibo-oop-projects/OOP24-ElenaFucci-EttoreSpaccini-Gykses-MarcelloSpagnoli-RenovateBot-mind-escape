@@ -9,8 +9,8 @@ import java.util.stream.Collectors;
 import org.tiledreader.FileSystemTiledReader;
 import org.tiledreader.TiledMap;
 import org.tiledreader.TiledObjectLayer;
-
 import mindescape.model.enigma.api.EnigmaFactory;
+import mindescape.model.enigma.impl.EnigmaFactoryImpl;
 import mindescape.model.world.core.api.Dimensions;
 import mindescape.model.world.core.api.GameObject;
 import mindescape.model.world.core.api.Point2D;
@@ -32,7 +32,7 @@ public class ObjectsExtractor {
     Set<GameObject> extractfrom(String roomPath) {
         Set<GameObject> gameObjects = new HashSet<>();
         InteractableFactory factory = new InteractableFactoryImpl();
-        EnigmaFactory enigmas = new EnigmaFactory();
+        EnigmaFactory enigmas = new EnigmaFactoryImpl();
         RewardFactory rewards = new RewardFactory();
         TiledMap map = new FileSystemTiledReader().getMap(roomPath);
         List<TiledObjectLayer> layers = getObjectLayers(map)
@@ -72,7 +72,7 @@ public class ObjectsExtractor {
 
     Set<GameObject> addDoors(String roomPath, Set<Room> rooms) {
         Set<GameObject> doors = new HashSet<>();
-        EnigmaFactory enigmas = new EnigmaFactory();
+        EnigmaFactory enigmas = new EnigmaFactoryImpl();
         InteractableFactory factory = new InteractableFactoryImpl();
         TiledMap map = new FileSystemTiledReader().getMap(roomPath);
         List<TiledObjectLayer> doorLayers = getObjectLayers(map)

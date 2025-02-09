@@ -5,6 +5,7 @@ import mindescape.controller.core.api.ControllerMap;
 import mindescape.controller.enigmapassword.impl.EnigmaPasswordControllerImpl;
 import mindescape.controller.maincontroller.api.MainController;
 import mindescape.controller.menu.MenuController;
+import mindescape.controller.saveload.SavesController;
 import mindescape.controller.worldcontroller.impl.WorldController;
 import mindescape.model.enigma.api.EnigmaFactory;
 import mindescape.model.enigma.api.EnigmaFactory.EnigmaType;
@@ -80,5 +81,10 @@ public class ControllerBuilderImpl implements ControllerBuilder {
     @Override
     public ControllerMap getResult() {
         return this.controllerMap;
+    }
+    
+    @Override
+    public void buildLoad() {
+       this.controllerMap.addController(new SavesController(this.mainController));
     }
 }

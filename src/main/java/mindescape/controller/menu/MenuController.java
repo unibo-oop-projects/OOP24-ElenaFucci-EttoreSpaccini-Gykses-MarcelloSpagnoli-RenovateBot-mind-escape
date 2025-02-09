@@ -1,10 +1,8 @@
 package mindescape.controller.menu;
 
 import java.util.Objects;
-
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
 import mindescape.controller.core.api.ClickableController;
 import mindescape.controller.maincontroller.api.MainController;
 import mindescape.view.api.View;
@@ -75,7 +73,8 @@ public class MenuController implements ClickableController {
      * Loads the game state from a saved file.
      */
     private void loadGame() {
-        
+        this.mainController.setController(this.mainController.findController("LoadGame"));
+        this.mainController.start();
     }
 
 }

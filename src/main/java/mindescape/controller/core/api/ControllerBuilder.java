@@ -62,4 +62,6 @@ public interface ControllerBuilder {
      * Resets the builder to its initial state.
      */
     void reset();
+
+    void buildLoad();
 }

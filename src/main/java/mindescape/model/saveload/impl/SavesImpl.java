@@ -2,11 +2,8 @@ package mindescape.model.saveload.impl;
 
 import java.io.File;
 import java.util.Arrays;
-// import com.google.common.collect.Ordering;
-import java.util.Comparator;
+import com.google.common.collect.Ordering;
 import java.util.List;
-import java.util.stream.Collectors;
-
 import mindescape.model.saveload.api.Saves;
 
 public class SavesImpl implements Saves {
@@ -25,10 +22,9 @@ public class SavesImpl implements Saves {
         if (files == null || files.length == 0) {
             return List.of();
         }
-        /* return Ordering.natural()
+        return Ordering.natural()
             .onResultOf(File::lastModified)
             .reverse()
-            .sortedCopy(Arrays.asList(files)); */
-        return null;
+            .sortedCopy(Arrays.asList(files));
     }
 }

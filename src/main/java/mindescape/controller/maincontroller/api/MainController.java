@@ -1,6 +1,7 @@
 package mindescape.controller.maincontroller.api;
 
 import mindescape.controller.core.api.Controller;
+import mindescape.model.world.api.World;
 
 /**
  * The MainController interface provides a method to set a Controller.
@@ -66,5 +67,11 @@ public interface MainController {
      * Save the game.
      */
     void save();
+
+    /**
+     * Load the game.
+     */
+    void loadGame(final World world);
+    
 
 }
