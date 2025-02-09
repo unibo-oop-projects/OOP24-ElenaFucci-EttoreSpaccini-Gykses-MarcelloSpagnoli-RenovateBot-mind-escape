@@ -69,8 +69,7 @@ public class ControllerBuilderImpl implements ControllerBuilder {
 
     @Override
     public void buildExistingWorld(final World world) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buildExistingWorld'");
+        this.controllerMap.addController(new WorldController(world, mainController));
     }
 
     @Override
@@ -86,5 +85,11 @@ public class ControllerBuilderImpl implements ControllerBuilder {
     @Override
     public void buildLoad() {
        this.controllerMap.addController(new SavesController(this.mainController));
+    }
+
+    @Override
+    public void buildInventory() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'buildInventory'");
     }
 }

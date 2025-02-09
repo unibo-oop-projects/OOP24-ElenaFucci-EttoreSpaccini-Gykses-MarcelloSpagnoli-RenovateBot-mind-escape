@@ -1,5 +1,7 @@
 package mindescape.controller.maincontroller.impl;
 
+import java.util.Objects;
+
 import javax.swing.SwingUtilities;
 import mindescape.controller.core.api.Controller;
 import mindescape.controller.core.api.ControllerBuilder;
@@ -8,6 +10,7 @@ import mindescape.controller.core.api.ControllerName;
 import mindescape.controller.core.api.LoopController;
 import mindescape.controller.core.impl.ControllerBuilderImpl;
 import mindescape.controller.maincontroller.api.MainController;
+import mindescape.model.saveload.util.SaveManager;
 import mindescape.model.world.api.World;
 import mindescape.view.api.MainView;
 import mindescape.view.main.MainViewImpl;
@@ -21,24 +24,31 @@ public class MainControllerImpl implements MainController {
     private ControllerMap controllerMap;
     private final MainView mainView;
     private final ControllerBuilder controllerBuilder;
-
+    private final static long serialVersionUID = 1L;
+    private String playerName;
 
     public MainControllerImpl() {
         this.mainView = new MainViewImpl(this);
         this.controllerBuilder = new ControllerBuilderImpl(this);
-        onStart();
+        this.onStart();
     }
 
     @Override
-    public void setController(final Controller controller) {
+    public void setController(final ControllerName controllerName) {
         // Quit the current controller if it is a LoopController
         if (this.currentController instanceof LoopController) {
             ((LoopController) this.currentController).quit();
         }
-        this.currentController = controller;
-        // this.currentController.start();
-        this.mainView.setPanel(controller.getPanel());
-        // this.currentController.start();
+
+        // if the controller is already in the map, set it as the current controller 
+        if (this.controllerMap.containsController(controllerName)) {
+            this.currentController = this.controllerMap.findController(controllerName);
+        } else { // otherwise, build the controller and set it as the current controller
+            this.controllerMap = this.buildController(controllerName);
+            this.currentController = this.controllerMap.findController(controllerName);
+        }
+        this.mainView.setPanel(this.currentController.getPanel());
+        this.currentController.start();
     }
 
     @Override
@@ -52,23 +62,8 @@ public class MainControllerImpl implements MainController {
     }
 
     @Override
-    public void switchToGame() {
-        this.setController(this.controllerMap.findController(ControllerName.WORLD));
-    }
-
-    @Override
-    public void switchToMenu() {
-        this.setController(this.controllerMap.findController(ControllerName.MENU));
-    }
-
-    @Override
     public void winning() {
         this.mainView.won();
-    }
-
-    @Override
-    public void switchToInventory() {
-        this.setController(this.controllerMap.findController(ControllerName.INVENTORY));
     }
 
     @Override
@@ -77,30 +72,58 @@ public class MainControllerImpl implements MainController {
     }
 
     @Override
-    public void save() {
-        // TODO: Implement save method
-        // SaveManager.saveGameStatus(this.controllerMap.findController(ControllerName.WORLD).getWorld());
-        this.exit();
+    public void save() throws IllegalStateException, NullPointerException {
+        var world = (World) this.controllerMap.findController(ControllerName.WORLD).getModel();
+        Objects.requireNonNull(world, "World is null.");
+        if (world instanceof World) {
+            SaveManager.saveGameStatus((World) world);
+            this.exit();
+        } else {
+            throw new IllegalStateException("The current controller is not a World controller.");
+        }
     }
 
     @Override
     public void loadGame(final World world) {
         this.controllerBuilder.buildExistingWorld(world);
         this.controllerMap = this.controllerBuilder.getResult();
-        this.setController(this.findController(ControllerName.WORLD));
+        this.setController(ControllerName.WORLD);
     }
 
     private void onStart() {
         this.controllerBuilder.buildMenu();
-        this.controllerBuilder.buildLoad();
-        this.controllerMap = controllerBuilder.getResult();
-        System.out.println("After buildLoad, ControllerMap contains: " + controllerBuilder.getResult());        
-        this.setController(this.findController(ControllerName.MENU));
+        this.controllerMap = this.controllerBuilder.getResult();
+        this.setController(ControllerName.MENU);
+    }
+
+    private ControllerMap buildController(final ControllerName name) {
+        if (!this.controllerMap.containsController(name)) {
+            switch (name) {
+                case MENU:
+                    this.controllerBuilder.buildMenu();
+                    break;
+                case INVENTORY:
+                    this.controllerBuilder.buildInventory();
+                    break;
+                case LOAD:
+                    this.controllerBuilder.buildLoad();
+                    break;
+                case COMPUTER:
+                    this.controllerBuilder.buildComputer();
+                    break;
+                case WORLD:
+                    this.controllerBuilder.buildNewWorld(this.playerName);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Controller not found.");
+            }
+        }
+        return this.controllerBuilder.getResult();
     }
 
     @Override
-    public Controller findController(final ControllerName name) {
-        return this.controllerMap.findController(name);
-
+    public void setPlayerName(final String playerName) {
+        this.playerName = playerName;
     }
+
 }

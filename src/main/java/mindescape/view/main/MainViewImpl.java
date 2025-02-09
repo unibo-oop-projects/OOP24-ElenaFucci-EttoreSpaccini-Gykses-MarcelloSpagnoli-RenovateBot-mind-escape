@@ -58,7 +58,11 @@ public class MainViewImpl implements MainView {
                     );
                     
                     if (option == JOptionPane.YES_OPTION) {
-                        mainController.save();
+                        try {
+                            mainController.save();
+                        } catch (IllegalStateException exception) {
+                            JOptionPane.showMessageDialog(frame, "An error occurred while saving the game.");
+                        }
                     } else if (option == JOptionPane.NO_OPTION) {
                         mainController.exit();
                     }

@@ -63,5 +63,13 @@ public interface ControllerBuilder {
      */
     void reset();
 
+    /**
+     * Builds the inventory for the controller.
+     */
+    void buildInventory();
+
+    /**
+     * Builds the load controller.
+     */
     void buildLoad();
 }

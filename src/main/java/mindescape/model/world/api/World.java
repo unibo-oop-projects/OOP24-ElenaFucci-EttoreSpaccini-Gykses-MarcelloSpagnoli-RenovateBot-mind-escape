@@ -3,6 +3,7 @@ package mindescape.model.world.api;
 import java.util.List;
 import java.util.Optional;
 
+import mindescape.model.api.Model;
 import mindescape.model.enigma.api.Enigma;
 import mindescape.model.world.core.api.Movement;
 import mindescape.model.world.player.api.Player;
@@ -12,7 +13,7 @@ import mindescape.model.world.rooms.api.Room;
  * The World interface represents a game world consisting of multiple rooms.
  * It provides methods to interact with the rooms and manage the player's movements and interactions.
  */
-public interface World {
+public interface World extends Model {
 
     /**
      * Retrieves a list of all rooms in the world.

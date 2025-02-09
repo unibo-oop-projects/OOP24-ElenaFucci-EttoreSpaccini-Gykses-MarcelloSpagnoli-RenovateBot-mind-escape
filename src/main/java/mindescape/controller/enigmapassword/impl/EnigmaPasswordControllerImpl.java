@@ -1,14 +1,11 @@
 package mindescape.controller.enigmapassword.impl;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-
 import mindescape.controller.core.api.ControllerName;
 import mindescape.controller.enigmapassword.api.EnigmaPasswordController;
 import mindescape.controller.maincontroller.api.MainController;
+import mindescape.model.api.Model;
 import mindescape.model.enigma.enigmapassword.api.EnigmaPasswordModel;
-import mindescape.model.enigma.enigmapassword.impl.EnigmaPasswordModelImpl;
 import mindescape.view.enigmapassword.api.EnigmaPasswordView;
 import mindescape.view.enigmapassword.impl.EnigmaPasswordViewImpl;
 
@@ -71,11 +68,22 @@ public class EnigmaPasswordControllerImpl implements EnigmaPasswordController {
      */
     @Override
     public void quit() {
-        this.mainController.setController(this.mainController.findController(ControllerName.WORLD));
+        this.mainController.setController(ControllerName.WORLD);
     }
 
     @Override
     public boolean canSave() {
         return true;
+    }
+
+    @Override
+    public Model getModel() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void start() {
+
     }
 }

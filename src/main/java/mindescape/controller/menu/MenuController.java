@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 import mindescape.controller.core.api.ClickableController;
 import mindescape.controller.core.api.ControllerName;
 import mindescape.controller.maincontroller.api.MainController;
+import mindescape.model.api.Model;
 import mindescape.view.api.View;
 import mindescape.view.menu.MenuView;
 
@@ -58,14 +59,15 @@ public class MenuController implements ClickableController {
             final String playerName = JOptionPane.showInputDialog(null, "Enter your name:", "New Game", JOptionPane.QUESTION_MESSAGE);
             // If the user cancels the input dialog, playerName will be null and we break the loop 
             if (playerName == null) {
-                break;
+                return;
             }
 
             if (playerName.trim().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Please enter a name!", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
-                //this.mainController.setController(this.mainController.findController("World", playerName));
-                break; 
+                this.mainController.setPlayerName(playerName);
+                this.mainController.setController(ControllerName.WORLD);
+                return; 
             }
         }
     }
@@ -74,13 +76,22 @@ public class MenuController implements ClickableController {
      * Loads the game state from a saved file.
      */
     private void loadGame() {
-        this.mainController.setController(this.mainController.findController(ControllerName.LOAD));
-        this.mainController.start();
+        this.mainController.setController(ControllerName.LOAD);
     }
 
     @Override
     public boolean canSave() {
         return false;
+    }
+
+    @Override
+    public Model getModel() {
+        //TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void start() {
     }
 
 }

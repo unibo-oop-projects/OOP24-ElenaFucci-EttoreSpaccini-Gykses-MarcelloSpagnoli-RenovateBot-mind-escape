@@ -50,4 +50,9 @@ public class ControllerMapImpl implements ControllerMap {
     public void clear() {
         this.controllers.clear();
     }
+
+    @Override
+    public boolean containsController(final ControllerName name) {
+        return this.controllers.containsKey(name.getName());
+    }
 }

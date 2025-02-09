@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import mindescape.controller.core.api.ClickableController;
 import mindescape.controller.core.api.ControllerName;
 import mindescape.controller.maincontroller.api.MainController;
+import mindescape.model.api.Model;
 import mindescape.model.saveload.api.Saves;
 import mindescape.model.saveload.impl.SavesImpl;
 import mindescape.model.saveload.util.SaveManager;
@@ -77,11 +78,21 @@ public class SavesController implements ClickableController {
 
     @Override
     public void quit() {
-        this.mainController.switchToMenu();
+        this.mainController.setController(ControllerName.MENU);
     }
 
     @Override
     public boolean canSave() {
         return false;
+    }
+
+    @Override
+    public Model getModel() {
+        //TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void start() {
     }
 }
