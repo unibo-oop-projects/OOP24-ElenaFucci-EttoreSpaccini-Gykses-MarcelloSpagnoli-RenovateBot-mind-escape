@@ -1,6 +1,9 @@
 package mindescape.view.api;
+import java.util.Map;
+
 import javax.swing.JPanel;
 
+import mindescape.controller.core.api.UserInput;
 import mindescape.model.world.rooms.api.Room;
 
 
@@ -21,4 +24,6 @@ public interface WorldView {
      * @return {@code JPanel} of the view.
      */
     JPanel getPanel();
+
+    Map<Integer, Boolean> getKeyState();
 }
