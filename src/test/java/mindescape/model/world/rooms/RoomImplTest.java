@@ -24,6 +24,7 @@ public class RoomImplTest {
         bedroom = rooms.stream()
             .filter(room -> room.getName().equals("bedroom"))
             .findFirst().get();
+        bedroom.getGameObjects().forEach(x -> System.out.println(x.getName()));
     }
 
     @Test
