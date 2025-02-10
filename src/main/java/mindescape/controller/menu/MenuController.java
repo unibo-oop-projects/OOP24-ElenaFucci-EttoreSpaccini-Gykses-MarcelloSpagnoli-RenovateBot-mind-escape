@@ -1,17 +1,18 @@
 package mindescape.controller.menu;
 
 import java.util.Objects;
-
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
 import mindescape.controller.core.api.ClickableController;
+import mindescape.controller.core.api.ControllerName;
 import mindescape.controller.maincontroller.api.MainController;
+import mindescape.model.api.Model;
 import mindescape.view.api.View;
 import mindescape.view.menu.MenuView;
 
 public class MenuController implements ClickableController {
 
-    private final static String NAME = "Menu";
+    private final static String NAME = ControllerName.MENU.getName();
     private final View menuView;
     private final MainController mainController;
     private static final long serialVersionUID = 1L;
@@ -25,8 +26,8 @@ public class MenuController implements ClickableController {
     public void handleInput(final Object input) throws IllegalArgumentException {
         Objects.requireNonNull(input);
         switch ((String) input) {
-            case Options.NEW_GAME -> this.mainController.setController(this.mainController.findController("World"));
-            case Options.LOAD_GAME -> this.mainController.setController(this.mainController.findController("LoadGame"));
+            case Options.NEW_GAME -> this.newGame();
+            case Options.LOAD_GAME -> this.loadGame();
             case Options.QUIT -> this.quit();
             default -> throw new IllegalArgumentException("Invalid input: " + input);
         }
@@ -51,6 +52,46 @@ public class MenuController implements ClickableController {
     @Override
     public void quit() {
         System.exit(0);
+    }
+
+    private void newGame() {
+        while (true) {
+            final String playerName = JOptionPane.showInputDialog(null, "Enter your name:", "New Game", JOptionPane.QUESTION_MESSAGE);
+            // If the user cancels the input dialog, playerName will be null and we break the loop 
+            if (playerName == null) {
+                return;
+            }
+
+            if (playerName.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Please enter a name!", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                this.mainController.setPlayerName(playerName);
+                this.mainController.setController(ControllerName.WORLD);
+                return; 
+            }
+        }
+    }
+    
+    /**
+     * Loads the game state from a saved file.
+     */
+    private void loadGame() {
+        this.mainController.setController(ControllerName.LOAD);
+    }
+
+    @Override
+    public boolean canSave() {
+        return false;
+    }
+
+    @Override
+    public Model getModel() {
+        //TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void start() {
     }
 
 }

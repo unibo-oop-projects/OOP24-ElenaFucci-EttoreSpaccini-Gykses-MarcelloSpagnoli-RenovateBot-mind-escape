@@ -2,9 +2,15 @@ package mindescape.controller.core.impl;
 
 import mindescape.controller.core.api.ControllerBuilder;
 import mindescape.controller.core.api.ControllerMap;
+import mindescape.controller.enigmapassword.impl.EnigmaPasswordControllerImpl;
 import mindescape.controller.maincontroller.api.MainController;
 import mindescape.controller.menu.MenuController;
+import mindescape.controller.saveload.SavesController;
 import mindescape.controller.worldcontroller.impl.WorldController;
+import mindescape.model.enigma.api.EnigmaFactory;
+import mindescape.model.enigma.api.EnigmaFactory.EnigmaType;
+import mindescape.model.enigma.enigmapassword.api.EnigmaPasswordModel;
+import mindescape.model.enigma.impl.EnigmaFactoryImpl;
 import mindescape.model.world.api.World;
 import mindescape.model.world.impl.WorldImpl;
 
@@ -16,6 +22,7 @@ public class ControllerBuilderImpl implements ControllerBuilder {
 
     private final ControllerMap controllerMap = new ControllerMapImpl();
     private final MainController mainController;
+    private final EnigmaFactory enigmaFactory = new EnigmaFactoryImpl();
 
     public ControllerBuilderImpl(final MainController mainController) {
         this.mainController = mainController;
@@ -34,7 +41,7 @@ public class ControllerBuilderImpl implements ControllerBuilder {
 
     @Override
     public void buildEnigmaFirstDoor() {
-        // this.controllerMap.addController(new EnigmaPasswordControllerImpl(new EnigmaPasswordModelImpl("EnigmaFirstDoor", "Sergio Mattarella"), mainController));
+        this.controllerMap.addController(new EnigmaPasswordControllerImpl((EnigmaPasswordModel) this.enigmaFactory.getEnigma(EnigmaType.ENIGMA_FIRST_DOOR.getName()), mainController));
     }
 
     @Override
@@ -56,14 +63,13 @@ public class ControllerBuilderImpl implements ControllerBuilder {
     }
 
     @Override
-    public void buildNewWorld() {
-        this.controllerMap.addController(new WorldController(new WorldImpl(), mainController));
+    public void buildNewWorld(final String username) {
+        this.controllerMap.addController(new WorldController(new WorldImpl(username), mainController));
     }
 
     @Override
     public void buildExistingWorld(final World world) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buildExistingWorld'");
+        this.controllerMap.addController(new WorldController(world, mainController));
     }
 
     @Override
@@ -74,5 +80,16 @@ public class ControllerBuilderImpl implements ControllerBuilder {
     @Override
     public ControllerMap getResult() {
         return this.controllerMap;
+    }
+    
+    @Override
+    public void buildLoad() {
+       this.controllerMap.addController(new SavesController(this.mainController));
+    }
+
+    @Override
+    public void buildInventory() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'buildInventory'");
     }
 }

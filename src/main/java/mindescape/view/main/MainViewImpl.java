@@ -2,12 +2,10 @@ package mindescape.view.main;
 
 import java.util.Map;
 import java.util.Objects;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-
 import mindescape.controller.core.api.UserInput;
 import mindescape.controller.maincontroller.api.MainController;
 import mindescape.view.api.MainView;
@@ -51,17 +49,23 @@ public class MainViewImpl implements MainView {
 
             @Override
             public void windowClosing(final WindowEvent e) {
-                var option = JOptionPane.showConfirmDialog(
-                    frame, 
-                    "Do you want to save before exiting?", 
-                    "Save before exiting", 
-                    JOptionPane.YES_NO_CANCEL_OPTION
-                );
-                
-                if (option == JOptionPane.YES_OPTION) {
-                    mainController.save();
-                } else if (option == JOptionPane.NO_OPTION) {
-                    mainController.exit();
+                if (mainController.getController().canSave()) {
+                    final var option = JOptionPane.showConfirmDialog(
+                        frame, 
+                        "Do you want to save before exiting?", 
+                        "Save before exiting", 
+                        JOptionPane.YES_NO_CANCEL_OPTION
+                    );
+                    
+                    if (option == JOptionPane.YES_OPTION) {
+                        try {
+                            mainController.save();
+                        } catch (IllegalStateException exception) {
+                            JOptionPane.showMessageDialog(frame, "An error occurred while saving the game.");
+                        }
+                    } else if (option == JOptionPane.NO_OPTION) {
+                        mainController.exit();
+                    }
                 }
             }
         });

@@ -1,13 +1,11 @@
 package mindescape.controller.enigmapassword.impl;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-
+import mindescape.controller.core.api.ControllerName;
 import mindescape.controller.enigmapassword.api.EnigmaPasswordController;
 import mindescape.controller.maincontroller.api.MainController;
+import mindescape.model.api.Model;
 import mindescape.model.enigma.enigmapassword.api.EnigmaPasswordModel;
-import mindescape.model.enigma.enigmapassword.impl.EnigmaPasswordModelImpl;
 import mindescape.view.enigmapassword.api.EnigmaPasswordView;
 import mindescape.view.enigmapassword.impl.EnigmaPasswordViewImpl;
 
@@ -70,25 +68,22 @@ public class EnigmaPasswordControllerImpl implements EnigmaPasswordController {
      */
     @Override
     public void quit() {
-        this.mainController.setController(this.mainController.findController("World"));
+        this.mainController.setController(ControllerName.WORLD);
     }
 
-    /**
-     * Main method to test the functionality of the password enigma controller.
-     * Launches a window with an instance of the controller.
-     *
-     * @param args command-line arguments (not used)
-     */
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            EnigmaPasswordModel model = new EnigmaPasswordModelImpl("First Room Enigma", "secret");
-            EnigmaPasswordController controller = new EnigmaPasswordControllerImpl(model, null);
+    @Override
+    public boolean canSave() {
+        return true;
+    }
 
-            JFrame frame = new JFrame("Enigma Test");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(400, 300);
-            frame.add(controller.getPanel());
-            frame.setVisible(true);
-        });
+    @Override
+    public Model getModel() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void start() {
+
     }
 }
