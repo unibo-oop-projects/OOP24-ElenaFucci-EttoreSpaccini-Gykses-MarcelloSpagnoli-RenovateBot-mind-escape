@@ -8,15 +8,9 @@ import java.util.List;
 
 import mindescape.model.enigma.enigmapuzzle.api.EnigmaPuzzleModel;
 
-public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel{
+public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel {
 
-    @Override
-    public boolean hit(Object value) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'hit'");
-    }
-
-     private final int ROWS;
+    private final int ROWS;
     private final int COLS;
     private Image[][] pieces;
     private Image originalImage;
@@ -88,6 +82,16 @@ public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel{
         pieces[secondRow][secondCol] = temp;
     }
 
+    public List<Image> getShuffledPieces() {
+        List<Image> shuffledPieces = new ArrayList<>();
+        for (int i = 0; i < ROWS; i++) {
+            for (int j = 0; j < COLS; j++) {
+                shuffledPieces.add(pieces[i][j]);
+            }
+        }
+        return shuffledPieces;
+    }
+
     public boolean isSolved() {
         for (int i = 0; i < ROWS; i++) {
             for (int j = 0; j < COLS; j++) {
@@ -99,4 +103,9 @@ public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel{
         return true;
     }
 
+    @Override
+    public boolean hit(Object value) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'hit'");
+    }
 }
