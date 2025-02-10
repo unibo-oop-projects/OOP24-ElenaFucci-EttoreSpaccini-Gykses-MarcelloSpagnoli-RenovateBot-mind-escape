@@ -47,6 +47,12 @@ public class MainControllerImpl implements MainController {
             this.controllerMap = this.buildController(controllerName);
             this.currentController = this.controllerMap.findController(controllerName);
         }
+        System.out.println("Current controller: " + this.currentController.getName());
+        // Print all controller present in the controller map
+        //TODO: remove this
+        System.out.println("TUTTI I CONTROLLER NELLA MAPPA SONO: ");
+        this.controllerMap.getControllers().forEach(controller -> System.out.println(controller.getName()));
+
         this.mainView.setPanel(this.currentController.getPanel());
         this.currentController.start();
     }
@@ -108,7 +114,7 @@ public class MainControllerImpl implements MainController {
                 case LOAD:
                     this.controllerBuilder.buildLoad();
                     break;
-                case COMPUTER:
+                case CAESAR_CYPHER:
                     this.controllerBuilder.buildComputer();
                     break;
                 case WORLD:

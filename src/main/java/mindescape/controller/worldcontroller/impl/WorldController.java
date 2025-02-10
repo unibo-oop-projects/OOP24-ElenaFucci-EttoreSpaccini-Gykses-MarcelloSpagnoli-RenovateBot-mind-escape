@@ -1,7 +1,6 @@
 package mindescape.controller.worldcontroller.impl;
 
 import java.util.Map;
-
 import javax.swing.JPanel;
 import mindescape.controller.core.api.ControllerName;
 import mindescape.controller.core.api.LoopController;
@@ -13,6 +12,7 @@ import mindescape.model.world.api.World;
 import mindescape.model.world.core.api.Movement;
 import mindescape.view.api.WorldView;
 import mindescape.view.world.WorldViewImpl;
+import java.awt.event.KeyEvent;
 
 public class WorldController implements LoopController {
 

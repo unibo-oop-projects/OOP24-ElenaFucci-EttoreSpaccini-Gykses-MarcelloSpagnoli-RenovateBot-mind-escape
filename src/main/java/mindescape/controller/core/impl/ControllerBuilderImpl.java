@@ -1,7 +1,9 @@
 package mindescape.controller.core.impl;
 
+import mindescape.controller.caesarcipher.impl.CaesarCipherControllerImpl;
 import mindescape.controller.core.api.ControllerBuilder;
 import mindescape.controller.core.api.ControllerMap;
+import mindescape.controller.core.api.ControllerName;
 import mindescape.controller.enigmapassword.impl.EnigmaPasswordControllerImpl;
 import mindescape.controller.maincontroller.api.MainController;
 import mindescape.controller.menu.MenuController;
@@ -9,10 +11,11 @@ import mindescape.controller.saveload.SavesController;
 import mindescape.controller.worldcontroller.impl.WorldController;
 import mindescape.model.enigma.api.EnigmaFactory;
 import mindescape.model.enigma.api.EnigmaFactory.EnigmaType;
+import mindescape.model.enigma.caesarcipher.impl.CaesarCipherModelImpl;
 import mindescape.model.enigma.enigmapassword.api.EnigmaPasswordModel;
+import mindescape.model.enigma.enigmapassword.impl.EnigmaPasswordModelImpl;
 import mindescape.model.enigma.impl.EnigmaFactoryImpl;
 import mindescape.model.world.api.World;
-import mindescape.model.world.impl.WorldImpl;
 import mindescape.model.world.impl.WorldImpl;
 
 /**
@@ -53,8 +56,9 @@ public class ControllerBuilderImpl implements ControllerBuilder {
 
     @Override
     public void buildComputer() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buildComputer'");
+        //TODO: remove this shit
+        var giovanna = new CaesarCipherControllerImpl(new CaesarCipherModelImpl("CaesarCypher", 3), this.mainController);
+        this.controllerMap.addController(giovanna);
     }
 
     @Override
@@ -90,7 +94,7 @@ public class ControllerBuilderImpl implements ControllerBuilder {
 
     @Override
     public void buildInventory() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buildInventory'");
+        //TODO: remove
+        this.controllerMap.addController(new EnigmaPasswordControllerImpl(new EnigmaPasswordModelImpl(ControllerName.INVENTORY.getName(), "Matterella"), mainController));
     }
 }
