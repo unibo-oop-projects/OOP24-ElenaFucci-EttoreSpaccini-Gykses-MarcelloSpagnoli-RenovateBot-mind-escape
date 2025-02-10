@@ -1,36 +1,34 @@
 //"C:\\Users\\Elena\\Desktop\\MVC\\puzzlegame\\mattarella.jpg"
 package mindescape.controller.enigmapuzzle.impl;
-
-import javax.swing.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-
-import mindescape.controller.core.api.ControllerName;
-import mindescape.controller.enigmapuzzle.api.EnigmaPuzzleController;
-import mindescape.view.enigmapuzzle.impl.EnigmaPuzzleViewImpl;
 import mindescape.view.enigmapuzzle.impl.ImageButton;
-import mindescape.model.api.Model;
-import mindescape.model.enigma.enigmapuzzle.impl.EnigmaPuzzleModelImpl;
-import mindescape.controller.maincontroller.api.MainController;
 
-public class EnigmaPuzzleControllerImpl implements EnigmaPuzzleController {
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import mindescape.model.enigma.enigmapuzzle.impl.EnigmaPuzzleModelImpl;
+import mindescape.view.enigmapuzzle.impl.EnigmaPuzzleViewImpl;
+
+public class EnigmaPuzzleControllerImpl implements ActionListener {
 
     private final EnigmaPuzzleModelImpl model;
     private final EnigmaPuzzleViewImpl view;
-    private final MainController mainController;
-
     private ImageButton firstButton = null;
 
-    public EnigmaPuzzleControllerImpl(EnigmaPuzzleModelImpl model, MainController mainController) {
+    public EnigmaPuzzleControllerImpl(EnigmaPuzzleModelImpl model, EnigmaPuzzleViewImpl view) {
         this.model = model;
-        this.view = new EnigmaPuzzleViewImpl(model.getRows(), model.getCols(), this);
-        this.mainController = mainController;
+        this.view = view;
     }
 
-    public void onButtonClicked(ImageButton clickedButton) {
-        // Gestisce il click del pulsante
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        ImageButton clickedButton = (ImageButton) e.getSource();
+        
+        // Trova la posizione del pulsante cliccato
         int clickedIndex = view.getButtons().indexOf(clickedButton);
         int row = clickedIndex / model.getCols();
         int col = clickedIndex % model.getCols();
@@ -41,79 +39,59 @@ public class EnigmaPuzzleControllerImpl implements EnigmaPuzzleController {
             int firstIndex = view.getButtons().indexOf(firstButton);
             int firstRow = firstIndex / model.getCols();
             int firstCol = firstIndex % model.getCols();
-
+            
             model.swapPieces(firstRow, firstCol, row, col);
-            view.updateView(model.getShuffledPieces());
+            
+            // Dopo aver aggiornato il modello, il controller aggiorna la vista
+            updateView();
 
             firstButton = null;
         }
     }
 
-    @Override
-    public String getName() {
-        return model.getName();
-    }
-
-    @Override
-    public JPanel getPanel() {
-        return view.getPanel();
-    }
-
-    @Override
-    public void quit() {
-        this.mainController.setController(ControllerName.WORLD);
-    }
-
-    @Override
-    public boolean canSave() {
-        return true;
-    }
-
-    @Override
-    public void start() {
-        // Avvia la vista con le tessere
-        view.updateView(model.getShuffledPieces());
-    }
-
-    public static void main(String[] args) {
-        // Carichiamo l'immagine da file
-        BufferedImage img = null;
-        try {
-            img = ImageIO.read(new File("C:\\\\Users\\\\Elena\\\\Desktop\\\\MVC\\\\puzzlegame\\\\mattarella.jpg"));
-        } catch (IOException e) {
-            e.printStackTrace();
-            return; // Se l'immagine non può essere caricata, terminare l'esecuzione
+    // Metodo per aggiornare la vista tramite il Controller
+    private void updateView() {
+        for (int i = 0; i < model.getRows(); i++) {
+            for (int j = 0; j < model.getCols(); j++) {
+                ImageButton button = view.getButtons().get(i * model.getCols() + j);
+                button.setImage(model.getPiece(i, j));  // Aggiorna l'immagine del pulsante
+            }
         }
+        
+        // Forza il ridisegno della view
+        view.revalidate();
+        view.repaint();
+    }
+    
 
-        // Impostiamo le dimensioni del puzzle (ad esempio, 4x4)
-        int rows = 4;
-        int cols = 4;
+    public String getName() {
+        return this.model.getName(); 
+    }
 
-        // Creiamo il modello, la vista e il controller
-        EnigmaPuzzleModelImpl model = new EnigmaPuzzleModelImpl(rows, cols, img, "Puzzle Game");
-        EnigmaPuzzleViewImpl view = new EnigmaPuzzleViewImpl(rows, cols, new EnigmaPuzzleControllerImpl(model, null)); // null come placeholder per MainController
-        EnigmaPuzzleControllerImpl controller = new EnigmaPuzzleControllerImpl(model, null);
+    public JPanel getPanel() {
+        return this.view.getPanel(); 
+    }
 
-        // Avviamo il frame dell'applicazione
-        JFrame frame = new JFrame("Enigma Puzzle");
+    // Metodo principale per testare il controller
+    public static void main(String[] args) {
+        Image image = new ImageIcon("C:\\\\Users\\\\Elena\\\\Desktop\\\\MVC\\\\puzzlegame\\\\mattarella.jpg").getImage();  // Carica l'immagine
+        EnigmaPuzzleModelImpl model = new EnigmaPuzzleModelImpl(3, 3, image, "Puzzle Game");
+        EnigmaPuzzleViewImpl view = new EnigmaPuzzleViewImpl(3, 3);  // Non passiamo il model alla view
+        EnigmaPuzzleControllerImpl controller = new EnigmaPuzzleControllerImpl(model, view);
+
+        // Associa il controller alla view
+        view.setController(controller);
+
+        controller.updateView(); // Inizializza la vista
+
+        // Testa l'inizializzazione della vista e del controller
+        JFrame frame = new JFrame("Puzzle Game");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(500, 500);
-        frame.add(view.getPanel());
+        frame.setSize(5, 5);  // Imposta una dimensione iniziale per il JFrame
         frame.setVisible(true);
 
-        // Avviamo il controller
-        controller.start();
-    }
-
-    @Override
-    public void handleInput(Object input) throws IllegalArgumentException, NullPointerException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'handleInput'");
-    }
-
-    @Override
-    public Model getModel() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getModel'");
+        frame.add(view);
+        frame.pack();
+        frame.setVisible(true);
     }
 }
