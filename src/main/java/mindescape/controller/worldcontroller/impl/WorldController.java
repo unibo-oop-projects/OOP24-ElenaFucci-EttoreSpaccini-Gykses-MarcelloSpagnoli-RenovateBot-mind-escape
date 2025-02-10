@@ -2,13 +2,15 @@ package mindescape.controller.worldcontroller.impl;
 
 import java.util.Objects;
 import javax.swing.JPanel;
+import mindescape.controller.core.api.ControllerName;
 import mindescape.controller.core.api.LoopController;
 import mindescape.controller.core.api.UserInput;
 import mindescape.controller.maincontroller.api.MainController;
+import mindescape.model.api.Model;
 import mindescape.model.world.api.World;
 import mindescape.model.world.core.api.Movement;
-import mindescape.view.api.View;
 import mindescape.view.api.WorldView;
+import mindescape.view.world.WorldViewImpl;
 
 /**
  * The WorldController class is responsible for managing the game world and handling user input.
@@ -32,9 +34,9 @@ public class WorldController implements LoopController {
      * @param worldView the view associated with the world
      * @param mainController the main controller managing the overall application
      */
-    public WorldController(final World world, final WorldView worldView, final MainController mainController) {
+    public WorldController(final World world, final MainController mainController) {
         this.world = world;
-        this.worldView = worldView;
+        this.worldView = new WorldViewImpl(this);
         this.mainController = mainController;
     }
 
@@ -47,8 +49,8 @@ public class WorldController implements LoopController {
             case LEFT -> this.world.movePlayer(Movement.LEFT);
             case RIGHT -> this.world.movePlayer(Movement.RIGHT);
             case INTERACT -> this.world.letPlayerInteract().ifPresent(enigma -> 
-                this.mainController.setController(this.mainController.findController(enigma.getName())));
-            case INVENTORY -> this.mainController.switchToInventory();
+                this.mainController.setController(ControllerName.fromString(enigma.getName())));
+            case INVENTORY -> this.mainController.setController(ControllerName.INVENTORY);
             default -> throw new IllegalArgumentException("Unknown input: " + input);
         }
     }
@@ -58,8 +60,7 @@ public class WorldController implements LoopController {
         this.running = false;
     }
 
-    @Override
-    public void loop() throws InterruptedException{
+    private void loop() throws InterruptedException{
         final long frameTime = TIME / FPS;
 
         while (this.running) {
@@ -90,5 +91,23 @@ public class WorldController implements LoopController {
     public JPanel getPanel() {
         return this.worldView.getPanel();
     }
- 
+
+    @Override
+    public boolean canSave() {
+        return true;
+    }
+    
+    @Override
+    public Model getModel() {
+        return this.world;
+    }
+
+    @Override
+    public void start() {
+        try {
+            this.loop();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
 }

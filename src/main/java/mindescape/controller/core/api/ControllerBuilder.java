@@ -14,8 +14,10 @@ public interface ControllerBuilder {
 
     /**
      * Builds a new world component.
+     *
+     * @param username the username of the player
      */
-    void buildNewWorld();
+    void buildNewWorld(String username);
 
     /**
      * Builds an existing world component.
@@ -60,4 +62,14 @@ public interface ControllerBuilder {
      * Resets the builder to its initial state.
      */
     void reset();
+
+    /**
+     * Builds the inventory for the controller.
+     */
+    void buildInventory();
+
+    /**
+     * Builds the load controller.
+     */
+    void buildLoad();
 }
