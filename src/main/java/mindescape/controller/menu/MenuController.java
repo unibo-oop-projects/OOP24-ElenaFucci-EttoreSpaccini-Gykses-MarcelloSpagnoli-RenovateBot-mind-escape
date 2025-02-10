@@ -1,6 +1,5 @@
 package mindescape.controller.menu;
 
-import java.util.Objects;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import mindescape.controller.core.api.ClickableController;
@@ -10,6 +9,9 @@ import mindescape.model.api.Model;
 import mindescape.view.api.View;
 import mindescape.view.menu.MenuView;
 
+/**
+ * Controller for the main menu.
+ */
 public class MenuController implements ClickableController {
 
     private static class Options {
@@ -50,8 +52,7 @@ public class MenuController implements ClickableController {
 
     @Override
     public void quit() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'quit'");
+        System.exit(0);
     }
 
     private void newGame() {
@@ -86,7 +87,7 @@ public class MenuController implements ClickableController {
 
     @Override
     public Model getModel() {
-        //TODO Auto-generated method stub
+        //TODO: Auto-generated method stub
         return null;
     }
 
