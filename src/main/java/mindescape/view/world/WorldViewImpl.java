@@ -8,6 +8,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +29,7 @@ import mindescape.model.world.player.api.Player;
 import mindescape.model.world.rooms.api.Room;
 import mindescape.view.api.WorldView;
 
-public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
+public class WorldViewImpl extends JPanel implements WorldView, KeyListener  {
 
     private static final Map<Integer, UserInput> KEY_MAPPER = Map.of(
         KeyEvent.VK_W, UserInput.UP,
@@ -47,6 +48,7 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
     private String roomName;
     private PlayerView player;
     private double roomHeight;
+    private final Map<Integer, Boolean> keyState = new HashMap<>();
 
     public WorldViewImpl(WorldController worldController, Room currentRoom) {
         this.worldController = worldController;
@@ -54,6 +56,7 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
         roomName = currentRoom.getName();
         updateRoomImage(currentRoom);
         player = new PlayerView(getPlayer(currentRoom).getPosition().get());
+        KEY_MAPPER.forEach((key, value) -> keyState.put(key, false));
         setFocusable(true); // Permette al JPanel di ricevere input dalla tastiera
         requestFocusInWindow(); // Richiede il focus per il JPanel
         addKeyListener(this);
@@ -206,11 +209,21 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int pressed = e.getKeyCode();
-        System.out.println("Pressed: " + pressed);
-        worldController.handleInput(KEY_MAPPER.get(pressed));
+        if (KEY_MAPPER.containsKey(pressed)) {
+            keyState.put(pressed, true);
+        }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-    }   
+        int released = e.getKeyCode();
+        if (KEY_MAPPER.containsKey(released)) {
+            keyState.put(released, false);
+        }
+    }
+
+    @Override
+    public Map<Integer, Boolean> getKeyState() {
+        return Collections.unmodifiableMap(keyState);
+    } 
 }
