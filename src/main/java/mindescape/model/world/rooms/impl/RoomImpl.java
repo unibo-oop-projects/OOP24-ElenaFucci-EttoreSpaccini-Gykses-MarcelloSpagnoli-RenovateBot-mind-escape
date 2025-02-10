@@ -65,7 +65,7 @@ public class RoomImpl implements Room {
     public boolean isPositionValid(Point2D pos, Dimensions dim) {
         return pos.x() >= 0 &&
             pos.y() >= 0 && 
-            pos.x() + dim.height() <= this.dimensions.height() &&
+            pos.x() + dim.width() <= this.dimensions.width() &&
             pos.y() + dim.height() <= this.dimensions.height();
     }
 
@@ -83,7 +83,7 @@ public class RoomImpl implements Room {
     }
 
     public static List<Room> createRooms() {
-        File resources = new File("src/main/java/mindescape/resources/rooms");
+        File resources = new File("src/resources/rooms");
         ObjectsExtractor objectsExtractor = new ObjectsExtractor();
         File[] files = resources.listFiles();
         List<Room> rooms = Arrays.asList(files)
