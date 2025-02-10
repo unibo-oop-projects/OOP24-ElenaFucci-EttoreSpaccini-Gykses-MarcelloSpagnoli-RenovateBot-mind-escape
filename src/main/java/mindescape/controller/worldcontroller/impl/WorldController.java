@@ -1,5 +1,7 @@
 package mindescape.controller.worldcontroller.impl;
 
+import java.util.Map;
+
 import javax.swing.JPanel;
 import mindescape.controller.core.api.ControllerName;
 import mindescape.controller.core.api.LoopController;
@@ -13,6 +15,15 @@ import mindescape.view.api.WorldView;
 import mindescape.view.world.WorldViewImpl;
 
 public class WorldController implements LoopController {
+
+    private static final Map<Integer, UserInput> KEY_MAPPER = Map.of(
+        KeyEvent.VK_W, UserInput.UP,
+        KeyEvent.VK_S, UserInput.DOWN,
+        KeyEvent.VK_A, UserInput.LEFT,
+        KeyEvent.VK_D, UserInput.RIGHT,
+        KeyEvent.VK_E, UserInput.INTERACT,
+        KeyEvent.VK_I, UserInput.INVENTORY
+    );
 
     private final World world;
     private final WorldView worldView;
@@ -31,7 +42,7 @@ public class WorldController implements LoopController {
      */
     public WorldController(final World world, final MainController mainController) {
         this.world = world;
-        this.worldView = new WorldViewImpl(this);
+        this.worldView = new WorldViewImpl(this, world.getCurrentRoom());
         this.mainController = mainController;
     }
 
