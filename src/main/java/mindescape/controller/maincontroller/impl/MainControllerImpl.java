@@ -36,7 +36,13 @@ public class MainControllerImpl implements MainController {
             ((LoopController) this.currentController).quit();
         }
         this.currentController = controller;
-        // this.currentController.start();
+        if (this.currentController instanceof LoopController) {
+            try {
+                ((LoopController)this.currentController).loop();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
         this.mainView.setPanel(controller.getPanel());
     }
 

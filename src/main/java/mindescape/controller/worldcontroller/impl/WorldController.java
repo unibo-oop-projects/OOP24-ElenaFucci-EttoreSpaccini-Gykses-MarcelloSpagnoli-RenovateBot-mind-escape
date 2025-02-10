@@ -1,6 +1,9 @@
 package mindescape.controller.worldcontroller.impl;
 
+import java.util.Map;
+
 import javax.swing.JPanel;
+import java.awt.event.KeyEvent;
 
 import mindescape.controller.core.api.Controller;
 import mindescape.controller.core.api.LoopController;
@@ -13,6 +16,15 @@ import mindescape.view.api.WorldView;
 import mindescape.view.world.WorldViewImpl;
 
 public class WorldController implements LoopController {
+
+    private static final Map<Integer, UserInput> KEY_MAPPER = Map.of(
+        KeyEvent.VK_W, UserInput.UP,
+        KeyEvent.VK_S, UserInput.DOWN,
+        KeyEvent.VK_A, UserInput.LEFT,
+        KeyEvent.VK_D, UserInput.RIGHT,
+        KeyEvent.VK_E, UserInput.INTERACT,
+        KeyEvent.VK_I, UserInput.INVENTORY
+    );
 
     private final World world;
     private final WorldView worldView;
@@ -31,7 +43,7 @@ public class WorldController implements LoopController {
      */
     public WorldController(final World world, final MainController mainController) {
         this.world = world;
-        this.worldView = new WorldViewImpl(this);
+        this.worldView = new WorldViewImpl(this, world.getCurrentRoom());
         this.mainController = mainController;
     }
 
@@ -70,17 +82,26 @@ public class WorldController implements LoopController {
         this.running = false;
     }
 
+    private class Loop extends Thread {
+        public void run(){  
+            while (isRunning()) {
+                try {
+                    Thread.sleep(16);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                movePlayerIfKeyPressed();
+                if (world.hasWon()) {
+                    mainController.winning();
+                }
+                worldView.draw(world.getCurrentRoom());
+            }
+        }
+    }
+
     @Override
     public void loop() {
-        while (this.isRunning()) {
-            //TODO implement game loop logic here : game has to run with 60fps
-
-            if (this.world.hasWon()) {
-                this.mainController.winning();
-            }
-
-            this.worldView.draw(this.world.getCurrentRoom());
-        }
+        new Loop().start();
     }
 
     private boolean isRunning() {
@@ -95,6 +116,14 @@ public class WorldController implements LoopController {
     @Override
     public JPanel getPanel() {
         return this.worldView.getPanel();
+    }
+
+    private void movePlayerIfKeyPressed() {
+        for (Map.Entry<Integer, Boolean> entry : worldView.getKeyState().entrySet()) {
+            if (entry.getValue()) { // Se il tasto è premuto
+                handleInput(KEY_MAPPER.get(entry.getKey()));
+            }
+        }
     }
  
 }

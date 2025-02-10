@@ -22,7 +22,7 @@ public class MenuController implements ClickableController {
     @Override
     public void handleInput(final Object input) {
         switch ((String) input) {
-            case Options.NEW_GAME -> this.mainController.setController(this.mainController.findController("World"));
+            case Options.NEW_GAME -> this.mainController.switchToGame();
             case Options.LOAD_GAME -> this.mainController.setController(this.mainController.findController("LoadGame"));
             case Options.QUIT -> this.quit();
             default -> throw new IllegalArgumentException("Invalid input: " + input);
