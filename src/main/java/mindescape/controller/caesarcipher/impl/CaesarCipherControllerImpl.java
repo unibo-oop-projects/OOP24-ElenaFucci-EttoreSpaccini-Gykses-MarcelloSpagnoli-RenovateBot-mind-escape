@@ -3,9 +3,10 @@ package mindescape.controller.caesarcipher.impl;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-
 import mindescape.controller.caesarcipher.api.CaesarCipherController;
+import mindescape.controller.core.api.ControllerName;
 import mindescape.controller.maincontroller.api.MainController;
+import mindescape.model.api.Model;
 import mindescape.model.enigma.caesarcipher.api.CaesarCipherModel;
 import mindescape.model.enigma.caesarcipher.impl.CaesarCipherModelImpl;
 import mindescape.view.caesarcipher.api.CaesarCipherView;
@@ -72,7 +73,7 @@ public class CaesarCipherControllerImpl implements CaesarCipherController{
      */
     @Override
     public void quit() {
-        this.mainController.setController(this.mainController.findController("World"));
+        this.mainController.setController(ControllerName.WORLD);
     }
 
     public static void main(String[] args) {
@@ -90,6 +91,21 @@ public class CaesarCipherControllerImpl implements CaesarCipherController{
     @Override
     public String getEncryptedText() {
         return this.model.getEncryptedText(); 
+    }
+
+    @Override
+    public boolean canSave() {
+        return true;
+    }
+
+    @Override
+    public Model getModel() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void start() {
     }
     
 }

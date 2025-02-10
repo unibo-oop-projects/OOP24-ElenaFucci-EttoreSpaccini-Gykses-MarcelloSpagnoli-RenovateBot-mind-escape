@@ -36,4 +36,12 @@ public interface ControllerMap {
      */
     void clear();
 
+    /**
+     * Checks if the map contains a controller with the specified name.
+     *
+     * @param name the name of the controller to check for
+     * @return true if the controller is present, false otherwise
+     */
+    boolean containsController(ControllerName name);
+
 }

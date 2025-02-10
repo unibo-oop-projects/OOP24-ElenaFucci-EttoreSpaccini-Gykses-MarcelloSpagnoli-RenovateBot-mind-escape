@@ -32,10 +32,10 @@ public class WorldImpl implements World, Serializable {
     private final transient CollisionDetector collisionDetector;
     private Optional<GameObject> collidingObject;
     
-    public WorldImpl() {
+    public WorldImpl(final String username) {
         this.rooms = RoomImpl.createRooms();
         this.currentRoom = rooms.stream().filter(x -> x.getName().equals("bedroom")).findFirst().get();
-        this.player = new PlayerImpl(Optional.of(new Point2D(120, 120)), "player", Dimensions.TILE, currentRoom);
+        this.player = new PlayerImpl(Optional.of(new Point2D(120, 120)), username, Dimensions.TILE, currentRoom);
         this.hasWon = false;
         this.collisionDetector = new CollisionDetectorImpl();
         this.collidingObject = Optional.empty();

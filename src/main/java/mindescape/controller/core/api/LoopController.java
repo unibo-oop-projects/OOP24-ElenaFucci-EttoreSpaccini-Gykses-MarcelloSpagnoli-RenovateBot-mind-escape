@@ -7,16 +7,8 @@ package mindescape.controller.core.api;
 public interface LoopController extends Controller {
 
     /**
-     * Executes the main loop of the controller.
-     * This method is intended to be repeatedly called to perform
-     * the core operations of the controller.
-     *
-     * @throws InterruptedException if the thread executing the loop is interrupted.
-     */
-    void loop() throws InterruptedException;
-
-    /**
      * Stops the game loop.
      */
     void quit();
+
 }

@@ -33,7 +33,8 @@ public enum ControllerName {
         DRAWER("Drawer"),
         COMPUTER("Computer"),
         WARDROBE("Wardrobe"),
-        INVENTORY("Inventory");
+        INVENTORY("Inventory"),
+        LOAD("LoadGame");
         
         private final String name;
 
