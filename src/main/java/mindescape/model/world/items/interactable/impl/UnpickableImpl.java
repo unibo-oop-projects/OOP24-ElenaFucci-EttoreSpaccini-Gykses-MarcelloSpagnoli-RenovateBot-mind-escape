@@ -24,6 +24,7 @@ import mindescape.model.world.player.api.Player;
 public class UnpickableImpl extends GameObjectImpl implements Unpickable {
 
     private final Optional<Pickable> reward;
+    private boolean unlocked;
 
     /**
      * Constructs an unpickable object with an optional reward.
@@ -37,6 +38,7 @@ public class UnpickableImpl extends GameObjectImpl implements Unpickable {
                           final Dimensions dimensions, final Optional<Pickable> reward) {
         super(position, name, dimensions);
         this.reward = reward;
+        this.unlocked = false;
     }
 
     /**
@@ -49,8 +51,21 @@ public class UnpickableImpl extends GameObjectImpl implements Unpickable {
      */
     @Override
     public void onAction(final Player player) {
-        if (this.reward.isPresent()) {
+        if (this.reward.isPresent()
+            && player.getInventory().getItems().stream()
+                    .noneMatch(item -> item.equals(this.reward.get()))) {
+            this.unlocked = true;
             player.getInventory().addItems(this.reward.get());
         }
+    }
+
+    /**
+     * Checks if the item is unlocked.
+     *
+     * @return {@code true} if the item is unlocked, {@code false} otherwise.
+     */
+    @Override
+    public boolean isUnlocked() {
+        return this.unlocked; 
     }
 }

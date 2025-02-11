@@ -56,7 +56,8 @@ public class DoorLockedWithEnigma extends GameObjectImpl implements Door, Unpick
      *
      * @return {@code true} if the enigma is solved, {@code false} otherwise
      */
-    private boolean isUnlocked() {
+    @Override
+    public boolean isUnlocked() {
         return this.enigma.isSolved();
     }
 

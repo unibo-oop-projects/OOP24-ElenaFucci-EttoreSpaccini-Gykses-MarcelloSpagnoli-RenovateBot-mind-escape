@@ -65,7 +65,7 @@ public class WorldImpl implements World, Serializable {
             .stream()
             .filter(x -> x.getName().equals("Mirror"));
 
-        return mirror.isUnlocked(player);
+        return mirror.isUnlocked();
     }
 
     @Override

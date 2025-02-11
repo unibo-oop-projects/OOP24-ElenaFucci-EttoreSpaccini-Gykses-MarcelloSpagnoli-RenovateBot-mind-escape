@@ -9,4 +9,10 @@ package mindescape.model.world.items.interactable.api;
  * </p>
  */
 public interface Unpickable extends Interactable {
+    /**
+     * Checks if the item is unlocked.
+     *
+     * @return true if the item is unlocked, false otherwise.
+     */
+    boolean isUnlocked();
 }

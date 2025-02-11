@@ -21,6 +21,7 @@ public class DoorLockedWithPickable extends GameObjectImpl implements Door {
 
     private final Door baseDoor;
     private final int keyItem_id;
+    private boolean unlocked;
 
     /**
      * Constructs a door locked with a specific pickable item.
@@ -32,6 +33,7 @@ public class DoorLockedWithPickable extends GameObjectImpl implements Door {
         super(baseDoor.getPosition(), baseDoor.getName(), baseDoor.getDimensions());
         this.baseDoor = baseDoor;
         this.keyItem_id = keyItem_id;
+        this.unlocked = false;
     }
 
     /**
@@ -45,20 +47,21 @@ public class DoorLockedWithPickable extends GameObjectImpl implements Door {
      */
     @Override
     public void onAction(final Player player) {
-        if (this.isUnlocked(player)) {
+        if (player.getInventory().getItems().stream()
+                .map(Pickable::getId)
+                .anyMatch(id -> id.equals(this.keyItem_id))) {
+            this.unlocked = true;
             this.baseDoor.onAction(player);
         }
     }
 
     /**
-     * Checks if the door is unlocked by verifying if the player has the required item.
+     * Checks if the door is unlocked.
      *
-     * @param player the player whose inventory is checked
-     * @return {@code true} if the player has the required item, {@code false} otherwise
+     * @return {@code true} if the door is unlocked, {@code false} otherwise.
      */
-    private boolean isUnlocked(final Player player) {
-        return player.getInventory().getItems().stream()
-                     .map(Pickable::getId)
-                     .anyMatch(id -> id.equals(this.keyItem_id));
+    @Override
+    public boolean isUnlocked() {
+        return this.unlocked;
     }
 }
