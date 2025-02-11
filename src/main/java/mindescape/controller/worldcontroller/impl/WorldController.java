@@ -1,5 +1,8 @@
 package mindescape.controller.worldcontroller.impl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.swing.JPanel;
 import mindescape.controller.core.api.ControllerName;
 import mindescape.controller.core.api.LoopController;
@@ -15,6 +18,15 @@ import mindescape.view.world.WorldViewImpl;
  * Implementation of the WorldController.
  */
 public class WorldController implements LoopController {
+
+    private static final Map<Integer, UserInput> KEY_MAPPER = Map.of(
+        KeyEvent.VK_W, UserInput.UP,
+        KeyEvent.VK_S, UserInput.DOWN,
+        KeyEvent.VK_A, UserInput.LEFT,
+        KeyEvent.VK_D, UserInput.RIGHT,
+        KeyEvent.VK_E, UserInput.INTERACT,
+        KeyEvent.VK_I, UserInput.INVENTORY
+    );
 
     private final World world;
     private final WorldView worldView;
@@ -44,9 +56,8 @@ public class WorldController implements LoopController {
             case DOWN -> this.world.movePlayer(Movement.DOWN);
             case LEFT -> this.world.movePlayer(Movement.LEFT);
             case RIGHT -> this.world.movePlayer(Movement.RIGHT);
-            case INTERACT -> this.world.letPlayerInteract().ifPresent(enigma -> 
-                this.mainController.setController(ControllerName.fromString(enigma.getName())));
-            case INVENTORY -> this.mainController.setController(ControllerName.INVENTORY);
+            case INTERACT -> interactAction();
+            case INVENTORY ->  inventoryAction();
             default -> throw new IllegalArgumentException("Unknown input: " + input);
         }
     }
@@ -56,22 +67,28 @@ public class WorldController implements LoopController {
         this.running = false;
     }
 
-    private void loop() throws InterruptedException{
-        final long frameTime = TIME / FPS;
+    private class Loop extends Thread {
+        @Override
+        public void run() {
+            final long frameTime = TIME / FPS;
+            while (running) {
+                long startTime = System.currentTimeMillis();
 
-        while (this.running) {
-            long startTime = System.currentTimeMillis();
+                if (world.hasWon()) {
+                    mainController.winning();
+                }
 
-            if (world.hasWon()) {
-                this.mainController.winning();
+                long elapsedTime = System.currentTimeMillis() - startTime;
+                if (elapsedTime < frameTime) {
+                    try {
+                        Thread.sleep(frameTime - elapsedTime);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                movePlayerIfKeyPressed();
+                worldView.draw(world.getCurrentRoom());
             }
-
-            long elapsedTime = System.currentTimeMillis() - startTime;
-            if (elapsedTime < frameTime) {
-                Thread.sleep(frameTime - elapsedTime);
-            }
-
-            this.worldView.draw(this.world.getCurrentRoom());
         }
     }
 
@@ -97,10 +114,26 @@ public class WorldController implements LoopController {
 
     @Override
     public void start() {
-        try {
-            this.loop();
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
+        this.running = true;
+        new Loop().start();
+    }
+
+    private void movePlayerIfKeyPressed() {
+        for (Map.Entry<Integer, Boolean> entry : new HashMap<>(worldView.getKeyState()).entrySet()) {
+            if (entry.getValue()) { // Se il tasto è premuto
+                handleInput(KEY_MAPPER.get(entry.getKey()));
+            }
         }
+    }
+
+    private void interactAction() {
+        worldView.clearInput();
+        this.world.letPlayerInteract().ifPresent(enigma -> 
+        this.mainController.setController(ControllerName.fromString(enigma.getName())));
+    }
+
+    private void inventoryAction() {
+        worldView.clearInput();
+        this.mainController.setController(ControllerName.INVENTORY);
     }
 }

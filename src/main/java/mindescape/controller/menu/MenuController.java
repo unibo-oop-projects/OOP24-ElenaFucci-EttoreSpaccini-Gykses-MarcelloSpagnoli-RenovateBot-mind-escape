@@ -69,7 +69,7 @@ public class MenuController implements ClickableController {
                 this.mainController.setPlayerName(playerName);
                 this.mainController.setController(ControllerName.WORLD);
                 return; 
-            }
+            } 
         }
     }
     

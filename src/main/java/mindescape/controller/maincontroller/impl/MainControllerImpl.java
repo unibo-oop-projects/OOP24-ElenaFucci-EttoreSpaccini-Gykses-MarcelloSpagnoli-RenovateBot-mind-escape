@@ -18,10 +18,10 @@ import mindescape.view.main.MainViewImpl;
  * Implementation of the MainController interface.
  */
 public class MainControllerImpl implements MainController {
-    //TODO: remove
-    public static final String RESET = "\u001B[0m"; // Reset color
-    public static final String RED = "\u001B[31m"; // Red color
-    public static final String GREEN = "\u001B[32m"; // Green color
+
+    private static final String BLUE = "\u001B[34m";
+    private static final String RESET = "\u001B[0m";
+    private static final String RED = "\u001B[31m";
     
     private Controller currentController;
     private ControllerMap controllerMap;
@@ -55,9 +55,9 @@ public class MainControllerImpl implements MainController {
          * TODO: remove this
          * DEBUG: print the current controller and all the controllers in the map
          */
-        System.out.println("Current controller: " + this.currentController.getName());
+        System.out.println(BLUE + "Current controller: " + this.currentController.getName() + RESET);
         System.out.print(RED + "TUTTI I CONTROLLER NELLA MAPPA SONO: " + RESET);
-        this.controllerMap.getControllers().forEach(controller -> System.out.print(controller.getName() + " "));
+        this.controllerMap.getControllers().forEach(controller -> System.out.println(controller.getName() + " "));
 
         this.mainView.setPanel(this.currentController.getPanel());
         this.currentController.start();
@@ -85,7 +85,7 @@ public class MainControllerImpl implements MainController {
 
     @Override
     public void save() throws IllegalStateException, NullPointerException {
-        var world = (World) this.controllerMap.findController(ControllerName.WORLD).getModel();
+        final var world = (World) this.controllerMap.findController(ControllerName.WORLD).getModel();
         Objects.requireNonNull(world, "World is null.");
         if (world instanceof World) {
             SaveManager.saveGameStatus((World) world);
@@ -115,7 +115,7 @@ public class MainControllerImpl implements MainController {
                     this.controllerBuilder.buildMenu();
                     break;
                 case INVENTORY:
-                    this.controllerBuilder.buildInventory();
+                    this.controllerBuilder.buildInventory((World) this.controllerMap.findController(ControllerName.WORLD).getModel());
                     break;
                 case LOAD:
                     this.controllerBuilder.buildLoad();
@@ -125,6 +125,21 @@ public class MainControllerImpl implements MainController {
                     break;
                 case WORLD:
                     this.controllerBuilder.buildNewWorld(this.playerName);
+                    break;
+                case WARDROBE:
+                    this.controllerBuilder.buildWardrobe();
+                    break;
+                case CALENDAR:
+                    this.controllerBuilder.buildCalendar();
+                    break;
+                case PUZZLE:
+                    this.controllerBuilder.buildPuzzle();
+                    break;
+                case DRAWER:
+                    this.controllerBuilder.buildDrawer();
+                    break;
+                case ENIGMA_FIRST_DOOR:
+                    this.controllerBuilder.buildEnigmaFirstDoor();
                     break;
                 default:
                     throw new IllegalArgumentException("Controller not found.");

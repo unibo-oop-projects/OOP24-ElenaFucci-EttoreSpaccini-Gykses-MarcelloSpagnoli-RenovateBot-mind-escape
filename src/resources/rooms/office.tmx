@@ -76,13 +76,13 @@
   <object id="9" name="Table" type="NonInteractableImpl" x="64.3836" y="112.671" width="46.9178" height="65.7534"/>
   <object id="10" name="Computer" type="UnpickableWithEnigma" x="64.726" y="179.11" width="46.9178" height="25.3425">
    <properties>
-    <property name="Enigma" value="Cifrario"/>
+    <property name="Enigma" value="CaesarCipher"/>
     <property name="Reward" value=""/>
    </properties>
   </object>
   <object id="11" name="Chair" type="NonInteractableImpl" x="48.2877" y="144.521" width="15.411" height="28.0822"/>
   <object id="13" name="Armchair" type="NonInteractableImpl" x="184.589" y="181.507" width="22.2603" height="41.7808"/>
-  <object id="15" name="Torch" type="Pickable" gid="1607" x="143.643" y="239.904" width="16" height="16">
+  <object id="15" name="Torch" type="Pickable" gid="1607" x="144" y="240" width="16" height="16">
    <properties>
     <property name="ID" type="int" value="3"/>
    </properties>
@@ -91,6 +91,8 @@
  <objectgroup id="5" name="Doors">
   <object id="14" name="Door" type="SimpleDoor" x="245.548" y="128" width="7.53425" height="32">
    <properties>
+    <property name="DestX" type="int" value="0"/>
+    <property name="DestY" type="int" value="0"/>
     <property name="Destination" value="canteen"/>
    </properties>
   </object>

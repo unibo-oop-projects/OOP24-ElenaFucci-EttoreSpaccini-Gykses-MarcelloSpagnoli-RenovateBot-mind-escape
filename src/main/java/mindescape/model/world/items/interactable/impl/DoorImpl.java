@@ -27,6 +27,7 @@ import mindescape.model.world.rooms.api.Room;
 public class DoorImpl extends GameObjectImpl implements Door {
 
     private final Room destinationRoom;
+    private final Optional<Point2D> destinationPosition;
 
     /**
      * Constructs a door with a given position, name, dimensions, and destination room.
@@ -35,11 +36,13 @@ public class DoorImpl extends GameObjectImpl implements Door {
      * @param name            the name of the door
      * @param dimensions      the dimensions of the door
      * @param destinationRoom the room connected as the destination through the door
+     * @param destinationPosition the position in the destination room where the player will be placed
      */
     public DoorImpl(final Optional<Point2D> position, final String name,
-                    final Dimensions dimensions, final Room destinationRoom) {
+                    final Dimensions dimensions, final Room destinationRoom, final Optional<Point2D> destinationPosition) {
         super(position, name, dimensions);
         this.destinationRoom = destinationRoom;
+        this.destinationPosition = destinationPosition;
     }
 
     /**
@@ -54,5 +57,16 @@ public class DoorImpl extends GameObjectImpl implements Door {
     @Override
     public void onAction(final Player player) {
         player.setCurrentRoom(this.destinationRoom);
+        player.setPosition(destinationPosition);
+    }
+
+    /**
+     * Checks if the door is unlocked.
+     *
+     * @return true if the door is unlocked, false otherwise.
+     */
+    @Override
+    public boolean isUnlocked() {
+        return true; 
     }
 }

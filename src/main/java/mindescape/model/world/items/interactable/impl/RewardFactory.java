@@ -37,6 +37,8 @@ public class RewardFactory {
                 return Optional.of(new PickableImpl(Optional.empty(), name, Dimensions.TILE,
                 "An hammer",
                 5));
+            case "a":
+                return Optional.of(new PickableImpl(Optional.empty(), name, null, name, 0));
             default:
                 return Optional.empty();
         }

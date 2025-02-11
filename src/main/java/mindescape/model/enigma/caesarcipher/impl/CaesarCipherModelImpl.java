@@ -1,17 +1,19 @@
 package mindescape.model.enigma.caesarcipher.impl;
 
+import java.io.Serializable;
+
 import mindescape.model.enigma.caesarcipher.api.CaesarCipherModel;
 
 /**
  * The {@code CaesarCipherModelImpl} class implements {@code CaesarCipherModel} to provide encryption
  * and decryption functionalities for the Caesar Cipher enigma.
  */
-public class CaesarCipherModelImpl implements CaesarCipherModel {
+public class CaesarCipherModelImpl implements CaesarCipherModel, Serializable {
 
-    private final static String ENCRYPTED_TEXT = "kr ilqlwr vwr fliudulr gl phugd"; 
+    private final static transient String ENCRYPTED_TEXT = "kr ilqlwr vwr fliudulr gl phugd"; 
 
-    private final String decryptedText; 
-    private final String name; 
+    private final transient String decryptedText; 
+    private final transient String name; 
     private boolean solved; 
 
     /**
@@ -69,10 +71,10 @@ public class CaesarCipherModelImpl implements CaesarCipherModel {
     @Override
     public String encrypt(final int shift) {
         final StringBuilder result = new StringBuilder();
-        for (char c : ENCRYPTED_TEXT.toCharArray()) {
+        for (final char c : ENCRYPTED_TEXT.toCharArray()) {
             if (Character.isLetter(c)) {
-                char base = Character.isUpperCase(c) ? 'A' : 'a';
-                result.append((char) ((c - base - shift + 26) % 26 + base));
+                final char base = Character.isUpperCase(c) ? 'A' : 'a';
+                result.append((char) ((c - base - (shift%26) + 26) % 26 + base));
             } else {
                 result.append(c);
             }

@@ -28,14 +28,14 @@ public class WorldImpl implements World, Serializable {
     private final static long serialVersionUID = 1L;
     private final Player player;
     private final List<Room> rooms;
-    private Room currentRoom;
+    //private Room currentRoom;
     private final transient CollisionDetector collisionDetector;
     private transient Optional<GameObject> collidingObject;
     
     public WorldImpl(final String username) {
         this.rooms = RoomImpl.createRooms();
-        this.currentRoom = rooms.stream().filter(x -> x.getName().equals("bedroom")).findFirst().get();
-        this.player = new PlayerImpl(Optional.of(new Point2D(110, 170)), "Player", Dimensions.TILE, currentRoom);
+        var currentRoom = rooms.stream().filter(x -> x.getName().equals("bedroom")).findFirst().get();
+        this.player = new PlayerImpl(Optional.of(new Point2D(110, 170)), username, Dimensions.TILE, currentRoom);
         currentRoom.addGameObject(player);
         this.collisionDetector = new CollisionDetectorImpl();
         this.collidingObject = Optional.empty();
@@ -49,13 +49,14 @@ public class WorldImpl implements World, Serializable {
     @Override
     public Optional<Enigma> letPlayerInteract() {
         Optional<Enigma> enigma = Optional.empty();
-        
-        if (this.collidingObject.get() instanceof UnpickableWithEnigma) {
-            enigma = Optional.of(((UnpickableWithEnigma) this.collidingObject.get()).getEnigma());
+        if (collidingObject.isPresent()) {
+            if (this.collidingObject.get() instanceof UnpickableWithEnigma) {
+                enigma = Optional.of(((UnpickableWithEnigma) this.collidingObject.get()).getEnigma());
+            }
+            if (this.collidingObject.get() instanceof Interactable) {
+                this.player.interact((Interactable) this.collidingObject.get());
+            } 
         }
-        if (this.collidingObject.get() instanceof Interactable) {
-            this.player.interact((Interactable) this.collidingObject.get());
-        } 
         return enigma;
     }
 
@@ -63,14 +64,16 @@ public class WorldImpl implements World, Serializable {
     public boolean hasWon() {
         LockedUnpickable mirror = (LockedUnpickable) this.getRooms().stream().filter(room -> room.getName().equals("final")).findFirst().get().getGameObjects()
             .stream()
-            .filter(x -> x.getName().equals("Mirror"));
+            .filter(x -> x.getName().equals("Mirror"))
+            .findFirst()
+            .get();
 
-        return mirror.isUnlocked(player);
+        return mirror.isUnlocked();
     }
 
     @Override
     public Room getCurrentRoom() {
-        return this.currentRoom;
+        return this.player.getCurrentRoom();
     }
 
     @Override
@@ -86,7 +89,7 @@ public class WorldImpl implements World, Serializable {
         // check if the player is colliding with any object in the room before moving
         var playerPosition = this.player.getPosition().get();
         var position = new Point2D(playerPosition.x() + movement.getX(), playerPosition.y() + movement.getY());
-        var collidingObject = this.collisionDetector.collisions(position, this.player.getDimensions(), this.currentRoom.getGameObjects());
+        var collidingObject = this.collisionDetector.collisions(position, this.player.getDimensions(), this.getCurrentRoom().getGameObjects());
 
         if (collidingObject.isEmpty()) {
             this.player.move(movement);

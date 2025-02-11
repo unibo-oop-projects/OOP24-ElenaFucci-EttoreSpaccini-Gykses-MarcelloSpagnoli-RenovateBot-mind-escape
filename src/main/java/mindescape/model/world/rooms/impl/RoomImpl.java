@@ -1,6 +1,7 @@
 package mindescape.model.world.rooms.impl;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -20,7 +21,7 @@ import mindescape.model.world.items.interactable.api.Pickable;
 import mindescape.model.world.player.api.Player;
 import mindescape.model.world.rooms.api.Room;
 
-public class RoomImpl implements Room {
+public class RoomImpl implements Room, Serializable {
 
     private final Dimensions dimensions;
 
@@ -33,7 +34,7 @@ public class RoomImpl implements Room {
     /*
      * Construction will later be done with a builder
      */
-    private RoomImpl(String roomFilePath) {
+    public RoomImpl(String roomFilePath) {
         TiledMap room = new FileSystemTiledReader().getMap(roomFilePath);
         this.dimensions = new Dimensions(room.getWidth() * Dimensions.TILE.width(), room.getHeight() * Dimensions.TILE.height());
         this.name = Files.getNameWithoutExtension(roomFilePath);

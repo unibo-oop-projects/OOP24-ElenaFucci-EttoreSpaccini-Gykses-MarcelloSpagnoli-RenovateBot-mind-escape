@@ -40,13 +40,14 @@ public class InteractableFactoryImpl implements InteractableFactory {
      * @param dimensions      the dimensions of the door
      * @param key_item_id     the ID of the item required to unlock the door
      * @param destinationRoom the destination room connected to the door
+     * @param destinationPosition the position in the destination room where the player will be placed
      * @return a new {@link Door} instance
      */
     @Override
     public Door createDoorLockedWithPickable(final String name, final Optional<Point2D> position,
                                              final Dimensions dimensions, final int key_item_id,
-                                             final Room destinationRoom) {
-        return new DoorLockedWithPickable(new DoorImpl(position, name, dimensions, destinationRoom), key_item_id);
+                                             final Room destinationRoom, final Optional<Point2D> destinationPosition) {
+        return new DoorLockedWithPickable(new DoorImpl(position, name, dimensions, destinationRoom, destinationPosition), key_item_id);
     }
 
     /**
@@ -57,13 +58,14 @@ public class InteractableFactoryImpl implements InteractableFactory {
      * @param dimensions      the dimensions of the door
      * @param enigma          the enigma required to unlock the door
      * @param destinationRoom the destination room connected to the door
+     * @param destinationPosition the position in the destination room where the player will be placed
      * @return a new {@link Door} instance
      */
     @Override
     public Door createDoorLockedWithEnigma(final String name, final Optional<Point2D> position,
                                            final Dimensions dimensions, final Enigma enigma,
-                                           final Room destinationRoom) {
-        return new DoorLockedWithEnigma(new DoorImpl(position, name, dimensions, destinationRoom), enigma);
+                                           final Room destinationRoom, final Optional<Point2D> destinationPosition) {
+        return new DoorLockedWithEnigma(new DoorImpl(position, name, dimensions, destinationRoom, destinationPosition), enigma);
     }
 
     /**
@@ -97,7 +99,7 @@ public class InteractableFactoryImpl implements InteractableFactory {
     public Unpickable createLockedUnpickable(final String name, final Optional<Point2D> position,
                                              final Dimensions dimensions, final int keyItem_id,
                                              final Pickable reward) {
-        return new LockedUnpickable(name, position, dimensions, keyItem_id, reward);
+        return new LockedUnpickable(name, position, dimensions, keyItem_id, Optional.of(reward));
     }
 
     /**
@@ -122,11 +124,13 @@ public class InteractableFactoryImpl implements InteractableFactory {
      * @param position        the optional position in the game world
      * @param dimensions      the dimensions of the door
      * @param destinationRoom the destination room connected to the door
+     * @param destinationPosition the position in the destination room where the player will be placed
      * @return a new {@link Door} instance
      */
     @Override
     public Door createSimpleDoor(final String name, final Optional<Point2D> position,
-                                 final Dimensions dimensions, final Room destinationRoom) {
-        return new DoorImpl(position, name, dimensions, destinationRoom);
+                                 final Dimensions dimensions, final Room destinationRoom, 
+                                 final Optional<Point2D> destinationPosition) {
+        return new DoorImpl(position, name, dimensions, destinationRoom, destinationPosition);
     }
 }

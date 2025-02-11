@@ -1,20 +1,26 @@
 package mindescape.controller.core.impl;
 
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import mindescape.controller.caesarcipher.impl.CaesarCipherControllerImpl;
 import mindescape.controller.core.api.ControllerBuilder;
 import mindescape.controller.core.api.ControllerMap;
 import mindescape.controller.core.api.ControllerName;
+import mindescape.controller.enigmacalendar.impl.CalendarControllerImpl;
 import mindescape.controller.enigmapassword.impl.EnigmaPasswordControllerImpl;
+import mindescape.controller.enigmapuzzle.impl.EnigmaPuzzleControllerImpl;
+import mindescape.controller.inventory.InventoryControllerImpl;
 import mindescape.controller.maincontroller.api.MainController;
 import mindescape.controller.menu.MenuController;
 import mindescape.controller.saveload.SavesController;
 import mindescape.controller.worldcontroller.impl.WorldController;
-import mindescape.model.enigma.api.EnigmaFactory;
-import mindescape.model.enigma.api.EnigmaFactory.EnigmaType;
 import mindescape.model.enigma.caesarcipher.impl.CaesarCipherModelImpl;
-import mindescape.model.enigma.enigmapassword.api.EnigmaPasswordModel;
 import mindescape.model.enigma.enigmapassword.impl.EnigmaPasswordModelImpl;
-import mindescape.model.enigma.impl.EnigmaFactoryImpl;
+import mindescape.model.enigma.enigmapuzzle.impl.EnigmaPuzzleModelImpl;
 import mindescape.model.world.api.World;
 import mindescape.model.world.impl.WorldImpl;
 
@@ -26,7 +32,6 @@ public class ControllerBuilderImpl implements ControllerBuilder {
 
     private final ControllerMap controllerMap = new ControllerMapImpl();
     private final MainController mainController;
-    private final EnigmaFactory enigmaFactory = new EnigmaFactoryImpl();
 
     public ControllerBuilderImpl(final MainController mainController) {
         this.mainController = mainController;
@@ -39,32 +44,35 @@ public class ControllerBuilderImpl implements ControllerBuilder {
 
     @Override
     public void buildPuzzle() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buildPuzzle'");
+        Image image;
+        try {
+            image = ImageIO.read(new File("src/resources/puzzle/Presidente_Sergio_Mattarella.jpg"));
+            this.controllerMap.addController(new EnigmaPuzzleControllerImpl(new EnigmaPuzzleModelImpl(5, 5, image, ControllerName.PUZZLE.getName()), this.mainController));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+        
 
     @Override
     public void buildEnigmaFirstDoor() {
-        this.controllerMap.addController(new EnigmaPasswordControllerImpl((EnigmaPasswordModel) this.enigmaFactory.getEnigma(EnigmaType.ENIGMA_FIRST_DOOR.getName()), mainController));
+        this.controllerMap.addController(new EnigmaPasswordControllerImpl(new EnigmaPasswordModelImpl(ControllerName.ENIGMA_FIRST_DOOR.getName(), "Sergio Mattarella"), mainController));
     }
 
     @Override
     public void buildCalendar() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buildCalendar'");
+        this.controllerMap.addController(new CalendarControllerImpl(mainController));
     }
 
     @Override
     public void buildComputer() {
-        //TODO: remove this shit
-        var giovanna = new CaesarCipherControllerImpl(new CaesarCipherModelImpl("CaesarCypher", 3), this.mainController);
-        this.controllerMap.addController(giovanna);
+        this.controllerMap.addController(new CaesarCipherControllerImpl(new CaesarCipherModelImpl(ControllerName.CAESAR_CYPHER.getName(), 3), this.mainController));
     }
 
     @Override
     public void buildWardrobe() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buildWardrobe'");
+        //TODO: check if this is the correct password
+        this.controllerMap.addController(new EnigmaPasswordControllerImpl(new EnigmaPasswordModelImpl(ControllerName.WARDROBE.getName(), "Pianinator"), mainController));
     }
 
     @Override
@@ -76,6 +84,21 @@ public class ControllerBuilderImpl implements ControllerBuilder {
     public void buildExistingWorld(final World world) {
         this.controllerMap.addController(new WorldController(world, mainController));
     }
+    
+    @Override
+    public void buildLoad() {
+       this.controllerMap.addController(new SavesController(this.mainController));
+    }
+
+    @Override
+    public void buildInventory(final World world) {
+        this.controllerMap.addController(new InventoryControllerImpl(world.getPlayer().getInventory(), mainController));
+    }
+
+    @Override
+    public void buildDrawer() {
+        this.controllerMap.addController(new EnigmaPasswordControllerImpl(new EnigmaPasswordModelImpl(ControllerName.DRAWER.getName(), "1213"), mainController));
+    }
 
     @Override
     public void reset() {
@@ -86,15 +109,5 @@ public class ControllerBuilderImpl implements ControllerBuilder {
     public ControllerMap getResult() {
         return this.controllerMap;
     }
-    
-    @Override
-    public void buildLoad() {
-       this.controllerMap.addController(new SavesController(this.mainController));
-    }
 
-    @Override
-    public void buildInventory() {
-        //TODO: remove
-        this.controllerMap.addController(new EnigmaPasswordControllerImpl(new EnigmaPasswordModelImpl(ControllerName.INVENTORY.getName(), "Matterella"), mainController));
-    }
 }

@@ -103,7 +103,7 @@ public class PickableImpl extends GameObjectImpl implements Pickable {
      * @return {@code true} if both objects are equal, {@code false} otherwise
      */
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj)
             return true;
         if (!super.equals(obj))

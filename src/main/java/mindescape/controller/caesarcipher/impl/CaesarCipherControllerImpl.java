@@ -1,14 +1,11 @@
 package mindescape.controller.caesarcipher.impl;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 import mindescape.controller.caesarcipher.api.CaesarCipherController;
 import mindescape.controller.core.api.ControllerName;
 import mindescape.controller.maincontroller.api.MainController;
 import mindescape.model.api.Model;
 import mindescape.model.enigma.caesarcipher.api.CaesarCipherModel;
-import mindescape.model.enigma.caesarcipher.impl.CaesarCipherModelImpl;
 import mindescape.view.caesarcipher.api.CaesarCipherView;
 import mindescape.view.caesarcipher.impl.CaesarCipherViewImpl;
 
@@ -18,7 +15,7 @@ import mindescape.view.caesarcipher.impl.CaesarCipherViewImpl;
 public class CaesarCipherControllerImpl implements CaesarCipherController{
 
     private final MainController mainController;
-    private final CaesarCipherModel model; 
+    private final CaesarCipherModel model;
     private final CaesarCipherView view; 
 
     /**
@@ -74,18 +71,6 @@ public class CaesarCipherControllerImpl implements CaesarCipherController{
     @Override
     public void quit() {
         this.mainController.setController(ControllerName.WORLD);
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            CaesarCipherController controller = new CaesarCipherControllerImpl(new CaesarCipherModelImpl("Caesar Cipher", 3), null);
-
-            JFrame frame = new JFrame("Caesar Cipher Test");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(400, 300);
-            frame.add(controller.getPanel());
-            frame.setVisible(true);
-        });
     }
 
     @Override

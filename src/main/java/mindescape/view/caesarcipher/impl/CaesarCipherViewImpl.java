@@ -5,7 +5,8 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -26,23 +27,29 @@ public class CaesarCipherViewImpl implements CaesarCipherView {
     private final JLabel encryptedLabel;
     private final JTextField decryptedField;
     private final JButton decryptButton;
+    private final JButton quitButton;
+
+    private final JLabel titleLabel;
+    private final JLabel resultLabel;
+    private final JLabel shiftLabel;
 
     /**
      * Constructs a {@code CaesarCipherViewImpl} with the given controller.
      *
      * @param controller the controller managing the Caesar Cipher enigma
      */
-    public CaesarCipherViewImpl(CaesarCipherController controller) {
+    public CaesarCipherViewImpl(final CaesarCipherController controller) {
         this.panel = new JPanel();
         this.panel.setLayout(new GridBagLayout());
         this.panel.setBackground(Color.DARK_GRAY);
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
 
-        JLabel titleLabel = new JLabel("Caesar Cipher", SwingConstants.CENTER);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        titleLabel = new JLabel("Caesar Cipher", SwingConstants.CENTER);
         titleLabel.setForeground(Color.WHITE);
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -50,15 +57,13 @@ public class CaesarCipherViewImpl implements CaesarCipherView {
         this.panel.add(titleLabel, gbc);
 
         encryptedLabel = new JLabel("Encrypted Text: " + controller.getEncryptedText(), SwingConstants.CENTER);
-        encryptedLabel.setFont(new Font("Arial", Font.BOLD, 14));
         encryptedLabel.setForeground(Color.WHITE);
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.gridwidth = 2;
         this.panel.add(encryptedLabel, gbc);
 
-        JLabel shiftLabel = new JLabel("Enter Shift Value: ", SwingConstants.CENTER);
-        shiftLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        shiftLabel = new JLabel("Enter Shift Value: ", SwingConstants.CENTER);
         shiftLabel.setForeground(Color.WHITE);
         gbc.gridx = 0;
         gbc.gridy = 2;
@@ -66,18 +71,21 @@ public class CaesarCipherViewImpl implements CaesarCipherView {
         this.panel.add(shiftLabel, gbc);
 
         shiftField = new JTextField(5);
-        shiftField.setFont(new Font("Arial", Font.PLAIN, 14));
         gbc.gridx = 1;
         this.panel.add(shiftField, gbc);
 
         decryptButton = new JButton("Decrypt");
+        quitButton = new JButton("Quit");
+        
         gbc.gridx = 0;
         gbc.gridy = 3;
-        gbc.gridwidth = 2;
+        gbc.gridwidth = 1;
         this.panel.add(decryptButton, gbc);
+        
+        gbc.gridx = 1;
+        this.panel.add(quitButton, gbc);
 
-        JLabel resultLabel = new JLabel("Decrypted Text: ", SwingConstants.CENTER);
-        resultLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        resultLabel = new JLabel("Decrypted Text: ", SwingConstants.CENTER);
         resultLabel.setForeground(Color.WHITE);
         gbc.gridx = 0;
         gbc.gridy = 4;
@@ -85,7 +93,6 @@ public class CaesarCipherViewImpl implements CaesarCipherView {
         this.panel.add(resultLabel, gbc);
 
         decryptedField = new JTextField(15);
-        decryptedField.setFont(new Font("Arial", Font.PLAIN, 14));
         decryptedField.setEditable(false);
         gbc.gridx = 0;
         gbc.gridy = 5;
@@ -93,6 +100,23 @@ public class CaesarCipherViewImpl implements CaesarCipherView {
         this.panel.add(decryptedField, gbc);
 
         decryptButton.addActionListener(e -> controller.handleInput(shiftField.getText()));
+        quitButton.addActionListener(e -> controller.quit());
+
+        this.panel.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                int width = panel.getWidth();
+                int fontSize = Math.max(12, width / 30);
+                titleLabel.setFont(new Font("Arial", Font.BOLD, fontSize + 6));
+                encryptedLabel.setFont(new Font("Arial", Font.PLAIN, fontSize));
+                shiftLabel.setFont(new Font("Arial", Font.PLAIN, fontSize));
+                resultLabel.setFont(new Font("Arial", Font.PLAIN, fontSize));
+                shiftField.setFont(new Font("Arial", Font.PLAIN, fontSize));
+                decryptedField.setFont(new Font("Arial", Font.PLAIN, fontSize));
+                decryptButton.setFont(new Font("Arial", Font.BOLD, fontSize));
+                quitButton.setFont(new Font("Arial", Font.BOLD, fontSize));
+            }
+        });
     }
 
     /**
@@ -109,7 +133,7 @@ public class CaesarCipherViewImpl implements CaesarCipherView {
      */
     @Override
     public JPanel getPanel() {
-        return this.panel; 
+        return this.panel;
     }
 
     /**
