@@ -7,3 +7,4 @@ public class MindEscape {
         new MainControllerImpl().start();
     }
 }
+    
