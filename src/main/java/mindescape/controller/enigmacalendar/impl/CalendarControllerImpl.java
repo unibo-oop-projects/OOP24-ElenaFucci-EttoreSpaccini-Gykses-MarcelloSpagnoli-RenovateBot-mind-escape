@@ -46,7 +46,7 @@ public class CalendarControllerImpl implements CalendarController {
      */
     @Override
     public String getName() {
-        return "Calendar";
+        return ControllerName.CALENDAR.toString();
     }
 
     /**
