@@ -3,7 +3,6 @@ package mindescape.controller.worldcontroller.impl;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.swing.JPanel;
 import mindescape.controller.core.api.ControllerName;
 import mindescape.controller.core.api.LoopController;
@@ -33,7 +32,6 @@ public class WorldController implements LoopController {
     private final WorldView worldView;
     private final MainController mainController;
     private boolean running = true;
-    private final String name = "World"; 
     private static final int FPS = 60; 
     private static final long TIME = 1_000; // 1 second in milliseconds
 
@@ -71,6 +69,7 @@ public class WorldController implements LoopController {
     private class Loop extends Thread {
         @Override
         public void run() {
+            System.out.println(world.getCurrentRoom() + "   " + world.getCurrentRoom().getName());
             final long frameTime = TIME / FPS;
             while (running) {
                 long startTime = System.currentTimeMillis();
@@ -95,7 +94,7 @@ public class WorldController implements LoopController {
 
     @Override
     public String getName() {
-        return this.name;
+        return ControllerName.WORLD.getName();
     }
 
     @Override
