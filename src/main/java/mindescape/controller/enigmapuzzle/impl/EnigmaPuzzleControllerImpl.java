@@ -87,7 +87,7 @@ public class EnigmaPuzzleControllerImpl implements ActionListener {
         // Testa l'inizializzazione della vista e del controller
         JFrame frame = new JFrame("Puzzle Game");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(5, 5);  // Imposta una dimensione iniziale per il JFrame
+        frame.getMaximumSize();  // Imposta una dimensione iniziale per il JFrame
         frame.setVisible(true);
 
         frame.add(view);

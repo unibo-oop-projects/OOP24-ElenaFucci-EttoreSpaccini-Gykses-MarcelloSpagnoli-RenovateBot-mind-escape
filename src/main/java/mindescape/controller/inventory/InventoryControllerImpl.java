@@ -7,7 +7,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import mindescape.controller.core.api.ClickableController;
+import mindescape.controller.core.api.ControllerName;
 import mindescape.controller.core.api.UserInput;
+import mindescape.controller.maincontroller.api.MainController;
 import mindescape.model.api.Model;
 import mindescape.model.inventory.api.Inventory;
 import mindescape.model.inventory.impl.InventoryImpl;
@@ -21,10 +23,12 @@ public class InventoryControllerImpl implements ClickableController {
 
     private final InventoryViewImpl view;
     private final Inventory inventory;
+    private final MainController mainController;
 
-    public InventoryControllerImpl() {
+    public InventoryControllerImpl(final MainController mainController) {
         this.inventory = new InventoryImpl();
         this.view = new InventoryViewImpl(this);
+        this.mainController = mainController;
     }
 
     @Override
@@ -47,7 +51,7 @@ public class InventoryControllerImpl implements ClickableController {
 
     @Override
     public void quit() {
-        System.out.println("Returning to the main world...");
+        this.mainController.setController(ControllerName.WORLD);
     }
 
     @Override
@@ -62,7 +66,6 @@ public class InventoryControllerImpl implements ClickableController {
 
     @Override
     public void start() {
-        // Puoi aggiungere logica per avviare il controller se necessario
     }
 
     public void addItemToInventory(Pickable pickable) {
@@ -77,7 +80,7 @@ public class InventoryControllerImpl implements ClickableController {
     
     public static void main(String[] args) {
         // Crea il controller dell'inventario senza il MainController
-        InventoryControllerImpl inventoryController = new InventoryControllerImpl();
+        InventoryControllerImpl inventoryController = new InventoryControllerImpl(null);
         
         // Crea una finestra JFrame
         JFrame frame = new JFrame("Inventario");
@@ -104,8 +107,6 @@ public class InventoryControllerImpl implements ClickableController {
         inventoryController.addItemToInventory(item1);
         inventoryController.addItemToInventory(item2);
         
-        // Simula un click su un oggetto
-        inventoryController.handleItemClick(item1);
     }
 }
 
