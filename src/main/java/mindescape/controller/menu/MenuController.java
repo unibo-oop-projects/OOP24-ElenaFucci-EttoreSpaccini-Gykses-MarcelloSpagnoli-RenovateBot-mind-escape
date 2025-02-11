@@ -1,6 +1,5 @@
 package mindescape.controller.menu;
 
-import java.util.Objects;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import mindescape.controller.core.api.ClickableController;
@@ -10,7 +9,16 @@ import mindescape.model.api.Model;
 import mindescape.view.api.View;
 import mindescape.view.menu.MenuView;
 
+/**
+ * Controller for the main menu.
+ */
 public class MenuController implements ClickableController {
+
+    private static class Options {
+        public static final String NEW_GAME = "NEW_GAME";
+        public static final String LOAD_GAME = "LOAD_GAME";
+        public static final String QUIT = "QUIT";
+    }
 
     private final static String NAME = ControllerName.MENU.getName();
     private final View menuView;
@@ -23,8 +31,7 @@ public class MenuController implements ClickableController {
     }
 
     @Override
-    public void handleInput(final Object input) throws IllegalArgumentException {
-        Objects.requireNonNull(input);
+    public void handleInput(final Object input) {
         switch ((String) input) {
             case Options.NEW_GAME -> this.newGame();
             case Options.LOAD_GAME -> this.loadGame();
@@ -43,12 +50,6 @@ public class MenuController implements ClickableController {
         return this.menuView.getPanel();
     }
 
-    private static class Options {
-        public static final String NEW_GAME = "NEW_GAME";
-        public static final String LOAD_GAME = "LOAD_GAME";
-        public static final String QUIT = "QUIT";
-    }
-
     @Override
     public void quit() {
         System.exit(0);
@@ -65,10 +66,17 @@ public class MenuController implements ClickableController {
             if (playerName.trim().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Please enter a name!", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
+                this.mainController.setController(ControllerName.INVENTORY);
+                return;
+            }
+
+            
+            //TODO: That is the right thing
+            /* else {
                 this.mainController.setPlayerName(playerName);
                 this.mainController.setController(ControllerName.WORLD);
                 return; 
-            }
+            } */
         }
     }
     
@@ -86,7 +94,7 @@ public class MenuController implements ClickableController {
 
     @Override
     public Model getModel() {
-        //TODO Auto-generated method stub
+        //TODO: Auto-generated method stub
         return null;
     }
 

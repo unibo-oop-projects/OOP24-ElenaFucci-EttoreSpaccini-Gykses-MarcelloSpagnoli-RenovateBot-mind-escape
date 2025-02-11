@@ -44,4 +44,11 @@ public interface ControllerMap {
      */
     boolean containsController(ControllerName name);
 
+    /**
+     * Returns a collection of all controllers in the map.
+     *
+     * @return a collection of all controllers in the map
+     */
+    Iterable<Controller> getControllers();
+
 }
