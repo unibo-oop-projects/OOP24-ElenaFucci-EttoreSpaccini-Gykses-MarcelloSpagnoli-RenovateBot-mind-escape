@@ -24,7 +24,7 @@ import mindescape.model.world.player.api.Player;
 public class LockedUnpickable extends GameObjectImpl implements Unpickable {
 
     private final int keyItemId;
-    private final Pickable reward;
+    private final Optional<Pickable> reward;
     private boolean unlocked;
 
     /**
@@ -38,7 +38,7 @@ public class LockedUnpickable extends GameObjectImpl implements Unpickable {
      */
     public LockedUnpickable(final String name, final Optional<Point2D> position,
                             final Dimensions dimensions, final int keyItemId,
-                            final Pickable reward) {
+                            final Optional<Pickable> reward) {
         super(position, name, dimensions);
         this.keyItemId = keyItemId;
         this.reward = reward;
@@ -61,7 +61,9 @@ public class LockedUnpickable extends GameObjectImpl implements Unpickable {
             && player.getInventory().getItems().stream()
                   .noneMatch(item -> item.equals(this.reward))) {
             this.unlocked = true;
-            player.getInventory().addItems(this.reward);
+            if (reward.isPresent()) {
+                player.getInventory().addItems(this.reward.get());
+            }
         }
     }
 

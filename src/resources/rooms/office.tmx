@@ -91,6 +91,8 @@
  <objectgroup id="5" name="Doors">
   <object id="14" name="Door" type="SimpleDoor" x="245.548" y="128" width="7.53425" height="32">
    <properties>
+    <property name="DestX" type="int" value="0"/>
+    <property name="DestY" type="int" value="0"/>
     <property name="Destination" value="canteen"/>
    </properties>
   </object>

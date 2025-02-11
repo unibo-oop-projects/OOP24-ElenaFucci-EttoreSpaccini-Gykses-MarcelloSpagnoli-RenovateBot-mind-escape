@@ -49,13 +49,14 @@ public class WorldImpl implements World, Serializable {
     @Override
     public Optional<Enigma> letPlayerInteract() {
         Optional<Enigma> enigma = Optional.empty();
-        
-        if (this.collidingObject.get() instanceof UnpickableWithEnigma) {
-            enigma = Optional.of(((UnpickableWithEnigma) this.collidingObject.get()).getEnigma());
+        if (collidingObject.isPresent()) {
+            if (this.collidingObject.get() instanceof UnpickableWithEnigma) {
+                enigma = Optional.of(((UnpickableWithEnigma) this.collidingObject.get()).getEnigma());
+            }
+            if (this.collidingObject.get() instanceof Interactable) {
+                this.player.interact((Interactable) this.collidingObject.get());
+            } 
         }
-        if (this.collidingObject.get() instanceof Interactable) {
-            this.player.interact((Interactable) this.collidingObject.get());
-        } 
         return enigma;
     }
 
@@ -63,7 +64,9 @@ public class WorldImpl implements World, Serializable {
     public boolean hasWon() {
         LockedUnpickable mirror = (LockedUnpickable) this.getRooms().stream().filter(room -> room.getName().equals("final")).findFirst().get().getGameObjects()
             .stream()
-            .filter(x -> x.getName().equals("Mirror"));
+            .filter(x -> x.getName().equals("Mirror"))
+            .findFirst()
+            .get();
 
         return mirror.isUnlocked();
     }

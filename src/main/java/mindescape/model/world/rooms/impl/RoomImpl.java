@@ -1,6 +1,7 @@
 package mindescape.model.world.rooms.impl;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -20,7 +21,7 @@ import mindescape.model.world.items.interactable.api.Pickable;
 import mindescape.model.world.player.api.Player;
 import mindescape.model.world.rooms.api.Room;
 
-public class RoomImpl implements Room {
+public class RoomImpl implements Room, Serializable {
 
     private final Dimensions dimensions;
 

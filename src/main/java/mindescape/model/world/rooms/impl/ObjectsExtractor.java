@@ -85,6 +85,10 @@ public class ObjectsExtractor {
         for (TiledObjectLayer doorLayer : doorLayers) {
             doorLayer.getObjects().forEach(object -> {
                 Optional<Point2D> position = Optional.of(new Point2D(object.getX(), object.getY()));
+                Optional<Point2D> destPosition = Optional.of(new Point2D(
+                                (int) object.getProperties().get("DestX"), 
+                                (int) object.getProperties().get("DestY"))
+                            );
                 Dimensions dimensions = new Dimensions(object.getWidth(), object.getHeight());
                 switch (object.getType()) {   
                     case "DoorLockedWithEnigma":
@@ -93,7 +97,8 @@ public class ObjectsExtractor {
                             rooms.stream()
                             .filter(x -> x.getName().equals((String) object.getProperties().get("Destination")))
                             .findFirst()
-                            .get()));
+                            .get(),
+                            destPosition));
                         break;
                     case "DoorLockedWithPickable":
                     doors.add(factory.createDoorLockedWithPickable(object.getName(), position, dimensions,
@@ -101,14 +106,16 @@ public class ObjectsExtractor {
                         rooms.stream()
                         .filter(x -> x.getName().equals((String) object.getProperties().get("Destination")))
                         .findFirst()
-                        .get()));
+                        .get(),
+                        destPosition));
                         break;
                     case "SimpleDoor":
                     doors.add(factory.createSimpleDoor(object.getName(), position, dimensions, 
                         rooms.stream()
                         .filter(x -> x.getName().equals((String) object.getProperties().get("Destination")))
                         .findFirst()
-                        .get()));
+                        .get(),
+                        destPosition));
                     default:
                         break;
                 }

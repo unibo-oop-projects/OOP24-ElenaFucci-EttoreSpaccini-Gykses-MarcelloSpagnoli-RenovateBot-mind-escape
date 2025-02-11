@@ -7,7 +7,6 @@ import mindescape.controller.core.api.LoopController;
 import mindescape.controller.core.api.UserInput;
 import mindescape.controller.maincontroller.api.MainController;
 import mindescape.model.api.Model;
-import mindescape.model.enigma.api.Enigma;
 import mindescape.model.world.api.World;
 import mindescape.model.world.core.api.Movement;
 import mindescape.view.api.WorldView;
@@ -15,6 +14,15 @@ import mindescape.view.world.WorldViewImpl;
 import java.awt.event.KeyEvent;
 
 public class WorldController implements LoopController {
+
+    private static final Map<Integer, UserInput> KEY_MAPPER = Map.of(
+        KeyEvent.VK_W, UserInput.UP,
+        KeyEvent.VK_S, UserInput.DOWN,
+        KeyEvent.VK_A, UserInput.LEFT,
+        KeyEvent.VK_D, UserInput.RIGHT,
+        KeyEvent.VK_E, UserInput.INTERACT,
+        KeyEvent.VK_I, UserInput.INVENTORY
+    );
 
     private final World world;
     private final WorldView worldView;
@@ -56,21 +64,28 @@ public class WorldController implements LoopController {
         this.running = false;
     }
 
-    private void loop() throws InterruptedException {
-        final long frameTime = TIME / FPS;
-        while (this.running) {
-            long startTime = System.currentTimeMillis();
+    private class Loop extends Thread {
+        @Override
+        public void run() {
+            final long frameTime = TIME / FPS;
+            while (running) {
+                long startTime = System.currentTimeMillis();
 
-            if (world.hasWon()) {
-                this.mainController.winning();
+                if (world.hasWon()) {
+                    mainController.winning();
+                }
+
+                long elapsedTime = System.currentTimeMillis() - startTime;
+                if (elapsedTime < frameTime) {
+                    try {
+                        Thread.sleep(frameTime - elapsedTime);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                movePlayerIfKeyPressed();
+                worldView.draw(world.getCurrentRoom());
             }
-
-            long elapsedTime = System.currentTimeMillis() - startTime;
-            if (elapsedTime < frameTime) {
-                Thread.sleep(frameTime - elapsedTime);
-            }
-
-            this.worldView.draw(this.world.getCurrentRoom());
         }
     }
 
@@ -96,10 +111,14 @@ public class WorldController implements LoopController {
 
     @Override
     public void start() {
-        try {
-            this.loop();
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
+        new Loop().start();
+    }
+
+    private void movePlayerIfKeyPressed() {
+        for (Map.Entry<Integer, Boolean> entry : worldView.getKeyState().entrySet()) {
+            if (entry.getValue()) { // Se il tasto è premuto
+                handleInput(KEY_MAPPER.get(entry.getKey()));
+            }
         }
     }
 }
