@@ -63,7 +63,7 @@ public class InventoryControllerImpl implements ClickableController {
      */
     @Override
     public String getName() {
-        return "INVENTORY";
+        return ControllerName.INVENTORY.getName();
     }
 
     /**

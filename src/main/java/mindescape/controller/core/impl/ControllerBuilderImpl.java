@@ -1,11 +1,14 @@
 package mindescape.controller.core.impl;
 
+import java.awt.Image;
+import javax.swing.ImageIcon;
 import mindescape.controller.caesarcipher.impl.CaesarCipherControllerImpl;
 import mindescape.controller.core.api.ControllerBuilder;
 import mindescape.controller.core.api.ControllerMap;
 import mindescape.controller.core.api.ControllerName;
 import mindescape.controller.enigmacalendar.impl.CalendarControllerImpl;
 import mindescape.controller.enigmapassword.impl.EnigmaPasswordControllerImpl;
+import mindescape.controller.enigmapuzzle.impl.EnigmaPuzzleControllerImpl;
 import mindescape.controller.inventory.InventoryControllerImpl;
 import mindescape.controller.maincontroller.api.MainController;
 import mindescape.controller.menu.MenuController;
@@ -13,6 +16,7 @@ import mindescape.controller.saveload.SavesController;
 import mindescape.controller.worldcontroller.impl.WorldController;
 import mindescape.model.enigma.caesarcipher.impl.CaesarCipherModelImpl;
 import mindescape.model.enigma.enigmapassword.impl.EnigmaPasswordModelImpl;
+import mindescape.model.enigma.enigmapuzzle.impl.EnigmaPuzzleModelImpl;
 import mindescape.model.world.api.World;
 import mindescape.model.world.impl.WorldImpl;
 
@@ -36,7 +40,8 @@ public class ControllerBuilderImpl implements ControllerBuilder {
 
     @Override
     public void buildPuzzle() {
-        // this.controllerMap.addController(new EnigmaPuzzleControllerImpl(this.mainController));
+        final Image image = new ImageIcon(getClass().getClassLoader().getResource("images/puzzle.jpg")).getImage();        
+        this.controllerMap.addController(new EnigmaPuzzleControllerImpl(new EnigmaPuzzleModelImpl(5, 5, image, ControllerName.PUZZLE.getName()), this.mainController));
     }
 
     @Override
@@ -69,16 +74,6 @@ public class ControllerBuilderImpl implements ControllerBuilder {
     public void buildExistingWorld(final World world) {
         this.controllerMap.addController(new WorldController(world, mainController));
     }
-
-    @Override
-    public void reset() {
-        this.controllerMap.clear();
-    }
-
-    @Override
-    public ControllerMap getResult() {
-        return this.controllerMap;
-    }
     
     @Override
     public void buildLoad() {
@@ -93,5 +88,15 @@ public class ControllerBuilderImpl implements ControllerBuilder {
     @Override
     public void buildDrawer() {
         this.controllerMap.addController(new EnigmaPasswordControllerImpl(new EnigmaPasswordModelImpl(ControllerName.DRAWER.getName(), "1213"), mainController));
+    }
+
+    @Override
+    public void reset() {
+        this.controllerMap.clear();
+    }
+
+    @Override
+    public ControllerMap getResult() {
+        return this.controllerMap;
     }
 }
