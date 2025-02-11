@@ -12,10 +12,9 @@ import mindescape.model.inventory.api.Inventory;
 import mindescape.model.inventory.impl.InventoryImpl;
 import mindescape.model.world.items.interactable.api.Interactable;
 
-
 public class PlayerImpl extends GameObjectImpl implements Player{
 
-    private final Inventory inventory = new InventoryImpl();
+    private final Inventory inventory;
     private Room currentRoom;
 
 
@@ -30,6 +29,7 @@ public class PlayerImpl extends GameObjectImpl implements Player{
     public PlayerImpl(Optional<Point2D> position, String name, Dimensions dimensions, Room currentRoom) {
             super(position, name, dimensions);
             this.currentRoom = currentRoom;
+            this.inventory = new InventoryImpl();
     }
 
     /**

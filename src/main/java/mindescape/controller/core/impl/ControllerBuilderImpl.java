@@ -91,8 +91,8 @@ public class ControllerBuilderImpl implements ControllerBuilder {
     }
 
     @Override
-    public void buildInventory() {
-        this.controllerMap.addController(new InventoryControllerImpl(mainController));
+    public void buildInventory(final World world) {
+        this.controllerMap.addController(new InventoryControllerImpl(world.getPlayer().getInventory(), mainController));
     }
 
     @Override
@@ -109,4 +109,5 @@ public class ControllerBuilderImpl implements ControllerBuilder {
     public ControllerMap getResult() {
         return this.controllerMap;
     }
+
 }

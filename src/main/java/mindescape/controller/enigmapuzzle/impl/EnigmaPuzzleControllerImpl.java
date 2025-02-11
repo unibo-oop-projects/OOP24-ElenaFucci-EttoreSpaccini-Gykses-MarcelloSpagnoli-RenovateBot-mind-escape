@@ -68,6 +68,9 @@ public class EnigmaPuzzleControllerImpl implements ActionListener, EnigmaPuzzleC
 
             firstButton = null;
         }
+        if (model.isSolved()) {
+            this.quit();
+        }
     }
 
     /**
@@ -121,7 +124,7 @@ public class EnigmaPuzzleControllerImpl implements ActionListener, EnigmaPuzzleC
     public void handleInput(Object input) throws IllegalArgumentException, NullPointerException {
         // Handle input (to be implemented if needed)
     }
-
+    
     @Override
     public void quit() {
         this.mainController.setController(ControllerName.WORLD);
