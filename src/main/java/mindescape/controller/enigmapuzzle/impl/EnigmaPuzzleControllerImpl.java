@@ -1,4 +1,5 @@
 package mindescape.controller.enigmapuzzle.impl;
+
 import mindescape.view.enigmapuzzle.impl.ImageButton;
 
 import java.awt.Image;
@@ -9,25 +10,32 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import mindescape.model.api.Model;
 import mindescape.model.enigma.enigmapuzzle.impl.EnigmaPuzzleModelImpl;
 import mindescape.view.enigmapuzzle.impl.EnigmaPuzzleViewImpl;
+import mindescape.controller.core.api.ControllerName;
+import mindescape.controller.enigmapuzzle.api.EnigmaPuzzleController;
+import mindescape.controller.maincontroller.api.MainController;
 
-public class EnigmaPuzzleControllerImpl implements ActionListener {
+public class EnigmaPuzzleControllerImpl implements ActionListener, EnigmaPuzzleController {
 
     private final EnigmaPuzzleModelImpl model;
-    private final EnigmaPuzzleViewImpl view;
+    private EnigmaPuzzleViewImpl view;
     private ImageButton firstButton = null;
-
+    private final MainController mainController;
     /**
-     * Constructs an EnigmaPuzzleControllerImpl with the specified model and view.
+     * Constructs an EnigmaPuzzleControllerImpl with the specified model.
      *
      * @param model the model implementation for the enigma puzzle
-     * @param view the view implementation for the enigma puzzle
      */
-    public EnigmaPuzzleControllerImpl(EnigmaPuzzleModelImpl model, EnigmaPuzzleViewImpl view) {
+    public EnigmaPuzzleControllerImpl(EnigmaPuzzleModelImpl model, MainController mainController) {
         this.model = model;
-        this.view = view;
+        this.view = new EnigmaPuzzleViewImpl(model.getRows(), model.getCols());  // Create the view with rows and cols
+        this.view.setController(this);  // Set the controller for the view
+        this.mainController = mainController;
+        this.updateView();  // Initialize the view
     }
+
     /**
      * Handles the action event triggered when an image button is clicked.
      * This method determines the index of the clicked button and its position
@@ -42,7 +50,7 @@ public class EnigmaPuzzleControllerImpl implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         ImageButton clickedButton = (ImageButton) e.getSource();
-        
+
         int clickedIndex = view.getButtons().indexOf(clickedButton);
         int row = clickedIndex / model.getCols();
         int col = clickedIndex % model.getCols();
@@ -53,9 +61,9 @@ public class EnigmaPuzzleControllerImpl implements ActionListener {
             int firstIndex = view.getButtons().indexOf(firstButton);
             int firstRow = firstIndex / model.getCols();
             int firstCol = firstIndex % model.getCols();
-            
+
             model.swapPieces(firstRow, firstCol, row, col);
-            
+
             updateView();
 
             firstButton = null;
@@ -75,11 +83,10 @@ public class EnigmaPuzzleControllerImpl implements ActionListener {
                 button.setImage(model.getPiece(i, j));
             }
         }
-        
+
         view.revalidate();
         view.repaint();
     }
-    
 
     /**
      * Retrieves the name from the model.
@@ -87,32 +94,50 @@ public class EnigmaPuzzleControllerImpl implements ActionListener {
      * @return the name as a String.
      */
     public String getName() {
-        return this.model.getName(); 
+        return this.model.getName();
     }
 
     public JPanel getPanel() {
-        return this.view.getPanel(); 
+        return this.view.getPanel();
     }
 
     public static void main(String[] args) {
-        Image image = new ImageIcon("C:\\\\Users\\\\Elena\\\\Desktop\\\\MVC\\\\puzzlegame\\\\mattarella.jpg").getImage();  // Carica l'immagine
+        Image image = new ImageIcon("C:\\\\Users\\\\Elena\\\\Desktop\\\\MVC\\\\puzzlegame\\\\mattarella.jpg").getImage();  // Load the image
         EnigmaPuzzleModelImpl model = new EnigmaPuzzleModelImpl(3, 3, image, "Puzzle Game");
-        EnigmaPuzzleViewImpl view = new EnigmaPuzzleViewImpl(3, 3);  // Non passiamo il model alla view
-        EnigmaPuzzleControllerImpl controller = new EnigmaPuzzleControllerImpl(model, view);
+        EnigmaPuzzleControllerImpl controller = new EnigmaPuzzleControllerImpl(model, null);  // Pass the
 
-        // Associa il controller alla view
-        view.setController(controller);
-
-        controller.updateView(); // Inizializza la vista
-
-        // Testa l'inizializzazione della vista e del controller
+        // Test the initialization of the view and controller
         JFrame frame = new JFrame("Puzzle Game");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getMaximumSize();  // Imposta una dimensione iniziale per il JFrame
-        frame.setVisible(true);
+        frame.setSize(500, 400);  // Set an initial size for the JFrame
+        frame.setLocationRelativeTo(null);
 
-        frame.add(view);
+        frame.add(controller.getPanel());
         frame.pack();
         frame.setVisible(true);
     }
+
+    @Override
+    public void handleInput(Object input) throws IllegalArgumentException, NullPointerException {
+        // Handle input (to be implemented if needed)
+    }
+
+    @Override
+    public void quit() {
+        this.mainController.setController(ControllerName.WORLD);
+    }
+
+    @Override
+    public boolean canSave() {
+        return true;
+    }
+
+    @Override
+    public Model getModel() {
+        return null;  // Return the model (to be implemented as needed)
+    }
+
+    @Override
+    public void start() {    }
 }
+
