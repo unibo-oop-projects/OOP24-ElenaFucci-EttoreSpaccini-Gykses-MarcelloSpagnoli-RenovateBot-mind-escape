@@ -114,7 +114,7 @@ public class MainControllerImpl implements MainController {
                     this.controllerBuilder.buildMenu();
                     break;
                 case INVENTORY:
-                    this.controllerBuilder.buildInventory();
+                    this.controllerBuilder.buildInventory((World) this.controllerMap.findController(ControllerName.WORLD).getModel());
                     break;
                 case LOAD:
                     this.controllerBuilder.buildLoad();

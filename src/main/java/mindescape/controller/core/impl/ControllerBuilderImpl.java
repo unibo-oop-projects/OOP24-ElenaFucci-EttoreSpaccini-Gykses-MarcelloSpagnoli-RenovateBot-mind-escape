@@ -40,8 +40,10 @@ public class ControllerBuilderImpl implements ControllerBuilder {
 
     @Override
     public void buildPuzzle() {
-        final Image image = new ImageIcon(getClass().getClassLoader().getResource("images/puzzle.jpg")).getImage();        
-        this.controllerMap.addController(new EnigmaPuzzleControllerImpl(new EnigmaPuzzleModelImpl(5, 5, image, ControllerName.PUZZLE.getName()), this.mainController));
+        //TODO: fix that image
+        // final Image image = new ImageIcon(getClass().getClassLoader().getResource("images/puzzle.jpg")).getImage();        
+        final Image image = new ImageIcon("/Users/greppifilippo/oop/projet/OOP24-mind-escape/src/resources/enigma/images/puzzle.jpg").getImage();
+        this.controllerMap.addController(new EnigmaPuzzleControllerImpl(new EnigmaPuzzleModelImpl(3, 3, image, ControllerName.PUZZLE.getName()), this.mainController));
     }
 
     @Override
@@ -81,8 +83,8 @@ public class ControllerBuilderImpl implements ControllerBuilder {
     }
 
     @Override
-    public void buildInventory() {
-        this.controllerMap.addController(new InventoryControllerImpl(mainController));
+    public void buildInventory(final World world) {
+        this.controllerMap.addController(new InventoryControllerImpl(world.getPlayer().getInventory(), mainController));
     }
 
     @Override
@@ -99,4 +101,5 @@ public class ControllerBuilderImpl implements ControllerBuilder {
     public ControllerMap getResult() {
         return this.controllerMap;
     }
+
 }
