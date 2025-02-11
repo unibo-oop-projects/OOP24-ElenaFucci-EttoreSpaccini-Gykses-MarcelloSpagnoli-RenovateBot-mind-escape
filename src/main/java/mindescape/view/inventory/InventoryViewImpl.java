@@ -10,6 +10,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.Set;
 
 public class InventoryViewImpl implements View {
@@ -55,6 +58,14 @@ public class InventoryViewImpl implements View {
                 int width = panel.getWidth();
                 int fontSize = Math.max(10, width / 30);
                 updateFontSizes(fontSize);
+            }
+        });
+
+        panel.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                int pressed = e.getKeyCode();
+                controller.handleInput(pressed);
             }
         });
 

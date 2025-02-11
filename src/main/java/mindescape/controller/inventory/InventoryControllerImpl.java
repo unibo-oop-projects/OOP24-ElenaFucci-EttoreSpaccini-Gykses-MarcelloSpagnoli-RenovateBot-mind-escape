@@ -1,5 +1,6 @@
 package mindescape.controller.inventory;
 
+import java.awt.event.KeyEvent;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -51,7 +52,7 @@ public class InventoryControllerImpl implements ClickableController {
     @Override
     public void handleInput(Object input) throws IllegalArgumentException, NullPointerException {
         Objects.requireNonNull(input);
-        if ((UserInput)input == UserInput.INVENTORY) {
+        if ((int) input == KeyEvent.VK_I) {
             this.quit();                                 
         }
     }
