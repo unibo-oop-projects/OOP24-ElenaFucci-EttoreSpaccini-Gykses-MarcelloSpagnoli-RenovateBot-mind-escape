@@ -82,7 +82,7 @@
   </object>
   <object id="11" name="Chair" type="NonInteractableImpl" x="48.2877" y="144.521" width="15.411" height="28.0822"/>
   <object id="13" name="Armchair" type="NonInteractableImpl" x="184.589" y="181.507" width="22.2603" height="41.7808"/>
-  <object id="15" name="Torch" type="Pickable" gid="1607" x="143.643" y="239.904" width="16" height="16">
+  <object id="15" name="Torch" type="Pickable" gid="1607" x="144" y="240" width="16" height="16">
    <properties>
     <property name="ID" type="int" value="3"/>
    </properties>

@@ -104,11 +104,11 @@ public class ObjectsExtractor {
                         .get()));
                         break;
                     case "SimpleDoor":
-                        factory.createSimpleDoor(object.getName(), position, dimensions, 
+                    doors.add(factory.createSimpleDoor(object.getName(), position, dimensions, 
                         rooms.stream()
                         .filter(x -> x.getName().equals((String) object.getProperties().get("Destination")))
                         .findFirst()
-                        .get());
+                        .get()));
                     default:
                         break;
                 }
