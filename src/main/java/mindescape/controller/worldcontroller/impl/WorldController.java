@@ -1,19 +1,19 @@
 package mindescape.controller.worldcontroller.impl;
 
-import java.util.Map;
 import javax.swing.JPanel;
 import mindescape.controller.core.api.ControllerName;
 import mindescape.controller.core.api.LoopController;
 import mindescape.controller.core.api.UserInput;
 import mindescape.controller.maincontroller.api.MainController;
 import mindescape.model.api.Model;
-import mindescape.model.enigma.api.Enigma;
 import mindescape.model.world.api.World;
 import mindescape.model.world.core.api.Movement;
 import mindescape.view.api.WorldView;
 import mindescape.view.world.WorldViewImpl;
-import java.awt.event.KeyEvent;
 
+/**
+ * Implementation of the WorldController.
+ */
 public class WorldController implements LoopController {
 
     private final World world;

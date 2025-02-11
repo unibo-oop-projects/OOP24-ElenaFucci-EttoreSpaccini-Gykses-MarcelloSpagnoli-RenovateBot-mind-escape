@@ -56,9 +56,9 @@ public class SavesController implements ClickableController {
     private void load(final File saveFile) {
         try {
             var saveData = SaveManager.loadGameStatus(saveFile);
-            mainController.loadGame(saveData);
+            this.mainController.loadGame(saveData);
         } catch (NullPointerException | IllegalArgumentException e) {
-            // mainController.newGame();
+            this.mainController.setController(ControllerName.WORLD);
         }
     }
 

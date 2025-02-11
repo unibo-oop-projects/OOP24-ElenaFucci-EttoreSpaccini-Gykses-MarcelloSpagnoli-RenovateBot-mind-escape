@@ -18,6 +18,10 @@ import mindescape.view.main.MainViewImpl;
  * Implementation of the MainController interface.
  */
 public class MainControllerImpl implements MainController {
+    //TODO: remove
+    public static final String RESET = "\u001B[0m"; // Reset color
+    public static final String RED = "\u001B[31m"; // Red color
+    public static final String GREEN = "\u001B[32m"; // Green color
     
     private Controller currentController;
     private ControllerMap controllerMap;
@@ -46,13 +50,14 @@ public class MainControllerImpl implements MainController {
             this.controllerMap = this.buildController(controllerName);
             this.currentController = this.controllerMap.findController(controllerName);
         }
+
         /**
          * TODO: remove this
          * DEBUG: print the current controller and all the controllers in the map
          */
         System.out.println("Current controller: " + this.currentController.getName());
-        System.out.print("TUTTI I CONTROLLER NELLA MAPPA SONO: ");
-        this.controllerMap.getControllers().forEach(controller -> System.out.println(controller.getName() + " "));
+        System.out.print(RED + "TUTTI I CONTROLLER NELLA MAPPA SONO: " + RESET);
+        this.controllerMap.getControllers().forEach(controller -> System.out.print(controller.getName() + " "));
 
         this.mainView.setPanel(this.currentController.getPanel());
         this.currentController.start();
