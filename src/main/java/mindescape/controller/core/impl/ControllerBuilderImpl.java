@@ -1,9 +1,7 @@
 package mindescape.controller.core.impl;
 
 import java.awt.Image;
-
 import javax.swing.ImageIcon;
-
 import mindescape.controller.caesarcipher.impl.CaesarCipherControllerImpl;
 import mindescape.controller.core.api.ControllerBuilder;
 import mindescape.controller.core.api.ControllerMap;
