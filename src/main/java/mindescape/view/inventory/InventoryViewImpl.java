@@ -93,11 +93,13 @@ public class InventoryViewImpl implements View {
         inventoryPanel.removeAll();
         for (Pickable item : items) {
             JButton itemButton = new JButton(item.getName());
+            itemButton.setFocusable(false);
             itemButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     controller.handleItemClick(item);
                 }
+
             });
 
             inventoryPanel.add(itemButton);
