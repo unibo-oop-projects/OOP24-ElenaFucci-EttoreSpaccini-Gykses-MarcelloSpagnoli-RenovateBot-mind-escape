@@ -23,8 +23,9 @@ import mindescape.model.world.player.api.Player;
  */
 public class LockedUnpickable extends GameObjectImpl implements Unpickable {
 
-    private final int keyItem_id;
-    private final Pickable reward; 
+    private final int keyItemId;
+    private final Pickable reward;
+    private boolean unlocked;
 
     /**
      * Constructs a locked unpickable object.
@@ -32,15 +33,16 @@ public class LockedUnpickable extends GameObjectImpl implements Unpickable {
      * @param name       the name of the unpickable object
      * @param position   the optional position of the object in the game world
      * @param dimensions the dimensions of the unpickable object
-     * @param keyItem    the pickable item required to unlock the object
+     * @param keyItemId  the ID of the pickable item required to unlock the object
      * @param reward     the pickable item rewarded after unlocking
      */
     public LockedUnpickable(final String name, final Optional<Point2D> position,
-                             final Dimensions dimensions, final int keyItem_id,
-                             final Pickable reward) {
+                            final Dimensions dimensions, final int keyItemId,
+                            final Pickable reward) {
         super(position, name, dimensions);
-        this.keyItem_id = keyItem_id;
+        this.keyItemId = keyItemId;
         this.reward = reward;
+        this.unlocked = false;
     }
 
     /**
@@ -53,21 +55,22 @@ public class LockedUnpickable extends GameObjectImpl implements Unpickable {
      */
     @Override
     public void onAction(final Player player) {
-        if (this.isUnlocked(player)) {
+        if (player.getInventory().getItems().stream()
+                  .map(Pickable::getId)
+                  .anyMatch(id -> id.equals(this.keyItemId))
+            && player.getInventory().getItems().stream()
+                  .noneMatch(item -> item.equals(this.reward))) {
+            this.unlocked = true;
             player.getInventory().addItems(this.reward);
         }
     }
 
     /**
-     * Checks if the unpickable object is unlocked by verifying if the player
-     * has the required item in their inventory.
+     * Checks if the item is unlocked.
      *
-     * @param player the player whose inventory is checked
-     * @return {@code true} if the player has the required item, {@code false} otherwise
+     * @return {@code true} if the item is unlocked, {@code false} otherwise.
      */
-    private boolean isUnlocked(final Player player) {
-        return player.getInventory().getItems().stream()
-                     .map(Pickable::getId)
-                     .anyMatch(id -> id.equals(this.keyItem_id));
+    public boolean isUnlocked() {
+        return this.unlocked;
     }
 }
