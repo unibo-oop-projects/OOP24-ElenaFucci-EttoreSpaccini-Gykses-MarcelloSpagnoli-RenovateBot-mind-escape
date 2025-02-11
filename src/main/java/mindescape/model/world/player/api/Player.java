@@ -20,10 +20,25 @@ public interface Player extends Movable {
      */
     boolean interact(Interactable interactable);
 
+    /**
+     * Sets the current room for the player.
+     *
+     * @param room the room to set as the current room
+     */
     void setCurrentRoom(Room room);
 
+    /**
+     * Retrieves the current room the player is in.
+     *
+     * @return the current Room object where the player is located.
+     */
     Room getCurrentRoom();
 
+    /**
+     * Retrieves the player's inventory.
+     *
+     * @return the inventory of the player
+     */
     Inventory getInventory(); 
 
 }
