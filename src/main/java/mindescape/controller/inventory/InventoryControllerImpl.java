@@ -134,6 +134,7 @@ public class InventoryControllerImpl implements ClickableController {
         String description = item.getDescription();
         this.view.updateDescription(description);
     }
+
     
     public static void main(String[] args) {
         // Crea il controller dell'inventario senza il MainController
@@ -163,7 +164,6 @@ public class InventoryControllerImpl implements ClickableController {
         
         inventoryController.addItemToInventory(item1);
         inventoryController.addItemToInventory(item2);
-        
     }
 }
 

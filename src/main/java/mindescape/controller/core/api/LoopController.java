@@ -11,10 +11,5 @@ public interface LoopController extends Controller {
      */
     void quit();
 
-    /**
-     * Add input to the queue
-     * @param input
-     */
-    void processInput(UserInput input);
 
 }

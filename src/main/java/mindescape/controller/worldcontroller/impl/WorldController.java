@@ -1,13 +1,8 @@
 package mindescape.controller.worldcontroller.impl;
 
-import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.LinkedBlockingQueue;
 
 import javax.swing.JPanel;
-
-import org.w3c.dom.events.Event;
-
 import mindescape.controller.core.api.ControllerName;
 import mindescape.controller.core.api.LoopController;
 import mindescape.controller.core.api.UserInput;
@@ -37,7 +32,6 @@ public class WorldController implements LoopController {
     private final String name = "World"; 
     private static final int FPS = 60; 
     private static final long TIME = 1_000; // 1 second in milliseconds
-    private final LinkedBlockingQueue<UserInput> queue = new LinkedBlockingQueue<>();
 
     /**
      * Constructs a new WorldController with the specified world, world view, and the reference to the main controller.
@@ -52,21 +46,16 @@ public class WorldController implements LoopController {
         this.mainController = mainController;
     }
 
-    
-
     @Override
     public void handleInput(final Object input) {
-        if (input != null) {
-            switch ((UserInput) input) {
-                case UP -> this.world.movePlayer(Movement.UP);
-                case DOWN -> this.world.movePlayer(Movement.DOWN);
-                case LEFT -> this.world.movePlayer(Movement.LEFT);
-                case RIGHT -> this.world.movePlayer(Movement.RIGHT);
-                case INTERACT -> this.world.letPlayerInteract().ifPresent(enigma -> 
-                    this.mainController.setController(ControllerName.fromString(enigma.getName())));
-                case INVENTORY -> this.mainController.setController(ControllerName.INVENTORY);
-                default -> throw new IllegalArgumentException("Unknown input: " + input);
-            }
+        switch ((UserInput) input) {
+            case UP -> this.world.movePlayer(Movement.UP);
+            case DOWN -> this.world.movePlayer(Movement.DOWN);
+            case LEFT -> this.world.movePlayer(Movement.LEFT);
+            case RIGHT -> this.world.movePlayer(Movement.RIGHT);
+            case INTERACT -> interactAction();
+            case INVENTORY ->  inventoryAction();
+            default -> throw new IllegalArgumentException("Unknown input: " + input);
         }
     }
 
@@ -94,7 +83,7 @@ public class WorldController implements LoopController {
                         e.printStackTrace();
                     }
                 }
-                handleInput(queue.poll());
+                movePlayerIfKeyPressed();
                 worldView.draw(world.getCurrentRoom());
             }
         }
@@ -127,13 +116,22 @@ public class WorldController implements LoopController {
     }
 
     private void movePlayerIfKeyPressed() {
-    
+        for (Map.Entry<Integer, Boolean> entry : worldView.getKeyState().entrySet()) {
+            if (entry.getValue()) { // Se il tasto è premuto
+                handleInput(KEY_MAPPER.get(entry.getKey()));
+                return;
+            }
+        }
     }
 
+    private void interactAction() {
+        worldView.clearInput();
+        this.world.letPlayerInteract().ifPresent(enigma -> 
+        this.mainController.setController(ControllerName.fromString(enigma.getName())));
+    }
 
-
-    @Override
-    public void processInput(UserInput input) {
-        queue.add(input);
+    private void inventoryAction() {
+        worldView.clearInput();
+        this.mainController.setController(ControllerName.INVENTORY);
     }
 }

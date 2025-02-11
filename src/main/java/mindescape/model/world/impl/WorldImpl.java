@@ -28,7 +28,7 @@ public class WorldImpl implements World, Serializable {
     private final static long serialVersionUID = 1L;
     private final Player player;
     private final List<Room> rooms;
-    // private Room currentRoom;
+    //private Room currentRoom;
     private final transient CollisionDetector collisionDetector;
     private transient Optional<GameObject> collidingObject;
     

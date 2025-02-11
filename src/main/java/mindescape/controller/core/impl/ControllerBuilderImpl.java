@@ -1,6 +1,10 @@
 package mindescape.controller.core.impl;
 
 import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import mindescape.controller.caesarcipher.impl.CaesarCipherControllerImpl;
 import mindescape.controller.core.api.ControllerBuilder;
@@ -40,9 +44,15 @@ public class ControllerBuilderImpl implements ControllerBuilder {
 
     @Override
     public void buildPuzzle() {
-        final Image image = new ImageIcon(getClass().getClassLoader().getResource("images/puzzle.jpg")).getImage();        
-        this.controllerMap.addController(new EnigmaPuzzleControllerImpl(new EnigmaPuzzleModelImpl(5, 5, image, ControllerName.PUZZLE.getName()), this.mainController));
+        Image image;
+        try {
+            image = ImageIO.read(new File("src/resources/puzzle/Presidente_Sergio_Mattarella.jpg"));
+            this.controllerMap.addController(new EnigmaPuzzleControllerImpl(new EnigmaPuzzleModelImpl(5, 5, image, ControllerName.PUZZLE.getName()), this.mainController));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+        
 
     @Override
     public void buildEnigmaFirstDoor() {
