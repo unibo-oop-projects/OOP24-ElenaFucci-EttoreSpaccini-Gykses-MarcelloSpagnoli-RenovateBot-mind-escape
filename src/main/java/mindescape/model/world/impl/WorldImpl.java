@@ -28,13 +28,13 @@ public class WorldImpl implements World, Serializable {
     private final static long serialVersionUID = 1L;
     private final Player player;
     private final List<Room> rooms;
-    private Room currentRoom;
+    // private Room currentRoom;
     private final transient CollisionDetector collisionDetector;
     private transient Optional<GameObject> collidingObject;
     
     public WorldImpl(final String username) {
         this.rooms = RoomImpl.createRooms();
-        this.currentRoom = rooms.stream().filter(x -> x.getName().equals("bedroom")).findFirst().get();
+        var currentRoom = rooms.stream().filter(x -> x.getName().equals("bedroom")).findFirst().get();
         this.player = new PlayerImpl(Optional.of(new Point2D(110, 170)), "Player", Dimensions.TILE, currentRoom);
         currentRoom.addGameObject(player);
         this.collisionDetector = new CollisionDetectorImpl();
@@ -70,7 +70,7 @@ public class WorldImpl implements World, Serializable {
 
     @Override
     public Room getCurrentRoom() {
-        return this.currentRoom;
+        return this.player.getCurrentRoom();
     }
 
     @Override
@@ -86,7 +86,7 @@ public class WorldImpl implements World, Serializable {
         // check if the player is colliding with any object in the room before moving
         var playerPosition = this.player.getPosition().get();
         var position = new Point2D(playerPosition.x() + movement.getX(), playerPosition.y() + movement.getY());
-        var collidingObject = this.collisionDetector.collisions(position, this.player.getDimensions(), this.currentRoom.getGameObjects());
+        var collidingObject = this.collisionDetector.collisions(position, this.player.getDimensions(), this.getCurrentRoom().getGameObjects());
 
         if (collidingObject.isEmpty()) {
             this.player.move(movement);
