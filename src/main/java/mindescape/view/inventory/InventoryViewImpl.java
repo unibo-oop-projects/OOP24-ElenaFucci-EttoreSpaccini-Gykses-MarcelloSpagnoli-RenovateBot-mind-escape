@@ -1,66 +1,111 @@
 package mindescape.view.inventory;
 
-import mindescape.view.api.View;
-import mindescape.model.inventory.api.Inventory;
+import mindescape.controller.inventory.InventoryControllerImpl;
 import mindescape.model.world.items.interactable.api.Pickable;
+import mindescape.view.api.View;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.util.Set;
 
 public class InventoryViewImpl implements View {
 
-    private final JPanel inventoryPanel;
-    private final JTextArea descriptionArea;
-    private final JPanel buttonPanel;
-    private final Inventory inventory;
+    private final InventoryControllerImpl controller;
+    private JPanel panel;
+    private JPanel inventoryPanel;
+    private JTextArea descriptionArea;
 
-    public InventoryViewImpl(final Inventory inventory) {
-        this.inventory = inventory;
-
+    public InventoryViewImpl(InventoryControllerImpl controller) {
+        this.controller = controller;
+        this.panel = new JPanel(new BorderLayout());
         this.inventoryPanel = new JPanel();
-        this.inventoryPanel.setLayout(new BorderLayout());
+        inventoryPanel.setLayout(new BoxLayout(inventoryPanel, BoxLayout.Y_AXIS)); // Layout verticale per i bottoni
+        this.descriptionArea = new JTextArea(5, 20);
+        this.descriptionArea.setEditable(false);
 
-        this.buttonPanel = new JPanel();
-        this.buttonPanel.setLayout(new FlowLayout());
-        this.inventoryPanel.add(buttonPanel, BorderLayout.NORTH);
+        // Impostiamo un testo di default per la descrizione
+        this.descriptionArea.setText("");
 
-        descriptionArea = new JTextArea(5, 20);
-        descriptionArea.setEditable(false);
+        // Creiamo un pannello che include i bottoni e la JTextArea
+        JPanel contentPanel = new JPanel(new BorderLayout());
+
+        // Aggiungiamo il pannello dei bottoni dell'inventario
+        contentPanel.add(inventoryPanel, BorderLayout.CENTER);
+
+        // Aggiungiamo l'area di descrizione
         JScrollPane scrollPane = new JScrollPane(descriptionArea);
-        this.inventoryPanel.add(scrollPane, BorderLayout.SOUTH);
+        contentPanel.add(scrollPane, BorderLayout.SOUTH);
+
+        panel.add(contentPanel, BorderLayout.CENTER);
+
+        // Aggiungiamo un listener per ridimensionare il contenuto
+        panel.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                int width = panel.getWidth();
+                // Impostiamo una dimensione del font dinamica in base alla larghezza del pannello
+                int fontSize = Math.max(10, width / 30);  // La dimensione minima del font è 14
+                updateFontSizes(fontSize); // Aggiorna la dimensione del font
+            }
+        });
+
+        // Imposta una dimensione iniziale per il pannello
+        panel.setPreferredSize(new Dimension(600, 400)); 
     }
 
-    
-    private void start() {
-        this.buttonPanel.removeAll();
-        this.buttonPanel.revalidate();
-        this.buttonPanel.repaint();
+    public JPanel getPanel() {
+        return panel;
+    }
+
+    public void updateInventoryButtons(Set<Pickable> items) {
+        inventoryPanel.removeAll();  // Pulisce i bottoni precedenti
+        for (Pickable item : items) {
+            JButton itemButton = new JButton(item.getName());  // Usa il nome dell'oggetto come testo del bottone
+            itemButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    controller.handleItemClick(item); // Quando clicchi sul bottone, richiami il controller
+                }
+            });
+
+            inventoryPanel.add(itemButton);  // Aggiungi il bottone al pannello
+        }
+
+        // Applichiamo subito il ridimensionamento del font in base alla larghezza iniziale
+        int width = panel.getWidth();
+        int fontSize = Math.max(10, width / 30);
+        updateFontSizes(fontSize); // Applica la dimensione del font appena aggiunti i bottoni
+
+        inventoryPanel.revalidate();
+        inventoryPanel.repaint();
+    }
+
+    public void updateDescription(String description) {
+        descriptionArea.setText(description);  // Mostra la descrizione nell'area di testo
+    }
+
+    // Metodo per aggiornare la dimensione del font per tutti i bottoni e la JTextArea
+    private void updateFontSizes(int fontSize) {
+        for (Component comp : inventoryPanel.getComponents()) {
+            if (comp instanceof JButton) {
+                JButton button = (JButton) comp;
+                button.setFont(new Font("Arial", Font.PLAIN, fontSize)); // Imposta il font per il bottone
+            }
+        }
+        // Impostiamo il font anche per la JTextArea
+        descriptionArea.setFont(new Font("Arial", Font.PLAIN, fontSize)); 
     }
 
     @Override
     public void draw() {
-        // Ogni volta che l'inventario cambia, aggiorniamo la view
-
-        final Set<Pickable> items = inventory.getItems();
-        this.buttonPanel.removeAll();  // Pulisce i pulsanti esistenti (così non duplicano)
-
-        // Aggiungiamo un pulsante per ogni oggetto nell'inventario
-        for (final Pickable item : items) {
-            final JButton button = new JButton(item.getName());
-            button.addActionListener(e -> showItemDescription(item));  
-            buttonPanel.add(button);
-        }
-
-        // Rende visibili i nuovi pulsanti e la disposizione aggiornata
-        buttonPanel.revalidate();  // Rende visibile la nuova disposizione dei pulsanti
-        buttonPanel.repaint();     // Rende visibile il cambiamento
-    }
-
-    private void showItemDescription(final Pickable item) {
-        descriptionArea.setText(item.getDescription());
-    }
-    @Override
-    public JPanel getPanel() {
-        return this.inventoryPanel;
+        throw new UnsupportedOperationException("Unimplemented method 'draw'");
     }
 }
+
+
+
+
