@@ -62,7 +62,12 @@ public class WorldImpl implements World, Serializable {
 
     @Override
     public boolean hasWon() {
-        LockedUnpickable mirror = (LockedUnpickable) this.getRooms().stream().filter(room -> room.getName().equals("final")).findFirst().get().getGameObjects()
+        LockedUnpickable mirror = (LockedUnpickable) this.getRooms()
+            .stream()
+            .filter(room -> room.getName().equals("final"))
+            .findFirst()
+            .get()
+            .getGameObjects()
             .stream()
             .filter(x -> x.getName().equals("Mirror"))
             .findFirst()

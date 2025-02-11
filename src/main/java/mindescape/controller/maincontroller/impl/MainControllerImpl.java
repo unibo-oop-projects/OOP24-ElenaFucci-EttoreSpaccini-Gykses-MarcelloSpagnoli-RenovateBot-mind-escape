@@ -27,7 +27,6 @@ public class MainControllerImpl implements MainController {
     private ControllerMap controllerMap;
     private final MainView mainView;
     private final ControllerBuilder controllerBuilder;
-    private final static long serialVersionUID = 1L;
     private String playerName;
 
     public MainControllerImpl() {
@@ -84,7 +83,7 @@ public class MainControllerImpl implements MainController {
 
     @Override
     public void save() throws IllegalStateException, NullPointerException {
-        final var world = (World) this.controllerMap.findController(ControllerName.WORLD).getModel();
+        final var world = this.controllerMap.findController(ControllerName.WORLD).getModel();
         Objects.requireNonNull(world, "World is null.");
         if (world instanceof World) {
             SaveManager.saveGameStatus((World) world);
