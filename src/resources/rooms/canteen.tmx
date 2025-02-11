@@ -59,7 +59,7 @@
   <object id="30" name="Chair" type="NonInteractableImpl" x="32.5688" y="156.422" width="15.5963" height="16.5138"/>
   <object id="31" name="Chest" type="UnpickableWithEnigma" x="80.2752" y="55.0459" width="47.2477" height="22.0183">
    <properties>
-    <property name="Enigma" value="Chest"/>
+    <property name="Enigma" value="Drawer"/>
     <property name="Reward" value="Office key"/>
    </properties>
   </object>
