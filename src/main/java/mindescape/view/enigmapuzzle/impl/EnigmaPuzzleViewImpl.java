@@ -13,8 +13,16 @@ import java.util.List;
 
 public class EnigmaPuzzleViewImpl extends JPanel implements EnigmaPuzzleView {
 
-    private List<ImageButton> buttons = new ArrayList<>();
+    private final List<ImageButton> buttons = new ArrayList<>();
 
+    /**
+     * Constructs an EnigmaPuzzleViewImpl with the specified number of rows and columns.
+     * Initializes the layout as a GridLayout with the given rows and columns.
+     * Creates and adds ImageButton instances to the view.
+     *
+     * @param rows the number of rows in the grid layout
+     * @param cols the number of columns in the grid layout
+     */
     public EnigmaPuzzleViewImpl(int rows, int cols) {
         setLayout(new GridLayout(rows, cols));
         for (int i = 0; i < rows * cols; i++) {
@@ -24,23 +32,44 @@ public class EnigmaPuzzleViewImpl extends JPanel implements EnigmaPuzzleView {
         }
     }
 
-    // Metodo per associare il controller alla view
+    /**
+     * Sets the controller for the EnigmaPuzzleViewImpl.
+     * This method adds the provided controller as an action listener to each button in the view.
+     *
+     * @param controller the EnigmaPuzzleControllerImpl to be set as the action listener for the buttons
+     */
     public void setController(EnigmaPuzzleControllerImpl controller) {
         for (ImageButton button : buttons) {
-            button.addActionListener(controller);  // Aggiungi il controller come listener a ogni pulsante
+            button.addActionListener(controller);
         }
     }
 
+    /**
+     * Retrieves the list of image buttons associated with the enigma puzzle view.
+     *
+     * @return a list of {@link ImageButton} objects.
+     */
     public List<ImageButton> getButtons() {
         return buttons;
     }
 
+    /**
+     * Draws the enigma puzzle view.
+     * This method is currently not implemented and will throw an UnsupportedOperationException if called.
+     *
+     * @throws UnsupportedOperationException if the method is called
+     */
     @Override
     public void draw() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'draw'");
     }
 
+    /**
+     * Returns the JPanel instance associated with this view.
+     *
+     * @return the JPanel instance representing this view.
+     */
     @Override
     public JPanel getPanel() {
         return this;

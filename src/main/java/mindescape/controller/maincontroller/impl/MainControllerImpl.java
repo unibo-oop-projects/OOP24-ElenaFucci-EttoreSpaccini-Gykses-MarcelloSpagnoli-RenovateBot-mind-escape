@@ -121,6 +121,21 @@ public class MainControllerImpl implements MainController {
                 case WORLD:
                     this.controllerBuilder.buildNewWorld(this.playerName);
                     break;
+                case WARDROBE:
+                    this.controllerBuilder.buildWardrobe();
+                    break;
+                case CALENDAR:
+                    this.controllerBuilder.buildCalendar();
+                    break;
+                case PUZZLE:
+                    this.controllerBuilder.buildPuzzle();
+                    break;
+                case DRAWER:
+                    this.controllerBuilder.buildDrawer();
+                    break;
+                case ENIGMA_FIRST_DOOR:
+                    this.controllerBuilder.buildEnigmaFirstDoor();
+                    break;
                 default:
                     throw new IllegalArgumentException("Controller not found.");
             }

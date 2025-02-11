@@ -72,4 +72,9 @@ public interface ControllerBuilder {
      * Builds the load controller.
      */
     void buildLoad();
+
+    /**
+     * Builds the drawer controller.
+     */
+    void buildDrawer();
 }
