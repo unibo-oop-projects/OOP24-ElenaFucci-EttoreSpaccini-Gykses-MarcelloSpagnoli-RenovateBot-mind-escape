@@ -16,7 +16,7 @@ public class EnigmaFactoryImpl implements EnigmaFactory {
         return (Enigma) switch (enigmaType) {
             case ENIGMA_FIRST_DOOR -> new EnigmaPasswordModelImpl(name, "Sergio Mattarella");
             case DRAWER -> new EnigmaPasswordModelImpl(name, "1213");
-            case CAESAR_CIPHER -> new CaesarCipherModelImpl(name, 1234);
+            case CAESAR_CIPHER -> new CaesarCipherModelImpl(name, 3);
 
             default -> throw new IllegalArgumentException("Unexpected enigma: " + name);
         };

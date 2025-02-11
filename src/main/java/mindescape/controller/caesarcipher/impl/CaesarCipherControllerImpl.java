@@ -15,7 +15,7 @@ import mindescape.view.caesarcipher.impl.CaesarCipherViewImpl;
 public class CaesarCipherControllerImpl implements CaesarCipherController{
 
     private final MainController mainController;
-    private final CaesarCipherModel model; 
+    private final CaesarCipherModel model;
     private final CaesarCipherView view; 
 
     /**

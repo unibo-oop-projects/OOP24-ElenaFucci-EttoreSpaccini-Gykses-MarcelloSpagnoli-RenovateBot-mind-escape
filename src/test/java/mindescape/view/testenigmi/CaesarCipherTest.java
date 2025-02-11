@@ -10,7 +10,10 @@ import mindescape.model.enigma.caesarcipher.impl.CaesarCipherModelImpl;
 public class CaesarCipherTest {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            CaesarCipherController controller = new CaesarCipherControllerImpl(new CaesarCipherModelImpl("Caesar Cipher", 3), null);
+            CaesarCipherController controller = new CaesarCipherControllerImpl(
+                        new CaesarCipherModelImpl("Caesar Cipher", 3), 
+                        null
+                    );
 
             JFrame frame = new JFrame("Caesar Cipher Test");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
