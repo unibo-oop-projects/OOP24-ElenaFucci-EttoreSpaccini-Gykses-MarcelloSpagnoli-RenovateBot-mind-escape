@@ -1,5 +1,6 @@
 package mindescape.controller.worldcontroller.impl;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.JPanel;
@@ -116,10 +117,9 @@ public class WorldController implements LoopController {
     }
 
     private void movePlayerIfKeyPressed() {
-        for (Map.Entry<Integer, Boolean> entry : worldView.getKeyState().entrySet()) {
+        for (Map.Entry<Integer, Boolean> entry : new HashMap<>(worldView.getKeyState()).entrySet()) {
             if (entry.getValue()) { // Se il tasto è premuto
                 handleInput(KEY_MAPPER.get(entry.getKey()));
-                return;
             }
         }
     }
