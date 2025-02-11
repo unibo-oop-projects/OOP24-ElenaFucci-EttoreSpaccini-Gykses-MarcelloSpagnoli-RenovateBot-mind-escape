@@ -34,10 +34,11 @@ public interface InteractableFactory {
      * @param position    the position of the door in the game world
      * @param dimensions  the dimensions of the door
      * @param destinationRoom the room connected to the door as the destination
+     * @param destinationPosition the position in the destination room where the player will be placed
      * @return a new instance of {@link Door}
      */
     Door createSimpleDoor(String name, Optional<Point2D> position, Dimensions dimensions, 
-                          Room destinationRoom); 
+                          Room destinationRoom, Optional<Point2D> destinationPosition); 
 
     /**
      * Creates a door that can be unlocked using a specific pickable item.
@@ -47,10 +48,11 @@ public interface InteractableFactory {
      * @param dimensions     the dimensions of the door
      * @param keyItem_id     the ID of the pickable item required to unlock the door
      * @param destinationRoom the room connected to the door as the destination
+     * @param destinationPosition the position in the destination room where the player will be placed
      * @return a new instance of {@link Door}
      */
     Door createDoorLockedWithPickable(String name, Optional<Point2D> position, Dimensions dimensions,
-                                      int keyItem_id, Room destinationRoom);
+                                      int keyItem_id, Room destinationRoom, Optional<Point2D> destinationPosition);
 
     /**
      * Creates a door that requires solving an enigma to unlock.
@@ -60,10 +62,11 @@ public interface InteractableFactory {
      * @param dimensions     the dimensions of the door
      * @param enigma         the enigma required to unlock the door
      * @param destinationRoom the room connected to the door as the destination
+     * @param destinationPosition the position in the destination room where the player will be placed
      * @return a new instance of {@link Door} with an enigma requirement
      */
     Door createDoorLockedWithEnigma(String name, Optional<Point2D> position, Dimensions dimensions,
-                                    Enigma enigma, Room destinationRoom);
+                                    Enigma enigma, Room destinationRoom, Optional<Point2D> destinationPosition);
 
     /**
      * Creates an unpickable object requiring an enigma to unlock, optionally rewarding a pickable item upon solving.

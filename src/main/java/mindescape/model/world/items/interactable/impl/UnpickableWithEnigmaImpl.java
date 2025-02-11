@@ -56,17 +56,21 @@ public class UnpickableWithEnigmaImpl extends GameObjectImpl implements Unpickab
      */
     @Override
     public void onAction(final Player player) {
-        if (this.isUnlocked() && this.reward.isPresent()) {
+        if (this.isUnlocked() 
+            && this.reward.isPresent()
+            && player.getInventory().getItems().stream()
+                    .noneMatch(item -> item.equals(this.reward.get()))) {
             player.getInventory().addItems(this.reward.get());
         }
     }
 
     /**
-     * Checks if the enigma has been solved, unlocking the object.
+     * Checks if the item is unlocked.
      *
-     * @return {@code true} if the enigma is solved, {@code false} otherwise
+     * @return true if the enigma associated with this item is solved, false otherwise.
      */
-    private boolean isUnlocked() {
+    @Override
+    public boolean isUnlocked() {
         return this.enigma.isSolved();
     }
 
