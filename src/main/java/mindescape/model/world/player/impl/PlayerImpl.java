@@ -19,12 +19,24 @@ public class PlayerImpl extends GameObjectImpl implements Player{
     private Room currentRoom;
 
 
+    /**
+     * Constructs a new PlayerImpl instance with the specified position, name, dimensions, and current room.
+     *
+     * @param position    an Optional containing the initial position of the player, or an empty Optional if the position is not specified
+     * @param name        the name of the player
+     * @param dimensions  the dimensions of the player
+     * @param currentRoom the current room the player is in
+     */
     public PlayerImpl(Optional<Point2D> position, String name, Dimensions dimensions, Room currentRoom) {
             super(position, name, dimensions);
             this.currentRoom = currentRoom;
-            //TODO Auto-generated constructor stub
     }
 
+    /**
+     * Moves the player to a new position based on the given movement.
+     *
+     * @param movement the movement to be applied to the player's current position
+     */
     @Override
     public void move(Movement movement) {
         var currentPosition = getPosition().get();
@@ -32,6 +44,12 @@ public class PlayerImpl extends GameObjectImpl implements Player{
         setPosition(Optional.of(newPosition));
    }
 
+    /**
+     * Interacts with the given interactable object.
+     *
+     * @param interactable the object to interact with
+     * @return true if the interaction was successful, false if the interactable is null
+     */
     @Override
     public boolean interact(Interactable interactable) {
         if(interactable == null){
@@ -40,17 +58,33 @@ public class PlayerImpl extends GameObjectImpl implements Player{
         interactable.onAction(this);
         return true;
     }
+
+    /**
+     * Sets the current room for the player.
+     *
+     * @param room the room to set as the current room
+     */
     @Override
     public void setCurrentRoom(Room room) {
         this.currentRoom = room;
 
     }
 
+    /**
+     * Retrieves the current room the player is in.
+     *
+     * @return the current room of the player.
+     */
     @Override
     public Room getCurrentRoom() {
         return this.currentRoom;
     }
 
+    /**
+     * Retrieves the inventory of the player.
+     *
+     * @return the player's inventory
+     */
     @Override
     public Inventory getInventory() {
         return this.inventory;

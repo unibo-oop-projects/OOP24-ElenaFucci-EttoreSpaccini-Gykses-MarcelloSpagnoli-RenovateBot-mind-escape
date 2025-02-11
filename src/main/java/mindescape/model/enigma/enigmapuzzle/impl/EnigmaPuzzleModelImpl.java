@@ -16,6 +16,15 @@ public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel {
     private Image originalImage;
     private String puzzleName;
 
+    /**
+     * Constructs an EnigmaPuzzleModelImpl with the specified number of rows and columns,
+     * the original image, and the puzzle name.
+     *
+     * @param rows the number of rows in the puzzle
+     * @param cols the number of columns in the puzzle
+     * @param image the original image to be divided into puzzle pieces
+     * @param puzzleName the name of the puzzle
+     */
     public EnigmaPuzzleModelImpl(int rows, int cols, Image image, String puzzleName) {
         this.ROWS = rows;
         this.COLS = cols;
@@ -28,39 +37,80 @@ public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel {
     }
     
 
+    /**
+     * Returns the number of rows in the enigma puzzle.
+     *
+     * @return the number of rows
+     */
     public int getRows() {
         return ROWS;
     }
 
+    /**
+     * Returns the number of columns in the enigma puzzle.
+     *
+     * @return the number of columns
+     */
     public int getCols() {
         return COLS;
     }
 
+    /**
+     * Retrieves the 2D array of image pieces that make up the enigma puzzle.
+     *
+     * @return a 2D array of {@link Image} objects representing the pieces of the puzzle.
+     */
     public Image[][] getPieces() {
         return pieces;
     }
 
+    /**
+     * Retrieves the image piece located at the specified row and column.
+     *
+     * @param row the row index of the piece to retrieve
+     * @param col the column index of the piece to retrieve
+     * @return the image piece at the specified row and column
+     */
     public Image getPiece(int row, int col) {
         return pieces[row][col];
     }
 
+    /**
+     * Retrieves the name of the puzzle.
+     *
+     * @return the name of the puzzle as a String.
+     */
     public String getName() {
         return puzzleName;
     }
 
+    /**
+     * Divides the original image into smaller pieces based on the specified number of rows and columns.
+     * The method first creates a BufferedImage from the original image, then divides this BufferedImage
+     * into smaller sub-images (pieces) and stores them in the pieces array.
+     *
+     * The width and height of each piece are calculated by dividing the original image's width and height
+     * by the number of columns (COLS) and rows (ROWS) respectively.
+     *
+     * Preconditions:
+     * - The originalImage must be initialized and not null.
+     * - The COLS and ROWS constants must be defined and greater than 0.
+     * - The pieces array must be initialized with dimensions [ROWS][COLS].
+     *
+     * Postconditions:
+     * - The pieces array will be populated with sub-images of the original image.
+     */
     private void divideImageIntoPieces() {
         int width = originalImage.getWidth(null);
         int height = originalImage.getHeight(null);
         int pieceWidth = width / COLS;
         int pieceHeight = height / ROWS;
     
-        // Creiamo un BufferedImage a partire dall'immagine originale
         BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         Graphics g = bufferedImage.createGraphics();
         g.drawImage(originalImage, 0, 0, null);
         g.dispose();
     
-        // Ora possiamo dividere l'immagine in pezzi
         for (int i = 0; i < ROWS; i++) {
             for (int j = 0; j < COLS; j++) {
                 pieces[i][j] = bufferedImage.getSubimage(j * pieceWidth, i * pieceHeight, pieceWidth, pieceHeight);
@@ -69,6 +119,11 @@ public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel {
     }
     
 
+    /**
+     * Shuffles the pieces of the puzzle randomly.
+     * This method first collects all pieces into a list, shuffles the list,
+     * and then reassigns the shuffled pieces back to the original 2D array.
+     */
     public void shufflePieces() {
         List<Image> shuffledPieces = new ArrayList<>();
         for (int i = 0; i < ROWS; i++) {
@@ -86,33 +141,49 @@ public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel {
         }
     }
 
+    /**
+     * Swaps the positions of two pieces in the puzzle.
+     *
+     * @param firstRow the row index of the first piece
+     * @param firstCol the column index of the first piece
+     * @param secondRow the row index of the second piece
+     * @param secondCol the column index of the second piece
+     */
     public void swapPieces(int firstRow, int firstCol, int secondRow, int secondCol) {
-        // Log per vedere i pezzi che stiamo cercando di scambiare
-        System.out.println("Scambiando: (" + firstRow + ", " + firstCol + ") con (" + secondRow + ", " + secondCol + ")");
         Image temp = pieces[firstRow][firstCol];
         pieces[firstRow][firstCol] = pieces[secondRow][secondCol];
         pieces[secondRow][secondCol] = temp;
-        
-        // Log per confermare lo scambio
-        System.out.println("Nuove posizioni: (" + firstRow + ", " + firstCol + ") con " + pieces[firstRow][firstCol]);
-        System.out.println("Nuove posizioni: (" + secondRow + ", " + secondCol + ") con " + pieces[secondRow][secondCol]);
     }
     
 
-    // Metodo per verificare se il puzzle è risolto
+    /**
+     * Checks if the enigma puzzle is solved.
+     * 
+     * This method iterates through each piece of the puzzle and compares it with the corresponding
+     * subimage of the original image. If all pieces match their respective subimages, the puzzle is
+     * considered solved.
+     *
+     * @return true if the puzzle is solved, false otherwise.
+     */
     public boolean isSolved() {
         for (int i = 0; i < ROWS; i++) {
             for (int j = 0; j < COLS; j++) {
-                // Confronta la posizione di ogni pezzo con la sua posizione originale
                 if (!pieces[i][j].equals(((BufferedImage)originalImage).getSubimage(j * (originalImage.getWidth(null) / COLS), i * (originalImage.getHeight(null) / ROWS), originalImage.getWidth(null) / COLS, originalImage.getHeight(null) / ROWS))) {
-                    return false; // Se trovi un pezzo che non è nella posizione giusta, il puzzle non è risolto
+                    return false;
                 }
             }
         }
-        return true; // Se tutti i pezzi sono al posto giusto, il puzzle è risolto
+        return true;
     }
 
 
+    /**
+     * Processes a hit action on the enigma puzzle.
+     *
+     * @param value the value to be processed by the hit action
+     * @return true if the hit action is successful, false otherwise
+     * @throws UnsupportedOperationException if the method is not implemented
+     */
     @Override
     public boolean hit(Object value) {
         // TODO Auto-generated method stub
