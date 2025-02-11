@@ -1,17 +1,14 @@
 package mindescape.view.menu;
-
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import mindescape.controller.core.api.ClickableController;
 import mindescape.view.api.View;
-import mindescape.view.utils.ViewUtils;
-
 public class MenuView implements View {
-
     private static final long serialVersionUID = 1L;
     private final ClickableController menuController;
     private final JPanel panel = new JPanel();
-
     public MenuView(final ClickableController menuController) {
         this.menuController = menuController;
         panel.setLayout(new BorderLayout());
@@ -26,11 +23,17 @@ public class MenuView implements View {
         buttonPanel.setOpaque(false);
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(20, 20, 20, 20);
-        JButton newGameButton = ViewUtils.createStyledButton("New Game");
-        JButton loadGameButton = ViewUtils.createStyledButton("Load Game");
-        JButton quitButton = ViewUtils.createStyledButton("Quit");
+        gbc.fill = GridBagConstraints.BOTH;
+        JButton newGameButton = new JButton("New Game");
+        JButton loadGameButton = new JButton("Load Game");
+        JButton quitButton = new JButton("Quit");
+        newGameButton.setFont(new Font("Arial", Font.BOLD, 24));
+        loadGameButton.setFont(new Font("Arial", Font.BOLD, 24));
+        quitButton.setFont(new Font("Arial", Font.BOLD, 24));
         gbc.gridx = 0;
         gbc.gridy = 0;
+        gbc.weightx = 1.0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         buttonPanel.add(newGameButton, gbc);
         gbc.gridy = 1;
         buttonPanel.add(loadGameButton, gbc);
@@ -38,20 +41,29 @@ public class MenuView implements View {
         buttonPanel.add(quitButton, gbc);
         panel.add(titleLabel, BorderLayout.NORTH);
         panel.add(buttonPanel, BorderLayout.CENTER);
-        /*
-         * handlers for the buttons
-         */
         newGameButton.addActionListener(e -> this.menuController.handleInput("NEW_GAME"));
         loadGameButton.addActionListener(e -> this.menuController.handleInput("LOAD_GAME"));
         quitButton.addActionListener(e -> this.menuController.handleInput("QUIT"));
+        this.panel.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                int width = panel.getWidth();
+                int fontSize = Math.max(24, width / 15);
+                titleLabel.setFont(new Font("Serif", Font.BOLD, fontSize));
+                newGameButton.setFont(new Font("Arial", Font.BOLD, fontSize / 2));
+                loadGameButton.setFont(new Font("Arial", Font.BOLD, fontSize / 2));
+                quitButton.setFont(new Font("Arial", Font.BOLD, fontSize / 2));
+                newGameButton.setPreferredSize(new Dimension(width / 3, width / 12));
+                loadGameButton.setPreferredSize(new Dimension(width / 3, width / 12));
+                quitButton.setPreferredSize(new Dimension(width / 3, width / 12));
+            }
+        });
     }
-
     @Override
     public void draw() {
         panel.revalidate();
         panel.repaint();
     }
-
     @Override
     public JPanel getPanel() {
         return this.panel;

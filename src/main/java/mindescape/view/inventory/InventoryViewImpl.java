@@ -9,44 +9,44 @@ import java.util.Set;
 
 public class InventoryViewImpl implements View {
 
-    private JPanel inventoryPanel;
-    private JTextArea descriptionArea;
-    private JPanel buttonPanel;
-    private Inventory inventory;
+    private final JPanel inventoryPanel;
+    private final JTextArea descriptionArea;
+    private final JPanel buttonPanel;
+    private final Inventory inventory;
 
-    public InventoryViewImpl(Inventory inventory) {
+    public InventoryViewImpl(final Inventory inventory) {
         this.inventory = inventory;
 
-        inventoryPanel = new JPanel();
-        inventoryPanel.setLayout(new BorderLayout());
+        this.inventoryPanel = new JPanel();
+        this.inventoryPanel.setLayout(new BorderLayout());
 
-        buttonPanel = new JPanel();
-        buttonPanel.setLayout(new FlowLayout());
-        inventoryPanel.add(buttonPanel, BorderLayout.NORTH);
+        this.buttonPanel = new JPanel();
+        this.buttonPanel.setLayout(new FlowLayout());
+        this.inventoryPanel.add(buttonPanel, BorderLayout.NORTH);
 
         descriptionArea = new JTextArea(5, 20);
         descriptionArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(descriptionArea);
-        inventoryPanel.add(scrollPane, BorderLayout.SOUTH);
+        this.inventoryPanel.add(scrollPane, BorderLayout.SOUTH);
     }
 
     
     private void start() {
-        buttonPanel.removeAll();
-        buttonPanel.revalidate();
-        buttonPanel.repaint();
+        this.buttonPanel.removeAll();
+        this.buttonPanel.revalidate();
+        this.buttonPanel.repaint();
     }
 
     @Override
     public void draw() {
         // Ogni volta che l'inventario cambia, aggiorniamo la view
 
-        Set<Pickable> items = inventory.getItems();
-        buttonPanel.removeAll();  // Pulisce i pulsanti esistenti (così non duplicano)
+        final Set<Pickable> items = inventory.getItems();
+        this.buttonPanel.removeAll();  // Pulisce i pulsanti esistenti (così non duplicano)
 
         // Aggiungiamo un pulsante per ogni oggetto nell'inventario
-        for (Pickable item : items) {
-            JButton button = new JButton(item.getName());
+        for (final Pickable item : items) {
+            final JButton button = new JButton(item.getName());
             button.addActionListener(e -> showItemDescription(item));  
             buttonPanel.add(button);
         }
@@ -56,11 +56,11 @@ public class InventoryViewImpl implements View {
         buttonPanel.repaint();     // Rende visibile il cambiamento
     }
 
-    private void showItemDescription(Pickable item) {
+    private void showItemDescription(final Pickable item) {
         descriptionArea.setText(item.getDescription());
     }
     @Override
     public JPanel getPanel() {
-        return inventoryPanel;
+        return this.inventoryPanel;
     }
 }

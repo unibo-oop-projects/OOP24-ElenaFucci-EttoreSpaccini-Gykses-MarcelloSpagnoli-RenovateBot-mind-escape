@@ -39,7 +39,7 @@ public class EnigmaPasswordControllerImpl implements EnigmaPasswordController {
     @Override
     public void handleInput(final Object input) {
         if (input instanceof String) {
-            this.view.showResult(this.model.hit(input)); 
+            this.view.showResult(this.model.hit((String)input)); 
         }
     }
 

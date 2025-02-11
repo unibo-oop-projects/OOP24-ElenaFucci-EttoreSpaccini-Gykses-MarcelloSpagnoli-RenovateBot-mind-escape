@@ -55,4 +55,9 @@ public class ControllerMapImpl implements ControllerMap {
     public boolean containsController(final ControllerName name) {
         return this.controllers.containsKey(name.getName());
     }
+
+    @Override
+    public Iterable<Controller> getControllers() {
+        return this.controllers.values();
+    }
 }

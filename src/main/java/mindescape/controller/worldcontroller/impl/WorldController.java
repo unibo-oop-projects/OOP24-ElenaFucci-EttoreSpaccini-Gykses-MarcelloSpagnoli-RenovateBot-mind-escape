@@ -1,22 +1,19 @@
 package mindescape.controller.worldcontroller.impl;
 
-import java.util.Objects;
+import java.util.Map;
 import javax.swing.JPanel;
 import mindescape.controller.core.api.ControllerName;
 import mindescape.controller.core.api.LoopController;
 import mindescape.controller.core.api.UserInput;
 import mindescape.controller.maincontroller.api.MainController;
 import mindescape.model.api.Model;
+import mindescape.model.enigma.api.Enigma;
 import mindescape.model.world.api.World;
 import mindescape.model.world.core.api.Movement;
 import mindescape.view.api.WorldView;
 import mindescape.view.world.WorldViewImpl;
+import java.awt.event.KeyEvent;
 
-/**
- * The WorldController class is responsible for managing the game world and handling user input.
- * It implements the {@code LoopController} interface and provides methods to handle input, control the game loop,
- * and interact with the main controller and view components.
- */
 public class WorldController implements LoopController {
 
     private final World world;
@@ -36,13 +33,12 @@ public class WorldController implements LoopController {
      */
     public WorldController(final World world, final MainController mainController) {
         this.world = world;
-        this.worldView = new WorldViewImpl(this);
+        this.worldView = new WorldViewImpl(this, world.getCurrentRoom());
         this.mainController = mainController;
     }
 
     @Override
-    public void handleInput(final Object input) throws IllegalArgumentException, NullPointerException {
-        Objects.requireNonNull(input);
+    public void handleInput(final Object input) {
         switch ((UserInput) input) {
             case UP -> this.world.movePlayer(Movement.UP);
             case DOWN -> this.world.movePlayer(Movement.DOWN);
@@ -71,14 +67,7 @@ public class WorldController implements LoopController {
                 this.mainController.winning();
             }
 
-            long elapsedTime = System.currentTimeMillis() - startTime;
-            long sleepTime = frameTime - elapsedTime;
-
-            if (sleepTime > 0) {
-                try {
-                    Thread.sleep(sleepTime);
-                } catch (InterruptedException e) { }
-            }
+            this.worldView.draw(this.world.getCurrentRoom());
         }
     }
 

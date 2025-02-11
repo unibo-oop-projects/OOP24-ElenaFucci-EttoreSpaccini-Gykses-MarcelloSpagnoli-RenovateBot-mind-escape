@@ -5,7 +5,8 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -21,7 +22,7 @@ import mindescape.view.enigmapassword.api.EnigmaPasswordView;
  */
 public class EnigmaPasswordViewImpl implements EnigmaPasswordView {
 
-    private final JPanel panel; 
+    private final JPanel panel;
     private final JTextField passwordField;
     private final JLabel resultLabel;
 
@@ -34,11 +35,13 @@ public class EnigmaPasswordViewImpl implements EnigmaPasswordView {
         this.panel = new JPanel();
         this.panel.setLayout(new GridBagLayout());
         this.panel.setBackground(Color.DARK_GRAY);
-        
+
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+
         JLabel titleLabel = new JLabel("Enter the Password", SwingConstants.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
         titleLabel.setForeground(Color.WHITE);
@@ -47,8 +50,8 @@ public class EnigmaPasswordViewImpl implements EnigmaPasswordView {
         gbc.gridwidth = 2;
         this.panel.add(titleLabel, gbc);
 
-        passwordField = new JTextField(15);
-        passwordField.setFont(new Font("Arial", Font.PLAIN, 14));
+        this.passwordField = new JTextField(15);
+        this.passwordField.setFont(new Font("Arial", Font.PLAIN, 14));
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.gridwidth = 2;
@@ -67,9 +70,9 @@ public class EnigmaPasswordViewImpl implements EnigmaPasswordView {
         gbc.gridy = 2;
         this.panel.add(quitButton, gbc);
 
-        resultLabel = new JLabel("", SwingConstants.CENTER);
-        resultLabel.setFont(new Font("Arial", Font.BOLD, 16));
-        resultLabel.setForeground(Color.WHITE);
+        this.resultLabel = new JLabel("", SwingConstants.CENTER);
+        this.resultLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        this.resultLabel.setForeground(Color.WHITE);
         gbc.gridx = 0;
         gbc.gridy = 3;
         gbc.gridwidth = 2;
@@ -77,6 +80,19 @@ public class EnigmaPasswordViewImpl implements EnigmaPasswordView {
 
         checkButton.addActionListener(e -> controller.handleInput(passwordField.getText()));
         quitButton.addActionListener(e -> controller.quit());
+
+        this.panel.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                int width = panel.getWidth();
+                int fontSize = Math.max(12, width / 30);
+                titleLabel.setFont(new Font("Arial", Font.BOLD, fontSize + 6));
+                resultLabel.setFont(new Font("Arial", Font.BOLD, fontSize + 4));
+                passwordField.setFont(new Font("Arial", Font.PLAIN, fontSize));
+                checkButton.setFont(new Font("Arial", Font.BOLD, fontSize));
+                quitButton.setFont(new Font("Arial", Font.BOLD, fontSize));
+            }
+        });
     }
 
     /**
@@ -93,7 +109,7 @@ public class EnigmaPasswordViewImpl implements EnigmaPasswordView {
      */
     @Override
     public JPanel getPanel() {
-        return this.panel; 
+        return this.panel;
     }
 
     /**
