@@ -61,10 +61,14 @@ public class WorldController implements LoopController {
 
         while (this.running) {
             long startTime = System.currentTimeMillis();
-            this.worldView.draw(this.world.getCurrentRoom());
-            
+
             if (world.hasWon()) {
                 this.mainController.winning();
+            }
+
+            long elapsedTime = System.currentTimeMillis() - startTime;
+            if (elapsedTime < frameTime) {
+                Thread.sleep(frameTime - elapsedTime);
             }
 
             this.worldView.draw(this.world.getCurrentRoom());
