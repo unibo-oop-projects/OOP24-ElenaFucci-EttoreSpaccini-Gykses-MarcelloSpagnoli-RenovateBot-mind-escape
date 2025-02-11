@@ -76,7 +76,7 @@
   <object id="9" name="Table" type="NonInteractableImpl" x="64.3836" y="112.671" width="46.9178" height="65.7534"/>
   <object id="10" name="Computer" type="UnpickableWithEnigma" x="64.726" y="179.11" width="46.9178" height="25.3425">
    <properties>
-    <property name="Enigma" value="Cifrario"/>
+    <property name="Enigma" value="CaesarCipher"/>
     <property name="Reward" value=""/>
    </properties>
   </object>

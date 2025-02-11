@@ -56,18 +56,14 @@ public class WorldController implements LoopController {
         this.running = false;
     }
 
-    private void loop() throws InterruptedException{
+    private void loop() throws InterruptedException {
         final long frameTime = TIME / FPS;
-
         while (this.running) {
-            long startTime = System.currentTimeMillis();
             this.worldView.draw(this.world.getCurrentRoom());
-            
+            Thread.sleep(frameTime);
             if (world.hasWon()) {
                 this.mainController.winning();
             }
-
-            this.worldView.draw(this.world.getCurrentRoom());
         }
     }
 

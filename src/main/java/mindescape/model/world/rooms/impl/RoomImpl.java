@@ -33,7 +33,7 @@ public class RoomImpl implements Room {
     /*
      * Construction will later be done with a builder
      */
-    private RoomImpl(String roomFilePath) {
+    public RoomImpl(String roomFilePath) {
         TiledMap room = new FileSystemTiledReader().getMap(roomFilePath);
         this.dimensions = new Dimensions(room.getWidth() * Dimensions.TILE.width(), room.getHeight() * Dimensions.TILE.height());
         this.name = Files.getNameWithoutExtension(roomFilePath);
