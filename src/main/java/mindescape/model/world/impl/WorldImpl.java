@@ -14,6 +14,7 @@ import mindescape.model.world.core.api.Point2D;
 import mindescape.model.world.core.impl.CollisionDetectorImpl;
 import mindescape.model.world.items.interactable.api.Interactable;
 import mindescape.model.world.items.interactable.api.UnpickableWithEnigma;
+import mindescape.model.world.items.interactable.impl.LockedUnpickable;
 import mindescape.model.world.player.api.Player;
 import mindescape.model.world.player.impl.PlayerImpl;
 import mindescape.model.world.rooms.api.Room;
@@ -28,7 +29,6 @@ public class WorldImpl implements World, Serializable {
     private final Player player;
     private final List<Room> rooms;
     private Room currentRoom;
-    private boolean hasWon;
     private final transient CollisionDetector collisionDetector;
     private transient Optional<GameObject> collidingObject;
     
@@ -37,7 +37,6 @@ public class WorldImpl implements World, Serializable {
         this.currentRoom = rooms.stream().filter(x -> x.getName().equals("bedroom")).findFirst().get();
         this.player = new PlayerImpl(Optional.of(new Point2D(110, 170)), "Player", Dimensions.TILE, currentRoom);
         currentRoom.addGameObject(player);
-        this.hasWon = false;
         this.collisionDetector = new CollisionDetectorImpl();
         this.collidingObject = Optional.empty();
     }
@@ -62,7 +61,11 @@ public class WorldImpl implements World, Serializable {
 
     @Override
     public boolean hasWon() {
-        return this.hasWon;
+        LockedUnpickable mirror = (LockedUnpickable) this.getRooms().stream().filter(room -> room.getName().equals("final")).findFirst().get().getGameObjects()
+            .stream()
+            .filter(x -> x.getName().equals("Mirror"));
+
+        return mirror.isUnlocked(player);
     }
 
     @Override

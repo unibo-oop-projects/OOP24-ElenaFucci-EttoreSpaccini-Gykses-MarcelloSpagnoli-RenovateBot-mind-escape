@@ -1,13 +1,12 @@
 package mindescape.controller.maincontroller.impl;
 
 import java.util.Objects;
-
 import javax.swing.SwingUtilities;
 import mindescape.controller.core.api.Controller;
 import mindescape.controller.core.api.ControllerBuilder;
 import mindescape.controller.core.api.ControllerMap;
 import mindescape.controller.core.api.ControllerName;
-import mindescape.controller.core.api.LoopController;
+import mindescape.controller.core.api. LoopController;
 import mindescape.controller.core.impl.ControllerBuilderImpl;
 import mindescape.controller.maincontroller.api.MainController;
 import mindescape.model.saveload.util.SaveManager;
@@ -47,11 +46,13 @@ public class MainControllerImpl implements MainController {
             this.controllerMap = this.buildController(controllerName);
             this.currentController = this.controllerMap.findController(controllerName);
         }
+        /**
+         * TODO: remove this
+         * DEBUG: print the current controller and all the controllers in the map
+         */
         System.out.println("Current controller: " + this.currentController.getName());
-        // Print all controller present in the controller map
-        //TODO: remove this
-        System.out.println("TUTTI I CONTROLLER NELLA MAPPA SONO: ");
-        this.controllerMap.getControllers().forEach(controller -> System.out.println(controller.getName()));
+        System.out.print("TUTTI I CONTROLLER NELLA MAPPA SONO: ");
+        this.controllerMap.getControllers().forEach(controller -> System.out.println(controller.getName() + " "));
 
         this.mainView.setPanel(this.currentController.getPanel());
         this.currentController.start();

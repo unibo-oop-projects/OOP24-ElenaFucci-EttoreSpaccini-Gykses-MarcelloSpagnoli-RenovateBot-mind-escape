@@ -65,7 +65,7 @@ public class LockedUnpickable extends GameObjectImpl implements Unpickable {
      * @param player the player whose inventory is checked
      * @return {@code true} if the player has the required item, {@code false} otherwise
      */
-    private boolean isUnlocked(final Player player) {
+    public boolean isUnlocked(final Player player) {
         return player.getInventory().getItems().stream()
                      .map(Pickable::getId)
                      .anyMatch(id -> id.equals(this.keyItem_id));

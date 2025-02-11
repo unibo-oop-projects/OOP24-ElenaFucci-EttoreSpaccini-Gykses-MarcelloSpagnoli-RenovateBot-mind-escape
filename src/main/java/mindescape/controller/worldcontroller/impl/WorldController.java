@@ -16,15 +16,6 @@ import java.awt.event.KeyEvent;
 
 public class WorldController implements LoopController {
 
-    private static final Map<Integer, UserInput> KEY_MAPPER = Map.of(
-        KeyEvent.VK_W, UserInput.UP,
-        KeyEvent.VK_S, UserInput.DOWN,
-        KeyEvent.VK_A, UserInput.LEFT,
-        KeyEvent.VK_D, UserInput.RIGHT,
-        KeyEvent.VK_E, UserInput.INTERACT,
-        KeyEvent.VK_I, UserInput.INVENTORY
-    );
-
     private final World world;
     private final WorldView worldView;
     private final MainController mainController;
@@ -78,10 +69,6 @@ public class WorldController implements LoopController {
 
             this.worldView.draw(this.world.getCurrentRoom());
         }
-    }
-
-    private boolean isRunning() {
-        return this.running;
     }
 
     @Override
