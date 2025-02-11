@@ -25,5 +25,4 @@ public interface WorldView {
      */
     JPanel getPanel();
 
-    Map<Integer, Boolean> getKeyState();
 }

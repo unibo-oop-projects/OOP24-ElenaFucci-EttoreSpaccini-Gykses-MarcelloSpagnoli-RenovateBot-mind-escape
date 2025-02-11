@@ -210,20 +210,16 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener  {
     public void keyPressed(KeyEvent e) {
         int pressed = e.getKeyCode();
         if (KEY_MAPPER.containsKey(pressed)) {
-            keyState.put(pressed, true);
+            worldController.processInput(KEY_MAPPER.get(pressed));
         }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        int released = e.getKeyCode();
+       /*  int released = e.getKeyCode();
         if (KEY_MAPPER.containsKey(released)) {
             keyState.put(released, false);
-        }
+        }*/
     }
 
-    @Override
-    public Map<Integer, Boolean> getKeyState() {
-        return Collections.unmodifiableMap(keyState);
-    } 
 }

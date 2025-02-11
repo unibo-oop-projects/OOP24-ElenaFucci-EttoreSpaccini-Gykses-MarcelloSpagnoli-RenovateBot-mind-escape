@@ -23,9 +23,7 @@ public class PlayerView {
         KeyEvent.VK_W, UserInput.UP,
         KeyEvent.VK_S, UserInput.DOWN,
         KeyEvent.VK_A, UserInput.LEFT,
-        KeyEvent.VK_D, UserInput.RIGHT,
-        KeyEvent.VK_E, UserInput.INTERACT,
-        KeyEvent.VK_I, UserInput.INVENTORY
+        KeyEvent.VK_D, UserInput.RIGHT
     );
 
     private final static int SPRITE_SHEET_HEIGHT = 16;
@@ -92,7 +90,7 @@ public class PlayerView {
 
     private void setCurrentSprite(Map<Integer, Boolean> keys){
         for (Map.Entry<Integer, Boolean> entry : keys.entrySet()) {
-            if (entry.getValue()) { // Se il tasto è premuto
+            if (KEY_MAPPER.get(entry.getKey()) != null && entry.getValue()) { // Se il tasto è premuto
                 currentSprite = spriteMapper.get(KEY_MAPPER.get(entry.getKey())).get(spriteIndex);
             }
         }
