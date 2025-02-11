@@ -85,7 +85,7 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener  {
         BufferedImage image = adapt(roomImage);
         int offset = (this.getWidth() - image.getWidth()) / 2;
         g.drawImage(image, offset, 0, this);
-        player.draw(g, offset, scaling);
+        player.draw(g, offset, scaling, keyState);
     }
 
     private void drawLayer(TiledTileLayer layer, Graphics g, TiledMap map) {
