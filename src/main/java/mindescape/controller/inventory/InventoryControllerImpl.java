@@ -117,7 +117,6 @@ public class InventoryControllerImpl implements ClickableController {
     @Override
     public void start() {
         this.view.updateInventoryButtons(inventory.getItems());
-        System.out.println("L'inventario contiene: " + inventory.getItems().toString());
     }
 
     /**

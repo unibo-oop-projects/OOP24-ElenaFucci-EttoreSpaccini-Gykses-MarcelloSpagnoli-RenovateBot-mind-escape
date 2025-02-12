@@ -50,7 +50,7 @@
   <object id="23" name="Chair" type="NonInteractableImpl" x="80.7339" y="128.44" width="13.7615" height="27.9817"/>
   <object id="25" name="Table" type="Unpickable" x="32.5688" y="192.661" width="46.789" height="26.6055">
    <properties>
-    <property name="Reward" value="Calendar note"/>
+    <property name="Reward" value="Canteen note"/>
    </properties>
   </object>
   <object id="26" name="Chairs" type="NonInteractableImpl" x="33.0275" y="220.183" width="46.3303" height="16.5138"/>
@@ -65,7 +65,7 @@
   </object>
   <object id="36" name="Wrench" type="Pickable" gid="732" x="160" y="224" width="16" height="16" rotation="90">
    <properties>
-    <property name="ID" type="int" value="5"/>
+    <property name="ID" type="int" value="8"/>
    </properties>
   </object>
  </objectgroup>
@@ -75,7 +75,7 @@
     <property name="DestX" type="int" value="25"/>
     <property name="DestY" type="int" value="155"/>
     <property name="Destination" value="archive"/>
-    <property name="keyItem_id" type="int" value="3"/>
+    <property name="keyItem_id" type="int" value="7"/>
    </properties>
   </object>
   <object id="15" name="Door" type="DoorLockedWithPickable" x="176" y="32" width="32" height="32">

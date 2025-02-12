@@ -57,29 +57,34 @@
   <object id="12" name="Box" type="NonInteractableImpl" x="80.2615" y="105.194" width="15.3692" height="22.5415"/>
   <object id="13" name="Shelf" type="NonInteractableImpl" x="48.1569" y="175.551" width="31.4215" height="32.1046"/>
   <object id="14" name="Table" type="NonInteractableImpl" x="209.704" y="103.145" width="29.0308" height="40.3015"/>
-  <object id="15" name="Shelf" x="208.68" y="207.997" width="31.4215" height="32.4461"/>
-  <object id="16" name="Iron closet" type="NonInteractableImpl" x="128.418" y="141.397" width="31.08" height="26.9815"/>
+  <object id="15" name="Shelf" type="NonInteractableImpl" x="208.68" y="207.997" width="31.4215" height="32.4461"/>
+  <object id="16" name="Iron closet" type="UnpickableWithEnigma" x="128.418" y="141.397" width="31.08" height="26.9815">
+   <properties>
+    <property name="Enigma" value="Wardrobe"/>
+    <property name="Reward" value="Message"/>
+   </properties>
+  </object>
   <object id="17" name="Green table" type="NonInteractableImpl" x="98.363" y="214.144" width="28.0061" height="25.2738"/>
   <object id="18" name="Tool chest" type="LockedUnpickable" x="31.7631" y="90.1661" width="16.3938" height="21.8584">
    <properties>
     <property name="Reward" value="Hammer"/>
-    <property name="keyItem_id" type="int" value="0"/>
+    <property name="keyItem_id" type="int" value="8"/>
    </properties>
   </object>
  </objectgroup>
  <objectgroup id="4" name="Doors">
   <object id="19" name="Door" type="DoorLockedWithPickable" x="48.1569" y="32.4461" width="32.4461" height="31.7631">
    <properties>
-    <property name="DestX" type="int" value="0"/>
-    <property name="DestY" type="int" value="0"/>
+    <property name="DestX" type="int" value="122"/>
+    <property name="DestY" type="int" value="219"/>
     <property name="Destination" value="final"/>
-    <property name="keyItem_id" type="int" value="4"/>
+    <property name="keyItem_id" type="int" value="6"/>
    </properties>
   </object>
   <object id="20" name="Door" type="SimpleDoor" x="3.76712" y="144.863" width="6.84932" height="31.1644">
    <properties>
-    <property name="DestX" type="int" value="0"/>
-    <property name="DestY" type="int" value="0"/>
+    <property name="DestX" type="int" value="220"/>
+    <property name="DestY" type="int" value="140"/>
     <property name="Destination" value="canteen"/>
    </properties>
   </object>

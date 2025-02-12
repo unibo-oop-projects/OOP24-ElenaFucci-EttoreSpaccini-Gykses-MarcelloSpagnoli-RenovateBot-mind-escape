@@ -19,11 +19,6 @@ import mindescape.view.main.MainViewImpl;
  * Implementation of the MainController interface.
  */
 public class MainControllerImpl implements MainController {
-
-    private static final String BLUE = "\u001B[34m";
-    private static final String RESET = "\u001B[0m";
-    private static final String RED = "\u001B[31m";
-    
     private Controller currentController;
     private ControllerMap controllerMap;
     private final MainView mainView;
@@ -50,13 +45,6 @@ public class MainControllerImpl implements MainController {
             this.controllerMap = this.buildController(controllerName, enigma);
             this.currentController = this.controllerMap.findController(controllerName);
         }
-        /**
-         * TODO: remove this
-         * DEBUG: print the current controller and all the controllers in the map
-         */
-        System.out.println(BLUE + "Current controller: " + this.currentController.getName() + RESET);
-        System.out.print(RED + "TUTTI I CONTROLLER NELLA MAPPA SONO: " + RESET);
-        this.controllerMap.getControllers().forEach(controller -> System.out.println(controller.getName() + " "));
 
         this.mainView.setPanel(this.currentController.getPanel());
         this.currentController.start();
@@ -119,7 +107,7 @@ public class MainControllerImpl implements MainController {
                 case LOAD:
                     this.controllerBuilder.buildLoad();
                     break;
-                case CAESAR_CYPHER:
+                case CAESAR_CIPHER:
                     this.controllerBuilder.buildComputer(enigma);
                     break;
                 case WORLD:

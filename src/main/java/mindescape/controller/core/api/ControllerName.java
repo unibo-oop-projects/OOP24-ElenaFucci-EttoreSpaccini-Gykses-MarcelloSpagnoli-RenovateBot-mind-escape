@@ -31,7 +31,7 @@ public enum ControllerName {
         ENIGMA_FIRST_DOOR("EnigmaFirstDoor"),
         CALENDAR("Calendar"),
         DRAWER("Drawer"),
-        CAESAR_CYPHER("CaesarCypher"),
+        CAESAR_CIPHER("CaesarCipher"),
         WARDROBE("Wardrobe"),
         INVENTORY("Inventory"),
         LOAD("LoadGame");
