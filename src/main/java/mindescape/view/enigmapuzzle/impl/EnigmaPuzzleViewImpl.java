@@ -56,18 +56,6 @@ public class EnigmaPuzzleViewImpl extends JPanel implements EnigmaPuzzleView {
     }
 
     /**
-     * Draws the enigma puzzle view.
-     * This method is currently not implemented and will throw an UnsupportedOperationException if called.
-     *
-     * @throws UnsupportedOperationException if the method is called
-     */
-    @Override
-    public void draw() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'draw'");
-    }
-
-    /**
      * Returns the JPanel instance associated with this view.
      *
      * @return the JPanel instance representing this view.

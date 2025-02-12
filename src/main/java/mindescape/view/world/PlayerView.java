@@ -5,11 +5,8 @@ import java.awt.Graphics;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-
 import javax.imageio.ImageIO;
 import javax.swing.Timer;
-
 import mindescape.controller.core.api.UserInput;
 import mindescape.model.world.core.api.Point2D;
 import java.awt.event.KeyEvent;
@@ -17,7 +14,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-
+/**
+ * Class that represents the player view.
+ */
 public class PlayerView {
     private static final Map<Integer, UserInput> KEY_MAPPER = Map.of(
         KeyEvent.VK_W, UserInput.UP,
@@ -25,24 +24,22 @@ public class PlayerView {
         KeyEvent.VK_A, UserInput.LEFT,
         KeyEvent.VK_D, UserInput.RIGHT
     );
-
     private final static int SPRITE_SHEET_HEIGHT = 16;
     private final static int SPRITE_SHEET_WIDTH = 16*8;
     private final static int SPRITES_PER_MOVEMENT = 2;
-    
     private int spriteIndex = 0;
     private final Map<UserInput, List<BufferedImage>> spriteMapper = new HashMap<>();
     private BufferedImage currentSprite;
     private final Timer timer;
-
-    int x;
-    int y;
+    private int x;
+    private int y;
 
     public PlayerView(Point2D pos) {
         x = (int) pos.x();
         y = (int) pos.y();
         BufferedImage image;
         try {
+            //TODO: use class loader
             image = ImageIO.read(new File("src/resources/playertiles/player.png"));
         } catch (IOException e) {
             image = new BufferedImage(SPRITE_SHEET_WIDTH, SPRITE_SHEET_HEIGHT, BufferedImage.TYPE_INT_ARGB);

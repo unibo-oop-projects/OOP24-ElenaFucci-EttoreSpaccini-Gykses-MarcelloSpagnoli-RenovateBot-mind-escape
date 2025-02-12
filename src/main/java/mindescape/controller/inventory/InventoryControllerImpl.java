@@ -2,9 +2,7 @@ package mindescape.controller.inventory;
 
 import java.awt.event.KeyEvent;
 import java.util.Objects;
-
 import javax.swing.JPanel;
-
 import mindescape.controller.core.api.ClickableController;
 import mindescape.controller.core.api.ControllerName;
 import mindescape.controller.maincontroller.api.MainController;
@@ -43,7 +41,7 @@ public class InventoryControllerImpl implements ClickableController {
      * @throws NullPointerException if the input is null
      */
     @Override
-    public void handleInput(Object input) throws IllegalArgumentException, NullPointerException {
+    public void handleInput(final Object input) throws IllegalArgumentException, NullPointerException {
         Objects.requireNonNull(input);
         if ((int) input == KeyEvent.VK_I) {
             this.quit();                                 
@@ -95,7 +93,7 @@ public class InventoryControllerImpl implements ClickableController {
      */
     @Override
     public Model getModel() {
-        return null;
+        return (Model) this.inventory;
     }
 
     /**
@@ -106,7 +104,6 @@ public class InventoryControllerImpl implements ClickableController {
     @Override
     public void start() {
         this.view.updateInventoryButtons(inventory.getItems());
-        System.out.println("l'inventario continene: " + inventory.getItems().toString());
     }
 
     /**
@@ -115,7 +112,7 @@ public class InventoryControllerImpl implements ClickableController {
      *
      * @param item the item that was clicked, must implement the Pickable interface
      */
-    public void handleItemClick(Pickable item) {
+    public void handleItemClick(final Pickable item) {
         String description = item.getDescription();
         this.view.updateDescription(description);
     }

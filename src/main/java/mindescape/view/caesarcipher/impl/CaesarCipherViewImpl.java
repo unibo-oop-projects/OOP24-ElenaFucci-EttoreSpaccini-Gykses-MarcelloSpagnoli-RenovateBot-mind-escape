@@ -120,14 +120,7 @@ public class CaesarCipherViewImpl implements CaesarCipherView {
             }
         });
     }
-
-    /**
-     * Does nothing in this implementation.
-     */
-    @Override
-    public void draw() {
-    }
-
+    
     /**
      * Retrieves the panel associated with this view.
      *

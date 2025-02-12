@@ -76,10 +76,6 @@ public class GuideViewImpl extends JPanel implements GuideView {
     }
 
     @Override
-    public void draw() {
-    }
-
-    @Override
     public JPanel getPanel() {
         return this;
     }

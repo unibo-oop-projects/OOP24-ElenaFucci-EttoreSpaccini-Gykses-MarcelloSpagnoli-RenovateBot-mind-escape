@@ -103,13 +103,7 @@ public class CalendarViewImpl implements CalendarView {
     public JPanel getPanel() {
         return panel;
     }
-    /**
-     * Unimplemented method. Throws an UnsupportedOperationException.
-     */
-    @Override
-    public void draw() {
-        throw new UnsupportedOperationException("Unimplemented method 'draw'");
-    }
+    
 }
 
 
