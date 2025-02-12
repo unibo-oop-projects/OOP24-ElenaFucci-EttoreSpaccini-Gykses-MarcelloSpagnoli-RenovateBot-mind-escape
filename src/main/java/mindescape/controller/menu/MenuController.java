@@ -67,7 +67,7 @@ public class MenuController implements ClickableController {
                 JOptionPane.showMessageDialog(null, "Please enter a name!", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
                 this.mainController.setPlayerName(playerName);
-                this.mainController.setController(ControllerName.WORLD);
+                this.mainController.setController(ControllerName.WORLD, null);
                 return; 
             } 
         }
@@ -77,7 +77,7 @@ public class MenuController implements ClickableController {
      * Loads the game state from a saved file.
      */
     private void loadGame() {
-        this.mainController.setController(ControllerName.LOAD);
+        this.mainController.setController(ControllerName.LOAD, null);
     }
 
     @Override

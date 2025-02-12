@@ -41,7 +41,6 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener  {
     );
     
     private static final double ROTATING_ANGLE = -90;
-    private final WorldController worldController;
     private final Map<TiledTile, BufferedImage> tilesCache = new HashMap<>();
     private BufferedImage roomImage;
     private double scaling = 1;
@@ -51,7 +50,6 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener  {
     private final Map<Integer, Boolean> keyState = new HashMap<>();
 
     public WorldViewImpl(WorldController worldController, Room currentRoom) {
-        this.worldController = worldController;
         roomHeight = currentRoom.getDimensions().height();
         roomName = currentRoom.getName();
         updateRoomImage(currentRoom);
@@ -199,6 +197,7 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener  {
     }
 
     private Player getPlayer(Room currentRoom) {
+        currentRoom.getGameObjects().forEach(x -> System.out.println(x.getName()));
         return (Player) currentRoom.getGameObjects().stream().filter(x -> x instanceof Player).findAny().get();
     }
 

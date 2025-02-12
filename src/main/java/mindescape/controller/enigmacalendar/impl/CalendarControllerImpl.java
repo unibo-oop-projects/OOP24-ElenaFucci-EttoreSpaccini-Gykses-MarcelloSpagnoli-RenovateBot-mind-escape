@@ -64,7 +64,7 @@ public class CalendarControllerImpl implements CalendarController {
      */
     @Override
     public void quit() {
-        this.mainController.setController(ControllerName.WORLD);
+        this.mainController.setController(ControllerName.WORLD, null);
     }
 
     /**

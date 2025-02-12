@@ -78,7 +78,7 @@ public class SavesController implements ClickableController {
 
     @Override
     public void quit() {
-        this.mainController.setController(ControllerName.MENU);
+        this.mainController.setController(ControllerName.MENU, null);
     }
 
     @Override

@@ -35,9 +35,9 @@
   </object>
   <object id="2" name="Wall" type="NonInteractableImpl" x="0" y="48" width="32" height="16"/>
   <object id="3" x="0" y="64" width="16" height="16"/>
-  <object id="5" name="Wall" type="NonInteractableImpl" x="0.458716" y="112" width="16" height="144"/>
-  <object id="6" x="15.1376" y="239.908" width="241.284" height="16"/>
-  <object id="7" name="Wall" type="NonInteractableImpl" x="240" y="160" width="16" height="95.8716"/>
+  <object id="5" name="Wall" type="NonInteractableImpl" x="0" y="112" width="16" height="144"/>
+  <object id="6" x="16" y="240" width="240" height="16"/>
+  <object id="7" name="Wall" type="NonInteractableImpl" x="240" y="160" width="16" height="96"/>
   <object id="10" name="Wall" type="NOnInteractableImpl" x="208" y="48" width="48" height="16"/>
   <object id="12" name="Wall" type="NonInteractableImpl" x="240" y="64" width="16" height="64"/>
   <object id="13" name="Wall" type="NonInteractableImpl" x="64" y="48" width="16" height="16"/>
@@ -50,7 +50,7 @@
   <object id="23" name="Chair" type="NonInteractableImpl" x="80.7339" y="128.44" width="13.7615" height="27.9817"/>
   <object id="25" name="Table" type="Unpickable" x="32.5688" y="192.661" width="46.789" height="26.6055">
    <properties>
-    <property name="Reward" value="Calendar Note"/>
+    <property name="Reward" value="Calendar note"/>
    </properties>
   </object>
   <object id="26" name="Chairs" type="NonInteractableImpl" x="33.0275" y="220.183" width="46.3303" height="16.5138"/>

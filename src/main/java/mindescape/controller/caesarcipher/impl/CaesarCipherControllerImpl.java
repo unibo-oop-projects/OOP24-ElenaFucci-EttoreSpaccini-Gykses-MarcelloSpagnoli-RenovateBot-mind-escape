@@ -70,7 +70,7 @@ public class CaesarCipherControllerImpl implements CaesarCipherController{
      */
     @Override
     public void quit() {
-        this.mainController.setController(ControllerName.WORLD);
+        this.mainController.setController(ControllerName.WORLD, null);
     }
 
     @Override

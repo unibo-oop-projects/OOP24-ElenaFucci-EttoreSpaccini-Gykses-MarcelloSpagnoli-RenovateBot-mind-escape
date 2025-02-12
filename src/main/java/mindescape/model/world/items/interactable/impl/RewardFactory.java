@@ -24,11 +24,11 @@ public class RewardFactory {
             case "Office key":
                 return Optional.of(new PickableImpl(Optional.empty(), name, Dimensions.TILE,
                     "A key",
-                    2));
+                    3));
             case "Torch":
                 return Optional.of(new PickableImpl(Optional.empty(), name, Dimensions.TILE,
                 "A torch",
-                3));
+                4));
             case "Key":
                 return Optional.of(new PickableImpl(Optional.empty(), name, Dimensions.TILE,
                 "The key to the last room",

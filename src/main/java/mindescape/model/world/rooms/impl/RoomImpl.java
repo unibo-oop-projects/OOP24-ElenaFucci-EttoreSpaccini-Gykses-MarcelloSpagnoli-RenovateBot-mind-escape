@@ -54,7 +54,7 @@ public class RoomImpl implements Room, Serializable {
     }
 
     @Override
-    public void removeGameObject(Pickable gameObject) {
+    public void removeGameObject(GameObject gameObject) {
         gameObjects.remove(gameObject);
     }
 

@@ -127,11 +127,11 @@ public class WorldController implements LoopController {
     private void interactAction() {
         worldView.clearInput();
         this.world.letPlayerInteract().ifPresent(enigma -> 
-        this.mainController.setController(ControllerName.fromString(enigma.getName())));
+        this.mainController.setController(ControllerName.fromString(enigma.getName()), enigma));
     }
 
     private void inventoryAction() {
         worldView.clearInput();
-        this.mainController.setController(ControllerName.INVENTORY);
+        this.mainController.setController(ControllerName.INVENTORY, null);
     }
 }

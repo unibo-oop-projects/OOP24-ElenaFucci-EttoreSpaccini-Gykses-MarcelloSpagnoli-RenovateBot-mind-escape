@@ -68,7 +68,7 @@ public class EnigmaPasswordControllerImpl implements EnigmaPasswordController {
      */
     @Override
     public void quit() {
-        this.mainController.setController(ControllerName.WORLD);
+        this.mainController.setController(ControllerName.WORLD, null);
     }
 
     @Override

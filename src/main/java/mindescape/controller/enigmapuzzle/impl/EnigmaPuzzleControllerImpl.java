@@ -127,7 +127,7 @@ public class EnigmaPuzzleControllerImpl implements ActionListener, EnigmaPuzzleC
     
     @Override
     public void quit() {
-        this.mainController.setController(ControllerName.WORLD);
+        this.mainController.setController(ControllerName.WORLD, null);
     }
 
     @Override

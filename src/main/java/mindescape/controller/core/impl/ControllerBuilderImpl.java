@@ -1,11 +1,5 @@
 package mindescape.controller.core.impl;
 
-import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import mindescape.controller.caesarcipher.impl.CaesarCipherControllerImpl;
 import mindescape.controller.core.api.ControllerBuilder;
 import mindescape.controller.core.api.ControllerMap;
@@ -18,8 +12,10 @@ import mindescape.controller.maincontroller.api.MainController;
 import mindescape.controller.menu.MenuController;
 import mindescape.controller.saveload.SavesController;
 import mindescape.controller.worldcontroller.impl.WorldController;
+import mindescape.model.enigma.api.Enigma;
+import mindescape.model.enigma.caesarcipher.api.CaesarCipherModel;
 import mindescape.model.enigma.caesarcipher.impl.CaesarCipherModelImpl;
-import mindescape.model.enigma.enigmapassword.impl.EnigmaPasswordModelImpl;
+import mindescape.model.enigma.enigmapassword.api.EnigmaPasswordModel;
 import mindescape.model.enigma.enigmapuzzle.impl.EnigmaPuzzleModelImpl;
 import mindescape.model.world.api.World;
 import mindescape.model.world.impl.WorldImpl;
@@ -43,36 +39,30 @@ public class ControllerBuilderImpl implements ControllerBuilder {
     }
 
     @Override
-    public void buildPuzzle() {
-        Image image;
-        try {
-            image = ImageIO.read(new File("src/resources/puzzle/Presidente_Sergio_Mattarella.jpg"));
-            this.controllerMap.addController(new EnigmaPuzzleControllerImpl(new EnigmaPuzzleModelImpl(5, 5, image, ControllerName.PUZZLE.getName()), this.mainController));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void buildPuzzle(Enigma enigma) {
+        this.controllerMap.addController(new EnigmaPuzzleControllerImpl((EnigmaPuzzleModelImpl) enigma, this.mainController));
     }
         
 
     @Override
-    public void buildEnigmaFirstDoor() {
-        this.controllerMap.addController(new EnigmaPasswordControllerImpl(new EnigmaPasswordModelImpl(ControllerName.ENIGMA_FIRST_DOOR.getName(), "Sergio Mattarella"), mainController));
+    public void buildEnigmaFirstDoor(Enigma enigma) {
+        this.controllerMap.addController(new EnigmaPasswordControllerImpl((EnigmaPasswordModel) enigma, mainController));
     }
 
     @Override
-    public void buildCalendar() {
+    public void buildCalendar(Enigma enigma) {
         this.controllerMap.addController(new CalendarControllerImpl(mainController));
     }
 
     @Override
-    public void buildComputer() {
-        this.controllerMap.addController(new CaesarCipherControllerImpl(new CaesarCipherModelImpl(ControllerName.CAESAR_CYPHER.getName(), 3), this.mainController));
+    public void buildComputer(Enigma enigma) {
+        this.controllerMap.addController(new CaesarCipherControllerImpl((CaesarCipherModel) enigma, this.mainController));
     }
 
     @Override
-    public void buildWardrobe() {
+    public void buildWardrobe(Enigma enigma) {
         //TODO: check if this is the correct password
-        this.controllerMap.addController(new EnigmaPasswordControllerImpl(new EnigmaPasswordModelImpl(ControllerName.WARDROBE.getName(), "Pianinator"), mainController));
+        this.controllerMap.addController(new EnigmaPasswordControllerImpl((EnigmaPasswordModel) enigma, mainController));
     }
 
     @Override
@@ -96,8 +86,8 @@ public class ControllerBuilderImpl implements ControllerBuilder {
     }
 
     @Override
-    public void buildDrawer() {
-        this.controllerMap.addController(new EnigmaPasswordControllerImpl(new EnigmaPasswordModelImpl(ControllerName.DRAWER.getName(), "1213"), mainController));
+    public void buildDrawer(Enigma enigma) {
+        this.controllerMap.addController(new EnigmaPasswordControllerImpl((EnigmaPasswordModel) enigma, mainController));
     }
 
     @Override
