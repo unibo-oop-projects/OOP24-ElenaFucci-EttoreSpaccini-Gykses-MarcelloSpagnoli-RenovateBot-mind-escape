@@ -25,7 +25,7 @@ public class CalendarControllerImpl implements CalendarController {
      */
     public CalendarControllerImpl(MainController mainController) {
         this.mainController = mainController;
-        this.view = new CalendarViewImpl();
+        this.view = new CalendarViewImpl(this);
     }   
 
     /**
