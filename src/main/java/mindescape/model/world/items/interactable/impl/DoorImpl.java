@@ -1,6 +1,5 @@
 package mindescape.model.world.items.interactable.impl;
 
-import java.util.Optional;
 import mindescape.model.world.core.api.Dimensions;
 import mindescape.model.world.core.api.Point2D;
 import mindescape.model.world.core.impl.GameObjectImpl;
@@ -27,19 +26,19 @@ import mindescape.model.world.rooms.api.Room;
 public class DoorImpl extends GameObjectImpl implements Door {
 
     private final Room destinationRoom;
-    private final Optional<Point2D> destinationPosition;
+    private final Point2D destinationPosition;
 
     /**
      * Constructs a door with a given position, name, dimensions, and destination room.
      *
-     * @param position        the optional position of the door in the game world
+     * @param position        the position of the door in the game world
      * @param name            the name of the door
      * @param dimensions      the dimensions of the door
      * @param destinationRoom the room connected as the destination through the door
      * @param destinationPosition the position in the destination room where the player will be placed
      */
-    public DoorImpl(final Optional<Point2D> position, final String name,
-                    final Dimensions dimensions, final Room destinationRoom, final Optional<Point2D> destinationPosition) {
+    public DoorImpl(final Point2D position, final String name,
+                    final Dimensions dimensions, final Room destinationRoom, final Point2D destinationPosition) {
         super(position, name, dimensions);
         this.destinationRoom = destinationRoom;
         this.destinationPosition = destinationPosition;

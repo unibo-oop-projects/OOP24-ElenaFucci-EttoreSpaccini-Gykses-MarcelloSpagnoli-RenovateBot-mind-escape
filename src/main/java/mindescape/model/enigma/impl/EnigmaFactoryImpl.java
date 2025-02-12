@@ -5,9 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.imageio.ImageIO;
-
 import mindescape.controller.core.api.ControllerName;
 import mindescape.model.enigma.api.Enigma;
 import mindescape.model.enigma.api.EnigmaFactory;

@@ -47,7 +47,7 @@ public class RoomImpl implements Room, Serializable {
 
     @Override
     public void addGameObject(GameObject gameObject) {
-        if (gameObject.getPosition().isPresent() && isPositionValid(gameObject.getPosition().get(), gameObject.getDimensions())) {
+        if (gameObject.getPosition() != null && isPositionValid(gameObject.getPosition(), gameObject.getDimensions())) {
             gameObjects.add(gameObject);
         }
     }

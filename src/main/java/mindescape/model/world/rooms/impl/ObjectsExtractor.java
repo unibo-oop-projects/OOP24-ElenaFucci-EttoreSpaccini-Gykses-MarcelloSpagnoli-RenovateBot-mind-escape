@@ -2,10 +2,8 @@ package mindescape.model.world.rooms.impl;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
-
 import org.tiledreader.FileSystemTiledReader;
 import org.tiledreader.TiledMap;
 import org.tiledreader.TiledObjectLayer;
@@ -29,7 +27,7 @@ public class ObjectsExtractor {
      * @param roomPath path to xml file describing the room
      * @return set of game objects
      */
-    Set<GameObject> extractfrom(String roomPath) {
+    Set<GameObject> extractfrom(final String roomPath) {
         Set<GameObject> gameObjects = new HashSet<>();
         InteractableFactory factory = new InteractableFactoryImpl();
         EnigmaFactory enigmas = new EnigmaFactoryImpl();
@@ -40,7 +38,7 @@ public class ObjectsExtractor {
             .toList();
         for (TiledObjectLayer layer : layers) {
             layer.getObjects().forEach(object -> {
-                Optional<Point2D> position = Optional.of(new Point2D(object.getX(), object.getY()));
+                Point2D position = new Point2D(object.getX(), object.getY());
                 Dimensions dimensions = new Dimensions(object.getWidth(), object.getHeight());
                 switch (object.getType()) {
                     case "NonInteractableImpl":
@@ -65,7 +63,7 @@ public class ObjectsExtractor {
                     case "LockedUnpickable":
                         gameObjects.add(factory.createLockedUnpickable(object.getName(), position, dimensions, 
                         (Integer) object.getProperties().get("keyItem_id"),
-                        rewards.getReward((String) object.getProperties().get("Reward")).get()));
+                        rewards.getReward((String) object.getProperties().get("Reward"))));
                     default:
                         break;
                 }
@@ -84,11 +82,10 @@ public class ObjectsExtractor {
             .toList();
         for (TiledObjectLayer doorLayer : doorLayers) {
             doorLayer.getObjects().forEach(object -> {
-                Optional<Point2D> position = Optional.of(new Point2D(object.getX(), object.getY()));
-                Optional<Point2D> destPosition = Optional.of(new Point2D(
+                Point2D position = new Point2D(object.getX(), object.getY());
+                Point2D destPosition = new Point2D(
                                 (int) object.getProperties().get("DestX"), 
-                                (int) object.getProperties().get("DestY"))
-                            );
+                                (int) object.getProperties().get("DestY"));
                 Dimensions dimensions = new Dimensions(object.getWidth(), object.getHeight());
                 switch (object.getType()) {   
                     case "DoorLockedWithEnigma":

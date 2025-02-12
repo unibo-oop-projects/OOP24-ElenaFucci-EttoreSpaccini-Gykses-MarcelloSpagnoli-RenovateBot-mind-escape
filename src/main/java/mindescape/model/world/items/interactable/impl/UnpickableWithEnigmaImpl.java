@@ -1,6 +1,5 @@
 package mindescape.model.world.items.interactable.impl;
 
-import java.util.Optional;
 import mindescape.model.enigma.api.Enigma;
 import mindescape.model.world.core.api.Dimensions;
 import mindescape.model.world.core.api.Point2D;
@@ -27,21 +26,21 @@ public class UnpickableWithEnigmaImpl extends GameObjectImpl implements Unpickab
 
     private final static long serialVersionUID = 1L;
 
-    private final Optional<Pickable> reward;
+    private final Pickable reward;
     private final Enigma enigma;
 
     /**
      * Constructs an unpickable object that requires solving an enigma to unlock.
      *
      * @param name       the name of the unpickable object
-     * @param position   the optional position of the object in the game world
+     * @param position   the position of the object in the game world
      * @param dimensions the dimensions of the unpickable object
      * @param enigma     the enigma required to unlock the object
-     * @param reward     an optional {@link Pickable} item rewarded after solving the enigma
+     * @param reward     a pickable item rewarded after solving the enigma
      */
-    public UnpickableWithEnigmaImpl(final String name, final Optional<Point2D> position,
+    public UnpickableWithEnigmaImpl(final String name, final Point2D position,
                                     final Dimensions dimensions, final Enigma enigma,
-                                    final Optional<Pickable> reward) {
+                                    final Pickable reward) {
         super(position, name, dimensions);
         this.reward = reward;
         this.enigma = enigma;
@@ -59,10 +58,10 @@ public class UnpickableWithEnigmaImpl extends GameObjectImpl implements Unpickab
     @Override
     public void onAction(final Player player) {
         if (this.isUnlocked() 
-            && this.reward.isPresent()
+            && this.reward != null
             && player.getInventory().getItems().stream()
-                    .noneMatch(item -> item.equals(this.reward.get()))) {
-            player.getInventory().addItems(this.reward.get());
+                    .noneMatch(item -> item.equals(this.reward))) {
+            player.getInventory().addItems(this.reward);
         }
     }
 

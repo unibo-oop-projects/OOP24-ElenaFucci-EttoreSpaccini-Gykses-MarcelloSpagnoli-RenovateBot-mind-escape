@@ -13,10 +13,11 @@ import mindescape.model.inventory.api.Inventory;
 import mindescape.view.inventory.InventoryViewImpl;
 import mindescape.model.world.items.interactable.api.Pickable;
 
+
 /**
- * The InventoryControllerImpl class implements the ClickableController interface
- * and manages the inventory view and inventory model. It handles user input,
- * updates the inventory view, and interacts with the main controller.
+ * Implementation of the InventoryController interface.
+ * This class handles the interactions with the inventory view and the main controller.
+ * It manages the inventory and updates the view accordingly.
  */
 public class InventoryControllerImpl implements ClickableController {
 
@@ -25,9 +26,10 @@ public class InventoryControllerImpl implements ClickableController {
     private final MainController mainController;
 
     /**
-     * Constructs an InventoryControllerImpl object.
+     * Constructs an InventoryControllerImpl with the specified inventory and main controller.
      *
-     * @param mainController the main controller that coordinates the overall application
+     * @param inventory the inventory to be managed by this controller
+     * @param mainController the main controller to be associated with this inventory controller
      */
     public InventoryControllerImpl(Inventory inventory, final MainController mainController) {
         this.inventory = inventory;
@@ -36,25 +38,33 @@ public class InventoryControllerImpl implements ClickableController {
     }
 
     /**
+     * Retrieves the current inventory.
+     *
+     * @return the inventory object
+     */
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    /**
      * Handles the input provided to the inventory controller.
      *
-     * @param input the input object to be handled, must not be null
-     * @throws IllegalArgumentException if the input is not of the expected type
-     * @throws NullPointerException if the input is null
+     * @param input the input object to be handled, expected to be an integer representing a key event.
+     * @throws IllegalArgumentException if the input is not an integer.
+     * @throws NullPointerException if the input is null.
      */
     @Override
     public void handleInput(Object input) throws IllegalArgumentException, NullPointerException {
         Objects.requireNonNull(input);
         if ((int) input == KeyEvent.VK_I) {
-            System.out.println("Tasto 'I' premuto");  // Debug
             this.quit();                                 
         }
     }
 
     /**
-     * Returns the name of the inventory.
+     * Retrieves the name of the controller.
      *
-     * @return a string representing the name of the inventory, which is "INVENTORY".
+     * @return the name of the controller as a String.
      */
     @Override
     public String getName() {
@@ -82,7 +92,7 @@ public class InventoryControllerImpl implements ClickableController {
     /**
      * Determines if the current state can be saved.
      *
-     * @return true if the state can be saved, false otherwise.
+     * @return true if the current state can be saved, false otherwise.
      */
     @Override
     public boolean canSave() {
@@ -100,26 +110,24 @@ public class InventoryControllerImpl implements ClickableController {
     }
 
     /**
-     * Starts the inventory controller.
-     * This method is intended to initialize and begin any processes or operations
-     * related to the inventory management within the application.
+     * Starts the inventory controller by updating the inventory buttons in the view
+     * with the current items in the inventory. It also prints the contents of the 
+     * inventory to the console.
      */
     @Override
     public void start() {
         this.view.updateInventoryButtons(inventory.getItems());
-        System.out.println("InventoryController started");
-        System.out.println("l'inventario continene: " + inventory.getItems().toString());
+        System.out.println("L'inventario contiene: " + inventory.getItems().toString());
     }
 
     /**
      * Handles the event when an item is clicked.
      * Retrieves the description of the clicked item and updates the view with this description.
      *
-     * @param item the item that was clicked, must implement the Pickable interface
+     * @param item the item that was clicked, which implements the Pickable interface
      */
     public void handleItemClick(Pickable item) {
         String description = item.getDescription();
         this.view.updateDescription(description);
     }
 }
-

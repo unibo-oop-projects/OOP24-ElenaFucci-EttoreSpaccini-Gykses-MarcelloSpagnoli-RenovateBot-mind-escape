@@ -1,5 +1,6 @@
 package mindescape.model.enigma.enigmapassword.impl;
 
+
 import mindescape.model.enigma.enigmapassword.api.EnigmaPasswordModel;
 
 /**

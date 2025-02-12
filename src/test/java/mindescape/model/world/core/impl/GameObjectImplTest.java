@@ -2,7 +2,6 @@ package mindescape.model.world.core.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import mindescape.model.world.core.api.Dimensions;
@@ -23,23 +22,22 @@ class GameObjectImplTest {
         initialPosition = new Point2D(1, 1);
         name = "TestObject";
         dimensions = new Dimensions(2, 2);
-        gameObject = new GameObjectImpl(Optional.of(initialPosition), name, dimensions);
+        gameObject = new GameObjectImpl(initialPosition, name, dimensions);
     }
 
     @Test
     void testGetPosition() {
-        final Optional<Point2D> position = gameObject.getPosition();
-        assertTrue(position.isPresent());
-        assertEquals(initialPosition, position.get());
+        final Point2D position = gameObject.getPosition();
+        assertEquals(initialPosition, position);
     }
 
     @Test
     void testSetPosition() {
         final Point2D newPosition = new Point2D(2, 2);
-        gameObject.setPosition(Optional.of(newPosition));
-        final Optional<Point2D> position = gameObject.getPosition();
-        assertTrue(position.isPresent());
-        assertEquals(newPosition, position.get());
+        gameObject.setPosition(newPosition);
+        final Point2D position = gameObject.getPosition();
+        assertTrue(position != null);
+        assertEquals(newPosition, position);
     }
 
     @Test

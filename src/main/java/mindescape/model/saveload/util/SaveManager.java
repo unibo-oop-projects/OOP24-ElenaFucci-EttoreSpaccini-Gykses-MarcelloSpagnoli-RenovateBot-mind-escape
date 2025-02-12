@@ -47,7 +47,7 @@ public class SaveManager {
 
         try (final ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(saveFile))) {
             oos.writeObject(world);
-        } catch (IOException e) {
+        } catch (final IOException e) {
             System.err.println("Error saving game: " + e.getMessage());
         }
     }

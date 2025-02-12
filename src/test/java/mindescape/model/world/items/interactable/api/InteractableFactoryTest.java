@@ -16,8 +16,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class InteractableFactoryTest {
-/* 
-    private InteractableFactory factory;
+    /*private InteractableFactory factory;
 
     @BeforeEach
     public void setUp() {
@@ -85,5 +84,6 @@ public class InteractableFactoryTest {
         Unpickable result = factory.createUnpickable("object", Optional.of(new Point2D(1, 1)), new Dimensions(1, 1), Optional.of(reward));
         assertNotNull(result);
         assertEquals("object", result.getName());
-    }*/
+    }
+        */
 }

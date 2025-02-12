@@ -25,17 +25,21 @@ import mindescape.model.world.rooms.impl.RoomImpl;
  */
 public class WorldImpl implements World, Serializable {
 
-    private final static long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
     private final Player player;
     private final List<Room> rooms;
-    //private Room currentRoom;
     private final transient CollisionDetector collisionDetector;
     private transient Optional<GameObject> collidingObject;
-    
+
+    /**
+     * Constructs a new WorldImpl instance.
+     *
+     * @param username the username of the player
+     */
     public WorldImpl(final String username) {
         this.rooms = RoomImpl.createRooms();
-        var currentRoom = rooms.stream().filter(x -> x.getName().equals("bedroom")).findFirst().get();
-        this.player = new PlayerImpl(Optional.of(new Point2D(110, 170)), username, Dimensions.TILE, currentRoom);
+        final var currentRoom = rooms.stream().filter(x -> x.getName().equals("bedroom")).findFirst().get();
+        this.player = new PlayerImpl(new Point2D(110, 170), username, Dimensions.TILE, currentRoom);
         currentRoom.addGameObject(player);
         this.collisionDetector = new CollisionDetectorImpl();
         this.collidingObject = Optional.empty();
@@ -55,7 +59,7 @@ public class WorldImpl implements World, Serializable {
             } 
             if (this.collidingObject.get() instanceof Interactable) {
                 this.player.interact((Interactable) this.collidingObject.get());
-            } 
+            }
         }
         if (enigma.isPresent() && enigma.get().isSolved()) {
             return Optional.empty();
@@ -95,8 +99,7 @@ public class WorldImpl implements World, Serializable {
     public void movePlayer(final Movement movement) throws NullPointerException {
         Objects.requireNonNull(movement, "Movement must not be null");
 
-        // check if the player is colliding with any object in the room before moving
-        var playerPosition = this.player.getPosition().get();
+        var playerPosition = this.player.getPosition();
         var position = new Point2D(playerPosition.x() + movement.getX(), playerPosition.y() + movement.getY());
         var collidingObject = this.collisionDetector.collisions(position, this.player.getDimensions(), this.getCurrentRoom().getGameObjects());
 

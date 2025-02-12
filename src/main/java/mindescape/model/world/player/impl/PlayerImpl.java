@@ -1,7 +1,5 @@
 package mindescape.model.world.player.impl;
 
-import java.util.Optional;
-
 import mindescape.model.world.core.api.Dimensions;
 import mindescape.model.world.core.api.Movement;
 import mindescape.model.world.core.api.Point2D;
@@ -28,7 +26,7 @@ public class PlayerImpl extends GameObjectImpl implements Player {
      * @param dimensions  the dimensions of the player
      * @param currentRoom the current room the player is in
      */
-    public PlayerImpl(final Optional<Point2D> position, final String name, 
+    public PlayerImpl(final Point2D position, final String name, 
                     final Dimensions dimensions, final Room currentRoom) {
             super(position, name, dimensions);
             this.currentRoom = currentRoom;
@@ -42,9 +40,9 @@ public class PlayerImpl extends GameObjectImpl implements Player {
      */
     @Override
     public void move(final Movement movement) {
-        final var currentPosition = getPosition().get();
+        final var currentPosition = getPosition();
         final var newPosition = new Point2D(currentPosition.x() + movement.getX(), currentPosition.y() + movement.getY()); 
-        setPosition(Optional.of(newPosition));
+        setPosition(newPosition);
    }
 
     /**
