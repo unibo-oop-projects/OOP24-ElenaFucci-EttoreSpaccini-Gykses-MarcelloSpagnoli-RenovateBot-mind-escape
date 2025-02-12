@@ -2,23 +2,16 @@ package mindescape.controller.inventory;
 
 import java.awt.event.KeyEvent;
 import java.util.Objects;
-import java.util.Optional;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import mindescape.controller.core.api.ClickableController;
 import mindescape.controller.core.api.ControllerName;
-import mindescape.controller.core.api.UserInput;
 import mindescape.controller.maincontroller.api.MainController;
 import mindescape.model.api.Model;
 import mindescape.model.inventory.api.Inventory;
-import mindescape.model.inventory.impl.InventoryImpl;
 import mindescape.view.inventory.InventoryViewImpl;
-import mindescape.model.world.core.api.Dimensions;
-import mindescape.model.world.core.api.Point2D;
 import mindescape.model.world.items.interactable.api.Pickable;
-import mindescape.model.world.items.interactable.impl.PickableImpl;
 
 /**
  * The InventoryControllerImpl class implements the ClickableController interface

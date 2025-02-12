@@ -43,14 +43,14 @@ public class InventoryViewImpl implements View {
 
         this.descriptionArea.setText("");
 
-        JPanel contentPanel = new JPanel(new BorderLayout());
+        //JPanel contentPanel = new JPanel(new BorderLayout());
 
-        contentPanel.add(inventoryPanel, BorderLayout.CENTER);
+        panel.add(inventoryPanel, BorderLayout.CENTER);
 
         JScrollPane scrollPane = new JScrollPane(descriptionArea);
-        contentPanel.add(scrollPane, BorderLayout.SOUTH);
+        panel.add(scrollPane, BorderLayout.SOUTH);
 
-        panel.add(contentPanel, BorderLayout.CENTER);
+        //panel.add(contentPanel, BorderLayout.CENTER);
 
         panel.addComponentListener(new ComponentAdapter() {
             @Override
