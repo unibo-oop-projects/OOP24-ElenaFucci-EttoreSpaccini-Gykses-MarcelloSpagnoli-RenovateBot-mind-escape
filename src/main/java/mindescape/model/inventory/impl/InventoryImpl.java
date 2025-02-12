@@ -3,25 +3,26 @@ package mindescape.model.inventory.impl;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-import mindescape.model.inventory.api.Inventory;
-import mindescape.model.inventory.api.InventoryObserver;
-import mindescape.model.world.items.interactable.api.Pickable;
-import mindescape.view.inventory.InventoryViewImpl;
 
+import mindescape.model.inventory.api.Inventory;
+import mindescape.model.world.items.interactable.api.Pickable;
 /**
- * Implementation of the Inventory and InventoryObserver interfaces.
- * This class manages a collection of Pickable items and notifies observers
- * when the inventory changes.
+ * Implementation of the {@link Inventory} interface.
+ * <p>
+ * This class represents an inventory that stores {@link Pickable} items in a set.
+ * It allows adding, removing, and retrieving items from the inventory.
+ * </p>
+ * 
+ * @see Inventory
  */
-public class InventoryImpl implements Inventory, InventoryObserver {
+public class InventoryImpl implements Inventory {
 
     private final Set<Pickable> set = new HashSet<>();
-    private final Set<InventoryViewImpl> observers = new HashSet<>();
 
     /**
-     * Retrieves the set of items in the inventory.
-     *
-     * @return a set of items that are pickable.
+     * Returns the set of {@link Pickable} items in the inventory.
+     * 
+     * @return A set of {@link Pickable} items currently in the inventory.
      */
     @Override
     public Set<Pickable> getItems() {
@@ -29,65 +30,31 @@ public class InventoryImpl implements Inventory, InventoryObserver {
     }
 
     /**
-     * Adds a pickable item to the inventory.
-     *
-     * @param pickable the item to be added to the inventory; must not be null
-     * @throws NullPointerException if the pickable item is null
+     * Adds a {@link Pickable} item to the inventory.
+     * 
+     * @param pickable The item to add to the inventory. Cannot be null.
+     * @throws NullPointerException If the provided {@link Pickable} is null.
      */
     @Override
     public void addItems(Pickable pickable) {
         Objects.requireNonNull(pickable, "Pickable item cannot be null");
         set.add(pickable);
-        notifyObservers();
     }
 
     /**
-     * Removes the specified pickable item from the inventory.
+     * Removes a {@link Pickable} item from the inventory.
      * 
-     * @param pickable the item to be removed from the inventory; must not be null
-     * @return {@code true} if the item was successfully removed, {@code false} otherwise
-     * @throws NullPointerException if the specified item is null
+     * @param pickable The item to remove from the inventory. Cannot be null.
+     * @return {@code true} if the item was successfully removed, {@code false} otherwise.
+     * @throws NullPointerException If the provided {@link Pickable} is null.
      */
     @Override
     public boolean removeItem(Pickable pickable) {
         Objects.requireNonNull(pickable, "Pickable item cannot be null");
         if (set.contains(pickable)) {
             set.remove(pickable);
-            notifyObservers();
             return true;
         }
         return false;
-    }
-
-    /**
-     * Adds an observer to the list of observers.
-     *
-     * @param observer the observer to be added
-     */
-    @Override
-    public void addObserver(InventoryViewImpl observer) {
-        observers.add(observer);
-    }
-
-    /**
-     * Removes the specified observer from the list of observers.
-     *
-     * @param observer the observer to be removed
-     */
-    @Override
-    public void removeObserver(InventoryViewImpl observer) {
-        observers.remove(observer);
-    }
-
-    /**
-     * Notifies all registered observers about the changes in the inventory.
-     * This method iterates through the list of observers and calls their
-     * updateItems method, passing the current set of items.
-     */
-    @Override
-    public void notifyObservers() {
-        for (InventoryViewImpl observer : observers) {
-            observer.updateItems(set);
-        }
     }
 }
