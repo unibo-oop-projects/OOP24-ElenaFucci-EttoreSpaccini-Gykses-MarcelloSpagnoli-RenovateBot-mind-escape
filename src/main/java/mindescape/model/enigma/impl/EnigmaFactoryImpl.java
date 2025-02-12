@@ -1,11 +1,7 @@
 package mindescape.model.enigma.impl;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
-import javax.imageio.ImageIO;
 import mindescape.controller.core.api.ControllerName;
 import mindescape.model.enigma.api.Enigma;
 import mindescape.model.enigma.api.EnigmaFactory;
@@ -50,14 +46,7 @@ public class EnigmaFactoryImpl implements EnigmaFactory {
                 
             };
             case PUZZLE -> {
-                try {
-                    //TODO: fix with the class loader
-                    BufferedImage img = ImageIO.read(new File("src/resources/puzzle/Presidente_Sergio_Mattarella.jpg"));
-                    yield addEnigma(new EnigmaPuzzleModelImpl(4, 4, img, name));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    yield null;
-                }
+                yield addEnigma(new EnigmaPuzzleModelImpl(4, 4, name));
             }
             default -> throw new IllegalArgumentException("Unexpected enigma: " + name);
         };

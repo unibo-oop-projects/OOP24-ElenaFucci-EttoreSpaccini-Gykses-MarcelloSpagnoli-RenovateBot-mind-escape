@@ -2,22 +2,22 @@ package mindescape.model.enigma.enigmapuzzle.impl;
 
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.util.*;
 import java.util.List;
 
+import mindescape.model.api.Model;
 import mindescape.model.enigma.enigmapuzzle.api.EnigmaPuzzleModel;
 
-public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializable {
+public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializable, Model {
 
     private final static long serialVersionUID = 1L;
 
-    private final int ROWS;
-    private final int COLS;
-    private Image[][] pieces;
-    private Image originalImage;
+    private final int rows;
+    private final int cols;
+    private Integer[][] pieces;
     private String puzzleName;
+    private Integer clickedButtonIndex = null;
 
     /**
      * Constructs an EnigmaPuzzleModelImpl with the specified number of rows and columns,
@@ -28,14 +28,14 @@ public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializable {
      * @param image the original image to be divided into puzzle pieces
      * @param puzzleName the name of the puzzle
      */
-    public EnigmaPuzzleModelImpl(int rows, int cols, Image image, String puzzleName) {
-        this.ROWS = rows;
-        this.COLS = cols;
-        this.originalImage = image;
+    public EnigmaPuzzleModelImpl(int rows, int cols, String puzzleName) {
+        this.rows = rows;
+        this.cols = cols;
         this.puzzleName = puzzleName;
-        this.pieces = new Image[ROWS][COLS];
-    
-        divideImageIntoPieces();
+        this.pieces = new Integer[rows][cols];
+        for (int i = 0; i < rows * cols; i++) {
+            pieces[i / cols][i % cols] = i;
+        }
         shufflePieces();
     }
     
@@ -46,7 +46,7 @@ public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializable {
      * @return the number of rows
      */
     public int getRows() {
-        return ROWS;
+        return this.rows;
     }
 
     /**
@@ -55,7 +55,7 @@ public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializable {
      * @return the number of columns
      */
     public int getCols() {
-        return COLS;
+        return this.cols;
     }
 
     /**
@@ -63,7 +63,7 @@ public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializable {
      *
      * @return a 2D array of {@link Image} objects representing the pieces of the puzzle.
      */
-    public Image[][] getPieces() {
+    public Integer[][] getPieces() {
         return pieces;
     }
 
@@ -74,7 +74,7 @@ public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializable {
      * @param col the column index of the piece to retrieve
      * @return the image piece at the specified row and column
      */
-    public Image getPiece(int row, int col) {
+    public Integer getPiece(int row, int col) {
         return pieces[row][col];
     }
 
@@ -86,59 +86,23 @@ public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializable {
     public String getName() {
         return puzzleName;
     }
-
-    /**
-     * Divides the original image into smaller pieces based on the specified number of rows and columns.
-     * The method first creates a BufferedImage from the original image, then divides this BufferedImage
-     * into smaller sub-images (pieces) and stores them in the pieces array.
-     *
-     * The width and height of each piece are calculated by dividing the original image's width and height
-     * by the number of columns (COLS) and rows (ROWS) respectively.
-     *
-     * Preconditions:
-     * - The originalImage must be initialized and not null.
-     * - The COLS and ROWS constants must be defined and greater than 0.
-     * - The pieces array must be initialized with dimensions [ROWS][COLS].
-     *
-     * Postconditions:
-     * - The pieces array will be populated with sub-images of the original image.
-     */
-    private void divideImageIntoPieces() {
-        int width = originalImage.getWidth(null);
-        int height = originalImage.getHeight(null);
-        int pieceWidth = width / COLS;
-        int pieceHeight = height / ROWS;
-    
-        BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-        Graphics g = bufferedImage.createGraphics();
-        g.drawImage(originalImage, 0, 0, null);
-        g.dispose();
-    
-        for (int i = 0; i < ROWS; i++) {
-            for (int j = 0; j < COLS; j++) {
-                pieces[i][j] = bufferedImage.getSubimage(j * pieceWidth, i * pieceHeight, pieceWidth, pieceHeight);
-            }
-        }
-    }
-    
-
     /**
      * Shuffles the pieces of the puzzle randomly.
      * This method first collects all pieces into a list, shuffles the list,
      * and then reassigns the shuffled pieces back to the original 2D array.
      */
     public void shufflePieces() {
-        List<Image> shuffledPieces = new ArrayList<>();
-        for (int i = 0; i < ROWS; i++) {
-            for (int j = 0; j < COLS; j++) {
+        List<Integer> shuffledPieces = new ArrayList<>();
+        for (int i = 0; i < this.rows; i++) {
+            for (int j = 0; j < this.cols; j++) {
                 shuffledPieces.add(pieces[i][j]);
             }
         }
         Collections.shuffle(shuffledPieces);
-
+        shuffledPieces.stream().forEach(x -> System.out.println(x));
         int index = 0;
-        for (int i = 0; i < ROWS; i++) {
-            for (int j = 0; j < COLS; j++) {
+        for (int i = 0; i < this.rows; i++) {
+            for (int j = 0; j < this.cols; j++) {
                 pieces[i][j] = shuffledPieces.get(index++);
             }
         }
@@ -152,8 +116,12 @@ public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializable {
      * @param secondRow the row index of the second piece
      * @param secondCol the column index of the second piece
      */
-    public void swapPieces(int firstRow, int firstCol, int secondRow, int secondCol) {
-        Image temp = pieces[firstRow][firstCol];
+    public void swapPieces(Integer index1, Integer index2) {
+        Integer firstRow = index1 / this.cols;
+        Integer firstCol = index1 % this.cols;
+        Integer secondRow = index2 / this.cols;
+        Integer secondCol = index2 % this.cols;
+        Integer temp = pieces[firstRow][firstCol];
         pieces[firstRow][firstCol] = pieces[secondRow][secondCol];
         pieces[secondRow][secondCol] = temp;
     }
@@ -169,39 +137,19 @@ public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializable {
      * @return true if the puzzle is solved, false otherwise.
      */
     public boolean isSolved() {
-        for (int i = 0; i < ROWS; i++) {
-            for (int j = 0; j < COLS; j++) {
-                Image pieceFromGUI = pieces[i][j];
-                BufferedImage pieceFromOriginalImage = ((BufferedImage)originalImage).getSubimage(
-                    j * (originalImage.getWidth(null) / COLS),
-                    i * (originalImage.getHeight(null) / ROWS),
-                    originalImage.getWidth(null) / COLS,
-                    originalImage.getHeight(null) / ROWS
-                );
-                
-                if (!imagesAreEqual((BufferedImage)pieceFromGUI, pieceFromOriginalImage)) {
+        int counter = 0;
+        for (int i = 0; i < this.cols; i++) {
+            for (int j = 0; j < this.rows; j++) {
+                if(pieces[j][i] == counter) {
+                    counter++;
+                } else {
                     return false;
-                }
+                }     
             }
         }
         return true;
     }
-    
-    private boolean imagesAreEqual(BufferedImage img1, BufferedImage img2) {
-        if (img1.getWidth() != img2.getWidth() || img1.getHeight() != img2.getHeight()) {
-            return false;
-        }
-    
-        for (int x = 0; x < img1.getWidth(); x++) {
-            for (int y = 0; y < img1.getHeight(); y++) {
-                if (img1.getRGB(x, y) != img2.getRGB(x, y)) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-    
+     
     /**
      * Processes a hit action on the enigma puzzle.
      *
@@ -211,8 +159,16 @@ public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializable {
      */
     @Override
     public boolean hit(Object value) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'hit'");
+        Integer hitIndex = (Integer) value;
+        if (clickedButtonIndex == null) {
+            clickedButtonIndex = hitIndex;
+            return false;
+        } else {
+            swapPieces(clickedButtonIndex, hitIndex);
+            clickedButtonIndex = null;
+            return true;
+        }
+        
     }
 }
 
