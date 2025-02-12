@@ -33,49 +33,49 @@ public class InteractableFactoryImplTest {
 
     @Test
     public void testCreateDoorLockedWithPickable() {
-        Room room = new RoomImpl("Room1");
-        Door door = factory.createDoorLockedWithPickable("Door",  new Point2D(1, 1), new Dimensions(1, 2), 1, room,  new Point2D(2, 2));
+        final Room room = new RoomImpl("Room1");
+        final Door door = factory.createDoorLockedWithPickable("Door",  new Point2D(1, 1), new Dimensions(1, 2), 1, room,  new Point2D(2, 2));
         assertNotNull(door);
         assertEquals("Door", door.getName());
     }
 
     @Test
     public void testCreateDoorLockedWithEnigma() {
-        Room room = new RoomImpl("Room1");
-        Enigma enigma = new EnigmaPasswordModelImpl("Solve this", "1234");
-        Door door = factory.createDoorLockedWithEnigma("Door", new Point2D(1, 1), new Dimensions(1, 2), enigma, room,  new Point2D(2, 2));
+        final Room room = new RoomImpl("Room1");
+        final Enigma enigma = new EnigmaPasswordModelImpl("Solve this", "1234");
+        final Door door = factory.createDoorLockedWithEnigma("Door", new Point2D(1, 1), new Dimensions(1, 2), enigma, room,  new Point2D(2, 2));
         assertNotNull(door);
         assertEquals("Door", door.getName());
     }
 
     @Test
     public void testCreateUnpickableWithEnigma() {
-        Enigma enigma = new CaesarCipherModelImpl("Solve this", 3);
-        Unpickable unpickable = factory.createUnpickableWithEnigma("Chest",  new Point2D(1, 1), new Dimensions(2, 2), enigma, null);
+        final Enigma enigma = new CaesarCipherModelImpl("Solve this", 3);
+        final Unpickable unpickable = factory.createUnpickableWithEnigma("Chest",  new Point2D(1, 1), new Dimensions(2, 2), enigma, null);
         assertNotNull(unpickable);
         assertEquals("Chest", unpickable.getName());
     }
 
     @Test
     public void testCreateLockedUnpickable() {
-        Pickable reward = new PickableImpl( new Point2D(1, 1), "Reward", new Dimensions(1, 1), "A reward", 2);
-        Unpickable unpickable = factory.createLockedUnpickable("Chest",  new Point2D(1, 1), new Dimensions(2, 2), 1, reward);
+        final Pickable reward = new PickableImpl( new Point2D(1, 1), "Reward", new Dimensions(1, 1), "A reward", 2);
+        final Unpickable unpickable = factory.createLockedUnpickable("Chest",  new Point2D(1, 1), new Dimensions(2, 2), 1, reward);
         assertNotNull(unpickable);
         assertEquals("Chest", unpickable.getName());
     }
 
     @Test
     public void testCreateUnpickable() {
-        Pickable reward = new PickableImpl( new Point2D(1, 1), "Reward", new Dimensions(1, 1), "A reward", 2);
-        Unpickable unpickable = factory.createUnpickable("Chest",  new Point2D(1, 1), new Dimensions(2, 2),  reward);
+        final Pickable reward = new PickableImpl( new Point2D(1, 1), "Reward", new Dimensions(1, 1), "A reward", 2);
+        final Unpickable unpickable = factory.createUnpickable("Chest",  new Point2D(1, 1), new Dimensions(2, 2),  reward);
         assertNotNull(unpickable);
         assertEquals("Chest", unpickable.getName());
     }
 
     @Test
     public void testCreateSimpleDoor() {
-        Room room = new RoomImpl("Room1");
-        Door door = factory.createSimpleDoor("Door",  new Point2D(1, 1), new Dimensions(1, 2), room,  new Point2D(2, 2));
+        final Room room = new RoomImpl("Room1");
+        final Door door = factory.createSimpleDoor("Door",  new Point2D(1, 1), new Dimensions(1, 2), room,  new Point2D(2, 2));
         assertNotNull(door);
         assertEquals("Door", door.getName());
     }

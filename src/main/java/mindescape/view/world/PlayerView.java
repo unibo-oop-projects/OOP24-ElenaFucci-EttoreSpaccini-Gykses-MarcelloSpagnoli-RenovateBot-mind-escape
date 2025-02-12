@@ -87,7 +87,7 @@ public class PlayerView {
             null);
     }
 
-    private void setCurrentSprite(final Map<Integer, Boolean> keys){
+    private void setCurrentSprite(final Map<Integer, Boolean> keys) {
         for (Map.Entry<Integer, Boolean> entry : keys.entrySet()) {
             if (KEY_MAPPER.get(entry.getKey()) != null && entry.getValue()) { // Se il tasto è premuto
                 currentSprite = spriteMapper.get(KEY_MAPPER.get(entry.getKey())).get(spriteIndex);
