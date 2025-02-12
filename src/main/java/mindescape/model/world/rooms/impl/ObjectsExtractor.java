@@ -29,7 +29,7 @@ public class ObjectsExtractor {
      * @param roomPath path to xml file describing the room
      * @return set of game objects
      */
-    Set<GameObject> extractfrom(String roomPath) {
+    Set<GameObject> extractfrom(final String roomPath) {
         Set<GameObject> gameObjects = new HashSet<>();
         InteractableFactory factory = new InteractableFactoryImpl();
         EnigmaFactory enigmas = new EnigmaFactoryImpl();
@@ -65,7 +65,7 @@ public class ObjectsExtractor {
                     case "LockedUnpickable":
                         gameObjects.add(factory.createLockedUnpickable(object.getName(), position, dimensions, 
                         (Integer) object.getProperties().get("keyItem_id"),
-                        rewards.getReward((String) object.getProperties().get("Reward")).get()));
+                        rewards.getReward((String) object.getProperties().get("Reward"))));
                     default:
                         break;
                 }
