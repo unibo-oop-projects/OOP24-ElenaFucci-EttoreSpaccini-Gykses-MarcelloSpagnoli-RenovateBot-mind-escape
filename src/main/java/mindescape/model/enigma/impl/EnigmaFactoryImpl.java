@@ -3,6 +3,7 @@ package mindescape.model.enigma.impl;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import javax.imageio.ImageIO;
@@ -16,7 +17,8 @@ import mindescape.model.enigma.enigmapuzzle.impl.EnigmaPuzzleModelImpl;
 /**
  * Factory class that creates the enigma objects.
  */
-public class EnigmaFactoryImpl implements EnigmaFactory {
+public class EnigmaFactoryImpl implements EnigmaFactory, Serializable {
+
     private final Set<Enigma> enigmas;
 
     public EnigmaFactoryImpl() {
@@ -31,24 +33,7 @@ public class EnigmaFactoryImpl implements EnigmaFactory {
             case DRAWER -> this.addEnigma(new EnigmaPasswordModelImpl(name, "1213"));
             case CAESAR_CIPHER -> this.addEnigma(new CaesarCipherModelImpl(name, 3));
             case WARDROBE -> this.addEnigma(new EnigmaPasswordModelImpl(name, "67845"));
-            case CALENDAR -> new Enigma() {
-
-                @Override
-                public boolean isSolved() {
-                    return false;
-                }
-
-                @Override
-                public boolean hit(Object value) {
-                    return false;
-                }
-
-                @Override
-                public String getName() {
-                    return ControllerName.CALENDAR.getName();
-                }
-                
-            };
+            case CALENDAR -> new Calendar();
             case PUZZLE -> {
                 try {
                     //TODO: fix with the class loader
@@ -71,6 +56,25 @@ public class EnigmaFactoryImpl implements EnigmaFactory {
     @Override
     public Set<Enigma> getEnigmas() {
         return this.enigmas;
-    }        
-}
+    }
 
+    private class Calendar implements Enigma, Serializable {
+        private static final long serialVersionUID = 1L;
+
+        @Override
+        public boolean isSolved() {
+            return false;
+        }
+
+        @Override
+        public boolean hit(Object value) {
+            return false;
+        }
+
+        @Override
+        public String getName() {
+           return ControllerName.CALENDAR.getName();
+        }
+
+    }
+}

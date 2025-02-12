@@ -1,7 +1,5 @@
 package mindescape.model.world.items.interactable.impl;
 
-import java.io.Serializable;
-
 import mindescape.model.enigma.api.Enigma;
 import mindescape.model.world.core.api.Dimensions;
 import mindescape.model.world.core.api.Point2D;

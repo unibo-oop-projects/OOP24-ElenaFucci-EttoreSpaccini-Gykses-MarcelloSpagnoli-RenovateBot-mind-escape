@@ -1,6 +1,8 @@
 package mindescape.model.enigma.enigmapassword.impl;
 
 
+import java.io.Serializable;
+
 import mindescape.model.enigma.enigmapassword.api.EnigmaPasswordModel;
 
 /**
@@ -9,7 +11,7 @@ import mindescape.model.enigma.enigmapassword.api.EnigmaPasswordModel;
  * The enigma is solved by providing the correct password.
  * </p>
  */
-public class EnigmaPasswordModelImpl implements EnigmaPasswordModel {
+public class EnigmaPasswordModelImpl implements EnigmaPasswordModel, Serializable {
 
     /**
      * Indicates whether the enigma has been solved.

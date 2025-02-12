@@ -1,6 +1,5 @@
 package mindescape.controller.maincontroller.impl;
 
-import java.util.List;
 import java.util.Objects;
 import javax.swing.SwingUtilities;
 import mindescape.controller.core.api.Controller;
@@ -13,8 +12,6 @@ import mindescape.controller.maincontroller.api.MainController;
 import mindescape.model.enigma.api.Enigma;
 import mindescape.model.saveload.util.SaveManager;
 import mindescape.model.world.api.World;
-import mindescape.model.world.player.api.Player;
-import mindescape.model.world.rooms.api.Room;
 import mindescape.view.api.MainView;
 import mindescape.view.main.MainViewImpl;
 

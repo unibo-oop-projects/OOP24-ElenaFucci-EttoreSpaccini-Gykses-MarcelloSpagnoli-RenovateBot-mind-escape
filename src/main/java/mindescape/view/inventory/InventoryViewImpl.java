@@ -3,7 +3,6 @@ package mindescape.view.inventory;
 import mindescape.controller.inventory.InventoryControllerImpl;
 import mindescape.model.world.items.interactable.api.Pickable;
 import mindescape.view.api.View;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;

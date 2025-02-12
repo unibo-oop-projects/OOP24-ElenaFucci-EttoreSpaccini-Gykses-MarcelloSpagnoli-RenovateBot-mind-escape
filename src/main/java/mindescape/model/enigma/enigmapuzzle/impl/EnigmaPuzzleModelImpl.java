@@ -15,9 +15,9 @@ public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializable {
 
     private final int ROWS;
     private final int COLS;
-    private Image[][] pieces;
-    private Image originalImage;
-    private String puzzleName;
+    private transient Image[][] pieces;
+    private transient Image originalImage;
+    private transient String puzzleName;
 
     /**
      * Constructs an EnigmaPuzzleModelImpl with the specified number of rows and columns,

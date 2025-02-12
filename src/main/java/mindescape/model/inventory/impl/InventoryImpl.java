@@ -1,5 +1,6 @@
 package mindescape.model.inventory.impl;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -13,10 +14,10 @@ import mindescape.view.inventory.InventoryViewImpl;
  * This class manages a collection of Pickable items and notifies observers
  * when the inventory changes.
  */
-public class InventoryImpl implements Inventory, InventoryObserver {
+public class InventoryImpl implements Inventory, InventoryObserver, Serializable {
 
     private final Set<Pickable> set = new HashSet<>();
-    private final Set<InventoryViewImpl> observers = new HashSet<>();
+    private final transient Set<InventoryViewImpl> observers = new HashSet<>();
 
     /**
      * Retrieves the set of items in the inventory.
