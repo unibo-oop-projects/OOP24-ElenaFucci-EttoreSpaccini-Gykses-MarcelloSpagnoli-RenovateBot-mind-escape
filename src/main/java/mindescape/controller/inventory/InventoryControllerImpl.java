@@ -25,9 +25,10 @@ public class InventoryControllerImpl implements ClickableController {
     /**
      * Constructs an InventoryControllerImpl object.
      *
+     * @param inventory the inventory model that stores the items the player has collected
      * @param mainController the main controller that coordinates the overall application
      */
-    public InventoryControllerImpl(Inventory inventory, final MainController mainController) {
+    public InventoryControllerImpl(final Inventory inventory, final MainController mainController) {
         this.inventory = inventory;
         this.view = new InventoryViewImpl(this);
         this.mainController = mainController;
@@ -44,7 +45,7 @@ public class InventoryControllerImpl implements ClickableController {
     public void handleInput(final Object input) throws IllegalArgumentException, NullPointerException {
         Objects.requireNonNull(input);
         if ((int) input == KeyEvent.VK_I) {
-            this.quit();                                 
+            this.quit();
         }
     }
 

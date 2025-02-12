@@ -121,7 +121,7 @@ public class ObjectsExtractor {
         return doors;
     }
 
-    private List<TiledObjectLayer> getObjectLayers(TiledMap map) {
+    private List<TiledObjectLayer> getObjectLayers(final TiledMap map) {
         return map.getNonGroupLayers().stream()
             .filter(layer -> layer instanceof TiledObjectLayer)
             .map(layer -> (TiledObjectLayer) layer)
@@ -129,4 +129,3 @@ public class ObjectsExtractor {
     }
 
 }
-

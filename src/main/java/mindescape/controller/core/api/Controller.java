@@ -9,7 +9,6 @@ import mindescape.model.api.Model;
  * user interactions and update the game state within the application.
  */
 public interface Controller {
-    
     /**
      * Handles the given input.
      *

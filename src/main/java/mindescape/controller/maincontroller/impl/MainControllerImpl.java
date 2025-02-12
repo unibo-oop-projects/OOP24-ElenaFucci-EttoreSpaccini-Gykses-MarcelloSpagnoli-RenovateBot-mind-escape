@@ -6,7 +6,7 @@ import mindescape.controller.core.api.Controller;
 import mindescape.controller.core.api.ControllerBuilder;
 import mindescape.controller.core.api.ControllerMap;
 import mindescape.controller.core.api.ControllerName;
-import mindescape.controller.core.api. LoopController;
+import mindescape.controller.core.api.LoopController;
 import mindescape.controller.core.impl.ControllerBuilderImpl;
 import mindescape.controller.maincontroller.api.MainController;
 import mindescape.model.enigma.api.Enigma;
@@ -25,14 +25,20 @@ public class MainControllerImpl implements MainController {
     private final ControllerBuilder controllerBuilder;
     private String playerName;
 
+    /**
+     * Constructor for the MainControllerImpl class.
+     */
     public MainControllerImpl() {
         this.mainView = new MainViewImpl(this);
         this.controllerBuilder = new ControllerBuilderImpl(this);
         this.onStart();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void setController(final ControllerName controllerName, Enigma enigma) {
+    public void setController(final ControllerName controllerName, final Enigma enigma) {
         //TODO: check DRY
         // Quit the current controller if it is a LoopController
         if (this.currentController instanceof LoopController) {
@@ -51,16 +57,25 @@ public class MainControllerImpl implements MainController {
         this.currentController.start();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void start() {
         SwingUtilities.invokeLater(this.mainView::show);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Controller getController() {
         return this.currentController;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void winning() {
         this.mainView.won();
@@ -68,11 +83,17 @@ public class MainControllerImpl implements MainController {
         this.onStart();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void exit() {
         System.exit(0);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void save() throws IllegalStateException, NullPointerException {
         final var world = this.controllerMap.findController(ControllerName.WORLD).getModel();
@@ -85,6 +106,9 @@ public class MainControllerImpl implements MainController {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void loadGame(final World world) {
         this.controllerBuilder.buildExistingWorld(world);
@@ -92,20 +116,34 @@ public class MainControllerImpl implements MainController {
         this.setController(ControllerName.WORLD, null);
     }
 
+    /**
+     * Setups for the game start.
+     */
     private void onStart() {
         this.controllerBuilder.buildMenu();
         this.controllerMap = this.controllerBuilder.getResult();
         this.setController(ControllerName.MENU, null);
     }
 
-    private ControllerMap buildController(final ControllerName name, Enigma enigma) {
+    /**
+     * Builds the controller based on the provided controller name if it is not already in the map.
+     *
+     * @param name the name of the controller to be built
+     * @param enigma the enigma to be set
+     * @return the built controller
+     */
+    private ControllerMap buildController(final ControllerName name, final Enigma enigma) {
         if (!this.controllerMap.containsController(name)) {
             switch (name) {
                 case MENU:
                     this.controllerBuilder.buildMenu();
                     break;
                 case INVENTORY:
-                    this.controllerBuilder.buildInventory((World) this.controllerMap.findController(ControllerName.WORLD).getModel());
+                    this.controllerBuilder.buildInventory(
+                        (World) this.controllerMap
+                        .findController(ControllerName.WORLD)
+                        .getModel()
+                    );
                     break;
                 case LOAD:
                     this.controllerBuilder.buildLoad();
@@ -141,6 +179,9 @@ public class MainControllerImpl implements MainController {
         return this.controllerBuilder.getResult();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setPlayerName(final String playerName) {
         this.playerName = playerName;

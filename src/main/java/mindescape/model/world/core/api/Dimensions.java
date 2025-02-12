@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @throws IllegalArgumentException if either width or height is not positive
  */
 public record Dimensions(double width, double height) implements Serializable {
-    public static Dimensions TILE = new Dimensions(16, 16);
+    public final static Dimensions TILE = new Dimensions(16, 16);
 
     public Dimensions {
         if (width <= 0 || height <= 0) {
