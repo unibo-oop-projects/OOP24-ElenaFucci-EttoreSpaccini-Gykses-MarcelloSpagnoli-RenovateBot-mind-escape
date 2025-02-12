@@ -33,6 +33,7 @@ public class MainControllerImpl implements MainController {
 
     @Override
     public void setController(final ControllerName controllerName, Enigma enigma) {
+        //TODO: check DRY
         // Quit the current controller if it is a LoopController
         if (this.currentController instanceof LoopController) {
             ((LoopController) this.currentController).quit();

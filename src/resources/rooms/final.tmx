@@ -57,7 +57,7 @@
   <object id="6" name="Door" type="SimpleDoor" x="112" y="245.566" width="32" height="6.48923">
    <properties>
     <property name="DestX" type="int" value="60"/>
-    <property name="DestY" type="int" value="0"/>
+    <property name="DestY" type="int" value="70"/>
     <property name="Destination" value="archive"/>
    </properties>
   </object>

@@ -1,12 +1,17 @@
 package mindescape.model.saveload.util;
 
 import mindescape.model.world.api.World;
+import mindescape.model.world.impl.WorldImpl;
+import mindescape.model.world.player.api.Player;
+import mindescape.model.world.rooms.api.Room;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -46,7 +51,8 @@ public class SaveManager {
         File saveFile = new File(SAVE_FOLDER, username + ".sav");
 
         try (final ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(saveFile))) {
-            oos.writeObject(world);
+            oos.writeObject(world.getPlayer());
+            oos.writeObject(world.getRooms());
         } catch (final IOException e) {
             System.err.println("Error saving game: " + e.getMessage());
         }
@@ -68,7 +74,10 @@ public class SaveManager {
         }
     
         try (final ObjectInputStream ois = new ObjectInputStream(new FileInputStream(saveFile))) {
-            return (World) ois.readObject();
+            var player = (Player) ois.readObject();
+            @SuppressWarnings("unchecked")
+            var rooms = (List<Room>) ois.readObject();
+            return new WorldImpl(rooms, player);
         } catch (IOException | ClassNotFoundException e) {
             System.err.println("Error loading game: " + e.getMessage());
             return null;

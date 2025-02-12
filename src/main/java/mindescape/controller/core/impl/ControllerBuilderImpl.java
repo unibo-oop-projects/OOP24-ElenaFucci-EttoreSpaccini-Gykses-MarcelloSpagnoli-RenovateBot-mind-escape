@@ -19,6 +19,7 @@ import mindescape.model.enigma.enigmapuzzle.impl.EnigmaPuzzleModelImpl;
 import mindescape.model.world.api.World;
 import mindescape.model.world.impl.WorldImpl;
 
+
 /**
  * Implementation of the ControllerBuilder interface.
  * This class is responsible for building various controllers and managing them through a ControllerMap.
@@ -39,28 +40,27 @@ public class ControllerBuilderImpl implements ControllerBuilder {
     }
 
     @Override
-    public void buildPuzzle(Enigma enigma) {
+    public void buildPuzzle(final Enigma enigma) {
         this.controllerMap.addController(new EnigmaPuzzleControllerImpl((EnigmaPuzzleModelImpl) enigma, this.mainController));
     }
 
     @Override
-    public void buildEnigmaFirstDoor(Enigma enigma) {
+    public void buildEnigmaFirstDoor(final Enigma enigma) {
         this.controllerMap.addController(new EnigmaPasswordControllerImpl((EnigmaPasswordModel) enigma, mainController));
     }
 
     @Override
-    public void buildCalendar(Enigma enigma) {
+    public void buildCalendar(final Enigma enigma) {
         this.controllerMap.addController((new CalendarControllerImpl(mainController)));
     }
 
     @Override
-    public void buildComputer(Enigma enigma) {
+    public void buildComputer(final Enigma enigma) {
         this.controllerMap.addController(new CaesarCipherControllerImpl((CaesarCipherModel) enigma, this.mainController));
     }
 
     @Override
-    public void buildWardrobe(Enigma enigma) {
-        //TODO: check if this is the correct password
+    public void buildWardrobe(final Enigma enigma) {
         this.controllerMap.addController(new EnigmaPasswordControllerImpl((EnigmaPasswordModel) enigma, mainController));
     }
 
@@ -85,7 +85,7 @@ public class ControllerBuilderImpl implements ControllerBuilder {
     }
 
     @Override
-    public void buildDrawer(Enigma enigma) {
+    public void buildDrawer(final Enigma enigma) {
         this.controllerMap.addController(new EnigmaPasswordControllerImpl((EnigmaPasswordModel) enigma, mainController));
     }
 

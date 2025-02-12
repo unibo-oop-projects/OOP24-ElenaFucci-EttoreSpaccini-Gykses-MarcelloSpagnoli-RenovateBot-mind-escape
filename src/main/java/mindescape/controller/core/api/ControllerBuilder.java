@@ -23,7 +23,7 @@ public interface ControllerBuilder {
     /**
      * Builds an existing world component.
      *
-     * @param world the existing world to build
+     * @param world the world to build
      */
     void buildExistingWorld(World world);
 

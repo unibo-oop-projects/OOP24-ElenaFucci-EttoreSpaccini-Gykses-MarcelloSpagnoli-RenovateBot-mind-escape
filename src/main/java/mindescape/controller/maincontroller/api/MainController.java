@@ -50,8 +50,13 @@ public interface MainController {
 
     /**
      * Load the game.
+     * 
+     * @param world the world to be loaded
      */
     void loadGame(World world);
 
+    /**
+     * Set the new player name.
+     */
     void setPlayerName(String playerName);
 }

@@ -25,7 +25,6 @@ import mindescape.model.world.player.api.Player;
 public class UnpickableWithEnigmaImpl extends GameObjectImpl implements UnpickableWithEnigma {
 
     private final static long serialVersionUID = 1L;
-
     private final Pickable reward;
     private final Enigma enigma;
 
