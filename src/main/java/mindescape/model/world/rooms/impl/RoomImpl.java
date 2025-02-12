@@ -83,7 +83,8 @@ public class RoomImpl implements Room, Serializable {
     }
 
     public static List<Room> createRooms() {
-        File resources = new File("src/resources/rooms");
+        ClassLoader classLoader = RoomImpl.class.getClassLoader();
+        File resources = new File(classLoader.getResource("rooms").getFile());
         ObjectsExtractor objectsExtractor = new ObjectsExtractor();
         File[] files = resources.listFiles();
         List<Room> rooms = Arrays.asList(files)
@@ -100,6 +101,7 @@ public class RoomImpl implements Room, Serializable {
         });
         return rooms;
     }
+    
 
     @Override
     public String getSource() {
