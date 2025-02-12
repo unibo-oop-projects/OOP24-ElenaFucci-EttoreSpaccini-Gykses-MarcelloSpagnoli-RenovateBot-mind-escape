@@ -40,7 +40,6 @@ public class EnigmaPuzzleViewImpl extends JPanel implements EnigmaPuzzleView {
                 controller.handleInput(buttons.indexOf(button));
             });
             add(button);
-            button.setText(""+i);
         }
     }
 
