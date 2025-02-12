@@ -1,5 +1,6 @@
 package mindescape.controller.maincontroller.impl;
 
+import java.util.List;
 import java.util.Objects;
 import javax.swing.SwingUtilities;
 import mindescape.controller.core.api.Controller;
@@ -12,6 +13,8 @@ import mindescape.controller.maincontroller.api.MainController;
 import mindescape.model.enigma.api.Enigma;
 import mindescape.model.saveload.util.SaveManager;
 import mindescape.model.world.api.World;
+import mindescape.model.world.player.api.Player;
+import mindescape.model.world.rooms.api.Room;
 import mindescape.view.api.MainView;
 import mindescape.view.main.MainViewImpl;
 
@@ -33,6 +36,7 @@ public class MainControllerImpl implements MainController {
 
     @Override
     public void setController(final ControllerName controllerName, Enigma enigma) {
+        //TODO: check DRY
         // Quit the current controller if it is a LoopController
         if (this.currentController instanceof LoopController) {
             ((LoopController) this.currentController).quit();

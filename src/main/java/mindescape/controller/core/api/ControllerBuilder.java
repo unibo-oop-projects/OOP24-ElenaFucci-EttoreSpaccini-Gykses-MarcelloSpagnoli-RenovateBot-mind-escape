@@ -1,7 +1,11 @@
 package mindescape.controller.core.api;
 
+import java.util.List;
+
 import mindescape.model.enigma.api.Enigma;
 import mindescape.model.world.api.World;
+import mindescape.model.world.player.api.Player;
+import mindescape.model.world.rooms.api.Room;
 
 /**
  * Interface for building various components of the game controller.
@@ -23,7 +27,7 @@ public interface ControllerBuilder {
     /**
      * Builds an existing world component.
      *
-     * @param world the existing world to build
+     * @param world the world to build
      */
     void buildExistingWorld(World world);
 

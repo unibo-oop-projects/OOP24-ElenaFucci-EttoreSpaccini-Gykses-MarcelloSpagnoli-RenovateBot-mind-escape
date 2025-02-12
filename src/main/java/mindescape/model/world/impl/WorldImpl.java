@@ -45,6 +45,19 @@ public class WorldImpl implements World, Serializable {
         this.collidingObject = Optional.empty();
     }
 
+    /**
+     * Constructs a new WorldImpl instance for file loading.
+     * 
+     * @param rooms the list of rooms
+     * @param player the player
+     */
+    public WorldImpl(final List<Room> rooms, final Player player) {
+        this.rooms = rooms;
+        this.player = player;
+        this.collisionDetector = new CollisionDetectorImpl();
+        this.collidingObject = Optional.empty();
+    }
+
     @Override
     public List<Room> getRooms() {
         return this.rooms;
