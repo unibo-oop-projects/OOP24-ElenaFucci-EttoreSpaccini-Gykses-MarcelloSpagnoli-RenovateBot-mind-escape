@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+
+import mindescape.controller.enigmacalendar.impl.CalendarControllerImpl;
+import mindescape.controller.maincontroller.impl.MainControllerImpl;
 import mindescape.view.enigmacalendar.api.CalendarView;
 
 /**
@@ -23,10 +26,14 @@ public class CalendarViewImpl implements CalendarView {
      * Creates the panel structure with time slot and activity labels, and adds logic
      * to resize the text based on the window's width.
      */
-    public CalendarViewImpl() {
+    public CalendarViewImpl(final CalendarControllerImpl controller) {
         panel = new JPanel();
         panel.setLayout(new BorderLayout());
         panel.setBackground(Color.DARK_GRAY);
+
+        JButton button = new JButton("Quit");
+        button.addActionListener(e -> controller.quit());
+        panel.add(button, BorderLayout.SOUTH);
 
         titleLabel = new JLabel("Daily Schedule", SwingConstants.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
@@ -95,27 +102,6 @@ public class CalendarViewImpl implements CalendarView {
     public JPanel getPanel() {
         return panel;
     }
-
-    /**
-     * Main method to test the calendar view.
-     * It creates a Swing window and adds the calendar view to it.
-     * 
-     * @param args Command-line arguments (not used).
-     */
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Calendar View Test");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(500, 400);
-            frame.setLocationRelativeTo(null);
-
-            CalendarView calendarView = new CalendarViewImpl();
-            frame.add(calendarView.getPanel());
-
-            frame.setVisible(true);
-        });
-    }
-
     /**
      * Unimplemented method. Throws an UnsupportedOperationException.
      */
