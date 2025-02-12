@@ -63,6 +63,8 @@ public class MainControllerImpl implements MainController {
     @Override
     public void winning() {
         this.mainView.won();
+        this.controllerMap.clear();
+        this.onStart();
     }
 
     @Override

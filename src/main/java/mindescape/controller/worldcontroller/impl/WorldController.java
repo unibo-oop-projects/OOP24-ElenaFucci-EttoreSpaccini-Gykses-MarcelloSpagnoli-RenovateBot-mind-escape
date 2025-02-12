@@ -72,8 +72,8 @@ public class WorldController implements LoopController {
 
                 if (world.hasWon()) {
                     mainController.winning();
-                    running = false;
-                    mainController.setController(ControllerName.MENU, null);
+                    quit();
+                    // mainController.setController(ControllerName.MENU, null);
                 }
 
                 long elapsedTime = System.currentTimeMillis() - startTime;
