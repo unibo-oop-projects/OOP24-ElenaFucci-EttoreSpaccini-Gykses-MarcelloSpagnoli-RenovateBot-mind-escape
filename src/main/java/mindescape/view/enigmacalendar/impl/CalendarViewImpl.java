@@ -4,15 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-<<<<<<< HEAD
 import mindescape.controller.enigmacalendar.impl.CalendarControllerImpl;
-=======
-
-import mindescape.controller.enigmacalendar.api.CalendarController;
-import mindescape.controller.enigmacalendar.impl.CalendarControllerImpl;
-import mindescape.controller.maincontroller.api.MainController;
-import mindescape.controller.maincontroller.impl.MainControllerImpl;
->>>>>>> Elena
 import mindescape.view.enigmacalendar.api.CalendarView;
  
 
@@ -27,8 +19,6 @@ public class CalendarViewImpl implements CalendarView {
     private final JPanel schedulePanel;
     private final JLabel[] timeLabels;
     private final JLabel[] activityLabels;
-    private final CalendarControllerImpl controller;
-    private final MainController mainController;
     
 
     /**
@@ -36,14 +26,7 @@ public class CalendarViewImpl implements CalendarView {
      * Creates the panel structure with time slot and activity labels, and adds logic
      * to resize the text based on the window's width.
      */
-<<<<<<< HEAD
     public CalendarViewImpl(final CalendarControllerImpl controller) {
-=======
-    public CalendarViewImpl() {
-        mainController = new MainControllerImpl();
-        controller = new CalendarControllerImpl(mainController);
-
->>>>>>> Elena
         panel = new JPanel();
         panel.setLayout(new BorderLayout());
         panel.setBackground(Color.DARK_GRAY);
