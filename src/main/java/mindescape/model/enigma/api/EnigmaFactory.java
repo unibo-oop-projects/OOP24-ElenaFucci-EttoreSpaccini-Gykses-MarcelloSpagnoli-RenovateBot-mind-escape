@@ -1,5 +1,7 @@
 package mindescape.model.enigma.api;
 
+import java.util.Set;
+
 /**
  * Factory interface for creating Enigma instances.
  * An Enigma is a puzzle or challenge that needs to be solved.
@@ -39,6 +41,7 @@ public interface EnigmaFactory {
         }
     }
 
-    public Enigma getEnigma(final String name) throws IllegalArgumentException;
-    
+    Enigma getEnigma(final String name) throws IllegalArgumentException;
+
+    Set<Enigma> getEnigmas();
 }
