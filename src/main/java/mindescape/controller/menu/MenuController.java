@@ -23,7 +23,6 @@ public class MenuController implements ClickableController {
     private final static String NAME = ControllerName.MENU.getName();
     private final View menuView;
     private final MainController mainController;
-    private static final long serialVersionUID = 1L;
 
     public MenuController(final MainController mainController) {
         this.mainController = mainController;

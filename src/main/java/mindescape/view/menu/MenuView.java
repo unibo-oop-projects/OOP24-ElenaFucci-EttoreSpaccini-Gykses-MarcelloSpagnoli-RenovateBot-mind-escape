@@ -6,7 +6,6 @@ import java.awt.event.ComponentEvent;
 import mindescape.controller.core.api.ClickableController;
 import mindescape.view.api.View;
 public class MenuView implements View {
-    private static final long serialVersionUID = 1L;
     private final ClickableController menuController;
     private final JPanel panel = new JPanel();
     public MenuView(final ClickableController menuController) {
