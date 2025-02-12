@@ -12,7 +12,9 @@ import mindescape.model.inventory.api.Inventory;
 import mindescape.model.inventory.impl.InventoryImpl;
 import mindescape.model.world.items.interactable.api.Interactable;
 
-public class PlayerImpl extends GameObjectImpl implements Player{
+public class PlayerImpl extends GameObjectImpl implements Player {
+
+    private static final long serialVersionUID = 1L;
 
     private final Inventory inventory;
     private Room currentRoom;
@@ -26,13 +28,11 @@ public class PlayerImpl extends GameObjectImpl implements Player{
      * @param dimensions  the dimensions of the player
      * @param currentRoom the current room the player is in
      */
-    public PlayerImpl(Optional<Point2D> position, String name, Dimensions dimensions, Room currentRoom) {
+    public PlayerImpl(final Optional<Point2D> position, final String name, 
+                    final Dimensions dimensions, final Room currentRoom) {
             super(position, name, dimensions);
             this.currentRoom = currentRoom;
-<<<<<<< HEAD
-=======
             this.inventory = new InventoryImpl();
->>>>>>> master
     }
 
     /**
@@ -41,9 +41,9 @@ public class PlayerImpl extends GameObjectImpl implements Player{
      * @param movement the movement to be applied to the player's current position
      */
     @Override
-    public void move(Movement movement) {
-        var currentPosition = getPosition().get();
-        var newPosition = new Point2D(currentPosition.x() + movement.getX(), currentPosition.y() + movement.getY()); 
+    public void move(final Movement movement) {
+        final var currentPosition = getPosition().get();
+        final var newPosition = new Point2D(currentPosition.x() + movement.getX(), currentPosition.y() + movement.getY()); 
         setPosition(Optional.of(newPosition));
    }
 

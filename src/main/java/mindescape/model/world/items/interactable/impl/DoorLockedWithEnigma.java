@@ -20,8 +20,11 @@ import mindescape.model.world.player.api.Player;
  */
 public class DoorLockedWithEnigma extends GameObjectImpl implements Door, UnpickableWithEnigma {
 
+    private static final long serialVersionUID = 1L;
+
     private final Door baseDoor;
     private final Enigma enigma;
+
 
     /**
      * Constructs a door locked with an enigma.

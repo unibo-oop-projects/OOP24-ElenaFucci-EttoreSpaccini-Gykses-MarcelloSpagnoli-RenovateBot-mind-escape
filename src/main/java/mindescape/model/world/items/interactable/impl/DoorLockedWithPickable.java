@@ -19,8 +19,10 @@ import mindescape.model.world.player.api.Player;
  */
 public class DoorLockedWithPickable extends GameObjectImpl implements Door {
 
+    private final static long serialVersionUID = 1L;
+
     private final Door baseDoor;
-    private final int keyItem_id;
+    private final int keyItemId;
     private boolean unlocked;
 
     /**
@@ -29,10 +31,10 @@ public class DoorLockedWithPickable extends GameObjectImpl implements Door {
      * @param baseDoor   the base door to decorate with the pickable lock
      * @param keyItem_id the ID of the item required to unlock the door
      */
-    public DoorLockedWithPickable(final Door baseDoor, final int keyItem_id) {
+    public DoorLockedWithPickable(final Door baseDoor, final int keyItemId) {
         super(baseDoor.getPosition(), baseDoor.getName(), baseDoor.getDimensions());
         this.baseDoor = baseDoor;
-        this.keyItem_id = keyItem_id;
+        this.keyItemId = keyItemId;
         this.unlocked = false;
     }
 
@@ -49,7 +51,7 @@ public class DoorLockedWithPickable extends GameObjectImpl implements Door {
     public void onAction(final Player player) {
         if (player.getInventory().getItems().stream()
                 .map(Pickable::getId)
-                .anyMatch(id -> id.equals(this.keyItem_id))) {
+                .anyMatch(id -> id.equals(this.keyItemId))) {
             this.unlocked = true;
             this.baseDoor.onAction(player);
         }

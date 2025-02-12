@@ -9,6 +9,8 @@ import java.awt.*;
  */
 public class ImageButton extends JButton {
 
+    private final static long serialVersionUID = 1L;
+
     private Image image;
 
     /**

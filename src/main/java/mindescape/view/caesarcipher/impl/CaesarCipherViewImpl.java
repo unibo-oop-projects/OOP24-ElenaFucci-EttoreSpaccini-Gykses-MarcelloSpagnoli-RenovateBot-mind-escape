@@ -22,6 +22,8 @@ import mindescape.view.caesarcipher.api.CaesarCipherView;
  */
 public class CaesarCipherViewImpl implements CaesarCipherView {
 
+    private final static String FONT_NAME = "Arial";
+
     private final JPanel panel;
     private final JTextField shiftField;
     private final JLabel encryptedLabel;
@@ -43,7 +45,7 @@ public class CaesarCipherViewImpl implements CaesarCipherView {
         this.panel.setLayout(new GridBagLayout());
         this.panel.setBackground(Color.DARK_GRAY);
 
-        GridBagConstraints gbc = new GridBagConstraints();
+        final GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.fill = GridBagConstraints.BOTH;
         gbc.weightx = 1.0;
@@ -105,16 +107,16 @@ public class CaesarCipherViewImpl implements CaesarCipherView {
         this.panel.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                int width = panel.getWidth();
-                int fontSize = Math.max(12, width / 30);
-                titleLabel.setFont(new Font("Arial", Font.BOLD, fontSize + 6));
-                encryptedLabel.setFont(new Font("Arial", Font.PLAIN, fontSize));
-                shiftLabel.setFont(new Font("Arial", Font.PLAIN, fontSize));
-                resultLabel.setFont(new Font("Arial", Font.PLAIN, fontSize));
-                shiftField.setFont(new Font("Arial", Font.PLAIN, fontSize));
-                decryptedField.setFont(new Font("Arial", Font.PLAIN, fontSize));
-                decryptButton.setFont(new Font("Arial", Font.BOLD, fontSize));
-                quitButton.setFont(new Font("Arial", Font.BOLD, fontSize));
+                final int width = panel.getWidth();
+                final int fontSize = Math.max(12, width / 30);
+                titleLabel.setFont(new Font(FONT_NAME, Font.BOLD, fontSize + 6));
+                encryptedLabel.setFont(new Font(FONT_NAME, Font.PLAIN, fontSize));
+                shiftLabel.setFont(new Font(FONT_NAME, Font.PLAIN, fontSize));
+                resultLabel.setFont(new Font(FONT_NAME, Font.PLAIN, fontSize));
+                shiftField.setFont(new Font(FONT_NAME, Font.PLAIN, fontSize));
+                decryptedField.setFont(new Font(FONT_NAME, Font.PLAIN, fontSize));
+                decryptButton.setFont(new Font(FONT_NAME, Font.BOLD, fontSize));
+                quitButton.setFont(new Font(FONT_NAME, Font.BOLD, fontSize));
             }
         });
     }
