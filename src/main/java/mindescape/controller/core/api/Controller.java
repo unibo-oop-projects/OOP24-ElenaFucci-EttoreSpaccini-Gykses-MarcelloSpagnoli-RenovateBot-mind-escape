@@ -16,7 +16,7 @@ public interface Controller {
      * @throws IllegalArgumentException if the input is invalid
      * @throws NullPointerException if the input is null
      */
-    void handleInput(Object input) throws IllegalArgumentException, NullPointerException;
+    void handleInput(Object input);
 
     /**
      * Retrieves the name of this controller.

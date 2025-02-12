@@ -12,7 +12,7 @@ import mindescape.model.enigma.enigmapuzzle.api.EnigmaPuzzleModel;
  */
 public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializable {
 
-    private final static long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
     private final int rows;
     private final int cols;
     private Integer[][] pieces;
@@ -20,12 +20,10 @@ public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializable {
     private Integer clickedButtonIndex = null;
 
     /**
-     * Constructs an EnigmaPuzzleModelImpl with the specified number of rows and columns,
-     * the original image, and the puzzle name.
+     * Constructs an EnigmaPuzzleModelImpl with the specified number of rows and columns and the puzzle name.
      *
      * @param rows the number of rows in the puzzle
      * @param cols the number of columns in the puzzle
-     * @param image the original image to be divided into puzzle pieces
      * @param puzzleName the name of the puzzle
      */
     public EnigmaPuzzleModelImpl(final int rows, final int cols, final String puzzleName) {
@@ -38,7 +36,6 @@ public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializable {
         }
         this.shufflePieces();
     }
-    
     /**
      * Returns the number of rows in the enigma puzzle.
      *
@@ -107,14 +104,11 @@ public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializable {
             }
         }
     }
-
     /**
-     * Swaps the positions of two pieces in the puzzle.
+     * Swaps the pieces at the specified indices.
      *
-     * @param firstRow the row index of the first piece
-     * @param firstCol the column index of the first piece
-     * @param secondRow the row index of the second piece
-     * @param secondCol the column index of the second piece
+     * @param index1 the index of the first piece to swap
+     * @param index2 the index of the second piece to swap
      */
     public void swapPieces(final Integer index1, final Integer index2) {
         final Integer firstRow = index1 / this.cols;
@@ -125,7 +119,7 @@ public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializable {
         pieces[firstRow][firstCol] = pieces[secondRow][secondCol];
         pieces[secondRow][secondCol] = temp;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -138,12 +132,11 @@ public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializable {
                     counter++;
                 } else {
                     return false;
-                }     
+                }
             }
         }
         return true;
     }
-     
     /**
      * {@inheritDoc}
      */

@@ -11,6 +11,9 @@ import mindescape.model.enigma.enigmapuzzle.impl.EnigmaPuzzleModelImpl;
  */
 public class EnigmaFactoryImpl implements EnigmaFactory {
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Enigma getEnigma(final String name) throws IllegalArgumentException {
         var enigmaName = EnigmaType.getEnigma(name);

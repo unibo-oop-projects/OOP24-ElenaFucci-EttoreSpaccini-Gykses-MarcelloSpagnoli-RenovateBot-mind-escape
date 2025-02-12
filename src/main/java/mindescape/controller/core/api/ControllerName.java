@@ -102,9 +102,9 @@ public enum ControllerName {
      * @return the corresponding ControllerName enum value, or null if no match is found
      * @throws NullPointerException if the provided name is null
      */
-    public static ControllerName fromString(final String name) throws NullPointerException {
+    public static ControllerName fromString(final String name) {
         Objects.requireNonNull(name);
-        for (final ControllerName controllerName : ControllerName.values()) {
+        for (final ControllerName controllerName : values()) {
             if (controllerName.name.equals(name)) {
                 return controllerName;
             }

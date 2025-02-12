@@ -43,10 +43,21 @@ public class InteractableFactoryImpl implements InteractableFactory {
      * @return a new {@link Door} instance
      */
     @Override
-    public Door createDoorLockedWithPickable(final String name, final Point2D position,
-                                             final Dimensions dimensions, final int keyItemId,
-                                             final Room destinationRoom, final Point2D destinationPosition) {
-        return new DoorLockedWithPickable(new DoorImpl(position, name, dimensions, destinationRoom, destinationPosition), keyItemId);
+    public Door createDoorLockedWithPickable(
+        final String name, 
+        final Point2D position,
+        final Dimensions dimensions, 
+        final int keyItemId,
+        final Room destinationRoom, 
+        final Point2D destinationPosition) {
+            final var door = new DoorImpl(
+                position, 
+                name, 
+                dimensions, 
+                destinationRoom, 
+                destinationPosition 
+            );
+            return new DoorLockedWithPickable(door, keyItemId);
     }
 
     /**

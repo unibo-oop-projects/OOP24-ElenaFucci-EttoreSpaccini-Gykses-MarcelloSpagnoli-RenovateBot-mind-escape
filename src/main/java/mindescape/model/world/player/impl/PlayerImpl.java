@@ -10,18 +10,20 @@ import mindescape.model.inventory.api.Inventory;
 import mindescape.model.inventory.impl.InventoryImpl;
 import mindescape.model.world.items.interactable.api.Interactable;
 
+/**
+ * A class that represents a player in the game.
+ */
 public class PlayerImpl extends GameObjectImpl implements Player {
 
     private static final long serialVersionUID = 1L;
-
     private final Inventory inventory;
     private Room currentRoom;
-
 
     /**
      * Constructs a new PlayerImpl instance with the specified position, name, dimensions, and current room.
      *
-     * @param position    an Optional containing the initial position of the player, or an empty Optional if the position is not specified
+     * @param position    an Optional containing the initial position of the player, 
+     * or an empty Optional if the position is not specified
      * @param name        the name of the player
      * @param dimensions  the dimensions of the player
      * @param currentRoom the current room the player is in
@@ -52,10 +54,10 @@ public class PlayerImpl extends GameObjectImpl implements Player {
      * @return true if the interaction was successful, false if the interactable is null
      */
     @Override
-    public boolean interact(Interactable interactable) {
-        if(interactable == null){
+    public boolean interact(final Interactable interactable) {
+        if (interactable == null) {
             return false;
-        }        
+        }
         interactable.onAction(this);
         return true;
     }
@@ -66,7 +68,7 @@ public class PlayerImpl extends GameObjectImpl implements Player {
      * @param room the room to set as the current room
      */
     @Override
-    public void setCurrentRoom(Room room) {
+    public void setCurrentRoom(final Room room) {
         this.currentRoom = room;
 
     }

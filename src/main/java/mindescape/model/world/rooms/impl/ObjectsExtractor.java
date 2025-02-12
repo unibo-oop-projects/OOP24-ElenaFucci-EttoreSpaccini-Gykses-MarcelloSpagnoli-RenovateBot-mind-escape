@@ -72,7 +72,7 @@ public class ObjectsExtractor {
         return gameObjects;
     }
 
-    Set<GameObject> addDoors(String roomPath, Set<Room> rooms) {
+    Set<GameObject> addDoors(final String roomPath, final Set<Room> rooms) {
         Set<GameObject> doors = new HashSet<>();
         EnigmaFactory enigmas = new EnigmaFactoryImpl();
         InteractableFactory factory = new InteractableFactoryImpl();
@@ -87,7 +87,7 @@ public class ObjectsExtractor {
                                 (int) object.getProperties().get("DestX"), 
                                 (int) object.getProperties().get("DestY"));
                 Dimensions dimensions = new Dimensions(object.getWidth(), object.getHeight());
-                switch (object.getType()) {   
+                switch (object.getType()) {
                     case "DoorLockedWithEnigma":
                         doors.add(factory.createDoorLockedWithEnigma(object.getName(), position, dimensions,
                             enigmas.getEnigma((String) object.getProperties().get("Enigma")),

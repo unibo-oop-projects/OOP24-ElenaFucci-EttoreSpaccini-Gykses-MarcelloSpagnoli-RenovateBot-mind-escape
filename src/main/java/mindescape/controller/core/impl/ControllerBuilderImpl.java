@@ -105,7 +105,7 @@ public class ControllerBuilderImpl implements ControllerBuilder {
      * {@inheritDoc}
      */
     @Override
-    public void buildWardrobe(final Enigma enigma) throws IllegalArgumentException {
+    public void buildWardrobe(final Enigma enigma) {
         if (!(enigma instanceof EnigmaPasswordModel)) {
             throw new IllegalArgumentException(
                 "Invalid enigma type for EnigmaPasswordControllerImpl: " + enigma.getClass().getSimpleName()
@@ -118,7 +118,7 @@ public class ControllerBuilderImpl implements ControllerBuilder {
      * {@inheritDoc}
      */
     @Override
-    public void buildNewWorld(final String username) throws NullPointerException {
+    public void buildNewWorld(final String username) {
         Objects.requireNonNull(username);
         this.controllerMap.addController(new WorldController(new WorldImpl(username), mainController));
     }

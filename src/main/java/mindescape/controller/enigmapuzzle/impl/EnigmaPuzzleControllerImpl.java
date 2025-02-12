@@ -81,7 +81,7 @@ public class EnigmaPuzzleControllerImpl implements EnigmaPuzzleController {
      */
     @Override
     public Model getModel() {
-        return this.model;
+        return (Model) this.model;
     }
 
     /**

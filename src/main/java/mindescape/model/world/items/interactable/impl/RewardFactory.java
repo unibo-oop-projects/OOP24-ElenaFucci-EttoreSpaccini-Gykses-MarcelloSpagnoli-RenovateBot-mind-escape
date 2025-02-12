@@ -8,7 +8,12 @@ import mindescape.model.world.items.interactable.api.Pickable;
  * is used to create and keep a link between the two.
  */
 public class RewardFactory {
-    //aggiungere man mano  
+
+    /**
+     * Returns the reward corresponding to the given name.
+     * @param name
+     * @return the reward corresponding to the given name as a {@code Pickable} or null if the name is not recognized.
+     */
     public Pickable getReward(final String name) {
         switch (name) {
             case "Bed note":
@@ -33,10 +38,10 @@ public class RewardFactory {
                 5);
             case "Message":
                 return new PickableImpl(null, name, Dimensions.TILE,
-                "They tried to erase you, to keep you trapped inside your own mind.\n" +
-                "Every locked door, every puzzle—it's all been their way of testing you, breaking you.\n" +
-                "But you made it through. And now, you're close. So close." + 
-                "Now go, the last door has opened",
+                "They tried to erase you, to keep you trapped inside your own mind.\n" 
+                + "Every locked door, every puzzle—it's all been their way of testing you, breaking you.\n" 
+                + "But you made it through. And now, you're close. So close." 
+                + "Now go, the last door has opened",
                 6);
             case "dummy":
                 return new PickableImpl(null, name, null, name, 0);

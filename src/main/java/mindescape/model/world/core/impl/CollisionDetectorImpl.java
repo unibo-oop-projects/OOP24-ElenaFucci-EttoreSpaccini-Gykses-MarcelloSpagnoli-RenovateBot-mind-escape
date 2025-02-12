@@ -11,8 +11,11 @@ import mindescape.model.world.player.api.Player;
 /**
  * Implementation of the CollisionDetector interface.
  */
-public class CollisionDetectorImpl implements CollisionDetector{
+public class CollisionDetectorImpl implements CollisionDetector {
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<GameObject> collisions(final Point2D position, final Dimensions dim, final Set<GameObject> roomObjects) {
         return roomObjects.stream()
@@ -32,7 +35,6 @@ public class CollisionDetectorImpl implements CollisionDetector{
     private boolean areColliding(final Point2D position, final Dimensions dim, final GameObject obj) {
         final Point2D objPos = obj.getPosition();
         final Dimensions objDim = obj.getDimensions();
-    
         return position.x() < objPos.x() + objDim.width() 
             && position.x() + dim.width() > objPos.x()
             &&   position.y() < objPos.y() + objDim.height()
