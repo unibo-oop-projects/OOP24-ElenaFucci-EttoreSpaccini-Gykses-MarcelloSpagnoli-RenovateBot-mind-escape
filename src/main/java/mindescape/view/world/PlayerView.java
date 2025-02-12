@@ -11,7 +11,6 @@ import mindescape.controller.core.api.UserInput;
 import mindescape.model.world.core.api.Point2D;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
