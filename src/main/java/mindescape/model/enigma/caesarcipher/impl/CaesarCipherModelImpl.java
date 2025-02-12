@@ -25,7 +25,7 @@ public class CaesarCipherModelImpl implements CaesarCipherModel, Serializable {
     public CaesarCipherModelImpl(final String name, final int shift) {
         this.name = name;
         this.solved = false;
-        this.decryptedText = this.encrypt(shift);
+        this.decryptedText = this.decrypt(shift);
     }
 
     /**
@@ -69,7 +69,7 @@ public class CaesarCipherModelImpl implements CaesarCipherModel, Serializable {
      * @return the encrypted text
      */
     @Override
-    public String encrypt(final int shift) {
+    public String decrypt(final int shift) {
         final StringBuilder result = new StringBuilder();
         for (final char c : ENCRYPTED_TEXT.toCharArray()) {
             if (Character.isLetter(c)) {
