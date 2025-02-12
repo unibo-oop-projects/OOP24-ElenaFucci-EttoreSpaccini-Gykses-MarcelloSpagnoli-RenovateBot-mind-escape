@@ -14,7 +14,7 @@ public interface WorldView {
 
     /**
      * Updates the view. 
-     * @param room 
+     * @param currentRoom to be displayed
      */
     void draw(Room currentRoom);
 
@@ -24,8 +24,15 @@ public interface WorldView {
      */
     JPanel getPanel();
 
+    /**
+     * Return a map of which keys are currently being pressed.
+     * @return a Map<Integer, Boolean> containing if a key is pressed or not.
+     */
     Map<Integer, Boolean> getKeyState();
 
+    /**
+     * Clears the keyboard input map.
+     */
     void clearInput();
 
 }

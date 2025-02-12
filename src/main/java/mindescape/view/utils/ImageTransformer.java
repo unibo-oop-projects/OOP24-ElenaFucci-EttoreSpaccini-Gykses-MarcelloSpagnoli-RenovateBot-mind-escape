@@ -4,8 +4,17 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
+/**
+ * This is a utility class to help manage images transformations, it is used to render the tiles.
+ */
 public class ImageTransformer {
     
+    /**
+     * Resizes an image using a scaling factor.
+     * @param image the image to adapt.
+     * @param scaling the scaling factor.
+     * @return the scaled BufferedImage.
+     */
     public BufferedImage adapt(final BufferedImage image, final double scaling) {
         int newWidth = (int) (image.getWidth() * scaling);
         int newHeight = (int) (image.getHeight() * scaling);
@@ -17,6 +26,12 @@ public class ImageTransformer {
         return scaledImage;
     }
 
+    /**
+     * Rotates an image.
+     * @param image the image to to rotate.
+     * @param angle the angle to rotate.
+     * @return the rotated BufferedImage.
+     */
     public BufferedImage rotateImage(final BufferedImage image, final double angle) {
         int width = image.getWidth();
         int height = image.getHeight();
@@ -30,6 +45,11 @@ public class ImageTransformer {
         return rotatedImage;
     }
 
+    /**
+     * Flips an image horizontally.
+     * @param image the image to flipped.
+     * @return the flipped BufferedImage.
+     */
     public BufferedImage flipImageHorizontally(final BufferedImage image) {
         int width = image.getWidth();
         int height = image.getHeight();
