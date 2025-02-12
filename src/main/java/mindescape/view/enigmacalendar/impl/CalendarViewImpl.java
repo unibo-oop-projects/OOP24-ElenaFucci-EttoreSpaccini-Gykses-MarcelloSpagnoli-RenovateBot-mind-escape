@@ -4,9 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-
 import mindescape.controller.enigmacalendar.impl.CalendarControllerImpl;
-import mindescape.controller.maincontroller.impl.MainControllerImpl;
 import mindescape.view.enigmacalendar.api.CalendarView;
 
 /**
