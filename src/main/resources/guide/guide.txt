@@ -8,6 +8,7 @@ A - Move left
 S - Move backward
 D - Move right
 E - Interact with objects
+You may need to click E again in order to get objects after you solve an enigma
 I - Open inventory
 I (again) - Close inventory
 
