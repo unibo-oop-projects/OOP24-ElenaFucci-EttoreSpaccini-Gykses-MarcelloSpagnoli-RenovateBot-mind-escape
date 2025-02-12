@@ -2,7 +2,6 @@ package mindescape.model.world.rooms;
 
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
-import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import mindescape.model.world.core.api.Dimensions;
@@ -35,14 +34,14 @@ public class RoomImplTest {
     @Test
     public void testAddGameObject() {
         int size = bedroom.getGameObjects().size();
-        bedroom.addGameObject(new GameObjectImpl(Optional.of(new Point2D(0, 0)), "dummy", Dimensions.TILE));
+        bedroom.addGameObject(new GameObjectImpl(new Point2D(0, 0), "dummy", Dimensions.TILE));
         assertEquals(size + 1, bedroom.getGameObjects().size());
     }
 
     @Test
     public void testRemoveGameObject() {
         int size = bedroom.getGameObjects().size();
-        Pickable obj = new PickableImpl(Optional.of(new Point2D(0, 0)), "", Dimensions.TILE, "", 0);
+        Pickable obj = new PickableImpl(new Point2D(0, 0), "", Dimensions.TILE, "", 0);
         bedroom.addGameObject(obj);
         assertEquals(size + 1, bedroom.getGameObjects().size());
         bedroom.removeGameObject(obj);
