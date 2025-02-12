@@ -12,7 +12,6 @@ import mindescape.model.enigma.enigmapuzzle.api.EnigmaPuzzleModel;
 public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializable, Model {
 
     private final static long serialVersionUID = 1L;
-
     private final int rows;
     private final int cols;
     private Integer[][] pieces;

@@ -12,9 +12,8 @@ public class CaesarCipherModelImpl implements CaesarCipherModel, Serializable {
 
     private static final long serialVersionUID = 1L;
     private final static transient String ENCRYPTED_TEXT = "Wkh nhbfrgh wr wkh forvhw lv \"reolylrq\". Lw frqwdlqv lpsruwdqw lqirupdwlrqv."; 
-
-    private final transient String decryptedText; 
-    private final transient String name; 
+    private final String decryptedText; 
+    private final String name; 
     private boolean solved; 
 
     /**
