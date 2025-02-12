@@ -1,11 +1,5 @@
 package mindescape.controller.enigmapuzzle.impl;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import mindescape.model.api.Model;
@@ -27,16 +21,7 @@ public class EnigmaPuzzleControllerImpl implements EnigmaPuzzleController {
      */
     public EnigmaPuzzleControllerImpl(EnigmaPuzzleModelImpl model, MainController mainController) {
         this.model = model;
-        BufferedImage img;
-       try (InputStream is = getClass().getClassLoader().getResourceAsStream("enigma/images/puzzle.jpg");) {
-            if (is == null) {
-                throw new IllegalArgumentException("Image not found");
-            }
-            img = ImageIO.read(is);
-        } catch (IOException e) {
-            throw new IllegalArgumentException("Error loading image", e);
-        }
-        this.view = new EnigmaPuzzleViewImpl(model.getRows(), model.getCols(), this, img);  // Create the view with rows and cols
+        this.view = new EnigmaPuzzleViewImpl(model.getCols(), model.getRows(), this); 
         this.mainController = mainController;
         view.update(model.getPieces());  // Initialize the view
     }
