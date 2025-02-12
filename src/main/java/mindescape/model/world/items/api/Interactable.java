@@ -15,9 +15,10 @@ import mindescape.model.world.player.api.Player;
 public interface Interactable extends Unmovable {
 
     /**
-     * This method is called when an action is performed on the interactable object.
-     * 
-     * @return true if the action was successful, false otherwise.
+     * Performs an action when a player interacts with this item.
+     *
+     * @param player the player who is interacting with the item
+     * @return true if the action was successful, false otherwise
      */
     boolean onAction(Player player);
 }

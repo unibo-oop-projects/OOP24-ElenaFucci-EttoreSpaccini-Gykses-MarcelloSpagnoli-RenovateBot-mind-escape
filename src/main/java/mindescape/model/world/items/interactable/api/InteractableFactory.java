@@ -46,13 +46,13 @@ public interface InteractableFactory {
      * @param name           the name of the door
      * @param position       the position of the door in the game world
      * @param dimensions     the dimensions of the door
-     * @param keyItem_id     the ID of the pickable item required to unlock the door
+     * @param keyItemId     the ID of the pickable item required to unlock the door
      * @param destinationRoom the room connected to the door as the destination
      * @param destinationPosition the position in the destination room where the player will be placed
      * @return a new instance of {@link Door}
      */
     Door createDoorLockedWithPickable(String name, Optional<Point2D> position, Dimensions dimensions,
-                                      int keyItem_id, Room destinationRoom, Optional<Point2D> destinationPosition);
+                                      int keyItemId, Room destinationRoom, Optional<Point2D> destinationPosition);
 
     /**
      * Creates a door that requires solving an enigma to unlock.
@@ -87,12 +87,12 @@ public interface InteractableFactory {
      * @param name       the name of the unpickable object
      * @param position   the position of the unpickable object in the game world
      * @param dimensions the dimensions of the unpickable object
-     * @param keyItem_id the ID of the pickable item required to unlock the object
+     * @param keyItemId the ID of the pickable item required to unlock the object
      * @param reward     the {@link Pickable} item rewarded after unlocking
      * @return a new instance of {@link Unpickable} requiring a pickable item to unlock
      */
     Unpickable createLockedUnpickable(String name, Optional<Point2D> position,
-                                      Dimensions dimensions, int keyItem_id, Pickable reward);
+                                      Dimensions dimensions, int keyItemId, Pickable reward);
 
     /**
      * Creates an unpickable object that does not require unlocking but can optionally provide a pickable item.

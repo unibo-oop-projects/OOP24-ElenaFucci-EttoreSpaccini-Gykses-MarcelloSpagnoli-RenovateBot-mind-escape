@@ -39,7 +39,10 @@ public class InteractableFactoryTest {
         Door result = factory.createSimpleDoor("door", Optional.of(new Point2D(1, 1)), new Dimensions(1, 1), room);
         assertNotNull(result);
         assertEquals("door", result.getName());
+<<<<<<< HEAD
+=======
         //assertEquals(room, result.getDestinationRoom());
+>>>>>>> master
     }
 
     @Test

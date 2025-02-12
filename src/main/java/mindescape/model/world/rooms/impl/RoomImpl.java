@@ -17,7 +17,6 @@ import com.google.common.io.Files;
 import mindescape.model.world.core.api.Dimensions;
 import mindescape.model.world.core.api.GameObject;
 import mindescape.model.world.core.api.Point2D;
-import mindescape.model.world.items.interactable.api.Pickable;
 import mindescape.model.world.player.api.Player;
 import mindescape.model.world.rooms.api.Room;
 

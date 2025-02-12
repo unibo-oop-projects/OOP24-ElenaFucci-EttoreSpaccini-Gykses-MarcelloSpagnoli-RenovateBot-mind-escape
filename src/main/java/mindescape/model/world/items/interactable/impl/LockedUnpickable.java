@@ -23,6 +23,8 @@ import mindescape.model.world.player.api.Player;
  */
 public class LockedUnpickable extends GameObjectImpl implements Unpickable {
 
+    private static final long serialVersionUID = 1L;
+
     private final int keyItemId;
     private final Optional<Pickable> reward;
     private boolean unlocked;
@@ -72,6 +74,7 @@ public class LockedUnpickable extends GameObjectImpl implements Unpickable {
      *
      * @return {@code true} if the item is unlocked, {@code false} otherwise.
      */
+    @Override
     public boolean isUnlocked() {
         return this.unlocked;
     }

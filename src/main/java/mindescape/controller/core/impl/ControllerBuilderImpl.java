@@ -3,7 +3,6 @@ package mindescape.controller.core.impl;
 import mindescape.controller.caesarcipher.impl.CaesarCipherControllerImpl;
 import mindescape.controller.core.api.ControllerBuilder;
 import mindescape.controller.core.api.ControllerMap;
-import mindescape.controller.core.api.ControllerName;
 import mindescape.controller.enigmacalendar.impl.CalendarControllerImpl;
 import mindescape.controller.enigmapassword.impl.EnigmaPasswordControllerImpl;
 import mindescape.controller.enigmapuzzle.impl.EnigmaPuzzleControllerImpl;
@@ -14,7 +13,6 @@ import mindescape.controller.saveload.SavesController;
 import mindescape.controller.worldcontroller.impl.WorldController;
 import mindescape.model.enigma.api.Enigma;
 import mindescape.model.enigma.caesarcipher.api.CaesarCipherModel;
-import mindescape.model.enigma.caesarcipher.impl.CaesarCipherModelImpl;
 import mindescape.model.enigma.enigmapassword.api.EnigmaPasswordModel;
 import mindescape.model.enigma.enigmapuzzle.impl.EnigmaPuzzleModelImpl;
 import mindescape.model.world.api.World;
@@ -26,11 +24,12 @@ import mindescape.model.world.impl.WorldImpl;
  */
 public class ControllerBuilderImpl implements ControllerBuilder {
 
-    private final ControllerMap controllerMap = new ControllerMapImpl();
+    private final ControllerMap controllerMap;
     private final MainController mainController;
 
     public ControllerBuilderImpl(final MainController mainController) {
         this.mainController = mainController;
+        this.controllerMap = new ControllerMapImpl();
     }
 
     @Override
@@ -42,7 +41,6 @@ public class ControllerBuilderImpl implements ControllerBuilder {
     public void buildPuzzle(Enigma enigma) {
         this.controllerMap.addController(new EnigmaPuzzleControllerImpl((EnigmaPuzzleModelImpl) enigma, this.mainController));
     }
-        
 
     @Override
     public void buildEnigmaFirstDoor(Enigma enigma) {
@@ -51,7 +49,7 @@ public class ControllerBuilderImpl implements ControllerBuilder {
 
     @Override
     public void buildCalendar(Enigma enigma) {
-        this.controllerMap.addController(new CalendarControllerImpl(mainController));
+        this.controllerMap.addController((new CalendarControllerImpl(mainController)));
     }
 
     @Override

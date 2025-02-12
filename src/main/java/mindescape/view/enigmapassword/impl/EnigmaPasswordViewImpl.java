@@ -22,6 +22,8 @@ import mindescape.view.enigmapassword.api.EnigmaPasswordView;
  */
 public class EnigmaPasswordViewImpl implements EnigmaPasswordView {
 
+    private final static String FONT_NAME = "Arial";
+
     private final JPanel panel;
     private final JTextField passwordField;
     private final JLabel resultLabel;
@@ -36,14 +38,14 @@ public class EnigmaPasswordViewImpl implements EnigmaPasswordView {
         this.panel.setLayout(new GridBagLayout());
         this.panel.setBackground(Color.DARK_GRAY);
 
-        GridBagConstraints gbc = new GridBagConstraints();
+        final GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.fill = GridBagConstraints.BOTH;
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
 
-        JLabel titleLabel = new JLabel("Enter the Password", SwingConstants.CENTER);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        final JLabel titleLabel = new JLabel("Enter the Password", SwingConstants.CENTER);
+        titleLabel.setFont(new Font(FONT_NAME, Font.BOLD, 18));
         titleLabel.setForeground(Color.WHITE);
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -51,27 +53,27 @@ public class EnigmaPasswordViewImpl implements EnigmaPasswordView {
         this.panel.add(titleLabel, gbc);
 
         this.passwordField = new JTextField(15);
-        this.passwordField.setFont(new Font("Arial", Font.PLAIN, 14));
+        this.passwordField.setFont(new Font(FONT_NAME, Font.PLAIN, 14));
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.gridwidth = 2;
         this.panel.add(passwordField, gbc);
 
-        JButton checkButton = new JButton("Check Password");
-        checkButton.setFont(new Font("Arial", Font.BOLD, 14));
+        final JButton checkButton = new JButton("Check Password");
+        checkButton.setFont(new Font(FONT_NAME, Font.BOLD, 14));
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.gridwidth = 1;
         this.panel.add(checkButton, gbc);
 
-        JButton quitButton = new JButton("Quit");
-        quitButton.setFont(new Font("Arial", Font.BOLD, 14));
+        final JButton quitButton = new JButton("Quit");
+        quitButton.setFont(new Font(FONT_NAME, Font.BOLD, 14));
         gbc.gridx = 1;
         gbc.gridy = 2;
         this.panel.add(quitButton, gbc);
 
         this.resultLabel = new JLabel("", SwingConstants.CENTER);
-        this.resultLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        this.resultLabel.setFont(new Font(FONT_NAME, Font.BOLD, 20));
         this.resultLabel.setForeground(Color.WHITE);
         gbc.gridx = 0;
         gbc.gridy = 3;
@@ -83,14 +85,14 @@ public class EnigmaPasswordViewImpl implements EnigmaPasswordView {
 
         this.panel.addComponentListener(new ComponentAdapter() {
             @Override
-            public void componentResized(ComponentEvent e) {
-                int width = panel.getWidth();
-                int fontSize = Math.max(12, width / 30);
-                titleLabel.setFont(new Font("Arial", Font.BOLD, fontSize + 6));
-                resultLabel.setFont(new Font("Arial", Font.BOLD, fontSize + 4));
-                passwordField.setFont(new Font("Arial", Font.PLAIN, fontSize));
-                checkButton.setFont(new Font("Arial", Font.BOLD, fontSize));
-                quitButton.setFont(new Font("Arial", Font.BOLD, fontSize));
+            public void componentResized(final ComponentEvent e) {
+                final int width = panel.getWidth();
+                final int fontSize = Math.max(12, width / 30);
+                titleLabel.setFont(new Font(FONT_NAME, Font.BOLD, fontSize + 6));
+                resultLabel.setFont(new Font(FONT_NAME, Font.BOLD, fontSize + 4));
+                passwordField.setFont(new Font(FONT_NAME, Font.PLAIN, fontSize));
+                checkButton.setFont(new Font(FONT_NAME, Font.BOLD, fontSize));
+                quitButton.setFont(new Font(FONT_NAME, Font.BOLD, fontSize));
             }
         });
     }
@@ -118,7 +120,7 @@ public class EnigmaPasswordViewImpl implements EnigmaPasswordView {
      * @param solved {@code true} if the enigma is solved, {@code false} otherwise
      */
     @Override
-    public void showResult(boolean solved) {
+    public void showResult(final boolean solved) {
         resultLabel.setText(solved ? "The enigma has been solved!" : "Wrong password. Try again.");
     }
 }

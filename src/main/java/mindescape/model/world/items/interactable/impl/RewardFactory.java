@@ -11,7 +11,7 @@ import mindescape.model.world.items.interactable.api.Pickable;
  */
 public class RewardFactory {
     //aggiungere man mano  
-    public Optional<Pickable> getReward(String name) {
+    public Optional<Pickable> getReward(final String name) {
         switch (name) {
             case "Code note":
                 return Optional.of(new PickableImpl(Optional.empty(), name, Dimensions.TILE,
