@@ -29,7 +29,4 @@ public interface Inventory {
      * @return true if the item was removed, false otherwise.
      */
     boolean removeItem(Pickable pickable);
-
-    void addObserver(InventoryViewImpl observer);
-
 }
