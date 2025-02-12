@@ -16,6 +16,7 @@ import java.awt.event.KeyEvent;
 import java.util.Set;
 import javax.swing.BoxLayout;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -102,14 +103,26 @@ public class InventoryViewImpl implements View {
             inventoryPanel.add(itemButton);
         }
 
-        int width = panel.getWidth();
-        int fontSize = Math.max(10, width / 30);
+        final int width = panel.getWidth();
+        final int fontSize = Math.max(10, width / 30);
         updateFontSizes(fontSize);
         inventoryPanel.revalidate();
         inventoryPanel.repaint();
     }
 
-    private Icon getIcon(Pickable item) {
+    private Icon getIcon(final Pickable item) {
+        String imagePath = switch(item.getName()) {
+            case "key" -> "key.png";
+            case "Office key" -> "key.png";
+            case "Bed note" -> "ticket.png";
+            case "Message" -> "ticket.png";
+            case "Canteen note" -> "ticket.png";
+            case "Hammer" -> "hammer.png";
+            case "Torch" -> "torch.png";
+            case "Wrench"-> "wrench.png";
+            default -> throw new IllegalArgumentException("Unexpected item: " + item.getName());
+        };
+        return new ImageIcon(getClass().getClassLoader().getResource("pickable/" + imagePath));
     }
 
     /**
