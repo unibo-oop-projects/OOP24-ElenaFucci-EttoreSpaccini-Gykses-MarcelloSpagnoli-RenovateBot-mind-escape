@@ -39,7 +39,7 @@ public class CaesarCipherControllerImpl implements CaesarCipherController{
     public void handleInput(Object input) {
         try {
             int shift = Integer.parseInt((String)input);
-            view.showResult(model.encrypt(shift));
+            view.showResult(model.decrypt(shift));
         } catch (NumberFormatException e) {
             view.showResult("Invalid shift value!");
         }
@@ -85,7 +85,6 @@ public class CaesarCipherControllerImpl implements CaesarCipherController{
 
     @Override
     public Model getModel() {
-        // TODO Auto-generated method stub
         return null;
     }
 
