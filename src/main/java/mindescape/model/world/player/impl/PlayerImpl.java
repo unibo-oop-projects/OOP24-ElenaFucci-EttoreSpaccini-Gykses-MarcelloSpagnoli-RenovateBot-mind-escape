@@ -22,7 +22,6 @@ public class PlayerImpl extends GameObjectImpl implements Player{
     public PlayerImpl(Optional<Point2D> position, String name, Dimensions dimensions, Room currentRoom) {
             super(position, name, dimensions);
             this.currentRoom = currentRoom;
-            //TODO Auto-generated constructor stub
     }
 
     @Override
