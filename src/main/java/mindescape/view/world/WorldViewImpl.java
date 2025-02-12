@@ -91,7 +91,7 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         scaling = getScalingFactor();
-        BufferedImage image = adapt(roomImage);
+        BufferedImage image = adapt(roomImage, scaling);
         int offset = (this.getWidth() - image.getWidth()) / 2;
         g.drawImage(image, offset, 0, this);
         player.draw(g, offset, scaling, keyState);
@@ -151,7 +151,7 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
         return img;
     }
 
-    private BufferedImage adapt(final BufferedImage image) {
+    private BufferedImage adapt(final BufferedImage image, final double scaling) {
         int newWidth = (int) (image.getWidth() * scaling);
         int newHeight = (int) (image.getHeight() * scaling);
         BufferedImage scaledImage = new BufferedImage(newWidth, newHeight, image.getType());
