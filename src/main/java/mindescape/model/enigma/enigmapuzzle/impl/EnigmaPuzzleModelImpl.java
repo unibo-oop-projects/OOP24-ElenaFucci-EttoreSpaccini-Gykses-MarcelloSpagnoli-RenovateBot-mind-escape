@@ -3,12 +3,15 @@ package mindescape.model.enigma.enigmapuzzle.impl;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.util.*;
 import java.util.List;
 
 import mindescape.model.enigma.enigmapuzzle.api.EnigmaPuzzleModel;
 
-public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel {
+public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializable {
+
+    private final static long serialVersionUID = 1L;
 
     private final int ROWS;
     private final int COLS;
