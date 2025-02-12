@@ -2,23 +2,16 @@ package mindescape.controller.inventory;
 
 import java.awt.event.KeyEvent;
 import java.util.Objects;
-import java.util.Optional;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import mindescape.controller.core.api.ClickableController;
 import mindescape.controller.core.api.ControllerName;
-import mindescape.controller.core.api.UserInput;
 import mindescape.controller.maincontroller.api.MainController;
 import mindescape.model.api.Model;
 import mindescape.model.inventory.api.Inventory;
-import mindescape.model.inventory.impl.InventoryImpl;
 import mindescape.view.inventory.InventoryViewImpl;
-import mindescape.model.world.core.api.Dimensions;
-import mindescape.model.world.core.api.Point2D;
 import mindescape.model.world.items.interactable.api.Pickable;
-import mindescape.model.world.items.interactable.impl.PickableImpl;
 
 /**
  * The InventoryControllerImpl class implements the ClickableController interface
@@ -53,6 +46,7 @@ public class InventoryControllerImpl implements ClickableController {
     public void handleInput(Object input) throws IllegalArgumentException, NullPointerException {
         Objects.requireNonNull(input);
         if ((int) input == KeyEvent.VK_I) {
+            System.out.println("Tasto 'I' premuto");  // Debug
             this.quit();                                 
         }
     }
@@ -115,16 +109,6 @@ public class InventoryControllerImpl implements ClickableController {
         this.view.updateInventoryButtons(inventory.getItems());
         System.out.println("InventoryController started");
         System.out.println("l'inventario continene: " + inventory.getItems().toString());
-    }
-
-    /**
-     * Adds a pickable item to the inventory and updates the inventory view.
-     *
-     * @param pickable the item to be added to the inventory
-     */
-    public void addItemToInventory(Pickable pickable) {
-        this.inventory.addItems(pickable);
-        this.view.updateInventoryButtons(inventory.getItems());
     }
 
     /**

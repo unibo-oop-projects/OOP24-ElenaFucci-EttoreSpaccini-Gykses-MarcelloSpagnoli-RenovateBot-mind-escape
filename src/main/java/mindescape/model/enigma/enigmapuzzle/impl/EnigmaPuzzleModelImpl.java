@@ -166,15 +166,45 @@ public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel {
      * @return true if the puzzle is solved, false otherwise.
      */
     public boolean isSolved() {
+        // Itera su tutte le righe (ROWS) e colonne (COLS)
         for (int i = 0; i < ROWS; i++) {
             for (int j = 0; j < COLS; j++) {
-                if (!pieces[i][j].equals(((BufferedImage)originalImage).getSubimage(j * (originalImage.getWidth(null) / COLS), i * (originalImage.getHeight(null) / ROWS), originalImage.getWidth(null) / COLS, originalImage.getHeight(null) / ROWS))) {
-                    return false;
+                // Estrai il pezzo della GUI e il corrispondente pezzo dell'immagine originale
+                Image pieceFromGUI = pieces[i][j];
+                BufferedImage pieceFromOriginalImage = ((BufferedImage)originalImage).getSubimage(
+                    j * (originalImage.getWidth(null) / COLS),
+                    i * (originalImage.getHeight(null) / ROWS),
+                    originalImage.getWidth(null) / COLS,
+                    originalImage.getHeight(null) / ROWS
+                );
+                
+                // Verifica che il pezzo della GUI corrisponda esattamente a quello originale
+                if (!imagesAreEqual((BufferedImage)pieceFromGUI, pieceFromOriginalImage)) {
+                    return false;  // Se anche uno dei pezzi non corrisponde, ritorna false
                 }
             }
         }
-        return true;
+        return true;  // Se tutti i pezzi corrispondono, ritorna true
     }
+    
+    // Metodo per confrontare due BufferedImage pixel per pixel
+    private boolean imagesAreEqual(BufferedImage img1, BufferedImage img2) {
+        // Verifica se le immagini hanno la stessa dimensione
+        if (img1.getWidth() != img2.getWidth() || img1.getHeight() != img2.getHeight()) {
+            return false;
+        }
+    
+        // Confronta pixel per pixel
+        for (int x = 0; x < img1.getWidth(); x++) {
+            for (int y = 0; y < img1.getHeight(); y++) {
+                if (img1.getRGB(x, y) != img2.getRGB(x, y)) {
+                    return false;  // Se un pixel non corrisponde, ritorna false
+                }
+            }
+        }
+        return true;  // Se tutti i pixel corrispondono, ritorna true
+    }
+    
 
 
     /**
