@@ -1,7 +1,5 @@
 package mindescape.model.world.items.interactable.impl;
 
-import java.util.Optional;
-
 import mindescape.model.world.core.api.Dimensions;
 import mindescape.model.world.items.interactable.api.Pickable;
 
@@ -11,36 +9,36 @@ import mindescape.model.world.items.interactable.api.Pickable;
  */
 public class RewardFactory {
     //aggiungere man mano  
-    public Optional<Pickable> getReward(final String name) {
+    public Pickable getReward(final String name) {
         switch (name) {
             case "Code note":
-                return Optional.of(new PickableImpl(Optional.empty(), name, Dimensions.TILE,
+                return new PickableImpl(null, name, Dimensions.TILE,
                     "15674",
-                    1));
+                    1);
             case "Calendar note":
-                return Optional.of(new PickableImpl(Optional.empty(), name, Dimensions.TILE,
+                return new PickableImpl(null, name, Dimensions.TILE,
                     "The key is in the routine",
-                    2));
+                    2);
             case "Office key":
-                return Optional.of(new PickableImpl(Optional.empty(), name, Dimensions.TILE,
+                return new PickableImpl(null, name, Dimensions.TILE,
                     "A key",
-                    2));
+                    2);
             case "Torch":
-                return Optional.of(new PickableImpl(Optional.empty(), name, Dimensions.TILE,
+                return new PickableImpl(null, name, Dimensions.TILE,
                 "A torch",
-                3));
+                3);
             case "Key":
-                return Optional.of(new PickableImpl(Optional.empty(), name, Dimensions.TILE,
+                return new PickableImpl(null, name, Dimensions.TILE,
                 "The key to the last room",
-                4));
+                4);
             case "Hammer":
-                return Optional.of(new PickableImpl(Optional.empty(), name, Dimensions.TILE,
+                return new PickableImpl(null, name, Dimensions.TILE,
                 "An hammer",
-                5));
+                5);
             case "a":
-                return Optional.of(new PickableImpl(Optional.empty(), name, null, name, 0));
+                return new PickableImpl(null, name, null, name, 0);
             default:
-                return Optional.empty();
+                return null;
         }
     }
 }

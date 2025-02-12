@@ -1,6 +1,5 @@
 package mindescape.model.world.items.interactable.impl;
 
-import java.util.Optional;
 import mindescape.model.world.core.api.Dimensions;
 import mindescape.model.world.core.api.Point2D;
 import mindescape.model.world.core.impl.GameObjectImpl;
@@ -33,13 +32,13 @@ public class PickableImpl extends GameObjectImpl implements Pickable {
      * Constructs a pickable item with a specified position, name, dimensions, 
      * description, and ID.
      *
-     * @param position    the optional position of the item in the game world
+     * @param position    the position of the item in the game world
      * @param name        the name of the item
      * @param dimensions  the dimensions of the item
      * @param description a brief description of the item
      * @param id          the unique identifier of the item
      */
-    public PickableImpl(final Optional<Point2D> position, final String name,
+    public PickableImpl(final Point2D position, final String name,
                         final Dimensions dimensions, final String description, final int id) {
         super(position, name, dimensions);
         this.description = description;

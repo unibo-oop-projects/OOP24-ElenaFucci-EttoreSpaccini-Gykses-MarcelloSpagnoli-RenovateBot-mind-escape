@@ -1,7 +1,5 @@
 package mindescape.model.world.items.interactable.impl;
 
-import java.util.Optional;
-
 import mindescape.model.world.core.api.Dimensions;
 import mindescape.model.world.core.api.Point2D;
 import mindescape.model.world.core.impl.GameObjectImpl;
@@ -26,21 +24,21 @@ public class LockedUnpickable extends GameObjectImpl implements Unpickable {
     private static final long serialVersionUID = 1L;
 
     private final int keyItemId;
-    private final Optional<Pickable> reward;
+    private final Pickable reward;
     private boolean unlocked;
 
     /**
      * Constructs a locked unpickable object.
      *
      * @param name       the name of the unpickable object
-     * @param position   the optional position of the object in the game world
+     * @param position   the position of the object in the game world
      * @param dimensions the dimensions of the unpickable object
      * @param keyItemId  the ID of the pickable item required to unlock the object
      * @param reward     the pickable item rewarded after unlocking
      */
-    public LockedUnpickable(final String name, final Optional<Point2D> position,
+    public LockedUnpickable(final String name, final Point2D position,
                             final Dimensions dimensions, final int keyItemId,
-                            final Optional<Pickable> reward) {
+                            final Pickable reward) {
         super(position, name, dimensions);
         this.keyItemId = keyItemId;
         this.reward = reward;
@@ -63,8 +61,8 @@ public class LockedUnpickable extends GameObjectImpl implements Unpickable {
             && player.getInventory().getItems().stream()
                   .noneMatch(item -> item.equals(this.reward))) {
             this.unlocked = true;
-            if (reward.isPresent()) {
-                player.getInventory().addItems(this.reward.get());
+            if (this.reward != null) {
+                player.getInventory().addItems(this.reward);
             }
         }
     }
