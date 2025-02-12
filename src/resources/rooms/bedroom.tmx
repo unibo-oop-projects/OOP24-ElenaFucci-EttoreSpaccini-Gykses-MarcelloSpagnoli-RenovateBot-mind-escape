@@ -46,7 +46,7 @@
  <objectgroup id="3" name="Objects">
   <object id="1" name="Bed" type="Unpickable" x="177.581" y="100.367" width="29.6667" height="54.3333">
    <properties>
-    <property name="Reward" value="Code note"/>
+    <property name="Reward" value="Bed note"/>
    </properties>
   </object>
   <object id="3" name="PuzzleTable" type="UnpickableWithEnigma" x="34.3333" y="152.333" width="27.3333" height="39.3333">

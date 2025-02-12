@@ -11,22 +11,18 @@ public class RewardFactory {
     //aggiungere man mano  
     public Pickable getReward(final String name) {
         switch (name) {
-            case "Code note":
+            case "Bed note":
                 return new PickableImpl(null, name, Dimensions.TILE,
-                    "15674",
+                    "3 is the magic number",
                     1);
-            case "Calendar note":
+            case "Canteen note":
                 return new PickableImpl(null, name, Dimensions.TILE,
                     "The key is in the routine",
                     2);
             case "Office key":
                 return new PickableImpl(null, name, Dimensions.TILE,
                     "A key",
-                    2);
-            case "Torch":
-                return new PickableImpl(null, name, Dimensions.TILE,
-                "A torch",
-                3);
+                    3);
             case "Key":
                 return new PickableImpl(null, name, Dimensions.TILE,
                 "The key to the last room",
@@ -35,7 +31,14 @@ public class RewardFactory {
                 return new PickableImpl(null, name, Dimensions.TILE,
                 "An hammer",
                 5);
-            case "a":
+            case "Message":
+                return new PickableImpl(null, name, Dimensions.TILE,
+                "They tried to erase you, to keep you trapped inside your own mind.\n" +
+                "Every locked door, every puzzle—it's all been their way of testing you, breaking you.\n" +
+                "But you made it through. And now, you're close. So close." + 
+                "Now go, the last door has opened",
+                6);
+            case "dummy":
                 return new PickableImpl(null, name, null, name, 0);
             default:
                 return null;

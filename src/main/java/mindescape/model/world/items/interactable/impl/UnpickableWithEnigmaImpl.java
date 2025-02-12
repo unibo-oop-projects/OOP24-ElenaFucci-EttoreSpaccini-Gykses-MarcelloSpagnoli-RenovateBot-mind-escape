@@ -58,9 +58,7 @@ public class UnpickableWithEnigmaImpl extends GameObjectImpl implements Unpickab
     @Override
     public void onAction(final Player player) {
         if (this.isUnlocked() 
-            && this.reward != null
-            && player.getInventory().getItems().stream()
-                    .noneMatch(item -> item.equals(this.reward))) {
+            && this.reward != null) {
             player.getInventory().addItems(this.reward);
         }
     }

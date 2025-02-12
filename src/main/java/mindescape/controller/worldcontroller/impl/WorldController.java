@@ -66,13 +66,14 @@ public class WorldController implements LoopController {
     private class Loop extends Thread {
         @Override
         public void run() {
-            System.out.println(world.getCurrentRoom() + "   " + world.getCurrentRoom().getName());
             final long frameTime = TIME / FPS;
             while (running) {
                 long startTime = System.currentTimeMillis();
 
                 if (world.hasWon()) {
                     mainController.winning();
+                    running = false;
+                    mainController.setController(ControllerName.MENU, null);
                 }
 
                 long elapsedTime = System.currentTimeMillis() - startTime;
@@ -126,11 +127,11 @@ public class WorldController implements LoopController {
     private void interactAction() {
         worldView.clearInput();
         this.world.letPlayerInteract().ifPresent(enigma -> 
-        this.mainController.setController(ControllerName.fromString(enigma.getName())));
+        this.mainController.setController(ControllerName.fromString(enigma.getName()), enigma));
     }
 
     private void inventoryAction() {
         worldView.clearInput();
-        this.mainController.setController(ControllerName.INVENTORY);
+        this.mainController.setController(ControllerName.INVENTORY, null);
     }
 }

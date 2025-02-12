@@ -30,6 +30,7 @@ public class EnigmaFactoryImpl implements EnigmaFactory {
             case ENIGMA_FIRST_DOOR -> this.addEnigma(new EnigmaPasswordModelImpl(name, "Sergio Mattarella"));
             case DRAWER -> this.addEnigma(new EnigmaPasswordModelImpl(name, "1213"));
             case CAESAR_CIPHER -> this.addEnigma(new CaesarCipherModelImpl(name, 3));
+            case WARDROBE -> this.addEnigma(new EnigmaPasswordModelImpl(name, "67845"));
             case CALENDAR -> new Enigma() {
 
                 @Override
@@ -52,7 +53,7 @@ public class EnigmaFactoryImpl implements EnigmaFactory {
                 try {
                     //TODO: fix with the class loader
                     BufferedImage img = ImageIO.read(new File("src/resources/puzzle/Presidente_Sergio_Mattarella.jpg"));
-                    yield addEnigma(new EnigmaPuzzleModelImpl(5, 5, img, name));
+                    yield addEnigma(new EnigmaPuzzleModelImpl(4, 4, img, name));
                 } catch (IOException e) {
                     e.printStackTrace();
                     yield null;

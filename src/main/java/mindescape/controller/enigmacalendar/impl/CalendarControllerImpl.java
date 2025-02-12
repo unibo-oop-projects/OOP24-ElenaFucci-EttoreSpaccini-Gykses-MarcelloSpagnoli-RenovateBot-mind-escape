@@ -46,7 +46,7 @@ public class CalendarControllerImpl implements CalendarController {
      */
     @Override
     public String getName() {
-        return ControllerName.CALENDAR.toString();
+        return ControllerName.CALENDAR.getName();
     }
 
     /**
@@ -64,7 +64,7 @@ public class CalendarControllerImpl implements CalendarController {
      */
     @Override
     public void quit() {
-        this.mainController.setController(ControllerName.WORLD);
+        this.mainController.setController(ControllerName.WORLD, null);
     }
 
     /**

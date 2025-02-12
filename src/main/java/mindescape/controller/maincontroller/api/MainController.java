@@ -2,6 +2,7 @@ package mindescape.controller.maincontroller.api;
 
 import mindescape.controller.core.api.Controller;
 import mindescape.controller.core.api.ControllerName;
+import mindescape.model.enigma.api.Enigma;
 import mindescape.model.world.api.World;
 
 /**
@@ -15,7 +16,7 @@ public interface MainController {
      *
      * @param controllerName the name of the controller to be set
      */
-    void setController(ControllerName controllerName);
+    void setController(ControllerName controllerName, Enigma enigma);
 
     /**
      * Starts the game loop.

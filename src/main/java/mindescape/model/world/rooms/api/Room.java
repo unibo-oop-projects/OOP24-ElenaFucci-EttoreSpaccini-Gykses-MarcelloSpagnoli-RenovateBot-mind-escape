@@ -27,7 +27,7 @@ public interface Room {
      * Removes and object from the room.
      * @param gameObject the object to remove.
      */
-    void removeGameObject(Pickable gameObject);
+    void removeGameObject(GameObject gameObject);
 
     /**
      * Returns all the objects of the room.

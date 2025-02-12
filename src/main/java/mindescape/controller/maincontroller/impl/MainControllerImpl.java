@@ -9,6 +9,7 @@ import mindescape.controller.core.api.ControllerName;
 import mindescape.controller.core.api. LoopController;
 import mindescape.controller.core.impl.ControllerBuilderImpl;
 import mindescape.controller.maincontroller.api.MainController;
+import mindescape.model.enigma.api.Enigma;
 import mindescape.model.saveload.util.SaveManager;
 import mindescape.model.world.api.World;
 import mindescape.view.api.MainView;
@@ -18,11 +19,6 @@ import mindescape.view.main.MainViewImpl;
  * Implementation of the MainController interface.
  */
 public class MainControllerImpl implements MainController {
-
-    private static final String BLUE = "\u001B[34m";
-    private static final String RESET = "\u001B[0m";
-    private static final String RED = "\u001B[31m";
-    
     private Controller currentController;
     private ControllerMap controllerMap;
     private final MainView mainView;
@@ -36,7 +32,7 @@ public class MainControllerImpl implements MainController {
     }
 
     @Override
-    public void setController(final ControllerName controllerName) {
+    public void setController(final ControllerName controllerName, Enigma enigma) {
         // Quit the current controller if it is a LoopController
         if (this.currentController instanceof LoopController) {
             ((LoopController) this.currentController).quit();
@@ -46,16 +42,9 @@ public class MainControllerImpl implements MainController {
         if (this.controllerMap.containsController(controllerName)) {
             this.currentController = this.controllerMap.findController(controllerName);
         } else { // otherwise, build the controller and set it as the current controller
-            this.controllerMap = this.buildController(controllerName);
+            this.controllerMap = this.buildController(controllerName, enigma);
             this.currentController = this.controllerMap.findController(controllerName);
         }
-        /**
-         * TODO: remove this
-         * DEBUG: print the current controller and all the controllers in the map
-         */
-        System.out.println(BLUE + "Current controller: " + this.currentController.getName() + RESET);
-        System.out.print(RED + "TUTTI I CONTROLLER NELLA MAPPA SONO: " + RESET);
-        this.controllerMap.getControllers().forEach(controller -> System.out.println(controller.getName() + " "));
 
         this.mainView.setPanel(this.currentController.getPanel());
         this.currentController.start();
@@ -97,16 +86,16 @@ public class MainControllerImpl implements MainController {
     public void loadGame(final World world) {
         this.controllerBuilder.buildExistingWorld(world);
         this.controllerMap = this.controllerBuilder.getResult();
-        this.setController(ControllerName.WORLD);
+        this.setController(ControllerName.WORLD, null);
     }
 
     private void onStart() {
         this.controllerBuilder.buildMenu();
         this.controllerMap = this.controllerBuilder.getResult();
-        this.setController(ControllerName.MENU);
+        this.setController(ControllerName.MENU, null);
     }
 
-    private ControllerMap buildController(final ControllerName name) {
+    private ControllerMap buildController(final ControllerName name, Enigma enigma) {
         if (!this.controllerMap.containsController(name)) {
             switch (name) {
                 case MENU:
@@ -118,26 +107,26 @@ public class MainControllerImpl implements MainController {
                 case LOAD:
                     this.controllerBuilder.buildLoad();
                     break;
-                case CAESAR_CYPHER:
-                    this.controllerBuilder.buildComputer();
+                case CAESAR_CIPHER:
+                    this.controllerBuilder.buildComputer(enigma);
                     break;
                 case WORLD:
                     this.controllerBuilder.buildNewWorld(this.playerName);
                     break;
                 case WARDROBE:
-                    this.controllerBuilder.buildWardrobe();
+                    this.controllerBuilder.buildWardrobe(enigma);
                     break;
                 case CALENDAR:
-                    this.controllerBuilder.buildCalendar();
+                    this.controllerBuilder.buildCalendar(enigma);
                     break;
                 case PUZZLE:
-                    this.controllerBuilder.buildPuzzle();
+                    this.controllerBuilder.buildPuzzle(enigma);
                     break;
                 case DRAWER:
-                    this.controllerBuilder.buildDrawer();
+                    this.controllerBuilder.buildDrawer(enigma);
                     break;
                 case ENIGMA_FIRST_DOOR:
-                    this.controllerBuilder.buildEnigmaFirstDoor();
+                    this.controllerBuilder.buildEnigmaFirstDoor(enigma);
                     break;
                 default:
                     throw new IllegalArgumentException("Controller not found.");

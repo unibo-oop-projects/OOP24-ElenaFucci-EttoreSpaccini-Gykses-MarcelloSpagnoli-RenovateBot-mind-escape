@@ -45,8 +45,8 @@
  <objectgroup id="3" name="Objects">
   <object id="1" name="Mirror" type="LockedUnpickable" x="16" y="96" width="224" height="16">
    <properties>
-    <property name="Reward" value="a"/>
-    <property name="keyItem_id" type="int" value="0"/>
+    <property name="Reward" value="dummy"/>
+    <property name="keyItem_id" type="int" value="5"/>
    </properties>
   </object>
   <object id="2" name="Wall" x="0" y="112" width="16" height="144"/>

@@ -1,5 +1,6 @@
 package mindescape.controller.core.api;
 
+import mindescape.model.enigma.api.Enigma;
 import mindescape.model.world.api.World;
 
 /**
@@ -29,27 +30,27 @@ public interface ControllerBuilder {
     /**
      * Builds the puzzle component.
      */
-    void buildPuzzle();
+    void buildPuzzle(Enigma enigma);
 
     /**
      * Builds the enigma first door component.
      */
-    void buildEnigmaFirstDoor();
+    void buildEnigmaFirstDoor(Enigma enigma);
 
     /**
      * Builds the calendar component.
      */
-    void buildCalendar();
+    void buildCalendar(Enigma enigma);
 
     /**
      * Builds the computer component.
      */
-    void buildComputer();
+    void buildComputer(Enigma enigma);
 
     /**
      * Builds the wardrobe component.
      */
-    void buildWardrobe();
+    void buildWardrobe(Enigma enigma);
 
     /**
      * Returns the result of the building process as a ControllerMap.
@@ -76,5 +77,5 @@ public interface ControllerBuilder {
     /**
      * Builds the drawer controller.
      */
-    void buildDrawer();
+    void buildDrawer(Enigma enigma);
 }

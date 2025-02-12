@@ -16,6 +16,8 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import org.tiledreader.FileSystemTiledReader;
 import org.tiledreader.TiledMap;
+import org.tiledreader.TiledObject;
+import org.tiledreader.TiledObjectLayer;
 import org.tiledreader.TiledTile;
 import org.tiledreader.TiledTileLayer;
 import mindescape.controller.core.api.UserInput;
@@ -47,6 +49,7 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
     private String roomName;
     private PlayerView player;
     private double roomHeight;
+    private int objNum;
     private final Map<Integer, Boolean> keyState = new HashMap<>();
 
     /**
@@ -61,14 +64,16 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
         updateRoomImage(currentRoom);
         player = new PlayerView(getPlayer(currentRoom).getPosition());
         KEY_MAPPER.forEach((key, value) -> keyState.put(key, false));
-        setFocusable(true); // Allows JPanel to receive keyboard input
-        requestFocusInWindow(); // Requests focus for JPanel
+        objNum = currentRoom.getGameObjects().size();
+        setFocusable(true); // Permette al JPanel di ricevere input dalla tastiera
+        requestFocusInWindow(); // Richiede il focus per il JPanel
         addKeyListener(this);
     }
 
     @Override
     public void draw(Room currentRoom) {
-        if (!roomName.equals(currentRoom.getName())) {
+        if (!roomName.equals(currentRoom.getName()) || objNum != currentRoom.getGameObjects().size()) {
+            objNum = currentRoom.getGameObjects().size();
             updateRoomImage(currentRoom);
             roomHeight = currentRoom.getDimensions().height();
             roomName = currentRoom.getName();
@@ -199,14 +204,39 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
         Graphics2D finalMap = roomImage.createGraphics();
         TiledMap map = new FileSystemTiledReader().getMap(currentRoom.getSource());
         getTileLayers(map).forEach(layer -> drawLayer(layer, finalMap, map));
+        List<TiledObject> tileObjects = getTileObjects(map);
+        tileObjects = tileObjects
+            .stream()   
+            .filter(tObj -> {
+                return currentRoom.getGameObjects()
+                    .stream()
+                    .anyMatch(obj -> obj.getName().equals(tObj.getName()));
+            })
+            .toList();
+        tileObjects.forEach(obj -> drawTileObject(obj, finalMap));
         finalMap.dispose();
     }
 
-    private Player getPlayer(final Room currentRoom) {
-        return (Player) currentRoom.getGameObjects().stream()
-            .filter(x -> x instanceof Player)
-            .findAny()
+    private void drawTileObject(TiledObject obj, Graphics2D g) {
+        TiledTile tile = obj.getTile();
+        BufferedImage img = getTileImage(tile);
+        img = applyTransformations(img,
+            obj.getTileXFlip(),
+            obj.getTileDFlip());
+        g.drawImage(img, (int) obj.getX(), (int) obj.getY(), null);
+    }
+
+    private Player getPlayer(Room currentRoom) {
+        return (Player) currentRoom.getGameObjects().stream().filter(x -> x instanceof Player).findAny().get();
+    }
+
+    private List<TiledObject> getTileObjects(TiledMap map) {
+        TiledObjectLayer objects =  map.getNonGroupLayers().stream()
+            .filter(layer -> layer.getName().equals("Objects"))
+            .map(layer -> (TiledObjectLayer) layer)
+            .findFirst()
             .get();
+        return objects.getObjects().stream().filter(obj -> obj.getTile() != null).toList();
     }
 
     @Override
