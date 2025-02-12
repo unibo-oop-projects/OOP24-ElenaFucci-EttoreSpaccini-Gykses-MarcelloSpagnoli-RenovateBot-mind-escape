@@ -95,7 +95,7 @@ public class WorldImpl implements World, Serializable {
     public void movePlayer(final Movement movement) throws NullPointerException {
         Objects.requireNonNull(movement, "Movement must not be null");
 
-        var playerPosition = this.player.getPosition().get();
+        var playerPosition = this.player.getPosition();
         var position = new Point2D(playerPosition.x() + movement.getX(), playerPosition.y() + movement.getY());
         var collidingObject = this.collisionDetector.collisions(position, this.player.getDimensions(), this.getCurrentRoom().getGameObjects());
 
