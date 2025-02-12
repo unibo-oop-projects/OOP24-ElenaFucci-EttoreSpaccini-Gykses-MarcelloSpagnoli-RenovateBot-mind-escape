@@ -130,6 +130,9 @@ public class MainControllerImpl implements MainController {
                 case ENIGMA_FIRST_DOOR:
                     this.controllerBuilder.buildEnigmaFirstDoor(enigma);
                     break;
+                case GUIDE:
+                    this.controllerBuilder.buildGuide();
+                    break;
                 default:
                     throw new IllegalArgumentException("Controller not found.");
             }

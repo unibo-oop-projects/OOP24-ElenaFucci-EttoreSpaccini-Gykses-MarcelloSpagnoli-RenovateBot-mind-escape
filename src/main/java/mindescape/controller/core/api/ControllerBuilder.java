@@ -78,4 +78,6 @@ public interface ControllerBuilder {
      * Builds the drawer controller.
      */
     void buildDrawer(Enigma enigma);
+
+    void buildGuide();
 }

@@ -6,6 +6,7 @@ import mindescape.controller.core.api.ControllerMap;
 import mindescape.controller.enigmacalendar.impl.CalendarControllerImpl;
 import mindescape.controller.enigmapassword.impl.EnigmaPasswordControllerImpl;
 import mindescape.controller.enigmapuzzle.impl.EnigmaPuzzleControllerImpl;
+import mindescape.controller.guide.impl.GuideControllerImpl;
 import mindescape.controller.inventory.InventoryControllerImpl;
 import mindescape.controller.maincontroller.api.MainController;
 import mindescape.controller.menu.MenuController;
@@ -96,6 +97,11 @@ public class ControllerBuilderImpl implements ControllerBuilder {
     @Override
     public ControllerMap getResult() {
         return this.controllerMap;
+    }
+
+    @Override
+    public void buildGuide() {
+        this.controllerMap.addController(new GuideControllerImpl(mainController));
     }
 
 }

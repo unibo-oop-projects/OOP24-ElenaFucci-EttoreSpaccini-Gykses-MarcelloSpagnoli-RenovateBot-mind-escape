@@ -18,6 +18,7 @@ public class MenuController implements ClickableController {
         public static final String NEW_GAME = "NEW_GAME";
         public static final String LOAD_GAME = "LOAD_GAME";
         public static final String QUIT = "QUIT";
+        public static final String GUIDE = "GUIDE";
     }
 
     private final static String NAME = ControllerName.MENU.getName();
@@ -35,6 +36,7 @@ public class MenuController implements ClickableController {
             case Options.NEW_GAME -> this.newGame();
             case Options.LOAD_GAME -> this.loadGame();
             case Options.QUIT -> this.quit();
+            case Options.GUIDE -> this.guide();
             default -> throw new IllegalArgumentException("Invalid input: " + input);
         }
     }
@@ -92,6 +94,10 @@ public class MenuController implements ClickableController {
 
     @Override
     public void start() {
+    }
+
+    private void guide() {
+        this.mainController.setController(ControllerName.GUIDE, null);
     }
 
 }

@@ -34,7 +34,8 @@ public enum ControllerName {
         CAESAR_CIPHER("CaesarCipher"),
         WARDROBE("Wardrobe"),
         INVENTORY("Inventory"),
-        LOAD("LoadGame");
+        LOAD("LoadGame"), 
+        GUIDE("Guide");
         
         private final String name;
 
