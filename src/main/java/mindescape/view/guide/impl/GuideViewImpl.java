@@ -5,26 +5,22 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
-
 import mindescape.controller.guide.api.GuideController;
 import mindescape.view.guide.api.GuideView;
 
 public class GuideViewImpl extends JPanel implements GuideView {
-    private final static String GUIDE_TEXT = """
-            Benvenuto nella guida di MindEscape!
-            Questo gioco è un'avventura testuale in cui dovrai risolvere enigmi e rompicapi per avanzare.
-            Ogni stanza nasconde un enigma che dovrai risolvere per poter proseguire.
-            Buona fortuna!
-            """;
     private final static String FONT_NAME = "Arial";
-
     private final JLabel titleLabel;
     private final JTextArea guideTextArea;
     private final JButton backButton;
@@ -42,7 +38,7 @@ public class GuideViewImpl extends JPanel implements GuideView {
         this.guideTextArea.setEditable(false);
         this.guideTextArea.setLineWrap(true);
         this.guideTextArea.setWrapStyleWord(true);
-        this.guideTextArea.setText(GUIDE_TEXT);
+        this.guideTextArea.setText(loadGuideText());
         this.guideTextArea.setFont(new Font(FONT_NAME, Font.PLAIN, 16));
 
         final JScrollPane scrollPane = new JScrollPane(guideTextArea);
@@ -63,6 +59,20 @@ public class GuideViewImpl extends JPanel implements GuideView {
                 backButton.setFont(new Font(FONT_NAME, Font.PLAIN, newSize - 4));
             }
         });
+    }
+
+    private String loadGuideText() {
+        final StringBuilder content = new StringBuilder();
+        try (final InputStream is = getClass().getClassLoader().getResourceAsStream("guide/guide.txt");
+            final  BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                content.append(line).append("\n");
+            }
+        } catch (final IOException | NullPointerException e) {
+            content.append("Failed to load guide.txt");
+        }
+        return content.toString();
     }
 
     @Override
