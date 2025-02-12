@@ -38,16 +38,16 @@ public class InteractableFactoryImpl implements InteractableFactory {
      * @param name            the name of the door
      * @param position        the optional position in the game world
      * @param dimensions      the dimensions of the door
-     * @param key_item_id     the ID of the item required to unlock the door
+     * @param keyItemId     the ID of the item required to unlock the door
      * @param destinationRoom the destination room connected to the door
      * @param destinationPosition the position in the destination room where the player will be placed
      * @return a new {@link Door} instance
      */
     @Override
     public Door createDoorLockedWithPickable(final String name, final Optional<Point2D> position,
-                                             final Dimensions dimensions, final int key_item_id,
+                                             final Dimensions dimensions, final int keyItemId,
                                              final Room destinationRoom, final Optional<Point2D> destinationPosition) {
-        return new DoorLockedWithPickable(new DoorImpl(position, name, dimensions, destinationRoom, destinationPosition), key_item_id);
+        return new DoorLockedWithPickable(new DoorImpl(position, name, dimensions, destinationRoom, destinationPosition), keyItemId);
     }
 
     /**
@@ -91,15 +91,15 @@ public class InteractableFactoryImpl implements InteractableFactory {
      * @param name        the name of the unpickable object
      * @param position    the optional position in the game world
      * @param dimensions  the dimensions of the unpickable object
-     * @param keyItem_id  the ID of the item required to unlock the object
+     * @param keyItemId  the ID of the item required to unlock the object
      * @param reward      the pickable item rewarded after unlocking
      * @return a new {@link Unpickable} instance
      */
     @Override
     public Unpickable createLockedUnpickable(final String name, final Optional<Point2D> position,
-                                             final Dimensions dimensions, final int keyItem_id,
+                                             final Dimensions dimensions, final int keyItemId,
                                              final Pickable reward) {
-        return new LockedUnpickable(name, position, dimensions, keyItem_id, Optional.of(reward));
+        return new LockedUnpickable(name, position, dimensions, keyItemId, Optional.of(reward));
     }
 
     /**

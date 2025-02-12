@@ -13,6 +13,8 @@ import java.util.List;
 
 public class EnigmaPuzzleViewImpl extends JPanel implements EnigmaPuzzleView {
 
+    private final static long serialVersionUID = 1L;
+
     private final List<ImageButton> buttons = new ArrayList<>();
 
     /**
@@ -23,10 +25,10 @@ public class EnigmaPuzzleViewImpl extends JPanel implements EnigmaPuzzleView {
      * @param rows the number of rows in the grid layout
      * @param cols the number of columns in the grid layout
      */
-    public EnigmaPuzzleViewImpl(int rows, int cols) {
+    public EnigmaPuzzleViewImpl(final int rows, final int cols) {
         setLayout(new GridLayout(rows, cols));
         for (int i = 0; i < rows * cols; i++) {
-            ImageButton button = new ImageButton();
+            final ImageButton button = new ImageButton();
             buttons.add(button);
             add(button);
         }
@@ -38,8 +40,8 @@ public class EnigmaPuzzleViewImpl extends JPanel implements EnigmaPuzzleView {
      *
      * @param controller the EnigmaPuzzleControllerImpl to be set as the action listener for the buttons
      */
-    public void setController(EnigmaPuzzleControllerImpl controller) {
-        for (ImageButton button : buttons) {
+    public void setController(final EnigmaPuzzleControllerImpl controller) {
+        for (final ImageButton button : buttons) {
             button.addActionListener(controller);
         }
     }

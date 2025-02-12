@@ -57,7 +57,7 @@ public class DoorImpl extends GameObjectImpl implements Door {
     @Override
     public void onAction(final Player player) {
         player.setCurrentRoom(this.destinationRoom);
-        player.setPosition(destinationPosition);
+        player.setPosition(this.destinationPosition);
     }
 
     /**

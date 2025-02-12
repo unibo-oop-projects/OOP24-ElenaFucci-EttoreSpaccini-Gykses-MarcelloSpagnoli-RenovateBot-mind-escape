@@ -19,6 +19,8 @@ import mindescape.model.world.items.noninteractable.api.NonInteractable;
  */
 public class NonInteractableImpl extends GameObjectImpl implements NonInteractable {
 
+    private static final long serialVersionUID = 1L;
+
     /**
      * Constructs a NonInteractable object with a specified position, name,
      * and dimensions.

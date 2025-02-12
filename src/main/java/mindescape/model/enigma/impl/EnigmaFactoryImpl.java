@@ -1,6 +1,5 @@
 package mindescape.model.enigma.impl;
 
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
