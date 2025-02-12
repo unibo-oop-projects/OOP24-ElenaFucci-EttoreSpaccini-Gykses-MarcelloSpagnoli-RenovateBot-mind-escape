@@ -22,15 +22,32 @@ public interface EnigmaFactory {
         WARDROBE("Wardrobe");
 
         private final String name;
-        
+
+        /**
+         * Constructor for EnigmaType.
+         *
+         * @param name the name of the enigma type
+         */
         EnigmaType(final String name) {
             this.name = name;
         }
-       
+
+        /**
+         * Gets the name of the enigma type.
+         *
+         * @return the name of the enigma type
+         */
         public String getName() {
             return this.name;
         }
 
+        /**
+         * Retrieves the EnigmaType based on the provided name.
+         *
+         * @param name the name of the enigma type
+         * @return the corresponding EnigmaType
+         * @throws IllegalArgumentException if the enigma type is not found
+         */
         public static EnigmaType getEnigma(final String name) {
             for (final var enigmaType : EnigmaType.values()) {
                 if (enigmaType.getName().equals(name)) {
@@ -41,7 +58,19 @@ public interface EnigmaFactory {
         }
     }
 
+    /**
+     * Retrieves an Enigma instance based on its name.
+     *
+     * @param name the name of the enigma
+     * @return the corresponding Enigma instance
+     * @throws IllegalArgumentException if the enigma is not found
+     */
     Enigma getEnigma(final String name) throws IllegalArgumentException;
 
+    /**
+     * Retrieves all available Enigma instances.
+     *
+     * @return a set of all Enigma instances
+     */
     Set<Enigma> getEnigmas();
 }

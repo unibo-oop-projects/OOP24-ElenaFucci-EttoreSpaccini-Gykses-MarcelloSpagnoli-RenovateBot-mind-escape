@@ -46,7 +46,7 @@ public class ControllerBuilderImpl implements ControllerBuilder {
         Image image;
         try {
             image = ImageIO.read(new File("src/resources/puzzle/Presidente_Sergio_Mattarella.jpg"));
-            this.controllerMap.addController(new EnigmaPuzzleControllerImpl(new EnigmaPuzzleModelImpl(2, 2, image, ControllerName.PUZZLE.getName()), this.mainController));
+            this.controllerMap.addController(new EnigmaPuzzleControllerImpl(new EnigmaPuzzleModelImpl(3, 5, image, ControllerName.PUZZLE.getName()), this.mainController));
         } catch (IOException e) {
             e.printStackTrace();
         }
