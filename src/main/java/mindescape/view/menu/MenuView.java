@@ -1,10 +1,12 @@
 package mindescape.view.menu;
 import javax.swing.*;
+
+import mindescape.controller.core.api.ClickableController;
+import mindescape.view.api.View;
+
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import mindescape.controller.core.api.ClickableController;
-import mindescape.view.api.View;
 
 public class MenuView implements View {
     private final ClickableController menuController;
@@ -26,9 +28,11 @@ public class MenuView implements View {
         gbc.fill = GridBagConstraints.BOTH;
         JButton newGameButton = new JButton("New Game");
         JButton loadGameButton = new JButton("Load Game");
+        JButton guideButton = new JButton("Guide");
         JButton quitButton = new JButton("Quit");
         newGameButton.setFont(new Font("Arial", Font.BOLD, 24));
         loadGameButton.setFont(new Font("Arial", Font.BOLD, 24));
+        guideButton.setFont(new Font("Arial", Font.BOLD, 24));
         quitButton.setFont(new Font("Arial", Font.BOLD, 24));
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -38,11 +42,14 @@ public class MenuView implements View {
         gbc.gridy = 1;
         buttonPanel.add(loadGameButton, gbc);
         gbc.gridy = 2;
+        buttonPanel.add(guideButton, gbc);
+        gbc.gridy = 3;
         buttonPanel.add(quitButton, gbc);
         panel.add(titleLabel, BorderLayout.NORTH);
         panel.add(buttonPanel, BorderLayout.CENTER);
         newGameButton.addActionListener(e -> this.menuController.handleInput("NEW_GAME"));
         loadGameButton.addActionListener(e -> this.menuController.handleInput("LOAD_GAME"));
+        guideButton.addActionListener(e -> this.menuController.handleInput("GUIDE"));
         quitButton.addActionListener(e -> this.menuController.handleInput("QUIT"));
         this.panel.addComponentListener(new ComponentAdapter() {
             @Override
@@ -52,9 +59,11 @@ public class MenuView implements View {
                 titleLabel.setFont(new Font("Serif", Font.BOLD, fontSize));
                 newGameButton.setFont(new Font("Arial", Font.BOLD, fontSize / 2));
                 loadGameButton.setFont(new Font("Arial", Font.BOLD, fontSize / 2));
+                guideButton.setFont(new Font("Arial", Font.BOLD, fontSize / 2));
                 quitButton.setFont(new Font("Arial", Font.BOLD, fontSize / 2));
                 newGameButton.setPreferredSize(new Dimension(width / 3, width / 12));
                 loadGameButton.setPreferredSize(new Dimension(width / 3, width / 12));
+                guideButton.setPreferredSize(new Dimension(width / 3, width / 12));
                 quitButton.setPreferredSize(new Dimension(width / 3, width / 12));
             }
         });
