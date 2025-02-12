@@ -9,12 +9,6 @@ import javax.swing.JPanel;
 public interface View {
 
     /**
-     * Updates the view. 
-     * @param room 
-     */
-    void draw();
-
-    /**
      * Returns the panel of the view.
      * @return {@code JPanel} of the view.
      */

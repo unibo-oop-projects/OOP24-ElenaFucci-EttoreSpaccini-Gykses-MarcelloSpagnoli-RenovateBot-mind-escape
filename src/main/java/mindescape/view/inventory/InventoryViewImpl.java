@@ -134,8 +134,4 @@ public class InventoryViewImpl implements View {
         }
         descriptionArea.setFont(new Font("Arial", Font.PLAIN, fontSize)); 
     }
-
-    @Override
-    public void draw() {
-    }
 }

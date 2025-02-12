@@ -87,7 +87,4 @@ public class SavesView extends JPanel implements View {
         return this;
     }
 
-    @Override
-    public void draw() {
-    }
 }

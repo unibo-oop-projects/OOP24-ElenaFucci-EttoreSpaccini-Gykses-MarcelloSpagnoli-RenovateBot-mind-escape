@@ -66,19 +66,22 @@ public class WorldImpl implements World, Serializable {
     @Override
     public Optional<Enigma> letPlayerInteract() {
         Optional<Enigma> enigma = Optional.empty();
+
         if (collidingObject.isPresent()) {
             if (this.collidingObject.get() instanceof UnpickableWithEnigma) {
                 enigma = Optional.of(((UnpickableWithEnigma) this.collidingObject.get()).getEnigma());
             } 
+            
             if (this.collidingObject.get() instanceof Interactable) {
                 this.player.interact((Interactable) this.collidingObject.get());
             }
         }
+
         if (enigma.isPresent() && enigma.get().isSolved()) {
             return Optional.empty();
-        } else {
-            return enigma;
         }
+
+        return enigma;
     }
 
     @Override

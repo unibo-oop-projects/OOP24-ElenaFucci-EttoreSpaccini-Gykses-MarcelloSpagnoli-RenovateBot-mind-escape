@@ -68,11 +68,7 @@ public class MenuView implements View {
             }
         });
     }
-    @Override
-    public void draw() {
-        panel.revalidate();
-        panel.repaint();
-    }
+    
     @Override
     public JPanel getPanel() {
         return this.panel;

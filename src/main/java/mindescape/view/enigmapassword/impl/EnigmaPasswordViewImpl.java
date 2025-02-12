@@ -98,13 +98,6 @@ public class EnigmaPasswordViewImpl implements EnigmaPasswordView {
     }
 
     /**
-     * Does nothing in this implementation.
-     */
-    @Override
-    public void draw() {
-    }
-
-    /**
      * Retrieves the panel associated with this view.
      *
      * @return the {@code JPanel} component of the view
