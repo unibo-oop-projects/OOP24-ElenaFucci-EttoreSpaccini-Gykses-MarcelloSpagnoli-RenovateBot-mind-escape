@@ -4,7 +4,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+
+import mindescape.controller.enigmacalendar.api.CalendarController;
+import mindescape.controller.enigmacalendar.impl.CalendarControllerImpl;
+import mindescape.controller.maincontroller.api.MainController;
+import mindescape.controller.maincontroller.impl.MainControllerImpl;
 import mindescape.view.enigmacalendar.api.CalendarView;
+ 
 
 /**
  * Implementation of the calendar view that displays a daily schedule with time slots and activities.
@@ -17,6 +23,9 @@ public class CalendarViewImpl implements CalendarView {
     private final JPanel schedulePanel;
     private final JLabel[] timeLabels;
     private final JLabel[] activityLabels;
+    private final CalendarControllerImpl controller;
+    private final MainController mainController;
+    
 
     /**
      * Constructor that initializes the calendar view.
@@ -24,9 +33,16 @@ public class CalendarViewImpl implements CalendarView {
      * to resize the text based on the window's width.
      */
     public CalendarViewImpl() {
+        mainController = new MainControllerImpl();
+        controller = new CalendarControllerImpl(mainController);
+
         panel = new JPanel();
         panel.setLayout(new BorderLayout());
         panel.setBackground(Color.DARK_GRAY);
+
+        JButton button = new JButton("Quit");
+        button.addActionListener(e -> controller.quit());
+        panel.add(button, BorderLayout.SOUTH);
 
         titleLabel = new JLabel("Daily Schedule", SwingConstants.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
