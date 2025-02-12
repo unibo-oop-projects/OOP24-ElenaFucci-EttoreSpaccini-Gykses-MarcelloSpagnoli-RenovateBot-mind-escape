@@ -3,7 +3,6 @@ package mindescape.view.inventory;
 import mindescape.controller.inventory.InventoryControllerImpl;
 import mindescape.model.world.items.interactable.api.Pickable;
 import mindescape.view.api.View;
-
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -15,8 +14,8 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Set;
-
 import javax.swing.BoxLayout;
+import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -90,7 +89,7 @@ public class InventoryViewImpl implements View {
     public void updateInventoryButtons(final Set<Pickable> items) {
         inventoryPanel.removeAll();
         for (final Pickable item : items) {
-            JButton itemButton = new JButton(item.getName());
+            JButton itemButton = new JButton(getIcon(item));
             itemButton.setFocusable(false);
             itemButton.addActionListener(new ActionListener() {
                 @Override
@@ -108,6 +107,9 @@ public class InventoryViewImpl implements View {
         updateFontSizes(fontSize);
         inventoryPanel.revalidate();
         inventoryPanel.repaint();
+    }
+
+    private Icon getIcon(Pickable item) {
     }
 
     /**
