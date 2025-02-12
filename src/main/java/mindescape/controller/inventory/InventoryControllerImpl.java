@@ -13,9 +13,11 @@ import mindescape.model.inventory.api.Inventory;
 import mindescape.view.inventory.InventoryViewImpl;
 import mindescape.model.world.items.interactable.api.Pickable;
 
+
 /**
- * La classe InventoryControllerImpl implementa l'interfaccia ClickableController
- * e gestisce la vista dell'inventario e il modello dell'inventario.
+ * Implementation of the InventoryController interface.
+ * This class handles the interactions with the inventory view and the main controller.
+ * It manages the inventory and updates the view accordingly.
  */
 public class InventoryControllerImpl implements ClickableController {
 
@@ -24,9 +26,10 @@ public class InventoryControllerImpl implements ClickableController {
     private final MainController mainController;
 
     /**
-     * Costruisce un oggetto InventoryControllerImpl.
-     * 
-     * @param mainController il controller principale che coordina l'applicazione
+     * Constructs an InventoryControllerImpl with the specified inventory and main controller.
+     *
+     * @param inventory the inventory to be managed by this controller
+     * @param mainController the main controller to be associated with this inventory controller
      */
     public InventoryControllerImpl(Inventory inventory, final MainController mainController) {
         this.inventory = inventory;
@@ -34,13 +37,21 @@ public class InventoryControllerImpl implements ClickableController {
         this.mainController = mainController;
     }
 
+    /**
+     * Retrieves the current inventory.
+     *
+     * @return the inventory object
+     */
     public Inventory getInventory() {
         return inventory;
     }
 
     /**
-     * Gestisce l'input dell'utente per il controller dell'inventario.
-     * Se l'utente preme 'I', chiude la vista dell'inventario e torna al mondo.
+     * Handles the input provided to the inventory controller.
+     *
+     * @param input the input object to be handled, expected to be an integer representing a key event.
+     * @throws IllegalArgumentException if the input is not an integer.
+     * @throws NullPointerException if the input is null.
      */
     @Override
     public void handleInput(Object input) throws IllegalArgumentException, NullPointerException {
@@ -51,9 +62,9 @@ public class InventoryControllerImpl implements ClickableController {
     }
 
     /**
-     * Restituisce il nome del controller dell'inventario.
-     * 
-     * @return il nome del controller dell'inventario
+     * Retrieves the name of the controller.
+     *
+     * @return the name of the controller as a String.
      */
     @Override
     public String getName() {
@@ -61,9 +72,9 @@ public class InventoryControllerImpl implements ClickableController {
     }
 
     /**
-     * Restituisce il JPanel associato alla vista dell'inventario.
-     * 
-     * @return il JPanel della vista
+     * Retrieves the JPanel associated with the current view.
+     *
+     * @return the JPanel from the view.
      */
     @Override
     public JPanel getPanel() {
@@ -71,7 +82,7 @@ public class InventoryControllerImpl implements ClickableController {
     }
 
     /**
-     * Permette di uscire dal controller dell'inventario e passare al controller WORLD.
+     * Quits the current controller and sets the main controller to the WORLD controller.
      */
     @Override
     public void quit() {
@@ -79,9 +90,9 @@ public class InventoryControllerImpl implements ClickableController {
     }
 
     /**
-     * Determina se lo stato può essere salvato.
-     * 
-     * @return true se lo stato può essere salvato
+     * Determines if the current state can be saved.
+     *
+     * @return true if the current state can be saved, false otherwise.
      */
     @Override
     public boolean canSave() {
@@ -89,9 +100,9 @@ public class InventoryControllerImpl implements ClickableController {
     }
 
     /**
-     * Restituisce il modello associato al controller dell'inventario.
-     * 
-     * @return il modello, che in questo caso è null
+     * Retrieves the model associated with this controller.
+     *
+     * @return the model associated with this controller, or {@code null} if no model is set.
      */
     @Override
     public Model getModel() {
@@ -99,22 +110,21 @@ public class InventoryControllerImpl implements ClickableController {
     }
 
     /**
-     * Avvia il controller dell'inventario.
-     * Inizializza l'inventario e aggiorna i bottoni della vista.
+     * Starts the inventory controller by updating the inventory buttons in the view
+     * with the current items in the inventory. It also prints the contents of the 
+     * inventory to the console.
      */
     @Override
     public void start() {
-        // Ogni volta che l'inventario cambia, la vista viene aggiornata automaticamente
-        // grazie all'Observer Pattern
         this.view.updateInventoryButtons(inventory.getItems());
         System.out.println("L'inventario contiene: " + inventory.getItems().toString());
     }
 
     /**
-     * Gestisce il click su un oggetto nell'inventario.
-     * Aggiorna la descrizione dell'oggetto selezionato nella vista.
-     * 
-     * @param item l'oggetto che è stato cliccato
+     * Handles the event when an item is clicked.
+     * Retrieves the description of the clicked item and updates the view with this description.
+     *
+     * @param item the item that was clicked, which implements the Pickable interface
      */
     public void handleItemClick(Pickable item) {
         String description = item.getDescription();
