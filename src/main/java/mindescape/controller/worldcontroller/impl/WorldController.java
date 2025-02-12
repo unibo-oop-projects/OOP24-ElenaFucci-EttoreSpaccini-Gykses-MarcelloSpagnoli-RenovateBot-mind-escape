@@ -145,8 +145,8 @@ public class WorldController implements LoopController {
     }
 
     private void movePlayerIfKeyPressed() {
-        for (Map.Entry<Integer, Boolean> entry : new HashMap<>(worldView.getKeyState()).entrySet()) {
-            if (entry.getValue()) { // Se il tasto è premuto
+        for (final Map.Entry<Integer, Boolean> entry : new HashMap<>(worldView.getKeyState()).entrySet()) {
+            if (entry.getValue()) {
                 handleInput(KEY_MAPPER.get(entry.getKey()));
             }
         }

@@ -42,12 +42,12 @@ public class SavesControllerImpl implements SavesController {
      * {@inheritDoc}
      */
     @Override
-    public void handleInput(final Object input) throws IllegalArgumentException, NullPointerException {
+    public void handleInput(final Object input) {
         Objects.requireNonNull(input);
         if (!(input instanceof String)) {
             throw new IllegalArgumentException("Invalid input type");
         }
-        if (((String) input).equals("LOAD_GAME")) {
+        if ("LOAD_GAME".equals((String) input)) {
             loadSaveFile();
         }
     }
@@ -57,7 +57,7 @@ public class SavesControllerImpl implements SavesController {
      */
     @Override
     public void loadSaveFile(final int index) {
-        List<File> saveFiles = model.getSortedSaveFiles();
+        final List<File> saveFiles = model.getSortedSaveFiles();
 
         if (index >= 0 && index < saveFiles.size()) {
             this.load(saveFiles.get(index));
@@ -75,7 +75,7 @@ public class SavesControllerImpl implements SavesController {
         try {
             final var saveData = SaveManager.loadGameStatus(saveFile);
             this.mainController.loadGame(saveData);
-        } catch (NullPointerException | IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             //TODO: Add error message
             this.mainController.setController(ControllerName.WORLD, null);
         }

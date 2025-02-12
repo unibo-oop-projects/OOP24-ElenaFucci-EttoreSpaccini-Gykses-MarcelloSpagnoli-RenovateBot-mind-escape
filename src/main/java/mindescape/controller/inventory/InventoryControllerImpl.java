@@ -42,7 +42,7 @@ public class InventoryControllerImpl implements ClickableController {
      * @throws NullPointerException if the input is null
      */
     @Override
-    public void handleInput(final Object input) throws IllegalArgumentException, NullPointerException {
+    public void handleInput(final Object input) {
         Objects.requireNonNull(input);
         if ((int) input == KeyEvent.VK_I) {
             this.quit();
@@ -94,7 +94,7 @@ public class InventoryControllerImpl implements ClickableController {
      */
     @Override
     public Model getModel() {
-        return (Model) this.inventory;
+        return this.inventory;
     }
 
     /**
@@ -114,7 +114,7 @@ public class InventoryControllerImpl implements ClickableController {
      * @param item the item that was clicked, must implement the Pickable interface
      */
     public void handleItemClick(final Pickable item) {
-        String description = item.getDescription();
+        final String description = item.getDescription();
         this.view.updateDescription(description);
     }
 }
