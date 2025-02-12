@@ -13,6 +13,7 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Class that represents the player view.
@@ -38,9 +39,11 @@ public class PlayerView {
         x = (int) pos.x();
         y = (int) pos.y();
         BufferedImage image;
-        try {
-            //TODO: use class loader
-            image = ImageIO.read(new File("playertiles/player.png"));
+        try (InputStream is = getClass().getClassLoader().getResourceAsStream("playertiles/player.png")) {
+            if (is == null) {
+                throw new IOException("Resource not found: playertiles/player.png");
+            }
+            image = ImageIO.read(is);
         } catch (IOException e) {
             image = new BufferedImage(SPRITE_SHEET_WIDTH, SPRITE_SHEET_HEIGHT, BufferedImage.TYPE_INT_ARGB);
             Graphics g = image.createGraphics();
