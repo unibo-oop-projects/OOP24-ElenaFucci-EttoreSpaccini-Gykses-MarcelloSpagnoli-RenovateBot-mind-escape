@@ -1,5 +1,6 @@
 package mindescape.model.enigma.impl;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import mindescape.controller.core.api.ControllerName;
