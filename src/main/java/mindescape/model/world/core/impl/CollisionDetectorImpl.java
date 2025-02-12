@@ -17,7 +17,7 @@ public class CollisionDetectorImpl implements CollisionDetector{
     }
 
     private boolean areColliding(final Point2D position, final Dimensions dim, final GameObject obj) {
-        Point2D objPos = obj.getPosition().get();
+        Point2D objPos = obj.getPosition();
         Dimensions objDim = obj.getDimensions();
     
         return position.x() < objPos.x() + objDim.width() 
