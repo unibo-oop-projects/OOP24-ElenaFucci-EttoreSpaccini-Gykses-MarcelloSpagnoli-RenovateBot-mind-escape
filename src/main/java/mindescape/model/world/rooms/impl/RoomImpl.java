@@ -33,7 +33,7 @@ public final class RoomImpl implements Room, Serializable {
 
     private final String source;
 
-    private RoomImpl(final String roomFilePath) {
+    public RoomImpl(final String roomFilePath) {
         final TiledMap room = new FileSystemTiledReader().getMap(roomFilePath);
         this.dimensions = new Dimensions(room.getWidth() * Dimensions.TILE.width(), room.getHeight() * Dimensions.TILE.height());
         this.name = Files.getNameWithoutExtension(roomFilePath);

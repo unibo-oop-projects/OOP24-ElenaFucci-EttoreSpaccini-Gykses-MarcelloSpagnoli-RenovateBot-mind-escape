@@ -28,7 +28,7 @@ public class EnigmaFactoryImpl implements EnigmaFactory, Serializable {
             case ENIGMA_FIRST_DOOR -> this.addEnigma(new EnigmaPasswordModelImpl(name, "Sergio Mattarella"));
             case DRAWER -> this.addEnigma(new EnigmaPasswordModelImpl(name, "1213"));
             case CAESAR_CIPHER -> this.addEnigma(new CaesarCipherModelImpl(name, 3));
-            case WARDROBE -> this.addEnigma(new EnigmaPasswordModelImpl(name, "67845"));
+            case WARDROBE -> this.addEnigma(new EnigmaPasswordModelImpl(name, "oblivion"));
             case CALENDAR -> new Calendar();
             case PUZZLE -> {
                 yield addEnigma(new EnigmaPuzzleModelImpl(4, 4, name));
