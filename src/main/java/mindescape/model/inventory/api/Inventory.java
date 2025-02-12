@@ -1,9 +1,7 @@
 package mindescape.model.inventory.api;
 
 import java.util.Set;
-
 import mindescape.model.world.items.interactable.api.Pickable;
-import mindescape.view.inventory.InventoryViewImpl;
 
 /**
  * Interface representing an inventory that can hold pickable items.

@@ -3,23 +3,31 @@ package mindescape.view.inventory;
 import mindescape.controller.inventory.InventoryControllerImpl;
 import mindescape.model.world.items.interactable.api.Pickable;
 import mindescape.view.api.View;
-import javax.swing.*;
-import java.awt.*;
+
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.Set;
+
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 public class InventoryViewImpl implements View {
 
     private final InventoryControllerImpl controller;
-    private JPanel panel;
-    private JPanel inventoryPanel;
-    private JTextArea descriptionArea;
+    private final JPanel panel;
+    private final JPanel inventoryPanel;
+    private final JTextArea descriptionArea;
 
     /**
      * Constructs an InventoryViewImpl with the specified InventoryControllerImpl.
@@ -32,22 +40,17 @@ public class InventoryViewImpl implements View {
      *
      * @param controller the InventoryControllerImpl to be associated with this view
      */
-    public InventoryViewImpl(InventoryControllerImpl controller) {
+    public InventoryViewImpl(final InventoryControllerImpl controller) {
         this.controller = controller;
         this.panel = new JPanel(new BorderLayout());
         this.inventoryPanel = new JPanel();
         inventoryPanel.setLayout(new BoxLayout(inventoryPanel, BoxLayout.Y_AXIS)); // Layout verticale per i bottoni
         this.descriptionArea = new JTextArea(5, 20);
         this.descriptionArea.setEditable(false);
-
         this.descriptionArea.setText("");
-
         panel.add(inventoryPanel, BorderLayout.CENTER);
-
         JScrollPane scrollPane = new JScrollPane(descriptionArea);
         panel.add(scrollPane, BorderLayout.SOUTH);
-
-
         panel.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
@@ -56,7 +59,6 @@ public class InventoryViewImpl implements View {
                 updateFontSizes(fontSize);
             }
         });
-
         panel.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -85,9 +87,9 @@ public class InventoryViewImpl implements View {
      *
      * @param items the set of items to be displayed as buttons in the inventory panel
      */
-    public void updateInventoryButtons(Set<Pickable> items) {
+    public void updateInventoryButtons(final Set<Pickable> items) {
         inventoryPanel.removeAll();
-        for (Pickable item : items) {
+        for (final Pickable item : items) {
             JButton itemButton = new JButton(item.getName());
             itemButton.setFocusable(false);
             itemButton.addActionListener(new ActionListener() {
@@ -104,7 +106,6 @@ public class InventoryViewImpl implements View {
         int width = panel.getWidth();
         int fontSize = Math.max(10, width / 30);
         updateFontSizes(fontSize);
-
         inventoryPanel.revalidate();
         inventoryPanel.repaint();
     }
@@ -125,7 +126,7 @@ public class InventoryViewImpl implements View {
      * @param fontSize the new font size to be applied to the components
      */
     private void updateFontSizes(int fontSize) {
-        for (Component comp : inventoryPanel.getComponents()) {
+        for (final Component comp : inventoryPanel.getComponents()) {
             if (comp instanceof JButton) {
                 JButton button = (JButton) comp;
                 button.setFont(new Font("Arial", Font.PLAIN, fontSize));
@@ -136,10 +137,5 @@ public class InventoryViewImpl implements View {
 
     @Override
     public void draw() {
-        throw new UnsupportedOperationException("Unimplemented method 'draw'");
     }
 }
-
-
-
-

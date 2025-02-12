@@ -36,7 +36,7 @@ public class CaesarCipherControllerImpl implements CaesarCipherController{
      * @param input the shift value provided by the user
      */
     @Override
-    public void handleInput(Object input) {
+    public void handleInput(final Object input) {
         try {
             int shift = Integer.parseInt((String)input);
             view.showResult(model.decrypt(shift));
