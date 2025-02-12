@@ -99,7 +99,7 @@ public class InteractableFactoryImpl implements InteractableFactory {
     public Unpickable createLockedUnpickable(final String name, final Optional<Point2D> position,
                                              final Dimensions dimensions, final int keyItem_id,
                                              final Pickable reward) {
-        return new LockedUnpickable(name, position, dimensions, keyItem_id, reward);
+        return new LockedUnpickable(name, position, dimensions, keyItem_id, Optional.of(reward));
     }
 
     /**

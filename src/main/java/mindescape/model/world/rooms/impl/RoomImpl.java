@@ -1,6 +1,7 @@
 package mindescape.model.world.rooms.impl;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -20,7 +21,7 @@ import mindescape.model.world.items.interactable.api.Pickable;
 import mindescape.model.world.player.api.Player;
 import mindescape.model.world.rooms.api.Room;
 
-public class RoomImpl implements Room {
+public class RoomImpl implements Room, Serializable {
 
     private final Dimensions dimensions;
 
@@ -33,7 +34,7 @@ public class RoomImpl implements Room {
     /*
      * Construction will later be done with a builder
      */
-    private RoomImpl(String roomFilePath) {
+    public RoomImpl(String roomFilePath) {
         TiledMap room = new FileSystemTiledReader().getMap(roomFilePath);
         this.dimensions = new Dimensions(room.getWidth() * Dimensions.TILE.width(), room.getHeight() * Dimensions.TILE.height());
         this.name = Files.getNameWithoutExtension(roomFilePath);
@@ -65,7 +66,7 @@ public class RoomImpl implements Room {
     public boolean isPositionValid(Point2D pos, Dimensions dim) {
         return pos.x() >= 0 &&
             pos.y() >= 0 && 
-            pos.x() + dim.height() <= this.dimensions.height() &&
+            pos.x() + dim.width() <= this.dimensions.width() &&
             pos.y() + dim.height() <= this.dimensions.height();
     }
 
@@ -83,7 +84,7 @@ public class RoomImpl implements Room {
     }
 
     public static List<Room> createRooms() {
-        File resources = new File("src/main/java/mindescape/resources/rooms");
+        File resources = new File("src/resources/rooms");
         ObjectsExtractor objectsExtractor = new ObjectsExtractor();
         File[] files = resources.listFiles();
         List<Room> rooms = Arrays.asList(files)

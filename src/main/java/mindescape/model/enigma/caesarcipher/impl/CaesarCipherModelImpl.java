@@ -1,17 +1,19 @@
 package mindescape.model.enigma.caesarcipher.impl;
 
+import java.io.Serializable;
+
 import mindescape.model.enigma.caesarcipher.api.CaesarCipherModel;
 
 /**
  * The {@code CaesarCipherModelImpl} class implements {@code CaesarCipherModel} to provide encryption
  * and decryption functionalities for the Caesar Cipher enigma.
  */
-public class CaesarCipherModelImpl implements CaesarCipherModel {
+public class CaesarCipherModelImpl implements CaesarCipherModel, Serializable {
 
-    private final static String ENCRYPTED_TEXT = "kr ilqlwr vwr fliudulr gl phugd"; 
+    private final static transient String ENCRYPTED_TEXT = "kr ilqlwr vwr fliudulr gl phugd"; 
 
-    private final String decryptedText; 
-    private final String name; 
+    private final transient String decryptedText; 
+    private final transient String name; 
     private boolean solved; 
 
     /**

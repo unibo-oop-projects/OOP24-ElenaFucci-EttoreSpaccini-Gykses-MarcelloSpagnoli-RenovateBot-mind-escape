@@ -1,13 +1,12 @@
 package mindescape.controller.maincontroller.impl;
 
 import java.util.Objects;
-
 import javax.swing.SwingUtilities;
 import mindescape.controller.core.api.Controller;
 import mindescape.controller.core.api.ControllerBuilder;
 import mindescape.controller.core.api.ControllerMap;
 import mindescape.controller.core.api.ControllerName;
-import mindescape.controller.core.api.LoopController;
+import mindescape.controller.core.api. LoopController;
 import mindescape.controller.core.impl.ControllerBuilderImpl;
 import mindescape.controller.maincontroller.api.MainController;
 import mindescape.model.saveload.util.SaveManager;
@@ -19,12 +18,15 @@ import mindescape.view.main.MainViewImpl;
  * Implementation of the MainController interface.
  */
 public class MainControllerImpl implements MainController {
+
+    private static final String BLUE = "\u001B[34m";
+    private static final String RESET = "\u001B[0m";
+    private static final String RED = "\u001B[31m";
     
     private Controller currentController;
     private ControllerMap controllerMap;
     private final MainView mainView;
     private final ControllerBuilder controllerBuilder;
-    private final static long serialVersionUID = 1L;
     private String playerName;
 
     public MainControllerImpl() {
@@ -47,6 +49,14 @@ public class MainControllerImpl implements MainController {
             this.controllerMap = this.buildController(controllerName);
             this.currentController = this.controllerMap.findController(controllerName);
         }
+        /**
+         * TODO: remove this
+         * DEBUG: print the current controller and all the controllers in the map
+         */
+        System.out.println(BLUE + "Current controller: " + this.currentController.getName() + RESET);
+        System.out.print(RED + "TUTTI I CONTROLLER NELLA MAPPA SONO: " + RESET);
+        this.controllerMap.getControllers().forEach(controller -> System.out.println(controller.getName() + " "));
+
         this.mainView.setPanel(this.currentController.getPanel());
         this.currentController.start();
     }
@@ -73,7 +83,7 @@ public class MainControllerImpl implements MainController {
 
     @Override
     public void save() throws IllegalStateException, NullPointerException {
-        var world = (World) this.controllerMap.findController(ControllerName.WORLD).getModel();
+        final var world = this.controllerMap.findController(ControllerName.WORLD).getModel();
         Objects.requireNonNull(world, "World is null.");
         if (world instanceof World) {
             SaveManager.saveGameStatus((World) world);
@@ -103,16 +113,31 @@ public class MainControllerImpl implements MainController {
                     this.controllerBuilder.buildMenu();
                     break;
                 case INVENTORY:
-                    this.controllerBuilder.buildInventory();
+                    this.controllerBuilder.buildInventory((World) this.controllerMap.findController(ControllerName.WORLD).getModel());
                     break;
                 case LOAD:
                     this.controllerBuilder.buildLoad();
                     break;
-                case COMPUTER:
+                case CAESAR_CYPHER:
                     this.controllerBuilder.buildComputer();
                     break;
                 case WORLD:
                     this.controllerBuilder.buildNewWorld(this.playerName);
+                    break;
+                case WARDROBE:
+                    this.controllerBuilder.buildWardrobe();
+                    break;
+                case CALENDAR:
+                    this.controllerBuilder.buildCalendar();
+                    break;
+                case PUZZLE:
+                    this.controllerBuilder.buildPuzzle();
+                    break;
+                case DRAWER:
+                    this.controllerBuilder.buildDrawer();
+                    break;
+                case ENIGMA_FIRST_DOOR:
+                    this.controllerBuilder.buildEnigmaFirstDoor();
                     break;
                 default:
                     throw new IllegalArgumentException("Controller not found.");

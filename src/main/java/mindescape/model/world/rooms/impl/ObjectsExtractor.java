@@ -62,6 +62,10 @@ public class ObjectsExtractor {
                         gameObjects.add(factory.createUnpickable(object.getName(), position, dimensions,
                             rewards.getReward((String) object.getProperties().get("Reward"))));
                         break;
+                    case "LockedUnpickable":
+                        gameObjects.add(factory.createLockedUnpickable(object.getName(), position, dimensions, 
+                        (Integer) object.getProperties().get("keyItem_id"),
+                        rewards.getReward((String) object.getProperties().get("Reward")).get()));
                     default:
                         break;
                 }
@@ -81,6 +85,10 @@ public class ObjectsExtractor {
         for (TiledObjectLayer doorLayer : doorLayers) {
             doorLayer.getObjects().forEach(object -> {
                 Optional<Point2D> position = Optional.of(new Point2D(object.getX(), object.getY()));
+                Optional<Point2D> destPosition = Optional.of(new Point2D(
+                                (int) object.getProperties().get("DestX"), 
+                                (int) object.getProperties().get("DestY"))
+                            );
                 Dimensions dimensions = new Dimensions(object.getWidth(), object.getHeight());
                 switch (object.getType()) {   
                     case "DoorLockedWithEnigma":
@@ -89,7 +97,8 @@ public class ObjectsExtractor {
                             rooms.stream()
                             .filter(x -> x.getName().equals((String) object.getProperties().get("Destination")))
                             .findFirst()
-                            .get()));
+                            .get(),
+                            destPosition));
                         break;
                     case "DoorLockedWithPickable":
                     doors.add(factory.createDoorLockedWithPickable(object.getName(), position, dimensions,
@@ -97,14 +106,16 @@ public class ObjectsExtractor {
                         rooms.stream()
                         .filter(x -> x.getName().equals((String) object.getProperties().get("Destination")))
                         .findFirst()
-                        .get()));
+                        .get(),
+                        destPosition));
                         break;
                     case "SimpleDoor":
-                        factory.createSimpleDoor(object.getName(), position, dimensions, 
+                    doors.add(factory.createSimpleDoor(object.getName(), position, dimensions, 
                         rooms.stream()
                         .filter(x -> x.getName().equals((String) object.getProperties().get("Destination")))
                         .findFirst()
-                        .get());
+                        .get(),
+                        destPosition));
                     default:
                         break;
                 }

@@ -17,15 +17,12 @@ public class CollisionDetectorImpl implements CollisionDetector{
     }
 
     private boolean areColliding(Point2D position, Dimensions dim, GameObject obj) {
-        return isInRect(position, obj.getPosition().get(), obj.getDimensions())
-            || isInRect(new Point2D(position.x() + dim.width(), position.y()), obj.getPosition().get(), obj.getDimensions())
-            || isInRect(new Point2D(position.x(), position.y() + dim.height()), obj.getPosition().get(), obj.getDimensions())
-            || isInRect(new Point2D(position.x() + dim.width(), position.y() + dim.height()), obj.getPosition().get(), obj.getDimensions());
+        Point2D objPos = obj.getPosition().get();
+        Dimensions objDim = obj.getDimensions();
+    
+        return position.x() < objPos.x() + objDim.width() &&
+               position.x() + dim.width() > objPos.x() &&
+               position.y() < objPos.y() + objDim.height() &&
+               position.y() + dim.height() > objPos.y();
     }
-
-    private boolean isInRect(Point2D point, Point2D objPos, Dimensions objDim) {
-        return (point.x() >= objPos.x() && point.x() <= objPos.x() + objDim.width())
-            && (point.y() >= objPos.y() && point.y() <= objPos.y() + objDim.height());
-    }
- 
 }

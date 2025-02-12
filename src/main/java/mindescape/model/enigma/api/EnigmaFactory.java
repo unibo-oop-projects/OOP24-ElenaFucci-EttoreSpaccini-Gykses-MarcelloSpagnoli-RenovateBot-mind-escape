@@ -14,7 +14,10 @@ public interface EnigmaFactory {
     enum EnigmaType {
         ENIGMA_FIRST_DOOR("EnigmaFirstDoor"),
         DRAWER("Drawer"),
-        CAESAR_CIPHER("CaesarCipher");
+        CAESAR_CIPHER("CaesarCipher"),
+        PUZZLE("Puzzle"),
+        CALENDAR("Calendar"),
+        WARDROBE("Wardrobe");
 
         private final String name;
         
@@ -36,12 +39,6 @@ public interface EnigmaFactory {
         }
     }
 
-    /**
-     * Retrieves an Enigma instance based on the provided name.
-     *
-     * @param name the name of the Enigma to retrieve
-     * @return the Enigma instance corresponding to the specified name
-     */
-    Enigma getEnigma(final String name) throws IllegalArgumentException;
+    public Enigma getEnigma(final String name) throws IllegalArgumentException;
     
 }

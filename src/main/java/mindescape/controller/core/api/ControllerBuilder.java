@@ -66,10 +66,15 @@ public interface ControllerBuilder {
     /**
      * Builds the inventory for the controller.
      */
-    void buildInventory();
+    void buildInventory(World world);
 
     /**
      * Builds the load controller.
      */
     void buildLoad();
+
+    /**
+     * Builds the drawer controller.
+     */
+    void buildDrawer();
 }
