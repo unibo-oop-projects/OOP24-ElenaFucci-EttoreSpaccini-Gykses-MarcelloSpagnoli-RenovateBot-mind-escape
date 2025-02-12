@@ -89,6 +89,7 @@ public class CalendarViewImpl implements CalendarView {
                 for (JLabel label : activityLabels) {
                     label.setFont(new Font("Arial", Font.PLAIN, fontSize));
                 }
+                button.setFont(new Font("Arial", Font.BOLD, fontSize));
             }
         });
     }
