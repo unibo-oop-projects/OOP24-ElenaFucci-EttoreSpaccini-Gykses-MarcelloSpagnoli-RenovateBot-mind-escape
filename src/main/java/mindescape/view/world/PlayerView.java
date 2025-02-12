@@ -34,13 +34,13 @@ public class PlayerView {
     private int x;
     private int y;
 
-    public PlayerView(Point2D pos) {
+    public PlayerView(final Point2D pos) {
         x = (int) pos.x();
         y = (int) pos.y();
         BufferedImage image;
         try {
             //TODO: use class loader
-            image = ImageIO.read(new File("src/resources/playertiles/player.png"));
+            image = ImageIO.read(new File("playertiles/player.png"));
         } catch (IOException e) {
             image = new BufferedImage(SPRITE_SHEET_WIDTH, SPRITE_SHEET_HEIGHT, BufferedImage.TYPE_INT_ARGB);
             Graphics g = image.createGraphics();
@@ -76,7 +76,7 @@ public class PlayerView {
         y = (int) pos.y();
     }
 
-    public void draw(Graphics g, int offset, double scaling, Map<Integer, Boolean> keys) {
+    public void draw(final Graphics g, final int offset, final double scaling, final Map<Integer, Boolean> keys) {
         setCurrentSprite(keys);
         g.drawImage(currentSprite, (int)((x * scaling) + offset),
             (int) (y * scaling),
@@ -85,7 +85,7 @@ public class PlayerView {
             null);
     }
 
-    private void setCurrentSprite(Map<Integer, Boolean> keys){
+    private void setCurrentSprite(final Map<Integer, Boolean> keys){
         for (Map.Entry<Integer, Boolean> entry : keys.entrySet()) {
             if (KEY_MAPPER.get(entry.getKey()) != null && entry.getValue()) { // Se il tasto è premuto
                 currentSprite = spriteMapper.get(KEY_MAPPER.get(entry.getKey())).get(spriteIndex);
