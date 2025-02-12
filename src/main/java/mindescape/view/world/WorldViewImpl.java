@@ -182,8 +182,8 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
         finalMap.dispose();
     }
 
-    private void drawTileObject(TiledObject obj, Graphics2D g) {
-        TiledTile tile = obj.getTile();
+    private void drawTileObject(final TiledObject obj, final Graphics2D g) {
+        final TiledTile tile = obj.getTile();
         BufferedImage img = getTileImage(tile);
         img = applyTransformations(img,
             obj.getTileXFlip(),
@@ -191,12 +191,12 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
         g.drawImage(img, (int) obj.getX(), (int) obj.getY(), null);
     }
 
-    private Player getPlayer(Room currentRoom) {
+    private Player getPlayer(final Room currentRoom) {
         return (Player) currentRoom.getGameObjects().stream().filter(x -> x instanceof Player).findAny().get();
     }
 
-    private List<TiledObject> getTileObjects(TiledMap map) {
-        TiledObjectLayer objects =  map.getNonGroupLayers().stream()
+    private List<TiledObject> getTileObjects(final TiledMap map) {
+        final TiledObjectLayer objects =  map.getNonGroupLayers().stream()
             .filter(layer -> layer.getName().equals("Objects"))
             .map(layer -> (TiledObjectLayer) layer)
             .findFirst()
@@ -210,7 +210,7 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
 
     @Override
     public void keyPressed(final KeyEvent e) {
-        int pressed = e.getKeyCode();
+        final int pressed = e.getKeyCode();
         if (KEY_MAPPER.containsKey(pressed)) {
             keyState.put(pressed, true);
         }
@@ -218,7 +218,7 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
 
     @Override
     public void keyReleased(final KeyEvent e) {
-        int released = e.getKeyCode();
+        final int released = e.getKeyCode();
         if (KEY_MAPPER.containsKey(released)) {
             keyState.put(released, false);
         }
