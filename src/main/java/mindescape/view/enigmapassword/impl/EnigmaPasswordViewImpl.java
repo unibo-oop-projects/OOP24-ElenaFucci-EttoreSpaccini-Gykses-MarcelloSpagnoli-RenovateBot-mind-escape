@@ -30,6 +30,7 @@ public class EnigmaPasswordViewImpl implements EnigmaPasswordView {
     private static final int MIN_FONT_SIZE = 12;
     private static final int FONT_SIZE_DIVISOR = 30;
 
+
     private final JPanel panel;
     private final JTextField passwordField;
     private final JLabel resultLabel;

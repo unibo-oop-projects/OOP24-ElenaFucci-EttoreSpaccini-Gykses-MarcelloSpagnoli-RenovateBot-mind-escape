@@ -118,7 +118,10 @@ public final class ViewUtils {
         textField.setFont(DEFAULT_FONT);
         textField.setBackground(TEXT_FIELD_BACKGROUND);
         textField.setForeground(TEXT_FIELD_TEXT_COLOR);
-        textField.setBorder(BorderFactory.createEmptyBorder(TEXT_FIELD_PADDING, TEXT_FIELD_PADDING * 2, TEXT_FIELD_PADDING, TEXT_FIELD_PADDING * 2));
+        textField.setBorder(BorderFactory.createEmptyBorder(
+            TEXT_FIELD_PADDING, TEXT_FIELD_PADDING * 2,
+            TEXT_FIELD_PADDING, TEXT_FIELD_PADDING * 2
+        ));
         return textField;
     }
 
