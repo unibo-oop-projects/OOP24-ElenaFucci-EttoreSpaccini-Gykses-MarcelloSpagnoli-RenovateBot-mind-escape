@@ -19,6 +19,8 @@ import org.tiledreader.TiledObject;
 import org.tiledreader.TiledObjectLayer;
 import org.tiledreader.TiledTile;
 import org.tiledreader.TiledTileLayer;
+
+import mindescape.controller.core.api.KeyMapper;
 import mindescape.controller.core.api.UserInput;
 import mindescape.controller.worldcontroller.impl.WorldController;
 import mindescape.model.world.core.api.Dimensions;
@@ -33,14 +35,6 @@ import mindescape.view.utils.ImageTransformer;
  */
 public final class WorldViewImpl extends JPanel implements WorldView, KeyListener {
 
-    private static final Map<Integer, UserInput> KEY_MAPPER = Map.of(
-        KeyEvent.VK_W, UserInput.UP,
-        KeyEvent.VK_S, UserInput.DOWN,
-        KeyEvent.VK_A, UserInput.LEFT,
-        KeyEvent.VK_D, UserInput.RIGHT,
-        KeyEvent.VK_E, UserInput.INTERACT,
-        KeyEvent.VK_I, UserInput.INVENTORY
-    );
     private static final double ROTATING_ANGLE = -90;
     private final Map<TiledTile, BufferedImage> tilesCache = new HashMap<>();
     private BufferedImage roomImage;
@@ -51,6 +45,7 @@ public final class WorldViewImpl extends JPanel implements WorldView, KeyListene
     private int objNum;
     private final Map<Integer, Boolean> keyState = new HashMap<>();
     private final ImageTransformer transformer = new ImageTransformer();
+    private final Map<Integer, UserInput> keyMapper = KeyMapper.getKeyMap();
 
     /**
      * Constructor for WorldViewImpl.
@@ -63,7 +58,7 @@ public final class WorldViewImpl extends JPanel implements WorldView, KeyListene
         roomName = currentRoom.getName();
         updateRoomImage(currentRoom);
         player = new PlayerView(getPlayer(currentRoom).getPosition());
-        KEY_MAPPER.forEach((key, value) -> keyState.put(key, false));
+        keyMapper.forEach((key, value) -> keyState.put(key, false));
         objNum = currentRoom.getGameObjects().size();
         this.setFocusable(true);
         requestFocusInWindow();
@@ -209,7 +204,7 @@ public final class WorldViewImpl extends JPanel implements WorldView, KeyListene
     @Override
     public void keyPressed(final KeyEvent e) {
         final int pressed = e.getKeyCode();
-        if (KEY_MAPPER.containsKey(pressed)) {
+        if (keyMapper.containsKey(pressed)) {
             keyState.put(pressed, true);
         }
     }
@@ -217,7 +212,7 @@ public final class WorldViewImpl extends JPanel implements WorldView, KeyListene
     @Override
     public void keyReleased(final KeyEvent e) {
         final int released = e.getKeyCode();
-        if (KEY_MAPPER.containsKey(released)) {
+        if (keyMapper.containsKey(released)) {
             keyState.put(released, false);
         }
     }

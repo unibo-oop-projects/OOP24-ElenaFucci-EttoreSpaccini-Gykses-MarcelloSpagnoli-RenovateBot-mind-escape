@@ -7,9 +7,10 @@ import java.util.List;
 import java.util.Map;
 import javax.imageio.ImageIO;
 import javax.swing.Timer;
+
+import mindescape.controller.core.api.KeyMapper;
 import mindescape.controller.core.api.UserInput;
 import mindescape.model.world.core.api.Point2D;
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,12 +20,6 @@ import java.io.InputStream;
  */
 public final class PlayerView {
 
-    private static final Map<Integer, UserInput> KEY_MAPPER = Map.of(
-        KeyEvent.VK_W, UserInput.UP,
-        KeyEvent.VK_S, UserInput.DOWN,
-        KeyEvent.VK_A, UserInput.LEFT,
-        KeyEvent.VK_D, UserInput.RIGHT
-    );
     private static final int SPRITE_SIZE = 16;
     private static final int SPRITE_SHEET_COLUMNS = 8;
     private static final int SPRITE_SHEET_WIDTH = SPRITE_SIZE * SPRITE_SHEET_COLUMNS;
@@ -43,6 +38,7 @@ public final class PlayerView {
     private final Timer timer;
     private int x;
     private int y;
+    private final Map<Integer, UserInput> keyMapper = KeyMapper.getKeyMap();
 
     /**
      * Constructor for PlayerView, initializing position and loading sprites.
@@ -60,26 +56,26 @@ public final class PlayerView {
             image = ImageIO.read(is);
         } catch (final IOException e) {
             image = new BufferedImage(SPRITE_SHEET_WIDTH, SPRITE_SHEET_HEIGHT, BufferedImage.TYPE_INT_ARGB);
-            Graphics g = image.createGraphics();
+            final Graphics g = image.createGraphics();
             g.setColor(Color.RED);
             g.fillRect(0, 0, SPRITE_SHEET_WIDTH, SPRITE_SHEET_HEIGHT);
             g.dispose();
         }
         spriteMapper.put(UserInput.DOWN, List.of(
             image.getSubimage(DOWN_POSITION, 0, SPRITE_SIZE, SPRITE_SIZE),
-            image.getSubimage(DOWN_POSITION + 1, 0, SPRITE_SIZE, SPRITE_SIZE))
+            image.getSubimage((DOWN_POSITION + 1) * SPRITE_SIZE, 0, SPRITE_SIZE, SPRITE_SIZE))
         );
         spriteMapper.put(UserInput.UP, List.of(
-            image.getSubimage(UP_POSITION, 0, SPRITE_SIZE, SPRITE_SIZE),
-            image.getSubimage(UP_POSITION + 1, 0, SPRITE_SIZE, SPRITE_SIZE))
+            image.getSubimage(UP_POSITION * SPRITE_SIZE, 0, SPRITE_SIZE, SPRITE_SIZE),
+            image.getSubimage((UP_POSITION + 1) * SPRITE_SIZE, 0, SPRITE_SIZE, SPRITE_SIZE))
         );
         spriteMapper.put(UserInput.RIGHT, List.of(
-            image.getSubimage(RIGHT_POSITION, 0, SPRITE_SIZE, SPRITE_SIZE),
-            image.getSubimage(RIGHT_POSITION + 1, 0, SPRITE_SIZE, SPRITE_SIZE))
+            image.getSubimage(RIGHT_POSITION * SPRITE_SIZE, 0, SPRITE_SIZE, SPRITE_SIZE),
+            image.getSubimage((RIGHT_POSITION + 1) * SPRITE_SIZE, 0, SPRITE_SIZE, SPRITE_SIZE))
         );
         spriteMapper.put(UserInput.LEFT, List.of(
-            image.getSubimage(LEFT_POSITION, 0, SPRITE_SIZE, SPRITE_SIZE),
-            image.getSubimage(LEFT_POSITION + 1, 0, SPRITE_SIZE, SPRITE_SIZE))
+            image.getSubimage(LEFT_POSITION * SPRITE_SIZE, 0, SPRITE_SIZE, SPRITE_SIZE),
+            image.getSubimage((LEFT_POSITION + 1) * SPRITE_SIZE, 0, SPRITE_SIZE, SPRITE_SIZE))
         );
         currentSprite = spriteMapper.get(UserInput.DOWN).get(spriteIndex);
         timer = new Timer(TIMER_DELAY, x -> {
@@ -117,8 +113,8 @@ public final class PlayerView {
 
     private void setCurrentSprite(final Map<Integer, Boolean> keys) {
         for (final Map.Entry<Integer, Boolean> entry : keys.entrySet()) {
-            if (KEY_MAPPER.get(entry.getKey()) != null && entry.getValue()) {
-                currentSprite = spriteMapper.get(KEY_MAPPER.get(entry.getKey())).get(spriteIndex);
+            if (keyMapper.get(entry.getKey()) != null && entry.getValue()) {
+                currentSprite = spriteMapper.get(keyMapper.get(entry.getKey())).get(spriteIndex);
             }
         }
     }

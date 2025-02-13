@@ -145,6 +145,7 @@ public class WorldImpl implements World, Serializable {
 
         if (collidingObject.isEmpty()) {
             this.player.move(movement);
+            this.setCollidingObject(Optional.empty());
         } else {
             this.setCollidingObject(collidingObject);
         }
