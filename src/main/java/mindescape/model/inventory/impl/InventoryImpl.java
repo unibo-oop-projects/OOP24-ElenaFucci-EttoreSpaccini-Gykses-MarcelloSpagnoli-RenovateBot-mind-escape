@@ -1,6 +1,7 @@
 package mindescape.model.inventory.impl;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -28,7 +29,7 @@ public final class InventoryImpl implements Inventory, Serializable {
      */
     @Override
     public Set<Pickable> getItems() {
-        return this.set;
+        return Collections.unmodifiableSet(this.set);
     }
 
     /**
