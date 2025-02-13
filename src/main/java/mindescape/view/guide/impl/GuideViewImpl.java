@@ -48,7 +48,6 @@ public final class GuideViewImpl extends JPanel implements GuideView {
     private void setUpComponents() {
         this.setLayout(new BorderLayout());
 
-        
         this.titleLabel.setFont(new Font(FONT_NAME, Font.BOLD, TITLE_FONT_SIZE));
         this.add(titleLabel, BorderLayout.NORTH);
 

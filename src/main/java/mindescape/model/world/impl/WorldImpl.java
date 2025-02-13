@@ -81,7 +81,6 @@ public class WorldImpl implements World, Serializable {
             if (this.collidingObject.get() instanceof UnpickableWithEnigma) {
                 enigma = Optional.of(((UnpickableWithEnigma) this.collidingObject.get()).getEnigma());
             } 
-            
             if (this.collidingObject.get() instanceof Interactable) {
                 this.player.interact((Interactable) this.collidingObject.get());
             }
