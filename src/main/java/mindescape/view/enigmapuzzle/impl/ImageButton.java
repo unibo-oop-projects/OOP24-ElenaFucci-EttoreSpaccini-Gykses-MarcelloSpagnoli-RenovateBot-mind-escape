@@ -11,7 +11,7 @@ import javax.swing.JButton;
 public class ImageButton extends JButton {
 
     private static final long serialVersionUID = 1L;
-    private Image image;
+    private transient Image image;
 
     /**
      * Sets the image for this button and repaints the component.
