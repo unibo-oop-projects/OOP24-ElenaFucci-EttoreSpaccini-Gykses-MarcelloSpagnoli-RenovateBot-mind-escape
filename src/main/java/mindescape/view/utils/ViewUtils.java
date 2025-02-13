@@ -137,7 +137,12 @@ public final class ViewUtils {
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
         textArea.setCaretColor(Color.WHITE);
-        textArea.setBorder(BorderFactory.createEmptyBorder(TEXT_AREA_PADDING, TEXT_AREA_PADDING, TEXT_AREA_PADDING, TEXT_AREA_PADDING));
+        textArea.setBorder(BorderFactory.createEmptyBorder(
+            TEXT_AREA_PADDING, 
+            TEXT_AREA_PADDING, 
+            TEXT_AREA_PADDING, 
+            TEXT_AREA_PADDING
+        ));
 
         final JScrollPane scrollPane = new JScrollPane(textArea);
         scrollPane.setBackground(TEXT_AREA_BACKGROUND);
