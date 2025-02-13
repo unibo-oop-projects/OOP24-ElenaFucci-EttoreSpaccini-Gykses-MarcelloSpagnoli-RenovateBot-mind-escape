@@ -1,6 +1,8 @@
 package mindescape.controller.caesarcipher.impl;
 
 import javax.swing.JPanel;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import mindescape.controller.caesarcipher.api.CaesarCipherController;
 import mindescape.controller.core.api.ControllerName;
 import mindescape.controller.maincontroller.api.MainController;
@@ -24,6 +26,7 @@ public final class CaesarCipherControllerImpl implements CaesarCipherController 
      * @param model the Caesar Cipher model
      * @param mainController the main controller managing this instance
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The mainController need to be exposed to the caller")
     public CaesarCipherControllerImpl(final CaesarCipherModel model, final MainController mainController) {
         this.mainController = mainController;
         this.model = model; 
