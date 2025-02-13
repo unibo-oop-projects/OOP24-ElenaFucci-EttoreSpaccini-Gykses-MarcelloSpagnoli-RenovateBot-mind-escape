@@ -23,7 +23,7 @@ final class RoomImplTest {
     public void setUp() {
         rooms = RoomImpl.createRooms();
         bedroom = rooms.stream()
-            .filter(room -> room.getName().equals("bedroom"))
+            .filter(room -> "bedroom".equals(room.getName()))
             .findFirst().get();
     }
 
@@ -34,7 +34,7 @@ final class RoomImplTest {
 
     @Test
     public void testAddGameObject() {
-        int size = bedroom.getGameObjects().size();
+        final int size = bedroom.getGameObjects().size();
         bedroom.addGameObject(new GameObjectImpl(new Point2D(0, 0), "dummy", Dimensions.TILE));
         assertEquals(size + 1, bedroom.getGameObjects().size());
     }
