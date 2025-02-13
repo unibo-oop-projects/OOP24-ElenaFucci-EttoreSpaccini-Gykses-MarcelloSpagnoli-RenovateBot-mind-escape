@@ -14,7 +14,7 @@ import mindescape.controller.maincontroller.api.MainController;
 public class EnigmaPuzzleControllerImpl implements EnigmaPuzzleController {
 
     private final EnigmaPuzzleModelImpl model;
-    private EnigmaPuzzleViewImpl view;
+    private final EnigmaPuzzleViewImpl view;
     private final MainController mainController;
 
     /**
@@ -34,7 +34,7 @@ public class EnigmaPuzzleControllerImpl implements EnigmaPuzzleController {
      * {@inheritDoc}
      */
     @Override
-    public void handleInput(final Object input) throws IllegalArgumentException, NullPointerException {
+    public void handleInput(final Object input) {
         if (this.model.hit((int) input)) {
             this.view.update(this.model.getPieces());
 

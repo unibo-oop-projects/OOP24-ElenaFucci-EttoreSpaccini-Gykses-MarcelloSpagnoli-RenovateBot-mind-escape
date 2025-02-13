@@ -15,7 +15,7 @@ public class EnigmaFactoryImpl implements EnigmaFactory {
      * {@inheritDoc}
      */
     @Override
-    public Enigma getEnigma(final String name) throws IllegalArgumentException {
+    public Enigma getEnigma(final String name) {
         final var enigmaName = EnigmaType.getEnigma(name);
         return switch (enigmaName) {
             case ENIGMA_FIRST_DOOR -> new EnigmaPasswordModelImpl(name, "Sergio Mattarella");

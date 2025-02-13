@@ -26,7 +26,6 @@ import mindescape.model.world.rooms.impl.RoomImpl;
 public class WorldImpl implements World, Serializable {
 
     private final Point2D playerStartPosition = new Point2D(110, 170);
-
     private static final long serialVersionUID = 1L;
     private final Player player;
     private final List<Room> rooms;
@@ -122,7 +121,7 @@ public class WorldImpl implements World, Serializable {
      * {@inheritDoc}
      */
     @Override
-    public void addRoom(final Room room) throws NullPointerException {
+    public void addRoom(final Room room) {
         Objects.requireNonNull(room, "Room must not be null");
         this.rooms.add(room);
     }
@@ -131,12 +130,12 @@ public class WorldImpl implements World, Serializable {
      * {@inheritDoc}
      */
     @Override
-    public void movePlayer(final Movement movement) throws NullPointerException {
+    public void movePlayer(final Movement movement) {
         Objects.requireNonNull(movement, "Movement must not be null");
 
         final var playerPosition = this.player.getPosition();
         final var position = new Point2D(playerPosition.x() + movement.getX(), playerPosition.y() + movement.getY());
-        var collidingObject = this.collisionDetector.collisions(
+        final var collidingObject = this.collisionDetector.collisions(
             position, 
             this.player.getDimensions(), 
             this.getCurrentRoom().getGameObjects()
@@ -144,7 +143,6 @@ public class WorldImpl implements World, Serializable {
 
         if (collidingObject.isEmpty()) {
             this.player.move(movement);
-            collidingObject = Optional.empty();
         } else {
             this.setCollidingObject(collidingObject);
         }

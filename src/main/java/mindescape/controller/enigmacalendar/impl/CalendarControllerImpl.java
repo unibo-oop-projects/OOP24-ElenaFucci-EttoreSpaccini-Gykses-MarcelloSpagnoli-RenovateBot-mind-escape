@@ -36,7 +36,7 @@ public class CalendarControllerImpl implements CalendarController {
      * @throws NullPointerException if the input is null
      */
     @Override
-    public void handleInput(final Object input) throws IllegalArgumentException, NullPointerException {
+    public void handleInput(final Object input) {
     }
 
     /**
