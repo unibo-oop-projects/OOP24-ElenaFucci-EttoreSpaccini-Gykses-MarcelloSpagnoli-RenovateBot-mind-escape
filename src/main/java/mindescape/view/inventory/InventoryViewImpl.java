@@ -122,9 +122,19 @@ public class InventoryViewImpl implements View {
             case "Wrench"-> "wrench.png";
             default -> throw new IllegalArgumentException("Unexpected item: " + item.getName());
         };
-        return new ImageIcon(getClass().getClassLoader().getResource("pickable/" + imagePath));
+        
+        // Carica l'immagine dalla risorsa
+        ImageIcon originalIcon = new ImageIcon(getClass().getClassLoader().getResource("pickable/" + imagePath));
+    
+        // Definisci una dimensione fissa per le icone (ad esempio 50x50)
+        int iconSize = 70;
+    
+        // Ridimensiona l'immagine per adattarla alla dimensione del bottone
+        ImageIcon resizedIcon = new ImageIcon(originalIcon.getImage().getScaledInstance(iconSize, iconSize, java.awt.Image.SCALE_SMOOTH));
+        
+        return resizedIcon;
     }
-
+    
     /**
      * Updates the description displayed in the text area.
      *
