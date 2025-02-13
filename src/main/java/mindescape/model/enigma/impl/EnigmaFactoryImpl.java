@@ -15,6 +15,8 @@ import mindescape.model.enigma.enigmapuzzle.impl.EnigmaPuzzleModelImpl;
  */
 public class EnigmaFactoryImpl implements EnigmaFactory, Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     private final Set<Enigma> enigmas;
 
     public EnigmaFactoryImpl() {
