@@ -1,6 +1,8 @@
 package mindescape.controller.guide.impl;
 
 import javax.swing.JPanel;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import mindescape.controller.core.api.ControllerName;
 import mindescape.controller.guide.api.GuideController;
 import mindescape.controller.maincontroller.api.MainController;
@@ -21,6 +23,7 @@ public final class GuideControllerImpl implements GuideController {
      *
      * @param mainController the main controller to be used by this guide controller
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The mainController need to be exposed to the caller")
     public GuideControllerImpl(final MainController mainController) {
         this.mainController = mainController;
         this.guideView = new GuideViewImpl(this);

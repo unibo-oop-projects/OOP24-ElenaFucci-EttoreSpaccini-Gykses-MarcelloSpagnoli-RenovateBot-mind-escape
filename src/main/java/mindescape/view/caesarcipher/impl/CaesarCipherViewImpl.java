@@ -12,6 +12,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import mindescape.controller.caesarcipher.api.CaesarCipherController;
 import mindescape.view.caesarcipher.api.CaesarCipherView;
 
@@ -139,6 +141,7 @@ public final class CaesarCipherViewImpl implements CaesarCipherView {
      *
      * @return the {@code JPanel} component of the view
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The panel is returned to the caller")
     @Override
     public JPanel getPanel() {
         return this.panel;

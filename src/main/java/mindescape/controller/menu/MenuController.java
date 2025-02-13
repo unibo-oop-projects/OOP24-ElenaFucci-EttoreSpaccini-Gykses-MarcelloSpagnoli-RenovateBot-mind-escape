@@ -2,6 +2,8 @@ package mindescape.controller.menu;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import mindescape.controller.core.api.ClickableController;
 import mindescape.controller.core.api.ControllerName;
 import mindescape.controller.maincontroller.api.MainController;
@@ -40,6 +42,7 @@ public class MenuController implements ClickableController {
      * 
      * @param mainController the main controller
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The main controller needs to be exposed to the caller")
     public MenuController(final MainController mainController) {
         this.mainController = mainController;
         this.menuView = new MenuView(this);
@@ -80,7 +83,7 @@ public class MenuController implements ClickableController {
      */
     @Override
     public void quit() {
-        System.exit(0);
+        this.mainController.exit();
     }
 
     /**

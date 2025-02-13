@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import mindescape.controller.core.api.KeyMapper;
 import mindescape.controller.core.api.UserInput;
 import mindescape.controller.maincontroller.api.MainController;
@@ -36,6 +37,7 @@ public final class MainViewImpl implements MainView {
      * Initializes the main view with a given controller, sets up the main frame,
      * and adds necessary listeners for key events and window closing events.
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The main controller needs to be exposed to the caller")
     public MainViewImpl(final MainController controller) {
         this.mainController = controller;
         this.currentPanel = new JPanel(); // Initialize with an empty panel
@@ -87,6 +89,7 @@ public final class MainViewImpl implements MainView {
      * {@inheritDoc}
      */
     @Override
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The panel needs to be exposed to the caller for manipulation")
     public void setPanel(final JPanel panel) {
         this.frame.remove(this.currentPanel);
         this.currentPanel = panel;

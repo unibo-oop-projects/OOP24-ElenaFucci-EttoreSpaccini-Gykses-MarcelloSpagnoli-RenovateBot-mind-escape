@@ -12,6 +12,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import mindescape.controller.enigmapassword.api.EnigmaPasswordController;
 import mindescape.view.enigmapassword.api.EnigmaPasswordView;
 
@@ -111,6 +113,7 @@ public final class EnigmaPasswordViewImpl implements EnigmaPasswordView {
      *
      * @return the {@code JPanel} component of the view
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The panel is returned to the caller")
     @Override
     public JPanel getPanel() {
         return this.panel;

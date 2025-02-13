@@ -18,6 +18,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * The MenuView class is responsible for creating the menu view of the game.
  */
@@ -160,6 +162,7 @@ public class MenuView implements View {
      * {@inheritDoc}
      */
     @Override
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The panel needs to be exposed to the caller for manipulation")
     public JPanel getPanel() {
         return this.panel;
     }

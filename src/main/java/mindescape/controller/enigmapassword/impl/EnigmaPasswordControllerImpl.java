@@ -1,6 +1,8 @@
 package mindescape.controller.enigmapassword.impl;
 
 import javax.swing.JPanel;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import mindescape.controller.core.api.ControllerName;
 import mindescape.controller.enigmapassword.api.EnigmaPasswordController;
 import mindescape.controller.maincontroller.api.MainController;
@@ -25,6 +27,7 @@ public final class EnigmaPasswordControllerImpl implements EnigmaPasswordControl
      * @param model the password enigma model
      * @param mainController the main controller managing this instance
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The mainController need to be exposed to the caller")
     public EnigmaPasswordControllerImpl(final EnigmaPasswordModel model, final MainController mainController) {
         this.mainController = mainController;
         this.model = model; 
