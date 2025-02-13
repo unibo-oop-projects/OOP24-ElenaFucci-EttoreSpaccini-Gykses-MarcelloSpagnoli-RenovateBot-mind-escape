@@ -89,7 +89,7 @@ public final class GuideViewImpl extends JPanel implements GuideView {
                 if (line != null) {
                     content.append(line).append('\n');
                 } 
-            } while (line != null && !"".equals(line));
+            } while (line != null);
         } catch (final IOException e) {
             content.append("Failed to load guide.txt");
         }
