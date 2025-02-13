@@ -32,6 +32,9 @@ public class InventoryViewImpl implements View {
     private static final int GRID_ROWS = 0;
     private static final int GRID_COLUMNS = 4;
     private static final int MARGIN = 10;
+    private static final int MIN_FONT_SIZE = 10;
+    private static final int FONT_SIZE_DIVISOR = 30;
+    private static final int PANEL_SIZE = 400;
 
     private final InventoryControllerImpl controller;
     private final JPanel panel;
@@ -64,7 +67,7 @@ public class InventoryViewImpl implements View {
             @Override
             public void componentResized(ComponentEvent e) {
                 int width = panel.getWidth();
-                int fontSize = Math.max(10, width / 30);
+                int fontSize = Math.max(MIN_FONT_SIZE, width / FONT_SIZE_DIVISOR);
                 updateFontSizes(fontSize);
             }
         });
@@ -77,7 +80,7 @@ public class InventoryViewImpl implements View {
             }
         });
 
-        panel.setPreferredSize(new Dimension(400, 400));
+        panel.setPreferredSize(new Dimension(PANEL_SIZE, PANEL_SIZE));
     }
 
     /**
@@ -129,7 +132,7 @@ public class InventoryViewImpl implements View {
         }
 
         final int width = panel.getWidth();
-        final int fontSize = Math.max(10, width / 30);
+        final int fontSize = Math.max(MIN_FONT_SIZE, width / FONT_SIZE_DIVISOR);
         updateFontSizes(fontSize);
 
         inventoryPanel.revalidate();
