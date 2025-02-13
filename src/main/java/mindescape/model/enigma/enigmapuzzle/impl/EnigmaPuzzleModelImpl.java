@@ -59,8 +59,7 @@ public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializable {
      * @return a new 2D array of {@link Image} objects representing the pieces of the puzzle.
      */
     public Integer[][] getPieces() {
-        // Create a new array and copy the elements of 'pieces' into it
-        Integer[][] copy = new Integer[this.rows][this.cols];
+        final Integer[][] copy = new Integer[this.rows][this.cols];
         for (int i = 0; i < this.rows; i++) {
             System.arraycopy(this.pieces[i], 0, copy[i], 0, this.cols);
         }

@@ -14,7 +14,12 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+/**
+ * The view for the main screen.
+ */
 public class MainViewImpl implements MainView {
+    private static final int WIDTH = 800;
+    private static final int HEIGHT = 600;
     private static final Map<Integer, UserInput> KEY_MAPPER = Map.of(
         KeyEvent.VK_W, UserInput.UP,
         KeyEvent.VK_S, UserInput.DOWN,
@@ -64,7 +69,7 @@ public class MainViewImpl implements MainView {
                         "Save before exiting", 
                         JOptionPane.YES_NO_CANCEL_OPTION
                     );
-                    
+
                     if (option == JOptionPane.YES_OPTION) {
                         try {
                             mainController.save();
@@ -77,7 +82,7 @@ public class MainViewImpl implements MainView {
                 }
             }
         });
-        this.frame.setSize(800, 600);
+        this.frame.setSize(WIDTH, HEIGHT);
         this.frame.setResizable(true);
         this.frame.setVisible(true);
     }
@@ -87,9 +92,9 @@ public class MainViewImpl implements MainView {
      */
     @Override
     public void setPanel(final JPanel panel) {
-        this.frame.remove(this.currentPanel);  
+        this.frame.remove(this.currentPanel);
         this.currentPanel = panel;
-        this.frame.add(this.currentPanel);  
+        this.frame.add(this.currentPanel);
         this.currentPanel.setVisible(true);
         this.currentPanel.setFocusable(true);
         this.currentPanel.requestFocusInWindow(); 

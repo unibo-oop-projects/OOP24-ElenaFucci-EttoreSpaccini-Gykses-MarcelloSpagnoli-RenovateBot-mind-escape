@@ -1,6 +1,7 @@
 package mindescape.model.world.impl;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -53,7 +54,8 @@ public class WorldImpl implements World, Serializable {
      * @param player the player
      */
     public WorldImpl(final List<Room> rooms, final Player player) {
-        this.rooms = rooms;
+        this.rooms = new ArrayList<>();
+        rooms.stream().forEach(this.rooms::add);
         this.player = player;
         this.collisionDetector = new CollisionDetectorImpl();
         this.collidingObject = Optional.empty();
