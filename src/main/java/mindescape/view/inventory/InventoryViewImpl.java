@@ -3,70 +3,89 @@ package mindescape.view.inventory;
 import mindescape.controller.inventory.InventoryControllerImpl;
 import mindescape.model.world.items.interactable.api.Pickable;
 import mindescape.view.api.View;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.Set;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
-public class InventoryViewImpl implements View {
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
+import java.awt.GridLayout;
+import java.awt.Image;
+
+/**
+ * Implementation of the InventoryView interface.
+ */
+public final class InventoryViewImpl implements View {
+
+    private static final int GRID_ROWS = 0;
+    private static final int GRID_COLUMNS = 4;
+    private static final int MARGIN = 10;
+    private static final int MIN_FONT_SIZE = 10;
+    private static final int FONT_SIZE_DIVISOR = 30;
+    private static final int PANEL_SIZE = 400;
+    private static final int DESCRIPTION_ROWS = 5;
+    private static final int DESCRIPTION_COLUMNS = 20;
 
     private final InventoryControllerImpl controller;
-    private JPanel panel;
-    private JPanel inventoryPanel;
-    private JTextArea descriptionArea;
+    private final JPanel panel;
+    private final JPanel inventoryPanel;
+    private final JTextArea descriptionArea;
 
     /**
-     * Constructs an InventoryViewImpl with the specified InventoryControllerImpl.
-     * Initializes the main panel with a BorderLayout and sets up the inventory panel
-     * with a vertical BoxLayout for buttons. A non-editable JTextArea is created for
-     * displaying descriptions, and a JScrollPane is added to allow scrolling.
-     * The content panel includes the inventory panel and the description area.
-     * A component listener is added to dynamically adjust the font size based on the
-     * panel's width. The initial preferred size of the panel is set to 600x400.
+     * Constructs an InventoryViewImpl with the specified controller.
+     * Initializes the main panel with a BorderLayout and an inventory panel with a GridLayout.
+     * Sets up a non-editable description area within a scroll pane.
+     * Adds a component listener to adjust font sizes based on panel width.
+     * Adds a key listener to handle input events.
+     * Sets the preferred size of the panel to 400x400.
      *
-     * @param controller the InventoryControllerImpl to be associated with this view
+     * @param controller the InventoryControllerImpl instance to be used by this view
      */
-    public InventoryViewImpl(InventoryControllerImpl controller) {
+    public InventoryViewImpl(final InventoryControllerImpl controller) {
         this.controller = controller;
         this.panel = new JPanel(new BorderLayout());
         this.inventoryPanel = new JPanel();
-        inventoryPanel.setLayout(new BoxLayout(inventoryPanel, BoxLayout.Y_AXIS)); // Layout verticale per i bottoni
-        this.descriptionArea = new JTextArea(5, 20);
+        inventoryPanel.setLayout(new GridLayout(GRID_ROWS, GRID_COLUMNS, MARGIN, MARGIN)); 
+        this.descriptionArea = new JTextArea(DESCRIPTION_ROWS, DESCRIPTION_COLUMNS);
         this.descriptionArea.setEditable(false);
-
         this.descriptionArea.setText("");
-
         panel.add(inventoryPanel, BorderLayout.CENTER);
-
-        JScrollPane scrollPane = new JScrollPane(descriptionArea);
+        final JScrollPane scrollPane = new JScrollPane(descriptionArea);
         panel.add(scrollPane, BorderLayout.SOUTH);
-
 
         panel.addComponentListener(new ComponentAdapter() {
             @Override
-            public void componentResized(ComponentEvent e) {
-                int width = panel.getWidth();
-                int fontSize = Math.max(10, width / 30);
+            public void componentResized(final ComponentEvent e) {
+                final int width = panel.getWidth();
+                final int fontSize = Math.max(MIN_FONT_SIZE, width / FONT_SIZE_DIVISOR);
                 updateFontSizes(fontSize);
             }
         });
 
         panel.addKeyListener(new KeyAdapter() {
             @Override
-            public void keyPressed(KeyEvent e) {
-                int pressed = e.getKeyCode();
+            public void keyPressed(final KeyEvent e) {
+                final int pressed = e.getKeyCode();
                 controller.handleInput(pressed);
             }
         });
 
-        panel.setPreferredSize(new Dimension(600, 400)); 
+        panel.setPreferredSize(new Dimension(PANEL_SIZE, PANEL_SIZE));
     }
 
     /**
@@ -74,36 +93,53 @@ public class InventoryViewImpl implements View {
      *
      * @return the JPanel instance
      */
+    @Override
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The panel needs to be exposed to the caller")
     public JPanel getPanel() {
-        return panel;
+        return this.panel;
     }
 
     /**
-     * Updates the inventory buttons displayed in the inventory panel.
-     * This method removes all existing buttons and adds new buttons for each item in the provided set.
-     * Each button is labeled with the item's name and has an action listener that handles item clicks.
-     * The font size of the buttons is adjusted based on the width of the panel.
+     * Updates the inventory buttons based on the given set of items.
+     * This method removes all existing buttons from the inventory panel and creates new buttons
+     * for each item in the provided set. Each button displays an icon representing the item and
+     * is configured with an action listener to handle item clicks.
      *
      * @param items the set of items to be displayed as buttons in the inventory panel
      */
-    public void updateInventoryButtons(Set<Pickable> items) {
+    public void updateInventoryButtons(final Set<Pickable> items) {
         inventoryPanel.removeAll();
-        for (Pickable item : items) {
-            JButton itemButton = new JButton(item.getName());
+
+        for (final Pickable item : items) {
+            final JButton itemButton = new JButton() {
+                @Override
+                public void paintComponent(final Graphics g) {
+                    super.paintComponent(g);
+                    final Icon icon = createIcon(item);
+                    if (icon != null) {
+                        final int buttonSize = Math.min(getWidth(), getHeight());
+                        final Image img = ((ImageIcon) icon).getImage();
+                        final Image scaledImg = img.getScaledInstance(buttonSize, buttonSize, Image.SCALE_SMOOTH);
+                        setIcon(new ImageIcon(scaledImg));
+                    }
+                }
+            };
+
+            itemButton.setIcon(createIcon(item));
+
             itemButton.setFocusable(false);
             itemButton.addActionListener(new ActionListener() {
                 @Override
-                public void actionPerformed(ActionEvent e) {
+                public void actionPerformed(final ActionEvent e) {
                     controller.handleItemClick(item);
                 }
-
             });
 
             inventoryPanel.add(itemButton);
         }
 
-        int width = panel.getWidth();
-        int fontSize = Math.max(10, width / 30);
+        final int width = panel.getWidth();
+        final int fontSize = Math.max(MIN_FONT_SIZE, width / FONT_SIZE_DIVISOR);
         updateFontSizes(fontSize);
 
         inventoryPanel.revalidate();
@@ -111,11 +147,33 @@ public class InventoryViewImpl implements View {
     }
 
     /**
-     * Updates the description displayed in the text area.
+     * Creates an Icon for the given Pickable item.
      *
-     * @param description the new description to be displayed
+     * @param item the Pickable item for which the icon is to be created
+     * @return the Icon corresponding to the given item
+     * @throws IllegalArgumentException if the item's name is unexpected
      */
-    public void updateDescription(String description) {
+    private Icon createIcon(final Pickable item) {
+        final String imagePath = switch (item.getName()) {
+            case "key" -> "key.png";
+            case "Office key" -> "key.png";
+            case "Bed note" -> "ticket.png";
+            case "Message" -> "ticket.png";
+            case "Canteen note" -> "ticket.png";
+            case "Hammer" -> "hammer.png";
+            case "Torch" -> "torch.png";
+            case "Wrench" -> "wrench.png";
+            default -> throw new IllegalArgumentException("Unexpected item: " + item.getName());
+        };
+        return new ImageIcon(getClass().getClassLoader().getResource("pickable/" + imagePath));
+    }
+
+    /**
+     * Updates the description area with the provided text.
+     *
+     * @param description the new description text to be set in the description area
+     */
+    public void updateDescription(final String description) {
         descriptionArea.setText(description);
     }
 
@@ -125,22 +183,13 @@ public class InventoryViewImpl implements View {
      *
      * @param fontSize the new font size to be applied to the components
      */
-    private void updateFontSizes(int fontSize) {
-        for (Component comp : inventoryPanel.getComponents()) {
+    private void updateFontSizes(final int fontSize) {
+        for (final Component comp : inventoryPanel.getComponents()) {
             if (comp instanceof JButton) {
-                JButton button = (JButton) comp;
+                final JButton button = (JButton) comp;
                 button.setFont(new Font("Arial", Font.PLAIN, fontSize));
             }
         }
         descriptionArea.setFont(new Font("Arial", Font.PLAIN, fontSize)); 
     }
-
-    @Override
-    public void draw() {
-        throw new UnsupportedOperationException("Unimplemented method 'draw'");
-    }
 }
-
-
-
-

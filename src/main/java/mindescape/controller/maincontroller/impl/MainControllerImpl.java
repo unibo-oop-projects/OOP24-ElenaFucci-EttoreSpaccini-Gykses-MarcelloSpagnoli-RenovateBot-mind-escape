@@ -6,7 +6,7 @@ import mindescape.controller.core.api.Controller;
 import mindescape.controller.core.api.ControllerBuilder;
 import mindescape.controller.core.api.ControllerMap;
 import mindescape.controller.core.api.ControllerName;
-import mindescape.controller.core.api. LoopController;
+import mindescape.controller.core.api.LoopController;
 import mindescape.controller.core.impl.ControllerBuilderImpl;
 import mindescape.controller.maincontroller.api.MainController;
 import mindescape.model.enigma.api.Enigma;
@@ -18,60 +18,80 @@ import mindescape.view.main.MainViewImpl;
 /**
  * Implementation of the MainController interface.
  */
-public class MainControllerImpl implements MainController {
+public final class MainControllerImpl implements MainController {
     private Controller currentController;
     private ControllerMap controllerMap;
     private final MainView mainView;
     private final ControllerBuilder controllerBuilder;
     private String playerName;
 
+    /**
+     * Constructor for the MainControllerImpl class.
+     */
     public MainControllerImpl() {
         this.mainView = new MainViewImpl(this);
         this.controllerBuilder = new ControllerBuilderImpl(this);
         this.onStart();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void setController(final ControllerName controllerName, Enigma enigma) {
+    public void setController(final ControllerName controllerName, final Enigma enigma) {
         // Quit the current controller if it is a LoopController
         if (this.currentController instanceof LoopController) {
             ((LoopController) this.currentController).quit();
         }
 
         // if the controller is already in the map, set it as the current controller 
-        if (this.controllerMap.containsController(controllerName)) {
-            this.currentController = this.controllerMap.findController(controllerName);
-        } else { // otherwise, build the controller and set it as the current controller
+        if (!this.controllerMap.containsController(controllerName)) {
             this.controllerMap = this.buildController(controllerName, enigma);
-            this.currentController = this.controllerMap.findController(controllerName);
         }
-
+        this.currentController = this.controllerMap.findController(controllerName);
         this.mainView.setPanel(this.currentController.getPanel());
         this.currentController.start();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void start() {
         SwingUtilities.invokeLater(this.mainView::show);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Controller getController() {
         return this.currentController;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void winning() {
         this.mainView.won();
+        this.controllerMap.clear();
+        this.onStart();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void exit() {
         System.exit(0);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void save() throws IllegalStateException, NullPointerException {
+    public void save() {
         final var world = this.controllerMap.findController(ControllerName.WORLD).getModel();
         Objects.requireNonNull(world, "World is null.");
         if (world instanceof World) {
@@ -82,6 +102,9 @@ public class MainControllerImpl implements MainController {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void loadGame(final World world) {
         this.controllerBuilder.buildExistingWorld(world);
@@ -89,20 +112,34 @@ public class MainControllerImpl implements MainController {
         this.setController(ControllerName.WORLD, null);
     }
 
+    /**
+     * Setups for the game start.
+     */
     private void onStart() {
         this.controllerBuilder.buildMenu();
         this.controllerMap = this.controllerBuilder.getResult();
         this.setController(ControllerName.MENU, null);
     }
 
-    private ControllerMap buildController(final ControllerName name, Enigma enigma) {
+    /**
+     * Builds the controller based on the provided controller name if it is not already in the map.
+     *
+     * @param name the name of the controller to be built
+     * @param enigma the enigma to be set
+     * @return the built controller
+     */
+    private ControllerMap buildController(final ControllerName name, final Enigma enigma) {
         if (!this.controllerMap.containsController(name)) {
             switch (name) {
                 case MENU:
                     this.controllerBuilder.buildMenu();
                     break;
                 case INVENTORY:
-                    this.controllerBuilder.buildInventory((World) this.controllerMap.findController(ControllerName.WORLD).getModel());
+                    this.controllerBuilder.buildInventory(
+                        (World) this.controllerMap
+                        .findController(ControllerName.WORLD)
+                        .getModel()
+                    );
                     break;
                 case LOAD:
                     this.controllerBuilder.buildLoad();
@@ -128,6 +165,9 @@ public class MainControllerImpl implements MainController {
                 case ENIGMA_FIRST_DOOR:
                     this.controllerBuilder.buildEnigmaFirstDoor(enigma);
                     break;
+                case GUIDE:
+                    this.controllerBuilder.buildGuide();
+                    break;
                 default:
                     throw new IllegalArgumentException("Controller not found.");
             }
@@ -135,6 +175,9 @@ public class MainControllerImpl implements MainController {
         return this.controllerBuilder.getResult();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setPlayerName(final String playerName) {
         this.playerName = playerName;

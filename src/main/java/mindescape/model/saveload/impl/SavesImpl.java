@@ -6,18 +6,30 @@ import com.google.common.collect.Ordering;
 import java.util.List;
 import mindescape.model.saveload.api.Saves;
 
-public class SavesImpl implements Saves {
+/**
+ * Implementation of the Saves interface.
+ */
+public final class SavesImpl implements Saves {
+
     private final File savesDirectory = new File("saves");
 
+    /**
+     * Constructor for the SavesImpl class.
+     * This constructor checks if the saves directory exists.
+     * If the directory does not exist, it creates the necessary directories.
+     */
     public SavesImpl() {
-        if (!savesDirectory.exists()) {
-            savesDirectory.mkdirs();
+        if (!savesDirectory.exists() && !savesDirectory.mkdirs()) {
+            throw new IllegalStateException("Could not create saves directory.");
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<File> getSortedSaveFiles() {
-        var files = savesDirectory.listFiles((dir, name) -> name.endsWith(".sav"));
+        final var files = savesDirectory.listFiles((dir, name) -> name.endsWith(".sav"));
 
         if (files == null || files.length == 0) {
             return List.of();

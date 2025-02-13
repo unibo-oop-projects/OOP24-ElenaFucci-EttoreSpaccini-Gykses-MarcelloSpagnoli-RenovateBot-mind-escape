@@ -14,7 +14,7 @@ public interface CaesarCipherModel extends Enigma {
      * @param shift the number of positions to shift each letter in the text
      * @return the encrypted text
      */
-    String encrypt(int shift); 
+    String decrypt(int shift); 
 
     /**
      * Retrieves the encrypted version of the text used in the enigma.

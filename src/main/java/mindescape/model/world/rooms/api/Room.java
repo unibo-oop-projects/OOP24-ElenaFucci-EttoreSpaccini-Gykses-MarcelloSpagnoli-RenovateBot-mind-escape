@@ -5,7 +5,6 @@ import java.util.Set;
 import mindescape.model.world.core.api.Dimensions;
 import mindescape.model.world.core.api.GameObject;
 import mindescape.model.world.core.api.Point2D;
-import mindescape.model.world.items.interactable.api.Pickable;
 
 /**
  * Represents a room of the map.
@@ -57,7 +56,7 @@ public interface Room {
 
     /**
      * Dimensions of the room.
-     * @return
+     * @return {@link Dimensions} of the room 
      */
     Dimensions getDimensions();
 

@@ -1,5 +1,7 @@
 package mindescape.model.inventory.impl;
 
+import java.io.Serializable;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -15,8 +17,9 @@ import mindescape.model.world.items.interactable.api.Pickable;
  * 
  * @see Inventory
  */
-public class InventoryImpl implements Inventory {
+public final class InventoryImpl implements Inventory, Serializable {
 
+    private static final long serialVersionUID = 1L;
     private final Set<Pickable> set = new HashSet<>();
 
     /**
@@ -26,7 +29,7 @@ public class InventoryImpl implements Inventory {
      */
     @Override
     public Set<Pickable> getItems() {
-        return this.set;
+        return Collections.unmodifiableSet(this.set);
     }
 
     /**
@@ -36,7 +39,7 @@ public class InventoryImpl implements Inventory {
      * @throws NullPointerException If the provided {@link Pickable} is null.
      */
     @Override
-    public void addItems(Pickable pickable) {
+    public void addItems(final Pickable pickable) {
         Objects.requireNonNull(pickable, "Pickable item cannot be null");
         set.add(pickable);
     }
@@ -49,7 +52,7 @@ public class InventoryImpl implements Inventory {
      * @throws NullPointerException If the provided {@link Pickable} is null.
      */
     @Override
-    public boolean removeItem(Pickable pickable) {
+    public boolean removeItem(final Pickable pickable) {
         Objects.requireNonNull(pickable, "Pickable item cannot be null");
         if (set.contains(pickable)) {
             set.remove(pickable);

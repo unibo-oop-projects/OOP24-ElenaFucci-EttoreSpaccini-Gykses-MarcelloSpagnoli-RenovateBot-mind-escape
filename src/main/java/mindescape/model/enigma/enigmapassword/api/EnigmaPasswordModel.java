@@ -7,5 +7,4 @@ import mindescape.model.enigma.api.Enigma;
  * a password-based enigma model.
  */
 public interface EnigmaPasswordModel extends Enigma {
-    
 }

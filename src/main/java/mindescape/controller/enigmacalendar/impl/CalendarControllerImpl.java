@@ -2,6 +2,7 @@ package mindescape.controller.enigmacalendar.impl;
 
 import javax.swing.JPanel;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import mindescape.controller.core.api.ControllerName;
 import mindescape.controller.enigmacalendar.api.CalendarController;
 import mindescape.controller.maincontroller.api.MainController;
@@ -14,7 +15,7 @@ import mindescape.view.enigmacalendar.impl.CalendarViewImpl;
  * This class is responsible for handling the calendar-related operations
  * and interactions with the CalendarView.
  */
-public class CalendarControllerImpl implements CalendarController {
+public final class CalendarControllerImpl implements CalendarController {
     private final MainController mainController;
     private final CalendarView view;
 
@@ -23,10 +24,11 @@ public class CalendarControllerImpl implements CalendarController {
      *
      * @param mainController the main controller to be used by this calendar controller
      */
-    public CalendarControllerImpl(MainController mainController) {
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The mainController needs to be exposed to the caller")
+    public CalendarControllerImpl(final MainController mainController) {
         this.mainController = mainController;
         this.view = new CalendarViewImpl(this);
-    }   
+    } 
 
     /**
      * Handles the input provided to the calendar controller.
@@ -36,7 +38,7 @@ public class CalendarControllerImpl implements CalendarController {
      * @throws NullPointerException if the input is null
      */
     @Override
-    public void handleInput(Object input) throws IllegalArgumentException, NullPointerException {
+    public void handleInput(final Object input) {
     }
 
     /**

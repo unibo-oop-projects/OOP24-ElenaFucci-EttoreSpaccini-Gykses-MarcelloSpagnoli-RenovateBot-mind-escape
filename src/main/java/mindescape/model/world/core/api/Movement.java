@@ -31,6 +31,12 @@ public enum Movement {
     private final double x;
     private final double y;
 
+    /**
+     * Constructs a Movement object with the specified x and y coordinates.
+     *
+     * @param x the x-coordinate of the movement
+     * @param y the y-coordinate of the movement
+     */
     Movement(final double x, final double y) {
         this.x = x;
         this.y = y;

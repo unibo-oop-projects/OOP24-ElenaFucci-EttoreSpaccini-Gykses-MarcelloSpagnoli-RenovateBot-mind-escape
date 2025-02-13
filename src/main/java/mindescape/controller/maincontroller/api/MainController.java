@@ -10,11 +10,11 @@ import mindescape.model.world.api.World;
  * Implementing classes should define the behavior for setting the Controller.
  */
 public interface MainController {
-    
     /**
      * Sets the controller based on the provided controller name.
      *
      * @param controllerName the name of the controller to be set
+     * @param enigma the enigma to be set
      */
     void setController(ControllerName controllerName, Enigma enigma);
 
@@ -50,8 +50,15 @@ public interface MainController {
 
     /**
      * Load the game.
+     * 
+     * @param world the world to be loaded
      */
     void loadGame(World world);
 
+    /**
+     * Set the new player name.
+     * 
+     * @param playerName the new player name
+     */
     void setPlayerName(String playerName);
 }

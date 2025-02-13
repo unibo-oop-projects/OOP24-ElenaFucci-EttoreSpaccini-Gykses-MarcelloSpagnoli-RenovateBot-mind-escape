@@ -2,7 +2,6 @@ package mindescape.model.world.api;
 
 import java.util.List;
 import java.util.Optional;
-
 import mindescape.model.api.Model;
 import mindescape.model.enigma.api.Enigma;
 import mindescape.model.world.core.api.Movement;

@@ -6,6 +6,9 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import mindescape.controller.core.api.KeyMapper;
 import mindescape.controller.core.api.UserInput;
 import mindescape.controller.maincontroller.api.MainController;
 import mindescape.view.api.MainView;
@@ -14,19 +17,27 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class MainViewImpl implements MainView {
-    private static final Map<Integer, UserInput> KEY_MAPPER = Map.of(
-        KeyEvent.VK_W, UserInput.UP,
-        KeyEvent.VK_S, UserInput.DOWN,
-        KeyEvent.VK_A, UserInput.LEFT,
-        KeyEvent.VK_D, UserInput.RIGHT,
-        KeyEvent.VK_E, UserInput.INTERACT,
-        KeyEvent.VK_I, UserInput.INVENTORY
-    );
+/**
+ * The view for the main screen.
+ */
+public final class MainViewImpl implements MainView {
+
+    private static final int WIDTH = 800;
+    private static final int HEIGHT = 600;
     private final MainController mainController;
     private JPanel currentPanel;
     private final JFrame frame = new JFrame("Mind Escape");
+    private final Map<Integer, UserInput> keyMapper = KeyMapper.getKeyMap();
 
+    /**
+     * Constructs a MainViewImpl object.
+     *
+     * @param controller the main controller to be used by this view
+     *
+     * Initializes the main view with a given controller, sets up the main frame,
+     * and adds necessary listeners for key events and window closing events.
+     */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The main controller needs to be exposed to the caller")
     public MainViewImpl(final MainController controller) {
         this.mainController = controller;
         this.currentPanel = new JPanel(); // Initialize with an empty panel
@@ -35,7 +46,7 @@ public class MainViewImpl implements MainView {
             @Override
             public void keyPressed(final KeyEvent e) {
                 Objects.requireNonNull(e);
-                final UserInput input = KEY_MAPPER.get(e.getKeyCode());
+                final UserInput input = keyMapper.get(e.getKeyCode());
                 if (input != null) {
                     mainController.getController().handleInput(input);
                 }
@@ -56,7 +67,7 @@ public class MainViewImpl implements MainView {
                         "Save before exiting", 
                         JOptionPane.YES_NO_CANCEL_OPTION
                     );
-                    
+
                     if (option == JOptionPane.YES_OPTION) {
                         try {
                             mainController.save();
@@ -69,16 +80,20 @@ public class MainViewImpl implements MainView {
                 }
             }
         });
-        frame.setSize(800, 600);
-        frame.setResizable(true);
-        frame.setVisible(true);
+        this.frame.setSize(WIDTH, HEIGHT);
+        this.frame.setResizable(true);
+        this.frame.setVisible(true);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The panel needs to be exposed to the caller for manipulation")
     public void setPanel(final JPanel panel) {
-        this.frame.remove(this.currentPanel);  
+        this.frame.remove(this.currentPanel);
         this.currentPanel = panel;
-        this.frame.add(this.currentPanel);  
+        this.frame.add(this.currentPanel);
         this.currentPanel.setVisible(true);
         this.currentPanel.setFocusable(true);
         this.currentPanel.requestFocusInWindow(); 
@@ -87,6 +102,9 @@ public class MainViewImpl implements MainView {
         this.currentPanel.repaint();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void show() {
         SwingUtilities.invokeLater(() -> {
@@ -96,6 +114,9 @@ public class MainViewImpl implements MainView {
         });
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void won() {
         JOptionPane.showMessageDialog(frame, "You won!");

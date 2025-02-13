@@ -1,6 +1,8 @@
 package mindescape.controller.caesarcipher.impl;
 
 import javax.swing.JPanel;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import mindescape.controller.caesarcipher.api.CaesarCipherController;
 import mindescape.controller.core.api.ControllerName;
 import mindescape.controller.maincontroller.api.MainController;
@@ -12,7 +14,7 @@ import mindescape.view.caesarcipher.impl.CaesarCipherViewImpl;
 /**
  * Implementation of {@code CaesarCipherController} that manages user interaction and model updates.
  */
-public class CaesarCipherControllerImpl implements CaesarCipherController{
+public final class CaesarCipherControllerImpl implements CaesarCipherController {
 
     private final MainController mainController;
     private final CaesarCipherModel model;
@@ -24,6 +26,7 @@ public class CaesarCipherControllerImpl implements CaesarCipherController{
      * @param model the Caesar Cipher model
      * @param mainController the main controller managing this instance
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The mainController need to be exposed to the caller")
     public CaesarCipherControllerImpl(final CaesarCipherModel model, final MainController mainController) {
         this.mainController = mainController;
         this.model = model; 
@@ -31,34 +34,28 @@ public class CaesarCipherControllerImpl implements CaesarCipherController{
     }
 
     /**
-     * Handles user input for the shift value and updates the view with the encrypted result.
-     *
-     * @param input the shift value provided by the user
+     * {@inheritDoc}
      */
     @Override
-    public void handleInput(Object input) {
+    public void handleInput(final Object input) {
         try {
-            int shift = Integer.parseInt((String)input);
-            view.showResult(model.encrypt(shift));
+            final int shift = Integer.parseInt((String) input);
+            view.showResult(model.decrypt(shift));
         } catch (NumberFormatException e) {
             view.showResult("Invalid shift value!");
         }
     }
 
     /**
-     * Retrieves the name of this controller.
-     *
-     * @return the name of the controller
+     * {@inheritDoc}
      */
     @Override
     public String getName() {
-        return this.model.getName(); 
+        return ControllerName.CAESAR_CIPHER.getName();
     }
 
     /**
-     * Retrieves the associated panel for this controller.
-     *
-     * @return the {@code JPanel} used for the view
+     * {@inheritDoc}
      */
     @Override
     public JPanel getPanel() {
@@ -66,31 +63,41 @@ public class CaesarCipherControllerImpl implements CaesarCipherController{
     }
 
     /**
-     * Quits the current controller and switches to another controller in the main application.
+     * {@inheritDoc}
      */
     @Override
     public void quit() {
         this.mainController.setController(ControllerName.WORLD, null);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getEncryptedText() {
         return this.model.getEncryptedText(); 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean canSave() {
         return true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Model getModel() {
-        // TODO Auto-generated method stub
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void start() {
     }
-    
 }

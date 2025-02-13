@@ -17,10 +17,9 @@ import mindescape.model.world.player.api.Player;
  * @see Pickable
  * @see GameObjectImpl
  */
-public class DoorLockedWithPickable extends GameObjectImpl implements Door {
+public final class DoorLockedWithPickable extends GameObjectImpl implements Door {
 
-    private final static long serialVersionUID = 1L;
-
+    private static final long serialVersionUID = 1L;
     private final Door baseDoor;
     private final int keyItemId;
     private boolean unlocked;
@@ -29,7 +28,7 @@ public class DoorLockedWithPickable extends GameObjectImpl implements Door {
      * Constructs a door locked with a specific pickable item.
      *
      * @param baseDoor   the base door to decorate with the pickable lock
-     * @param keyItem_id the ID of the item required to unlock the door
+     * @param keyItemId the ID of the item required to unlock the door
      */
     public DoorLockedWithPickable(final Door baseDoor, final int keyItemId) {
         super(baseDoor.getPosition(), baseDoor.getName(), baseDoor.getDimensions());

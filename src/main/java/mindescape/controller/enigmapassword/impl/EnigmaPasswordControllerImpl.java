@@ -1,6 +1,8 @@
 package mindescape.controller.enigmapassword.impl;
 
 import javax.swing.JPanel;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import mindescape.controller.core.api.ControllerName;
 import mindescape.controller.enigmapassword.api.EnigmaPasswordController;
 import mindescape.controller.maincontroller.api.MainController;
@@ -13,7 +15,7 @@ import mindescape.view.enigmapassword.impl.EnigmaPasswordViewImpl;
  * Implementation of {@code EnigmaPasswordController} that manages user interactions
  * for password-based enigmas.
  */
-public class EnigmaPasswordControllerImpl implements EnigmaPasswordController {
+public final class EnigmaPasswordControllerImpl implements EnigmaPasswordController {
 
     private final MainController mainController;
     private final EnigmaPasswordModel model; 
@@ -25,6 +27,7 @@ public class EnigmaPasswordControllerImpl implements EnigmaPasswordController {
      * @param model the password enigma model
      * @param mainController the main controller managing this instance
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The mainController need to be exposed to the caller")
     public EnigmaPasswordControllerImpl(final EnigmaPasswordModel model, final MainController mainController) {
         this.mainController = mainController;
         this.model = model; 
@@ -32,21 +35,17 @@ public class EnigmaPasswordControllerImpl implements EnigmaPasswordController {
     }
 
     /**
-     * Handles user input and checks if the password is correct.
-     *
-     * @param input the user-provided password
+     * {@inheritDoc}
      */
     @Override
     public void handleInput(final Object input) {
         if (input instanceof String) {
-            this.view.showResult(this.model.hit((String)input)); 
+            this.view.showResult(this.model.hit((String) input)); 
         }
     }
-
+ 
     /**
-     * Retrieves the name of the enigma.
-     *
-     * @return the name of the enigma as a string
+     * {@inheritDoc}
      */
     @Override
     public String getName() {
@@ -54,9 +53,7 @@ public class EnigmaPasswordControllerImpl implements EnigmaPasswordController {
     }
 
     /**
-     * Retrieves the panel associated with this controller.
-     *
-     * @return the {@code JPanel} for the view
+     * {@inheritDoc}
      */
     @Override
     public JPanel getPanel() {
@@ -64,26 +61,33 @@ public class EnigmaPasswordControllerImpl implements EnigmaPasswordController {
     }
 
     /**
-     * Quits the current controller and switches to another controller in the main application.
+     * {@inheritDoc}
      */
     @Override
     public void quit() {
         this.mainController.setController(ControllerName.WORLD, null);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean canSave() {
         return true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Model getModel() {
-        // TODO Auto-generated method stub
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void start() {
-
     }
 }

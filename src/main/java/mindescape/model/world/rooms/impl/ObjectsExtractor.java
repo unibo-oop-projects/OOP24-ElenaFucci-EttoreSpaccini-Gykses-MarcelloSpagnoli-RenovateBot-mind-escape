@@ -21,25 +21,25 @@ import mindescape.model.world.rooms.api.Room;
 /**
  * Utility class to extract and create objects from a room file.
  */
-public class ObjectsExtractor {
+public final class ObjectsExtractor {
     /**
      * Return the set of GameObject of the room.
      * @param roomPath path to xml file describing the room
      * @return set of game objects
      */
     Set<GameObject> extractfrom(final String roomPath) {
-        Set<GameObject> gameObjects = new HashSet<>();
-        InteractableFactory factory = new InteractableFactoryImpl();
-        EnigmaFactory enigmas = new EnigmaFactoryImpl();
-        RewardFactory rewards = new RewardFactory();
-        TiledMap map = new FileSystemTiledReader().getMap(roomPath);
-        List<TiledObjectLayer> layers = getObjectLayers(map)
-            .stream().filter(layer -> !layer.getName().equals("Doors"))
+        final Set<GameObject> gameObjects = new HashSet<>();
+        final InteractableFactory factory = new InteractableFactoryImpl();
+        final EnigmaFactory enigmas = new EnigmaFactoryImpl();
+        final RewardFactory rewards = new RewardFactory();
+        final TiledMap map = new FileSystemTiledReader().getMap(roomPath);
+        final List<TiledObjectLayer> layers = getObjectLayers(map)
+            .stream().filter(layer -> !"Doors".equals(layer.getName()))
             .toList();
-        for (TiledObjectLayer layer : layers) {
+        for (final TiledObjectLayer layer : layers) {
             layer.getObjects().forEach(object -> {
-                Point2D position = new Point2D(object.getX(), object.getY());
-                Dimensions dimensions = new Dimensions(object.getWidth(), object.getHeight());
+                final Point2D position = new Point2D(object.getX(), object.getY());
+                final Dimensions dimensions = new Dimensions(object.getWidth(), object.getHeight());
                 switch (object.getType()) {
                     case "NonInteractableImpl":
                         gameObjects.add(new NonInteractableImpl(position, object.getName(), dimensions));
@@ -62,32 +62,37 @@ public class ObjectsExtractor {
                         break;
                     case "LockedUnpickable":
                         gameObjects.add(factory.createLockedUnpickable(object.getName(), position, dimensions, 
-                        (Integer) object.getProperties().get("keyItem_id"),
-                        rewards.getReward((String) object.getProperties().get("Reward"))));
-                    default:
+                            (Integer) object.getProperties().get("keyItem_id"),
+                            rewards.getReward((String) object.getProperties().get("Reward"))));
                         break;
+                    default:
+                        throw new IllegalArgumentException(object.getName()
+                            +  " with ID "
+                            + object.getID() 
+                            + " is not valid"
+                        );
                 }
             }); 
         }
         return gameObjects;
     }
 
-    Set<GameObject> addDoors(String roomPath, Set<Room> rooms) {
-        Set<GameObject> doors = new HashSet<>();
-        EnigmaFactory enigmas = new EnigmaFactoryImpl();
-        InteractableFactory factory = new InteractableFactoryImpl();
-        TiledMap map = new FileSystemTiledReader().getMap(roomPath);
-        List<TiledObjectLayer> doorLayers = getObjectLayers(map)
-            .stream().filter(layer -> layer.getName().equals("Doors"))
+    Set<GameObject> addDoors(final String roomPath, final Set<Room> rooms) {
+        final Set<GameObject> doors = new HashSet<>();
+        final EnigmaFactory enigmas = new EnigmaFactoryImpl();
+        final InteractableFactory factory = new InteractableFactoryImpl();
+        final TiledMap map = new FileSystemTiledReader().getMap(roomPath);
+        final List<TiledObjectLayer> doorLayers = getObjectLayers(map)
+            .stream().filter(layer -> "Doors".equals(layer.getName()))
             .toList();
-        for (TiledObjectLayer doorLayer : doorLayers) {
+        for (final TiledObjectLayer doorLayer : doorLayers) {
             doorLayer.getObjects().forEach(object -> {
-                Point2D position = new Point2D(object.getX(), object.getY());
-                Point2D destPosition = new Point2D(
+                final Point2D position = new Point2D(object.getX(), object.getY());
+                final Point2D destPosition = new Point2D(
                                 (int) object.getProperties().get("DestX"), 
                                 (int) object.getProperties().get("DestY"));
-                Dimensions dimensions = new Dimensions(object.getWidth(), object.getHeight());
-                switch (object.getType()) {   
+                final Dimensions dimensions = new Dimensions(object.getWidth(), object.getHeight());
+                switch (object.getType()) {
                     case "DoorLockedWithEnigma":
                         doors.add(factory.createDoorLockedWithEnigma(object.getName(), position, dimensions,
                             enigmas.getEnigma((String) object.getProperties().get("Enigma")),
@@ -98,30 +103,35 @@ public class ObjectsExtractor {
                             destPosition));
                         break;
                     case "DoorLockedWithPickable":
-                    doors.add(factory.createDoorLockedWithPickable(object.getName(), position, dimensions,
-                        (Integer) object.getProperties().get("keyItem_id"),
-                        rooms.stream()
-                        .filter(x -> x.getName().equals((String) object.getProperties().get("Destination")))
-                        .findFirst()
-                        .get(),
-                        destPosition));
+                        doors.add(factory.createDoorLockedWithPickable(object.getName(), position, dimensions,
+                            (Integer) object.getProperties().get("keyItem_id"),
+                            rooms.stream()
+                            .filter(x -> x.getName().equals((String) object.getProperties().get("Destination")))
+                            .findFirst()
+                            .get(),
+                            destPosition));
                         break;
                     case "SimpleDoor":
-                    doors.add(factory.createSimpleDoor(object.getName(), position, dimensions, 
-                        rooms.stream()
-                        .filter(x -> x.getName().equals((String) object.getProperties().get("Destination")))
-                        .findFirst()
-                        .get(),
-                        destPosition));
-                    default:
+                        doors.add(factory.createSimpleDoor(object.getName(), position, dimensions, 
+                            rooms.stream()
+                            .filter(x -> x.getName().equals((String) object.getProperties().get("Destination")))
+                            .findFirst()
+                            .get(),
+                            destPosition));
                         break;
+                    default:
+                        throw new IllegalArgumentException(object.getName()
+                            +  " with ID "
+                            + object.getID() 
+                            + " is not valid"
+                    );
                 }
             });
         }
         return doors;
     }
 
-    private List<TiledObjectLayer> getObjectLayers(TiledMap map) {
+    private List<TiledObjectLayer> getObjectLayers(final TiledMap map) {
         return map.getNonGroupLayers().stream()
             .filter(layer -> layer instanceof TiledObjectLayer)
             .map(layer -> (TiledObjectLayer) layer)
@@ -129,4 +139,3 @@ public class ObjectsExtractor {
     }
 
 }
-

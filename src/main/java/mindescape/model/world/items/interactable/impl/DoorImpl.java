@@ -1,5 +1,6 @@
 package mindescape.model.world.items.interactable.impl;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import mindescape.model.world.core.api.Dimensions;
 import mindescape.model.world.core.api.Point2D;
 import mindescape.model.world.core.impl.GameObjectImpl;
@@ -23,7 +24,9 @@ import mindescape.model.world.rooms.api.Room;
  * @see Door
  * @see GameObjectImpl
  */
-public class DoorImpl extends GameObjectImpl implements Door {
+public final class DoorImpl extends GameObjectImpl implements Door {
+
+    private static final long serialVersionUID = 1L;
 
     private final Room destinationRoom;
     private final Point2D destinationPosition;
@@ -37,6 +40,7 @@ public class DoorImpl extends GameObjectImpl implements Door {
      * @param destinationRoom the room connected as the destination through the door
      * @param destinationPosition the position in the destination room where the player will be placed
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The destination room has to be exposed for the game logic")
     public DoorImpl(final Point2D position, final String name,
                     final Dimensions dimensions, final Room destinationRoom, final Point2D destinationPosition) {
         super(position, name, dimensions);

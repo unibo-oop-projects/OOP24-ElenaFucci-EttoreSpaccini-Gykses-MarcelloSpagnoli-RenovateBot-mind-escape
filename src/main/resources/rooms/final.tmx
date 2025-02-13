@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.7" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="16" height="16" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="7">
+ <tileset firstgid="1" source="../tilesets/Enviroment2.tsx"/>
+ <tileset firstgid="101" source="../tilesets/Enviroment.tsx"/>
+ <tileset firstgid="726" source="../tilesets/mirror.tsx"/>
+ <layer id="1" name="Enviroment" width="16" height="16">
+  <data encoding="csv">
+102,102,102,102,102,102,102,102,102,102,102,102,102,102,102,102,
+127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,
+127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,
+127,127,127,152,152,152,152,152,152,152,152,152,152,152,152,127,
+127,127,127,127,2,2,2,2,2,2,2,2,2,2,2,127,
+127,127,2,2,2,2,2,2,2,2,2,2,2,2,2,127,
+127,152,152,152,152,152,152,152,152,152,152,152,152,152,152,127,
+127,2,2,2,2,2,2,2,2,2,2,2,2,2,2,127,
+127,2,2,2,2,2,2,2,2,2,2,2,2,2,2,127,
+127,2,2,2,2,2,2,2,2,2,2,2,2,2,2,127,
+127,2,2,2,2,2,2,2,2,2,2,2,2,2,2,127,
+127,2,2,2,2,2,2,2,2,2,2,2,2,2,2,127,
+127,2,2,2,2,2,2,2,2,2,2,2,2,2,2,127,
+127,2,2,2,2,2,2,2,2,2,2,2,2,2,2,127,
+127,2,2,2,2,2,2,2,2,2,2,2,2,2,2,127,
+127,127,127,127,127,127,127,2,2,127,127,127,127,127,127,127
+</data>
+ </layer>
+ <layer id="2" name="Furniture" width="16" height="16">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,726,727,728,729,730,731,732,733,734,735,736,737,738,739,0,
+0,740,741,742,743,744,745,746,747,748,749,750,751,752,753,0,
+0,754,755,756,757,758,759,760,761,762,763,764,765,766,767,0,
+0,768,769,770,771,772,773,774,775,776,777,778,779,780,781,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,427,427,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup id="3" name="Objects">
+  <object id="1" name="Mirror" type="LockedUnpickable" x="16" y="32" width="224" height="80">
+   <properties>
+    <property name="Reward" value="dummy"/>
+    <property name="keyItem_id" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="2" name="Wall" type="NonInteractableImpl" x="0" y="112" width="16" height="144"/>
+  <object id="3" name="Wall" type="NonInteractableImpl" x="15.0277" y="241.468" width="97.3384" height="14.0031"/>
+  <object id="4" name="Wall" type="NonInteractableImpl" x="144" y="240" width="96" height="16"/>
+  <object id="5" name="Wall" type="NonInteractableImpl" x="240" y="112" width="16" height="144"/>
+ </objectgroup>
+ <objectgroup id="4" name="Doors">
+  <object id="6" name="Door" type="SimpleDoor" x="112" y="245.566" width="32" height="6.48923">
+   <properties>
+    <property name="DestX" type="int" value="60"/>
+    <property name="DestY" type="int" value="70"/>
+    <property name="Destination" value="archive"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

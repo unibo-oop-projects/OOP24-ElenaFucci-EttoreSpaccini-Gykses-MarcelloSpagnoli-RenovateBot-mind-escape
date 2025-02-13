@@ -17,7 +17,6 @@ public interface ControllerMap {
     /**
      * Adds a controller to the map.
      *
-     * @param name the name of the controller to add
      * @param controller the controller to add
      */
     void addController(Controller controller);

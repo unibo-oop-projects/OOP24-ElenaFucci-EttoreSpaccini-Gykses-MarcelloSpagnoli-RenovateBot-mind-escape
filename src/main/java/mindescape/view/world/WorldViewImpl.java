@@ -1,10 +1,10 @@
 package mindescape.view.world;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -20,58 +20,65 @@ import org.tiledreader.TiledObject;
 import org.tiledreader.TiledObjectLayer;
 import org.tiledreader.TiledTile;
 import org.tiledreader.TiledTileLayer;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import mindescape.controller.core.api.KeyMapper;
 import mindescape.controller.core.api.UserInput;
-import mindescape.controller.worldcontroller.impl.WorldController;
 import mindescape.model.world.core.api.Dimensions;
 import mindescape.model.world.core.api.Point2D;
 import mindescape.model.world.player.api.Player;
 import mindescape.model.world.rooms.api.Room;
 import mindescape.view.api.WorldView;
+import mindescape.view.utils.ImageTransformer;
 
 /**
  * Implementation of the WorldView.
  */
-public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
-
-    private static final Map<Integer, UserInput> KEY_MAPPER = Map.of(
-        KeyEvent.VK_W, UserInput.UP,
-        KeyEvent.VK_S, UserInput.DOWN,
-        KeyEvent.VK_A, UserInput.LEFT,
-        KeyEvent.VK_D, UserInput.RIGHT,
-        KeyEvent.VK_E, UserInput.INTERACT,
-        KeyEvent.VK_I, UserInput.INVENTORY
-    );
+public final class WorldViewImpl implements WorldView, KeyListener {
 
     private static final double ROTATING_ANGLE = -90;
-    private final Map<TiledTile, BufferedImage> tilesCache = new HashMap<>();
+    private static final int TILE_DIMENSION = (int) Dimensions.TILE.width();
+    private final transient Map<TiledTile, BufferedImage> tilesCache = new HashMap<>();
     private BufferedImage roomImage;
-    private double scaling = 1;
     private String roomName;
-    private PlayerView player;
+    private final transient PlayerView player;
     private double roomHeight;
     private int objNum;
     private final Map<Integer, Boolean> keyState = new HashMap<>();
+    private final transient ImageTransformer transformer = new ImageTransformer();
+    private final Map<Integer, UserInput> keyMapper = KeyMapper.getKeyMap();
+    private final JPanel panel;
 
     /**
      * Constructor for WorldViewImpl.
      *
-     * @param worldController the world controller
      * @param currentRoom the current room
      */
-    public WorldViewImpl(WorldController worldController, Room currentRoom) {
-        roomHeight = currentRoom.getDimensions().height();
-        roomName = currentRoom.getName();
+    public WorldViewImpl(final Room currentRoom) {
+        this.panel = new JPanel() {
+            @Override
+            protected void paintComponent(final Graphics g) {
+                super.paintComponent(g);
+                final double scaling = getScalingFactor();
+                final BufferedImage image = transformer.adapt(roomImage, scaling);
+                final int offset = (this.getWidth() - image.getWidth()) / 2;
+                g.drawImage(image, offset, 0, this);
+                player.draw(g, offset, scaling, keyState);
+            }
+        };
+        this.roomHeight = currentRoom.getDimensions().height();
+        this.roomName = currentRoom.getName();
         updateRoomImage(currentRoom);
         player = new PlayerView(getPlayer(currentRoom).getPosition());
-        KEY_MAPPER.forEach((key, value) -> keyState.put(key, false));
+        keyMapper.forEach((key, value) -> keyState.put(key, false));
         objNum = currentRoom.getGameObjects().size();
-        setFocusable(true); // Permette al JPanel di ricevere input dalla tastiera
-        requestFocusInWindow(); // Richiede il focus per il JPanel
-        addKeyListener(this);
+        this.panel.setFocusable(true);
+        this.panel.requestFocusInWindow();
+        this.panel.addKeyListener(this);
     }
 
     @Override
-    public void draw(Room currentRoom) {
+    public void draw(final Room currentRoom) {
         if (!roomName.equals(currentRoom.getName()) || objNum != currentRoom.getGameObjects().size()) {
             objNum = currentRoom.getGameObjects().size();
             updateRoomImage(currentRoom);
@@ -79,29 +86,20 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
             roomName = currentRoom.getName();
         }
         player.setPosition(getPlayer(currentRoom).getPosition());
-        repaint();
+        this.panel.repaint();
     }
 
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP",
+        justification = "it is not possible to create a copy of this, however nothing is changed by caller")
     @Override
     public JPanel getPanel() {
-        return this;
+        return this.panel;
     }
 
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        scaling = getScalingFactor();
-        BufferedImage image = adapt(roomImage);
-        int offset = (this.getWidth() - image.getWidth()) / 2;
-        g.drawImage(image, offset, 0, this);
-        player.draw(g, offset, scaling, keyState);
-    }
-
-    private void drawLayer(TiledTileLayer layer, Graphics g, TiledMap map) {
-        int dim = (int) Dimensions.TILE.height();
+    private void drawLayer(final TiledTileLayer layer, final Graphics g, final TiledMap map) {
         for (int x = 0; x < map.getWidth(); x++) {
             for (int y = 0; y < map.getHeight(); y++) {
-                TiledTile tile = layer.getTile(x, y);
+                final TiledTile tile = layer.getTile(x, y);
                 if (tile != null) {
                     BufferedImage img = tilesCache.get(tile);
                     if (img == null) {
@@ -112,13 +110,13 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
                         );
                         tilesCache.put(tile, img);
                     }
-                    g.drawImage(img, x * dim, y * dim, this);
+                    g.drawImage(img, x * TILE_DIMENSION, y * TILE_DIMENSION, this.panel);
                 }
             }
         }
     }
 
-    private List<TiledTileLayer> getTileLayers(TiledMap map) {
+    private List<TiledTileLayer> getTileLayers(final TiledMap map) {
         return map.getNonGroupLayers().stream()
             .filter(layer -> layer instanceof TiledTileLayer)
             .map(layer -> (TiledTileLayer) layer)
@@ -127,86 +125,57 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
 
     private BufferedImage getTileImage(final TiledTile tile) {
         try {
-            BufferedImage image = ImageIO.read(new File(tile.getTileset().getImage().getSource()));
-            Point2D pos = getPositionFromId(tile, tile.getTileset().getWidth());
+            final BufferedImage image = ImageIO.read(new File(tile.getTileset().getImage().getSource()));
+            final Point2D pos = getPositionFromId(tile, tile.getTileset().getWidth());
             return image.getSubimage(
-                (int) pos.x() * (int) Dimensions.TILE.height(),
-                (int) pos.y() * (int) Dimensions.TILE.height(),
-                (int) Dimensions.TILE.height(),
-                (int) Dimensions.TILE.width()
+                (int) pos.x() * TILE_DIMENSION,
+                (int) pos.y() * TILE_DIMENSION,
+                TILE_DIMENSION,
+                TILE_DIMENSION
             );
         } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+            final BufferedImage image = new BufferedImage(
+                TILE_DIMENSION,
+                TILE_DIMENSION,
+                BufferedImage.TYPE_4BYTE_ABGR
+            );
+            final Graphics g = image.createGraphics();
+            g.setColor(Color.BLACK);
+            g.fillRect(0, 0, TILE_DIMENSION, TILE_DIMENSION);
+            g.dispose();
+            return image;
         }
     }
 
-    private BufferedImage applyTransformations(BufferedImage img, final boolean horizontal, final boolean diagonal) {
+    private BufferedImage applyTransformations(final BufferedImage img, final boolean horizontal, final boolean diagonal) {
+        BufferedImage result = img;
         if (diagonal) {
-            img = rotateImage(img, ROTATING_ANGLE);
+            result = transformer.rotateImage(result, ROTATING_ANGLE);
         }
         if (horizontal) {
-            img = flipImageHorizontally(img);
+            result = transformer.flipImageHorizontally(result);
         }
-        return img;
-    }
-
-    private BufferedImage adapt(final BufferedImage image) {
-        int newWidth = (int) (image.getWidth() * scaling);
-        int newHeight = (int) (image.getHeight() * scaling);
-        BufferedImage scaledImage = new BufferedImage(newWidth, newHeight, image.getType());
-        Graphics2D g2d = scaledImage.createGraphics();
-        AffineTransform at = AffineTransform.getScaleInstance(scaling, scaling);
-        g2d.drawImage(image, at, null);
-        g2d.dispose();
-        return scaledImage;
-    }
-
-    private BufferedImage rotateImage(final BufferedImage image, final double angle) {
-        int width = image.getWidth();
-        int height = image.getHeight();
-        AffineTransform transform = new AffineTransform();
-        transform.rotate(Math.toRadians(angle), width / 2.0, height / 2.0);
-        BufferedImage rotatedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g2d = rotatedImage.createGraphics();
-        g2d.setTransform(transform);
-        g2d.drawImage(image, 0, 0, null);
-        g2d.dispose();
-        return rotatedImage;
-    }
-
-    private BufferedImage flipImageHorizontally(final BufferedImage image) {
-        int width = image.getWidth();
-        int height = image.getHeight();
-        AffineTransform transform = new AffineTransform();
-        transform.scale(-1, 1); // Flip horizontally
-        transform.translate(-width, 0); // Move image back to the correct position
-        BufferedImage flippedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g2d = flippedImage.createGraphics();
-        g2d.setTransform(transform);
-        g2d.drawImage(image, 0, 0, null);
-        g2d.dispose();
-        return flippedImage;
+        return result;
     }
 
     private Point2D getPositionFromId(final TiledTile tile, final int mapWidth) {
-        return new Point2D(tile.getID() % mapWidth, tile.getID() / mapWidth);
+        return new Point2D(tile.getID() % mapWidth, (double) tile.getID() / mapWidth);
     }
 
     private double getScalingFactor() {
-        double tileScaledDim = this.getHeight() / (roomHeight / Dimensions.TILE.height());
-        return tileScaledDim / Dimensions.TILE.height();
+        final double tileScaledDim = this.panel.getHeight() / (roomHeight / TILE_DIMENSION);
+        return tileScaledDim / TILE_DIMENSION;
     }
 
     private void updateRoomImage(final Room currentRoom) {
         roomImage = new BufferedImage((int) currentRoom.getDimensions().height(),
             (int) currentRoom.getDimensions().height(), BufferedImage.TYPE_4BYTE_ABGR);
-        Graphics2D finalMap = roomImage.createGraphics();
-        TiledMap map = new FileSystemTiledReader().getMap(currentRoom.getSource());
+        final Graphics2D finalMap = roomImage.createGraphics();
+        final TiledMap map = new FileSystemTiledReader().getMap(currentRoom.getSource());
         getTileLayers(map).forEach(layer -> drawLayer(layer, finalMap, map));
         List<TiledObject> tileObjects = getTileObjects(map);
         tileObjects = tileObjects
-            .stream()   
+            .stream()
             .filter(tObj -> {
                 return currentRoom.getGameObjects()
                     .stream()
@@ -217,8 +186,8 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
         finalMap.dispose();
     }
 
-    private void drawTileObject(TiledObject obj, Graphics2D g) {
-        TiledTile tile = obj.getTile();
+    private void drawTileObject(final TiledObject obj, final Graphics2D g) {
+        final TiledTile tile = obj.getTile();
         BufferedImage img = getTileImage(tile);
         img = applyTransformations(img,
             obj.getTileXFlip(),
@@ -226,13 +195,13 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
         g.drawImage(img, (int) obj.getX(), (int) obj.getY(), null);
     }
 
-    private Player getPlayer(Room currentRoom) {
+    private Player getPlayer(final Room currentRoom) {
         return (Player) currentRoom.getGameObjects().stream().filter(x -> x instanceof Player).findAny().get();
     }
 
-    private List<TiledObject> getTileObjects(TiledMap map) {
-        TiledObjectLayer objects =  map.getNonGroupLayers().stream()
-            .filter(layer -> layer.getName().equals("Objects"))
+    private List<TiledObject> getTileObjects(final TiledMap map) {
+        final TiledObjectLayer objects =  map.getNonGroupLayers().stream()
+            .filter(layer -> "Objects".equals(layer.getName()))
             .map(layer -> (TiledObjectLayer) layer)
             .findFirst()
             .get();
@@ -245,16 +214,16 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
 
     @Override
     public void keyPressed(final KeyEvent e) {
-        int pressed = e.getKeyCode();
-        if (KEY_MAPPER.containsKey(pressed)) {
+        final int pressed = e.getKeyCode();
+        if (keyMapper.containsKey(pressed)) {
             keyState.put(pressed, true);
         }
     }
 
     @Override
     public void keyReleased(final KeyEvent e) {
-        int released = e.getKeyCode();
-        if (KEY_MAPPER.containsKey(released)) {
+        final int released = e.getKeyCode();
+        if (keyMapper.containsKey(released)) {
             keyState.put(released, false);
         }
     }

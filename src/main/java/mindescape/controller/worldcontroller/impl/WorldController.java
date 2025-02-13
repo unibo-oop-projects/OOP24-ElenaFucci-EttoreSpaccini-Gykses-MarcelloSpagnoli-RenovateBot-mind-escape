@@ -2,8 +2,12 @@ package mindescape.controller.worldcontroller.impl;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import mindescape.controller.core.api.ControllerName;
+import mindescape.controller.core.api.KeyMapper;
 import mindescape.controller.core.api.LoopController;
 import mindescape.controller.core.api.UserInput;
 import mindescape.controller.maincontroller.api.MainController;
@@ -12,39 +16,37 @@ import mindescape.model.world.api.World;
 import mindescape.model.world.core.api.Movement;
 import mindescape.view.api.WorldView;
 import mindescape.view.world.WorldViewImpl;
-import java.awt.event.KeyEvent;
 
-public class WorldController implements LoopController {
-
-    private static final Map<Integer, UserInput> KEY_MAPPER = Map.of(
-        KeyEvent.VK_W, UserInput.UP,
-        KeyEvent.VK_S, UserInput.DOWN,
-        KeyEvent.VK_A, UserInput.LEFT,
-        KeyEvent.VK_D, UserInput.RIGHT,
-        KeyEvent.VK_E, UserInput.INTERACT,
-        KeyEvent.VK_I, UserInput.INVENTORY
-    );
+/**
+ * The controller for the world.
+ */
+public final class WorldController implements LoopController {
 
     private final World world;
     private final WorldView worldView;
     private final MainController mainController;
+    private final Logger logger = Logger.getLogger(WorldController.class.getName());
     private boolean running = true;
     private static final int FPS = 60; 
     private static final long TIME = 1_000; // 1 second in milliseconds
+    private final Map<Integer, UserInput> keyMapper = KeyMapper.getKeyMap();
 
     /**
-     * Constructs a new WorldController with the specified world, world view, and the reference to the main controller.
+     * Constructs a new WorldController with the specified world and the reference to the main controller.
      *
      * @param world the world model to be controlled
-     * @param worldView the view associated with the world
      * @param mainController the main controller managing the overall application
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The main controller needs to be exposed to the caller")
     public WorldController(final World world, final MainController mainController) {
         this.world = world;
-        this.worldView = new WorldViewImpl(this, world.getCurrentRoom());
+        this.worldView = new WorldViewImpl(world.getCurrentRoom());
         this.mainController = mainController;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void handleInput(final Object input) {
         switch ((UserInput) input) {
@@ -58,58 +60,83 @@ public class WorldController implements LoopController {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void quit() {
         this.running = false;
     }
 
-    private class Loop extends Thread {
+    /**
+     * The loop that runs the game.
+     */
+    private final class Loop extends Thread {
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void run() {
             final long frameTime = TIME / FPS;
+
             while (running) {
-                long startTime = System.currentTimeMillis();
+                final long startTime = System.currentTimeMillis();
 
                 if (world.hasWon()) {
                     mainController.winning();
-                    running = false;
-                    mainController.setController(ControllerName.MENU, null);
+                    quit();
                 }
 
-                long elapsedTime = System.currentTimeMillis() - startTime;
+                final long elapsedTime = System.currentTimeMillis() - startTime;
                 if (elapsedTime < frameTime) {
                     try {
-                        Thread.sleep(frameTime - elapsedTime);
+                        sleep(frameTime - elapsedTime);
                     } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        logger.fine(e.getMessage());
                     }
                 }
+
                 movePlayerIfKeyPressed();
                 worldView.draw(world.getCurrentRoom());
             }
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getName() {
         return ControllerName.WORLD.getName();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public JPanel getPanel() {
         return this.worldView.getPanel();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean canSave() {
         return true;
     }
-    
+    /**
+     * {@inheritDoc}
+     */
     @Override
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The model is returned to the caller")
     public Model getModel() {
         return this.world;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void start() {
         this.running = true;
@@ -117,9 +144,9 @@ public class WorldController implements LoopController {
     }
 
     private void movePlayerIfKeyPressed() {
-        for (Map.Entry<Integer, Boolean> entry : new HashMap<>(worldView.getKeyState()).entrySet()) {
-            if (entry.getValue()) { // Se il tasto è premuto
-                handleInput(KEY_MAPPER.get(entry.getKey()));
+        for (final Map.Entry<Integer, Boolean> entry : new HashMap<>(worldView.getKeyState()).entrySet()) {
+            if (entry.getValue()) {
+                handleInput(keyMapper.get(entry.getKey()));
             }
         }
     }

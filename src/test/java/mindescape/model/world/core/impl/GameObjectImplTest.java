@@ -1,7 +1,7 @@
 package mindescape.model.world.core.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import mindescape.model.world.core.api.Dimensions;
@@ -10,7 +10,7 @@ import mindescape.model.world.core.api.Point2D;
 /**
  * Test class for {@link GameObjectImpl}.
  */
-class GameObjectImplTest {
+final class GameObjectImplTest {
 
     private GameObjectImpl gameObject;
     private Point2D initialPosition;
@@ -36,7 +36,7 @@ class GameObjectImplTest {
         final Point2D newPosition = new Point2D(2, 2);
         gameObject.setPosition(newPosition);
         final Point2D position = gameObject.getPosition();
-        assertTrue(position != null);
+        assertNotNull(position);
         assertEquals(newPosition, position);
     }
 

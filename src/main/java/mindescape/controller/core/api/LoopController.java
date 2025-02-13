@@ -5,11 +5,4 @@ package mindescape.controller.core.api;
  * It extends the Controller interface and provides methods to start and stop the game loop.
  */
 public interface LoopController extends Controller {
-
-    /**
-     * Stops the game loop.
-     */
-    void quit();
-
-
 }

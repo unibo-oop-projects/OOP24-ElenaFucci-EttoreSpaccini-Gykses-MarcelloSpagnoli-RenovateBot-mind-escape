@@ -1,0 +1,17 @@
+Welcome to Mind Escape!
+
+In this thrilling text-based adventure, your goal is to solve challenges to progress through different rooms. Each room hides secrets and enigmas that you must decipher to move forward.
+
+Controls:
+W - Move forward
+A - Move left
+S - Move backward
+D - Move right
+E - Interact with objects
+You may need to click E again in order to get objects after you solve an enigma
+I - Open inventory
+I (again) - Close inventory
+
+Use your logic, creativity, and observation skills to find clues and solve the mysteries. Every detail matters, so explore carefully!
+
+Good luck, and enjoy your adventure in Mind Escape!

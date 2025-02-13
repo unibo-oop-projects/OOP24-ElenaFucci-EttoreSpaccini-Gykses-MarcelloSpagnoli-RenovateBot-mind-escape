@@ -2,9 +2,9 @@ package mindescape.controller.inventory;
 
 import java.awt.event.KeyEvent;
 import java.util.Objects;
-
 import javax.swing.JPanel;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import mindescape.controller.core.api.ClickableController;
 import mindescape.controller.core.api.ControllerName;
 import mindescape.controller.maincontroller.api.MainController;
@@ -18,7 +18,7 @@ import mindescape.model.world.items.interactable.api.Pickable;
  * and manages the inventory view and inventory model. It handles user input,
  * updates the inventory view, and interacts with the main controller.
  */
-public class InventoryControllerImpl implements ClickableController {
+public final class InventoryControllerImpl implements ClickableController {
 
     private final InventoryViewImpl view;
     private final Inventory inventory;
@@ -27,9 +27,14 @@ public class InventoryControllerImpl implements ClickableController {
     /**
      * Constructs an InventoryControllerImpl object.
      *
+     * @param inventory the inventory model that stores the items the player has collected
      * @param mainController the main controller that coordinates the overall application
      */
-    public InventoryControllerImpl(Inventory inventory, final MainController mainController) {
+    @SuppressFBWarnings(
+        value = "EI_EXPOSE_REP", 
+        justification = "The mainController and the inventory need to be exposed to the caller"
+    )
+    public InventoryControllerImpl(final Inventory inventory, final MainController mainController) {
         this.inventory = inventory;
         this.view = new InventoryViewImpl(this);
         this.mainController = mainController;
@@ -43,10 +48,10 @@ public class InventoryControllerImpl implements ClickableController {
      * @throws NullPointerException if the input is null
      */
     @Override
-    public void handleInput(Object input) throws IllegalArgumentException, NullPointerException {
+    public void handleInput(final Object input) {
         Objects.requireNonNull(input);
         if ((int) input == KeyEvent.VK_I) {
-            this.quit();                                 
+            this.quit();
         }
     }
 
@@ -94,8 +99,9 @@ public class InventoryControllerImpl implements ClickableController {
      * @return the model associated with this controller, or {@code null} if no model is set.
      */
     @Override
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The inventory model is returned to the caller")
     public Model getModel() {
-        return null;
+        return this.inventory;
     }
 
     /**
@@ -106,7 +112,6 @@ public class InventoryControllerImpl implements ClickableController {
     @Override
     public void start() {
         this.view.updateInventoryButtons(inventory.getItems());
-        System.out.println("l'inventario continene: " + inventory.getItems().toString());
     }
 
     /**
@@ -115,8 +120,8 @@ public class InventoryControllerImpl implements ClickableController {
      *
      * @param item the item that was clicked, must implement the Pickable interface
      */
-    public void handleItemClick(Pickable item) {
-        String description = item.getDescription();
+    public void handleItemClick(final Pickable item) {
+        final String description = item.getDescription();
         this.view.updateDescription(description);
     }
 }
