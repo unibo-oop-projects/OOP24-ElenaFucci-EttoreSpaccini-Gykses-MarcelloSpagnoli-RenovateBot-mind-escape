@@ -57,7 +57,7 @@ public final class WorldViewImpl implements WorldView, KeyListener {
     public WorldViewImpl(final Room currentRoom) {
         this.panel = new JPanel() {
             @Override
-            protected void paintComponent(Graphics g) {
+            protected void paintComponent(final Graphics g) {
                 super.paintComponent(g);
                 final double scaling = getScalingFactor();
                 final BufferedImage image = transformer.adapt(roomImage, scaling);

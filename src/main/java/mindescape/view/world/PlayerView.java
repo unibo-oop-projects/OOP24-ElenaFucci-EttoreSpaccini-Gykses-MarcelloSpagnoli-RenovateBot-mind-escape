@@ -33,7 +33,7 @@ public final class PlayerView {
     private static final int LEFT_POSITION = 6;
 
 
-    private int spriteIndex = 0;
+    private int spriteIndex;
     private final Map<UserInput, List<BufferedImage>> spriteMapper = new EnumMap<>(UserInput.class);
     private BufferedImage currentSprite;
     private final Timer timer;
@@ -47,8 +47,9 @@ public final class PlayerView {
      * @param pos The initial position of the player
      */
     public PlayerView(final Point2D pos) {
-        x = (int) pos.x();
-        y = (int) pos.y();
+        this.spriteIndex = 0;
+        this.x = (int) pos.x();
+        this.y = (int) pos.y();
         keyMapper.remove(KeyEvent.VK_I);
         keyMapper.remove(KeyEvent.VK_E);
         BufferedImage image;
