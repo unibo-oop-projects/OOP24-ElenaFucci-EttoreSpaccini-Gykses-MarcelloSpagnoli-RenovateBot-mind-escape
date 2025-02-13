@@ -2,7 +2,6 @@ package mindescape.view.enigmapuzzle.impl;
 
 import java.awt.Graphics;
 import java.awt.Image;
-
 import javax.swing.JButton;
 
 /**
@@ -11,7 +10,7 @@ import javax.swing.JButton;
  */
 public class ImageButton extends JButton {
 
-    private final static long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
     private Image image;
 
     /**
