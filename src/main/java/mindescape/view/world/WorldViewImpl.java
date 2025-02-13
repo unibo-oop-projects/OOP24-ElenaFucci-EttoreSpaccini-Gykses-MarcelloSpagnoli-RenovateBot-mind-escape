@@ -1,5 +1,6 @@
 package mindescape.view.world;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -37,14 +38,15 @@ public final class WorldViewImpl extends JPanel implements WorldView, KeyListene
     private static final long serialVersionUID = 1L;
 
     private static final double ROTATING_ANGLE = -90;
-    private transient final Map<TiledTile, BufferedImage> tilesCache = new HashMap<>();
+    private static final int TILE_DIMENSION = (int) Dimensions.TILE.width();
+    private final transient Map<TiledTile, BufferedImage> tilesCache = new HashMap<>();
     private transient BufferedImage roomImage;
     private transient String roomName;
-    private transient final PlayerView player;
+    private final transient PlayerView player;
     private double roomHeight;
     private int objNum;
     private final Map<Integer, Boolean> keyState = new HashMap<>();
-    private transient final ImageTransformer transformer = new ImageTransformer();
+    private final transient ImageTransformer transformer = new ImageTransformer();
     private final Map<Integer, UserInput> keyMapper = KeyMapper.getKeyMap();
 
     /**
@@ -92,7 +94,6 @@ public final class WorldViewImpl extends JPanel implements WorldView, KeyListene
     }
 
     private void drawLayer(final TiledTileLayer layer, final Graphics g, final TiledMap map) {
-        final int dim = (int) Dimensions.TILE.height();
         for (int x = 0; x < map.getWidth(); x++) {
             for (int y = 0; y < map.getHeight(); y++) {
                 final TiledTile tile = layer.getTile(x, y);
@@ -106,7 +107,7 @@ public final class WorldViewImpl extends JPanel implements WorldView, KeyListene
                         );
                         tilesCache.put(tile, img);
                     }
-                    g.drawImage(img, x * dim, y * dim, this);
+                    g.drawImage(img, x * TILE_DIMENSION, y * TILE_DIMENSION, this);
                 }
             }
         }
@@ -124,14 +125,22 @@ public final class WorldViewImpl extends JPanel implements WorldView, KeyListene
             final BufferedImage image = ImageIO.read(new File(tile.getTileset().getImage().getSource()));
             final Point2D pos = getPositionFromId(tile, tile.getTileset().getWidth());
             return image.getSubimage(
-                (int) pos.x() * (int) Dimensions.TILE.height(),
-                (int) pos.y() * (int) Dimensions.TILE.height(),
-                (int) Dimensions.TILE.height(),
-                (int) Dimensions.TILE.width()
+                (int) pos.x() * TILE_DIMENSION,
+                (int) pos.y() * TILE_DIMENSION,
+                TILE_DIMENSION,
+                TILE_DIMENSION
             );
         } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+            final BufferedImage image = new BufferedImage(
+                TILE_DIMENSION,
+                TILE_DIMENSION,
+                BufferedImage.TYPE_4BYTE_ABGR
+            );
+            final Graphics g = image.createGraphics();
+            g.setColor(Color.BLACK);
+            g.fillRect(0, 0, TILE_DIMENSION, TILE_DIMENSION);
+            g.dispose();
+            return image;
         }
     }
 
@@ -151,8 +160,8 @@ public final class WorldViewImpl extends JPanel implements WorldView, KeyListene
     }
 
     private double getScalingFactor() {
-        final double tileScaledDim = this.getHeight() / (roomHeight / Dimensions.TILE.height());
-        return tileScaledDim / Dimensions.TILE.height();
+        final double tileScaledDim = this.getHeight() / (roomHeight / TILE_DIMENSION);
+        return tileScaledDim / TILE_DIMENSION;
     }
 
     private void updateRoomImage(final Room currentRoom) {
