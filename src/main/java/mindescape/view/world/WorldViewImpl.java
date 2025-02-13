@@ -31,9 +31,7 @@ import mindescape.view.utils.ImageTransformer;
 /**
  * Implementation of the WorldView.
  */
-public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
-
-    private static final long serialVersionUID = 1L;
+public final class WorldViewImpl extends JPanel implements WorldView, KeyListener {
 
     private static final Map<Integer, UserInput> KEY_MAPPER = Map.of(
         KeyEvent.VK_W, UserInput.UP,
@@ -143,14 +141,15 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
         }
     }
 
-    private BufferedImage applyTransformations(BufferedImage img, final boolean horizontal, final boolean diagonal) {
+    private BufferedImage applyTransformations(final BufferedImage img, final boolean horizontal, final boolean diagonal) {
+        BufferedImage result = img;
         if (diagonal) {
-            img = transformer.rotateImage(img, ROTATING_ANGLE);
+            result = transformer.rotateImage(result, ROTATING_ANGLE);
         }
         if (horizontal) {
-            img = transformer.flipImageHorizontally(img);
+            result = transformer.flipImageHorizontally(result);
         }
-        return img;
+        return result;
     }
 
     private Point2D getPositionFromId(final TiledTile tile, final int mapWidth) {
@@ -170,7 +169,7 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
         getTileLayers(map).forEach(layer -> drawLayer(layer, finalMap, map));
         List<TiledObject> tileObjects = getTileObjects(map);
         tileObjects = tileObjects
-            .stream()   
+            .stream()
             .filter(tObj -> {
                 return currentRoom.getGameObjects()
                     .stream()

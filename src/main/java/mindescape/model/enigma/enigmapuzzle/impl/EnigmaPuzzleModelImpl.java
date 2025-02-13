@@ -52,7 +52,7 @@ public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializable {
     public int getCols() {
         return this.cols;
     }
-    
+
     /**
      * Retrieves a copy of the 2D array of image pieces that make up the enigma puzzle.
      *

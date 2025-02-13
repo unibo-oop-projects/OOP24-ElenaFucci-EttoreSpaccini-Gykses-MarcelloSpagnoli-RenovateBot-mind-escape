@@ -27,6 +27,7 @@ public class WorldController implements LoopController {
         KeyEvent.VK_E, UserInput.INTERACT,
         KeyEvent.VK_I, UserInput.INVENTORY
     );
+
     private final World world;
     private final WorldView worldView;
     private final MainController mainController;

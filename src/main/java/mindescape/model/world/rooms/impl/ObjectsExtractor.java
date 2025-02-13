@@ -21,7 +21,7 @@ import mindescape.model.world.rooms.api.Room;
 /**
  * Utility class to extract and create objects from a room file.
  */
-public class ObjectsExtractor {
+public final class ObjectsExtractor {
     /**
      * Return the set of GameObject of the room.
      * @param roomPath path to xml file describing the room
