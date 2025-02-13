@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import mindescape.model.world.core.api.CollisionDetector;
 import mindescape.model.world.core.api.Dimensions;
 import mindescape.model.world.core.api.Point2D;
-import mindescape.model.world.player.api.Player;
 import mindescape.model.world.rooms.api.Room;
 import mindescape.model.world.rooms.impl.RoomImpl;
 
@@ -23,7 +22,6 @@ public class CollisionDetectorTest {
 
     private CollisionDetector collisionDetector;
     private Room bedRoom;
-    private Player player;
 
     @BeforeEach
     public void setUp() {

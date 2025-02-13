@@ -33,7 +33,7 @@ import mindescape.view.utils.ImageTransformer;
  */
 public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
 
-    private final static long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     private static final Map<Integer, UserInput> KEY_MAPPER = Map.of(
         KeyEvent.VK_W, UserInput.UP,

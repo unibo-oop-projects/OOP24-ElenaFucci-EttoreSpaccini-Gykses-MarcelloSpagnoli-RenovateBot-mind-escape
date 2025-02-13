@@ -23,7 +23,6 @@ public class RoomImplTest {
         bedroom = rooms.stream()
             .filter(room -> room.getName().equals("bedroom"))
             .findFirst().get();
-        bedroom.getGameObjects().forEach(x -> System.out.println(x.getName()));
     }
 
     @Test
@@ -50,7 +49,7 @@ public class RoomImplTest {
 
     @Test
     public void testGetGameObjects() {
-        assertEquals(bedroom.getGameObjects().size(), 8);
+        assertEquals(bedroom.getGameObjects().size(), 13);
         assertEquals(bedroom.getGameObjects().stream().filter(obj -> obj instanceof DoorLockedWithEnigma).count(), 1);
     }
 
