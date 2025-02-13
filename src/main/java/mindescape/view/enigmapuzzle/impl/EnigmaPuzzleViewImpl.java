@@ -10,6 +10,7 @@ import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -58,7 +59,7 @@ public final class EnigmaPuzzleViewImpl extends JPanel implements EnigmaPuzzleVi
      * @return a list of {@link ImageButton} objects.
      */
     public List<ImageButton> getButtons() {
-        return buttons;
+        return Collections.unmodifiableList(this.buttons);
     }
 
     /**

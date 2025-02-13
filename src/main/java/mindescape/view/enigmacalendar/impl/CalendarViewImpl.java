@@ -20,7 +20,7 @@ import mindescape.view.enigmacalendar.api.CalendarView;
  * Implementation of the calendar view that displays a daily schedule with time slots and activities.
  * The layout dynamically adjusts to the resizing of the window.
  */
-public class CalendarViewImpl implements CalendarView {
+public final class CalendarViewImpl implements CalendarView {
 
     private static final String FONT_NAME = "Arial";
     private static final Color BACKGROUND_COLOR = Color.DARK_GRAY;
