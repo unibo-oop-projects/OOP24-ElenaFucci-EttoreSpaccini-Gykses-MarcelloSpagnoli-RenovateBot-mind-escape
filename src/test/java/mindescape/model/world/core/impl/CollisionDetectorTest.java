@@ -29,7 +29,7 @@ public class CollisionDetectorTest {
     @Test
     public void testCollisionDetected() {
         assertEquals(collisionDetector.collisions(new Point2D(188, 127), Dimensions.TILE, bedRoom.getGameObjects()),
-            Optional.of(bedRoom.getGameObjects().stream().filter(x -> x.getName().equals("Bed")).findAny().get()));
+            Optional.of(bedRoom.getGameObjects().stream().filter(x -> "Bed".equals(x.getName())).findAny().get()));
     }
 
     @Test

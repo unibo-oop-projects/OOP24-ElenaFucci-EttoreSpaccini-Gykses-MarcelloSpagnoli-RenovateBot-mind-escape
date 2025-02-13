@@ -27,7 +27,7 @@ public class PlayerView {
     private final static int SPRITE_SHEET_HEIGHT = 16;
     private final static int SPRITE_SHEET_WIDTH = 16*8;
     private final static int SPRITES_PER_MOVEMENT = 2;
-    private int spriteIndex = 0;
+    private int spriteIndex;
     private final Map<UserInput, List<BufferedImage>> spriteMapper = new HashMap<>();
     private BufferedImage currentSprite;
     private final Timer timer;
