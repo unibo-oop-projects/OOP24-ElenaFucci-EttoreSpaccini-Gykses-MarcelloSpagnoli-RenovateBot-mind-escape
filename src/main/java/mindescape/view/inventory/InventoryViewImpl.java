@@ -62,7 +62,7 @@ public class InventoryViewImpl implements View {
         this.descriptionArea.setEditable(false);
         this.descriptionArea.setText("");
         panel.add(inventoryPanel, BorderLayout.CENTER);
-        JScrollPane scrollPane = new JScrollPane(descriptionArea);
+        final JScrollPane scrollPane = new JScrollPane(descriptionArea);
         panel.add(scrollPane, BorderLayout.SOUTH);
 
         panel.addComponentListener(new ComponentAdapter() {
@@ -90,6 +90,7 @@ public class InventoryViewImpl implements View {
      *
      * @return the JPanel instance
      */
+    @Override
     public JPanel getPanel() {
         return panel;
     }
@@ -106,11 +107,11 @@ public class InventoryViewImpl implements View {
         inventoryPanel.removeAll();
 
         for (final Pickable item : items) {
-            JButton itemButton = new JButton() {
+            final JButton itemButton = new JButton() {
                 @Override
                 public void paintComponent(final Graphics g) {
                     super.paintComponent(g);
-                    Icon icon = createIcon(item);
+                    final Icon icon = createIcon(item);
                     if (icon != null) {
                         final int buttonSize = Math.min(getWidth(), getHeight());
                         final Image img = ((ImageIcon) icon).getImage();
@@ -149,7 +150,7 @@ public class InventoryViewImpl implements View {
      * @throws IllegalArgumentException if the item's name is unexpected
      */
     private Icon createIcon(final Pickable item) {
-        String imagePath = switch (item.getName()) {
+        final String imagePath = switch (item.getName()) {
             case "key" -> "key.png";
             case "Office key" -> "key.png";
             case "Bed note" -> "ticket.png";
@@ -181,7 +182,7 @@ public class InventoryViewImpl implements View {
     private void updateFontSizes(final int fontSize) {
         for (final Component comp : inventoryPanel.getComponents()) {
             if (comp instanceof JButton) {
-                JButton button = (JButton) comp;
+                final JButton button = (JButton) comp;
                 button.setFont(new Font("Arial", Font.PLAIN, fontSize));
             }
         }
