@@ -16,31 +16,33 @@ import mindescape.model.world.rooms.api.Room;
 import mindescape.model.world.rooms.impl.RoomImpl;
 
 final class RoomImplTest {
-    private List<Room> rooms;
+
     private Room bedroom; 
 
     @BeforeEach
-    public void setUp() {
-        rooms = RoomImpl.createRooms();
+    void setUp() {
+        final List<Room> rooms = RoomImpl.createRooms();
         bedroom = rooms.stream()
             .filter(room -> "bedroom".equals(room.getName()))
             .findFirst().get();
     }
 
     @Test
-    public void testIsPlayerPresent() {
+    void testIsPlayerPresent() {
         assertFalse(bedroom.isPlayerPresent());
     }
 
+    // CHECKSTYLE: MagicNumber OFF
+    // Magic numbers in a test are acceptable
     @Test
-    public void testAddGameObject() {
+    void testAddGameObject() {
         final int size = bedroom.getGameObjects().size();
         bedroom.addGameObject(new GameObjectImpl(new Point2D(0, 0), "dummy", Dimensions.TILE));
         assertEquals(size + 1, bedroom.getGameObjects().size());
     }
 
     @Test
-    public void testRemoveGameObject() {
+    void testRemoveGameObject() {
         final int size = bedroom.getGameObjects().size();
         final Pickable obj = new PickableImpl(new Point2D(0, 0), "", Dimensions.TILE, "", 0);
         bedroom.addGameObject(obj);
@@ -50,20 +52,21 @@ final class RoomImplTest {
     }
 
     @Test
-    public void testGetGameObjects() {
+    void testGetGameObjects() {
         assertEquals(bedroom.getGameObjects().size(), 13);
         assertEquals(bedroom.getGameObjects().stream().filter(obj -> obj instanceof DoorLockedWithEnigma).count(), 1);
     }
 
     @Test
-    public void testIsPositionValid() {
+    void testIsPositionValid() {
         assertFalse(bedroom.isPositionValid(new Point2D(0, -1), Dimensions.TILE));
         assertFalse(bedroom.isPositionValid(new Point2D(254., 254), Dimensions.TILE));
         assertTrue(bedroom.isPositionValid(new Point2D(120, 120), Dimensions.TILE));
     }
+    // CHECKSTYLE: MagicNumber OFF
 
     @Test
-    public void testGetName() {
+    void testGetName() {
         assertEquals("bedroom", bedroom.getName());
     }
 
