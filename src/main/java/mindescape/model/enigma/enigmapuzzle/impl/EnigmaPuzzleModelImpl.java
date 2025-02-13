@@ -1,17 +1,18 @@
 package mindescape.model.enigma.enigmapuzzle.impl;
 
-
-import java.awt.*;
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-
-import mindescape.model.api.Model;
 import mindescape.model.enigma.enigmapuzzle.api.EnigmaPuzzleModel;
 
-public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializable, Model {
+/**
+ * The {@code EnigmaPuzzleModelImpl} class implements {@code EnigmaPuzzleModel} to provide functionalities
+ * for the Enigma Puzzle enigma.
+ */
+public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializable {
 
-    private final static long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
     private final int rows;
     private final int cols;
     private Integer[][] pieces;
@@ -19,15 +20,13 @@ public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializable, M
     private Integer clickedButtonIndex = null;
 
     /**
-     * Constructs an EnigmaPuzzleModelImpl with the specified number of rows and columns,
-     * the original image, and the puzzle name.
+     * Constructs an EnigmaPuzzleModelImpl with the specified number of rows and columns and the puzzle name.
      *
      * @param rows the number of rows in the puzzle
      * @param cols the number of columns in the puzzle
-     * @param image the original image to be divided into puzzle pieces
      * @param puzzleName the name of the puzzle
      */
-    public EnigmaPuzzleModelImpl(int rows, int cols, String puzzleName) {
+    public EnigmaPuzzleModelImpl(final int rows, final int cols, final String puzzleName) {
         this.rows = rows;
         this.cols = cols;
         this.puzzleName = puzzleName;
@@ -35,10 +34,8 @@ public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializable, M
         for (int i = 0; i < rows * cols; i++) {
             pieces[i / cols][i % cols] = i;
         }
-        shufflePieces();
+        this.shufflePieces();
     }
-    
-
     /**
      * Returns the number of rows in the enigma puzzle.
      *
@@ -63,7 +60,7 @@ public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializable, M
      * @return a 2D array of {@link Image} objects representing the pieces of the puzzle.
      */
     public Integer[][] getPieces() {
-        return pieces;
+        return this.pieces;
     }
 
     /**
@@ -73,8 +70,8 @@ public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializable, M
      * @param col the column index of the piece to retrieve
      * @return the image piece at the specified row and column
      */
-    public Integer getPiece(int row, int col) {
-        return pieces[row][col];
+    public Integer getPiece(final int row, final int col) {
+        return this.pieces[row][col];
     }
 
     /**
@@ -83,7 +80,7 @@ public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializable, M
      * @return the name of the puzzle as a String.
      */
     public String getName() {
-        return puzzleName;
+        return this.puzzleName;
     }
     /**
      * Shuffles the pieces of the puzzle randomly.
@@ -91,14 +88,15 @@ public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializable, M
      * and then reassigns the shuffled pieces back to the original 2D array.
      */
     public void shufflePieces() {
-        List<Integer> shuffledPieces = new ArrayList<>();
+        final List<Integer> shuffledPieces = new ArrayList<>();
+
         for (int i = 0; i < this.rows; i++) {
             for (int j = 0; j < this.cols; j++) {
                 shuffledPieces.add(pieces[i][j]);
             }
         }
+
         Collections.shuffle(shuffledPieces);
-        shuffledPieces.stream().forEach(x -> System.out.println(x));
         int index = 0;
         for (int i = 0; i < this.rows; i++) {
             for (int j = 0; j < this.cols; j++) {
@@ -106,68 +104,51 @@ public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializable, M
             }
         }
     }
-
     /**
-     * Swaps the positions of two pieces in the puzzle.
+     * Swaps the pieces at the specified indices.
      *
-     * @param firstRow the row index of the first piece
-     * @param firstCol the column index of the first piece
-     * @param secondRow the row index of the second piece
-     * @param secondCol the column index of the second piece
+     * @param index1 the index of the first piece to swap
+     * @param index2 the index of the second piece to swap
      */
-    public void swapPieces(Integer index1, Integer index2) {
-        Integer firstRow = index1 / this.cols;
-        Integer firstCol = index1 % this.cols;
-        Integer secondRow = index2 / this.cols;
-        Integer secondCol = index2 % this.cols;
-        Integer temp = pieces[firstRow][firstCol];
+    public void swapPieces(final Integer index1, final Integer index2) {
+        final Integer firstRow = index1 / this.cols;
+        final Integer firstCol = index1 % this.cols;
+        final Integer secondRow = index2 / this.cols;
+        final Integer secondCol = index2 % this.cols;
+        final Integer temp = pieces[firstRow][firstCol];
         pieces[firstRow][firstCol] = pieces[secondRow][secondCol];
         pieces[secondRow][secondCol] = temp;
     }
-    
 
     /**
-     * Checks if the enigma puzzle is solved.
-     * 
-     * This method iterates through each piece of the puzzle and compares it with the corresponding
-     * subimage of the original image. If all pieces match their respective subimages, the puzzle is
-     * considered solved.
-     *
-     * @return true if the puzzle is solved, false otherwise.
+     * {@inheritDoc}
      */
+    @Override
     public boolean isSolved() {
         int counter = 0;
         for (int i = 0; i < this.cols; i++) {
             for (int j = 0; j < this.rows; j++) {
-                if(pieces[j][i] == counter) {
+                if (pieces[j][i] == counter) {
                     counter++;
                 } else {
                     return false;
-                }     
+                }
             }
         }
         return true;
     }
-     
     /**
-     * Processes a hit action on the enigma puzzle.
-     *
-     * @param value the value to be processed by the hit action
-     * @return true if the hit action is successful, false otherwise
-     * @throws UnsupportedOperationException if the method is not implemented
+     * {@inheritDoc}
      */
-    @Override
-    public boolean hit(Object value) {
-        Integer hitIndex = (Integer) value;
-        if (clickedButtonIndex == null) {
-            clickedButtonIndex = hitIndex;
+    public boolean hit(final Object value) {
+        final Integer hitIndex = (Integer) value;
+        if (this.clickedButtonIndex == null) {
+            this.clickedButtonIndex = hitIndex;
             return false;
         } else {
-            swapPieces(clickedButtonIndex, hitIndex);
-            clickedButtonIndex = null;
+            this.swapPieces(clickedButtonIndex, hitIndex);
+            this.clickedButtonIndex = null;
             return true;
         }
-        
     }
 }
-

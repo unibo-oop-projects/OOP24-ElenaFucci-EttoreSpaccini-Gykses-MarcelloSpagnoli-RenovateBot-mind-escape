@@ -32,21 +32,17 @@ public class EnigmaPasswordControllerImpl implements EnigmaPasswordController {
     }
 
     /**
-     * Handles user input and checks if the password is correct.
-     *
-     * @param input the user-provided password
+     * {@inheritDoc}
      */
     @Override
     public void handleInput(final Object input) {
         if (input instanceof String) {
-            this.view.showResult(this.model.hit((String)input)); 
+            this.view.showResult(this.model.hit((String) input)); 
         }
     }
-
+ 
     /**
-     * Retrieves the name of the enigma.
-     *
-     * @return the name of the enigma as a string
+     * {@inheritDoc}
      */
     @Override
     public String getName() {
@@ -54,9 +50,7 @@ public class EnigmaPasswordControllerImpl implements EnigmaPasswordController {
     }
 
     /**
-     * Retrieves the panel associated with this controller.
-     *
-     * @return the {@code JPanel} for the view
+     * {@inheritDoc}
      */
     @Override
     public JPanel getPanel() {
@@ -64,24 +58,33 @@ public class EnigmaPasswordControllerImpl implements EnigmaPasswordController {
     }
 
     /**
-     * Quits the current controller and switches to another controller in the main application.
+     * {@inheritDoc}
      */
     @Override
     public void quit() {
         this.mainController.setController(ControllerName.WORLD, null);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean canSave() {
         return true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Model getModel() {
         // TODO Auto-generated method stub
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void start() {
     }

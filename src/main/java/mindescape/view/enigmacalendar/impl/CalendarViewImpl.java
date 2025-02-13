@@ -1,12 +1,20 @@
 package mindescape.view.enigmacalendar.impl;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+
 import mindescape.controller.enigmacalendar.impl.CalendarControllerImpl;
 import mindescape.view.enigmacalendar.api.CalendarView;
- 
 
 /**
  * Implementation of the calendar view that displays a daily schedule with time slots and activities.
@@ -19,12 +27,13 @@ public class CalendarViewImpl implements CalendarView {
     private final JPanel schedulePanel;
     private final JLabel[] timeLabels;
     private final JLabel[] activityLabels;
-    
 
     /**
      * Constructor that initializes the calendar view.
      * Creates the panel structure with time slot and activity labels, and adds logic
      * to resize the text based on the window's width.
+     * 
+     * @param controller The controller that manages the calendar view.
      */
     public CalendarViewImpl(final CalendarControllerImpl controller) {
         panel = new JPanel();
@@ -79,7 +88,7 @@ public class CalendarViewImpl implements CalendarView {
         // Adds a listener to resize the text when the window is resized
         panel.addComponentListener(new ComponentAdapter() {
             @Override
-            public void componentResized(ComponentEvent e) {
+            public void componentResized(final ComponentEvent e) {
                 int width = panel.getWidth();
                 int fontSize = Math.max(14, width / 30);
                 titleLabel.setFont(new Font("Arial", Font.BOLD, fontSize + 6));
@@ -103,7 +112,5 @@ public class CalendarViewImpl implements CalendarView {
     public JPanel getPanel() {
         return panel;
     }
-    
+
 }
-
-

@@ -14,6 +14,9 @@ import mindescape.view.api.WorldView;
 import mindescape.view.world.WorldViewImpl;
 import java.awt.event.KeyEvent;
 
+/**
+ * The controller for the world.
+ */
 public class WorldController implements LoopController {
 
     private static final Map<Integer, UserInput> KEY_MAPPER = Map.of(
@@ -24,7 +27,6 @@ public class WorldController implements LoopController {
         KeyEvent.VK_E, UserInput.INTERACT,
         KeyEvent.VK_I, UserInput.INVENTORY
     );
-
     private final World world;
     private final WorldView worldView;
     private final MainController mainController;
@@ -33,10 +35,9 @@ public class WorldController implements LoopController {
     private static final long TIME = 1_000; // 1 second in milliseconds
 
     /**
-     * Constructs a new WorldController with the specified world, world view, and the reference to the main controller.
+     * Constructs a new WorldController with the specified world and the reference to the main controller.
      *
      * @param world the world model to be controlled
-     * @param worldView the view associated with the world
      * @param mainController the main controller managing the overall application
      */
     public WorldController(final World world, final MainController mainController) {
@@ -45,6 +46,9 @@ public class WorldController implements LoopController {
         this.mainController = mainController;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void handleInput(final Object input) {
         switch ((UserInput) input) {
@@ -58,24 +62,34 @@ public class WorldController implements LoopController {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void quit() {
         this.running = false;
     }
 
-    private class Loop extends Thread {
+    /**
+     * The loop that runs the game.
+     */
+    private final class Loop extends Thread {
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void run() {
             final long frameTime = TIME / FPS;
+
             while (running) {
-                long startTime = System.currentTimeMillis();
+                final long startTime = System.currentTimeMillis();
 
                 if (world.hasWon()) {
                     mainController.winning();
                     quit();
                 }
 
-                long elapsedTime = System.currentTimeMillis() - startTime;
+                final long elapsedTime = System.currentTimeMillis() - startTime;
                 if (elapsedTime < frameTime) {
                     try {
                         Thread.sleep(frameTime - elapsedTime);
@@ -83,32 +97,47 @@ public class WorldController implements LoopController {
                         e.printStackTrace();
                     }
                 }
+
                 movePlayerIfKeyPressed();
                 worldView.draw(world.getCurrentRoom());
             }
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getName() {
         return ControllerName.WORLD.getName();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public JPanel getPanel() {
         return this.worldView.getPanel();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean canSave() {
         return true;
     }
-    
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Model getModel() {
         return this.world;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void start() {
         this.running = true;
@@ -116,8 +145,8 @@ public class WorldController implements LoopController {
     }
 
     private void movePlayerIfKeyPressed() {
-        for (Map.Entry<Integer, Boolean> entry : new HashMap<>(worldView.getKeyState()).entrySet()) {
-            if (entry.getValue()) { // Se il tasto è premuto
+        for (final Map.Entry<Integer, Boolean> entry : new HashMap<>(worldView.getKeyState()).entrySet()) {
+            if (entry.getValue()) {
                 handleInput(KEY_MAPPER.get(entry.getKey()));
             }
         }

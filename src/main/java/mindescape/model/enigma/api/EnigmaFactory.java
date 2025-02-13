@@ -1,24 +1,38 @@
 package mindescape.model.enigma.api;
 
-import java.util.Set;
-
 /**
  * Factory interface for creating Enigma instances.
  * An Enigma is a puzzle or challenge that needs to be solved.
  * This factory provides a method to retrieve an Enigma instance based on its name.
  */
 public interface EnigmaFactory {
-
     /**
-     * Enum representing different types of Enigmas.
-     * Each enum constant has a corresponding name.
+     * Enum representing different types of enigmas.
      */
     enum EnigmaType {
+        /**
+         * Rappresent the enigma of the first door.
+         */
         ENIGMA_FIRST_DOOR("EnigmaFirstDoor"),
+        /**
+         * Rappresent the enigma of the drawer.
+         */
         DRAWER("Drawer"),
+        /**
+         * Rappresent the enigma of the Caesar Cipher.
+         */
         CAESAR_CIPHER("CaesarCipher"),
+        /**
+         * Rappresent the enigma of the puzzle.
+         */
         PUZZLE("Puzzle"),
+        /**
+         * Rappresent the enigma of the calendar.
+         */
         CALENDAR("Calendar"),
+        /**
+         * Rappresent the enigma of the wardrobe.
+         */
         WARDROBE("Wardrobe");
 
         private final String name;
@@ -65,12 +79,5 @@ public interface EnigmaFactory {
      * @return the corresponding Enigma instance
      * @throws IllegalArgumentException if the enigma is not found
      */
-    Enigma getEnigma(final String name) throws IllegalArgumentException;
-
-    /**
-     * Retrieves all available Enigma instances.
-     *
-     * @return a set of all Enigma instances
-     */
-    Set<Enigma> getEnigmas();
+    Enigma getEnigma(String name) throws IllegalArgumentException;
 }

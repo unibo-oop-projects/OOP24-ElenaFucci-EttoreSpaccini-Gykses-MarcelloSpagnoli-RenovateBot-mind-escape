@@ -26,13 +26,14 @@ import mindescape.model.world.rooms.api.Room;
 public final class RoomImpl implements Room, Serializable {
 
     private final Dimensions dimensions;
-
     private final Set<GameObject> gameObjects = new HashSet<>();
-
     private final String name;
-
     private final String source;
 
+    /**
+     * Constructor of the class.
+     * @param roomFilePath path to the rosom file
+     */
     public RoomImpl(final String roomFilePath) {
         final TiledMap room = new FileSystemTiledReader().getMap(roomFilePath);
         this.dimensions = new Dimensions(room.getWidth() * Dimensions.TILE.width(), room.getHeight() * Dimensions.TILE.height());

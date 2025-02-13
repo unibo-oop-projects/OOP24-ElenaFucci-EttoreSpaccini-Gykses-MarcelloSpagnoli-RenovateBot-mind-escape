@@ -8,6 +8,6 @@ import mindescape.controller.core.api.ClickableController;
  * Implementations of this interface should provide the necessary logic to manage
  * and interact with enigma puzzles.
  */
-public interface EnigmaPuzzleController extends ClickableController{
+public interface EnigmaPuzzleController extends ClickableController {
 
 }

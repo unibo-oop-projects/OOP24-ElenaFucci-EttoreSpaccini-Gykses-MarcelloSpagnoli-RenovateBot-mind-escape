@@ -26,35 +26,56 @@ public class GuideControllerImpl implements GuideController {
         this.guideView = new GuideViewImpl(this);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void handleInput(final Object input) throws IllegalArgumentException, NullPointerException {
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getName() {
         return ControllerName.GUIDE.getName();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public JPanel getPanel() {
         return this.guideView.getPanel();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void quit() {
         this.mainController.setController(ControllerName.MENU, null);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean canSave() {
         return false; 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Model getModel() {
         return null; 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void start() {
     }

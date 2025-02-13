@@ -1,7 +1,6 @@
 package mindescape.controller.caesarcipher.impl;
 
 import java.io.Serializable;
-
 import javax.swing.JPanel;
 import mindescape.controller.caesarcipher.api.CaesarCipherController;
 import mindescape.controller.core.api.ControllerName;
@@ -34,14 +33,12 @@ public class CaesarCipherControllerImpl implements CaesarCipherController, Seria
     }
 
     /**
-     * Handles user input for the shift value and updates the view with the encrypted result.
-     *
-     * @param input the shift value provided by the user
+     * {@inheritDoc}
      */
     @Override
     public void handleInput(final Object input) {
         try {
-            int shift = Integer.parseInt((String)input);
+            final int shift = Integer.parseInt((String) input);
             view.showResult(model.decrypt(shift));
         } catch (NumberFormatException e) {
             view.showResult("Invalid shift value!");
@@ -49,9 +46,7 @@ public class CaesarCipherControllerImpl implements CaesarCipherController, Seria
     }
 
     /**
-     * Retrieves the name of this controller.
-     *
-     * @return the name of the controller
+     * {@inheritDoc}
      */
     @Override
     public String getName() {
@@ -59,9 +54,7 @@ public class CaesarCipherControllerImpl implements CaesarCipherController, Seria
     }
 
     /**
-     * Retrieves the associated panel for this controller.
-     *
-     * @return the {@code JPanel} used for the view
+     * {@inheritDoc}
      */
     @Override
     public JPanel getPanel() {
@@ -69,30 +62,41 @@ public class CaesarCipherControllerImpl implements CaesarCipherController, Seria
     }
 
     /**
-     * Quits the current controller and switches to another controller in the main application.
+     * {@inheritDoc}
      */
     @Override
     public void quit() {
         this.mainController.setController(ControllerName.WORLD, null);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getEncryptedText() {
         return this.model.getEncryptedText(); 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean canSave() {
         return true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Model getModel() {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void start() {
     }
-    
 }
