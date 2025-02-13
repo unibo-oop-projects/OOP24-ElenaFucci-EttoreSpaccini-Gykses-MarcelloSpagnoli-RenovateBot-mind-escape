@@ -99,7 +99,7 @@ public class MenuController implements ClickableController {
                 return;
             }
 
-            if (playerName.trim().isEmpty()) {
+            if (playerName.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Please enter a name!", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
                 this.mainController.setPlayerName(playerName);

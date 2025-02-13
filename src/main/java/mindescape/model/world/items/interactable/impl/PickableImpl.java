@@ -122,9 +122,6 @@ public class PickableImpl extends GameObjectImpl implements Pickable {
         } else if (!description.equals(other.description)) {
             return false;
         }
-        if (id != other.id) {
-            return false;
-        }
-        return true;
+        return id == other.id;
     }
 }
