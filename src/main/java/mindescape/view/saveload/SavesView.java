@@ -9,6 +9,8 @@ import java.awt.BorderLayout;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
+
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
