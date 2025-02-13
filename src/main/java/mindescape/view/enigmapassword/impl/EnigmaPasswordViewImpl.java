@@ -32,6 +32,7 @@ public class EnigmaPasswordViewImpl implements EnigmaPasswordView {
     private static final int TITLE_FONT_SIZE_ADJUSTMENT = 6;
     private static final int RESULT_FONT_SIZE_ADJUSTMENT = 4;
 
+
     private final JPanel panel;
     private final JTextField passwordField;
     private final JLabel resultLabel;

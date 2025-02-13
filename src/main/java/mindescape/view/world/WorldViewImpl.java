@@ -19,6 +19,8 @@ import org.tiledreader.TiledObject;
 import org.tiledreader.TiledObjectLayer;
 import org.tiledreader.TiledTile;
 import org.tiledreader.TiledTileLayer;
+
+import mindescape.controller.core.api.KeyMapper;
 import mindescape.controller.core.api.UserInput;
 import mindescape.controller.worldcontroller.impl.WorldController;
 import mindescape.model.world.core.api.Dimensions;
@@ -31,16 +33,8 @@ import mindescape.view.utils.ImageTransformer;
 /**
  * Implementation of the WorldView.
  */
-public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
+public final class WorldViewImpl extends JPanel implements WorldView, KeyListener {
 
-    private static final Map<Integer, UserInput> KEY_MAPPER = Map.of(
-        KeyEvent.VK_W, UserInput.UP,
-        KeyEvent.VK_S, UserInput.DOWN,
-        KeyEvent.VK_A, UserInput.LEFT,
-        KeyEvent.VK_D, UserInput.RIGHT,
-        KeyEvent.VK_E, UserInput.INTERACT,
-        KeyEvent.VK_I, UserInput.INVENTORY
-    );
     private static final double ROTATING_ANGLE = -90;
     private transient final Map<TiledTile, BufferedImage> tilesCache = new HashMap<>();
     private transient BufferedImage roomImage;
@@ -51,6 +45,7 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
     private int objNum;
     private final Map<Integer, Boolean> keyState = new HashMap<>();
     private transient final ImageTransformer transformer = new ImageTransformer();
+    private final Map<Integer, UserInput> keyMapper = KeyMapper.getKeyMap();
 
     /**
      * Constructor for WorldViewImpl.
@@ -63,7 +58,7 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
         roomName = currentRoom.getName();
         updateRoomImage(currentRoom);
         player = new PlayerView(getPlayer(currentRoom).getPosition());
-        KEY_MAPPER.forEach((key, value) -> keyState.put(key, false));
+        keyMapper.forEach((key, value) -> keyState.put(key, false));
         objNum = currentRoom.getGameObjects().size();
         this.setFocusable(true);
         requestFocusInWindow();
@@ -141,14 +136,15 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
         }
     }
 
-    private BufferedImage applyTransformations(BufferedImage img, final boolean horizontal, final boolean diagonal) {
+    private BufferedImage applyTransformations(final BufferedImage img, final boolean horizontal, final boolean diagonal) {
+        BufferedImage result = img;
         if (diagonal) {
-            img = transformer.rotateImage(img, ROTATING_ANGLE);
+            result = transformer.rotateImage(result, ROTATING_ANGLE);
         }
         if (horizontal) {
-            img = transformer.flipImageHorizontally(img);
+            result = transformer.flipImageHorizontally(result);
         }
-        return img;
+        return result;
     }
 
     private Point2D getPositionFromId(final TiledTile tile, final int mapWidth) {
@@ -168,7 +164,7 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
         getTileLayers(map).forEach(layer -> drawLayer(layer, finalMap, map));
         List<TiledObject> tileObjects = getTileObjects(map);
         tileObjects = tileObjects
-            .stream()   
+            .stream()
             .filter(tObj -> {
                 return currentRoom.getGameObjects()
                     .stream()
@@ -208,7 +204,7 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
     @Override
     public void keyPressed(final KeyEvent e) {
         final int pressed = e.getKeyCode();
-        if (KEY_MAPPER.containsKey(pressed)) {
+        if (keyMapper.containsKey(pressed)) {
             keyState.put(pressed, true);
         }
     }
@@ -216,7 +212,7 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
     @Override
     public void keyReleased(final KeyEvent e) {
         final int released = e.getKeyCode();
-        if (KEY_MAPPER.containsKey(released)) {
+        if (keyMapper.containsKey(released)) {
             keyState.put(released, false);
         }
     }

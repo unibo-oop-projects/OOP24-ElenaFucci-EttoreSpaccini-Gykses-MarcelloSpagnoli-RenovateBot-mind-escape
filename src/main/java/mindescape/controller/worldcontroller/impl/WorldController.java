@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JPanel;
 import mindescape.controller.core.api.ControllerName;
+import mindescape.controller.core.api.KeyMapper;
 import mindescape.controller.core.api.LoopController;
 import mindescape.controller.core.api.UserInput;
 import mindescape.controller.maincontroller.api.MainController;
@@ -12,27 +13,19 @@ import mindescape.model.world.api.World;
 import mindescape.model.world.core.api.Movement;
 import mindescape.view.api.WorldView;
 import mindescape.view.world.WorldViewImpl;
-import java.awt.event.KeyEvent;
 
 /**
  * The controller for the world.
  */
 public class WorldController implements LoopController {
 
-    private static final Map<Integer, UserInput> KEY_MAPPER = Map.of(
-        KeyEvent.VK_W, UserInput.UP,
-        KeyEvent.VK_S, UserInput.DOWN,
-        KeyEvent.VK_A, UserInput.LEFT,
-        KeyEvent.VK_D, UserInput.RIGHT,
-        KeyEvent.VK_E, UserInput.INTERACT,
-        KeyEvent.VK_I, UserInput.INVENTORY
-    );
     private final World world;
     private final WorldView worldView;
     private final MainController mainController;
     private boolean running = true;
     private static final int FPS = 60; 
     private static final long TIME = 1_000; // 1 second in milliseconds
+    private final Map<Integer, UserInput> keyMapper = KeyMapper.getKeyMap();
 
     /**
      * Constructs a new WorldController with the specified world and the reference to the main controller.
@@ -147,7 +140,7 @@ public class WorldController implements LoopController {
     private void movePlayerIfKeyPressed() {
         for (final Map.Entry<Integer, Boolean> entry : new HashMap<>(worldView.getKeyState()).entrySet()) {
             if (entry.getValue()) {
-                handleInput(KEY_MAPPER.get(entry.getKey()));
+                handleInput(keyMapper.get(entry.getKey()));
             }
         }
     }

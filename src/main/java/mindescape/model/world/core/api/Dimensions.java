@@ -15,7 +15,7 @@ public record Dimensions(double width, double height) implements Serializable {
     /**
      * The dimensions of a tile in the game.
      */
-    public final static Dimensions TILE = new Dimensions(16, 16);
+    public static final Dimensions TILE = new Dimensions(16, 16);
 
     /**
      * The dimensions of a room in the game.
