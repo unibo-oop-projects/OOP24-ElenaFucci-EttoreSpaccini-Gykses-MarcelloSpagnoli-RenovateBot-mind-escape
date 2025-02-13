@@ -76,6 +76,11 @@ public class SavesView extends JPanel implements View {
         saveList.setBorder(BorderFactory.createLineBorder(BORDER_COLOR, BORDER_THICKNESS));
     }
 
+    /**
+     * Updates the list of save files displayed in the view.
+     *
+     * @param saveFiles the list of save files to display
+     */
     public void updateSaveFiles(final List<File> saveFiles) {
         saveListModel.clear();
         final SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
