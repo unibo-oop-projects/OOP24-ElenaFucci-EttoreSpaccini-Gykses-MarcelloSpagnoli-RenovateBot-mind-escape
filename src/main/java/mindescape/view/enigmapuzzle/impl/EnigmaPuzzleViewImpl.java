@@ -2,6 +2,8 @@ package mindescape.view.enigmapuzzle.impl;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+
 import mindescape.controller.enigmapuzzle.api.EnigmaPuzzleController;
 import mindescape.view.enigmapuzzle.api.EnigmaPuzzleView;
 import java.awt.GridLayout;
@@ -36,10 +38,10 @@ public class EnigmaPuzzleViewImpl extends JPanel implements EnigmaPuzzleView {
         try {
             img = ImageIO.read(getClass().getClassLoader().getResource("puzzle/puzzle.jpg"));
         } catch (final IOException e) {
-            throw new RuntimeException("image not found");
+            throw new IllegalStateException("Image not found", e);
         }
         this.image = img;
-        setLayout(new GridLayout(rows, cols));
+        SwingUtilities.invokeLater(() -> setLayout(new GridLayout(rows, cols)));
         for (int i = 0; i < rows * cols; i++) {
             final ImageButton button = new ImageButton();
             buttons.add(button);
