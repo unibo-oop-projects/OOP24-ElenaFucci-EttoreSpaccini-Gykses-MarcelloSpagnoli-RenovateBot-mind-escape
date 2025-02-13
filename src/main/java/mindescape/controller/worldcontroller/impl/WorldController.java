@@ -92,7 +92,7 @@ public class WorldController implements LoopController {
                 final long elapsedTime = System.currentTimeMillis() - startTime;
                 if (elapsedTime < frameTime) {
                     try {
-                        Thread.sleep(frameTime - elapsedTime);
+                        sleep(frameTime - elapsedTime);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

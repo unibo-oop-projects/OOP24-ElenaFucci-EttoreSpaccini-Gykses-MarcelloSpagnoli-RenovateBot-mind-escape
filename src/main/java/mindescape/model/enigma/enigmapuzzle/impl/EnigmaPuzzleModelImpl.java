@@ -17,7 +17,7 @@ public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializable {
     private final int cols;
     private final Integer[][] pieces;
     private final String puzzleName;
-    private Integer clickedButtonIndex = null;
+    private Integer clickedButtonIndex;
 
     /**
      * Constructs an EnigmaPuzzleModelImpl with the specified number of rows and columns and the puzzle name.
@@ -75,10 +75,9 @@ public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializable {
     }
 
     /**
-     * Retrieves the name of the puzzle.
-     *
-     * @return the name of the puzzle as a String.
+     * {@inheritDoc}
      */
+    @Override
     public String getName() {
         return this.puzzleName;
     }
@@ -140,6 +139,7 @@ public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean hit(final Object value) {
         final Integer hitIndex = (Integer) value;
         if (this.clickedButtonIndex == null) {
