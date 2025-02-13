@@ -2,6 +2,7 @@ package mindescape.view.world;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,6 +49,8 @@ public final class PlayerView {
     public PlayerView(final Point2D pos) {
         x = (int) pos.x();
         y = (int) pos.y();
+        keyMapper.remove(KeyEvent.VK_I);
+        keyMapper.remove(KeyEvent.VK_E);
         BufferedImage image;
         try (InputStream is = getClass().getClassLoader().getResourceAsStream("playertiles/player.png")) {
             if (is == null) {
