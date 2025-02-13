@@ -34,7 +34,6 @@ public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializable {
         for (int i = 0; i < rows * cols; i++) {
             pieces[i / cols][i % cols] = i;
         }
-        this.shufflePieces();
     }
     /**
      * Returns the number of rows in the enigma puzzle.
@@ -55,12 +54,16 @@ public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializable {
     }
 
     /**
-     * Retrieves the 2D array of image pieces that make up the enigma puzzle.
+     * Retrieves a copy of the 2D array of image pieces that make up the enigma puzzle.
      *
-     * @return a 2D array of {@link Image} objects representing the pieces of the puzzle.
+     * @return a new 2D array of {@link Image} objects representing the pieces of the puzzle.
      */
     public Integer[][] getPieces() {
-        return this.pieces;
+        final Integer[][] copy = new Integer[this.rows][this.cols];
+        for (int i = 0; i < this.rows; i++) {
+            System.arraycopy(this.pieces[i], 0, copy[i], 0, this.cols);
+        }
+        return copy;
     }
 
     /**
@@ -103,6 +106,14 @@ public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializable {
             }
         }
     }
+
+        /**
+     * Starts the puzzle, calling shufflePieces to randomize the puzzle pieces.
+     */
+    public void startPuzzle() {
+        this.shufflePieces(); // Call shuffle after construction is complete
+    }
+
     /**
      * Swaps the pieces at the specified indices.
      *

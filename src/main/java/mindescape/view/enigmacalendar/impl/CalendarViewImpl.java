@@ -31,13 +31,16 @@ public class CalendarViewImpl implements CalendarView {
     private static final int GRID_VGAP = 10;
     private static final int MIN_FONT_SIZE = 14;
     private static final int TITLE_FONT_INCREMENT = 6;
+    private static final int TIME_LABEL_FONT_SIZE = 18;
+    private static final int ACTIVITY_LABEL_FONT_SIZE = 18;
+    private static final int TITLE_LABEL_FONT_SIZE = 24;
     private static final String TITLE_TEXT = "Daily Schedule";
     private static final String QUIT_BUTTON_TEXT = "Quit";
 
     private static final String[] TIME_SLOTS = {
         "09:00 - 12:00", "12:00 - 13:00", "14:00 - 16:00", "16:00 - 21:00"
     };
-    
+
     private static final String[] ACTIVITIES = {
         "Group psychological session",
         "Lunch in the canteen",
@@ -68,7 +71,7 @@ public class CalendarViewImpl implements CalendarView {
         panel.add(button, BorderLayout.SOUTH);
 
         titleLabel = new JLabel(TITLE_TEXT, SwingConstants.CENTER);
-        titleLabel.setFont(new Font(FONT_NAME, Font.BOLD, 24));
+        titleLabel.setFont(new Font(FONT_NAME, Font.BOLD, TITLE_LABEL_FONT_SIZE));
         titleLabel.setForeground(Color.WHITE);
         panel.add(titleLabel, BorderLayout.NORTH);
 
@@ -86,12 +89,12 @@ public class CalendarViewImpl implements CalendarView {
             entryPanel.setBorder(BorderFactory.createLineBorder(BORDER_COLOR, BORDER_THICKNESS));
 
             timeLabels[i] = new JLabel(TIME_SLOTS[i], SwingConstants.CENTER);
-            timeLabels[i].setFont(new Font(FONT_NAME, Font.BOLD, 18));
+            timeLabels[i].setFont(new Font(FONT_NAME, Font.BOLD, TIME_LABEL_FONT_SIZE));
             timeLabels[i].setForeground(Color.WHITE);
             entryPanel.add(timeLabels[i], BorderLayout.WEST);
 
             activityLabels[i] = new JLabel(ACTIVITIES[i], SwingConstants.CENTER);
-            activityLabels[i].setFont(new Font(FONT_NAME, Font.PLAIN, 18));
+            activityLabels[i].setFont(new Font(FONT_NAME, Font.PLAIN, ACTIVITY_LABEL_FONT_SIZE));
             activityLabels[i].setForeground(Color.WHITE);
             entryPanel.add(activityLabels[i], BorderLayout.CENTER);
 

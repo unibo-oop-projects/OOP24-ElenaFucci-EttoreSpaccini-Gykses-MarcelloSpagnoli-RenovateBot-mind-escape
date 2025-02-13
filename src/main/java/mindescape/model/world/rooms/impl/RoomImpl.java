@@ -115,10 +115,10 @@ public final class RoomImpl implements Room, Serializable {
         final File resources = new File(classLoader.getResource("rooms").getFile());
         final ObjectsExtractor objectsExtractor = new ObjectsExtractor();
         final File[] files = resources.listFiles();
-        final List<Room> rooms = Arrays.asList(files)
-            .stream()
-            .map(x -> (Room) new RoomImpl(x.getPath()))
-            .toList();
+        final List<Room> rooms = Arrays.stream(files)
+            .map(File::getPath)
+            .map(RoomImpl::new)
+            .collect(Collectors.toList());
         rooms.forEach(room -> {
             objectsExtractor.extractfrom(room.getSource())
                 .forEach(room::addGameObject);

@@ -19,7 +19,7 @@ import mindescape.model.world.player.api.Player;
  */
 public class DoorLockedWithPickable extends GameObjectImpl implements Door {
 
-    private final static long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
     private final Door baseDoor;
     private final int keyItemId;
     private boolean unlocked;

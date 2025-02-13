@@ -15,7 +15,6 @@ import java.util.Date;
  */
 public class SavesView extends JPanel implements View {
 
-    private static final long serialVersionUID = 1L;
     private static final Color BACKGROUND_COLOR = new Color(20, 20, 20);
     private static final Color BORDER_COLOR = new Color(255, 215, 0);
     private static final Color LIST_BACKGROUND_COLOR = new Color(0, 0, 0);
@@ -25,7 +24,6 @@ public class SavesView extends JPanel implements View {
     private static final int BUTTON_PANEL_PADDING = 10;
     private static final String NO_SAVES_MESSAGE = "No save files found.";
     private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm";
-
     private final SavesController controller;
     private final DefaultListModel<String> saveListModel;
     private final JList<String> saveList;
@@ -95,13 +93,16 @@ public class SavesView extends JPanel implements View {
 
     private void loadSelectedSave() {
         final int selectedIndex = saveList.getSelectedIndex();
-        if (selectedIndex != -1 && !saveListModel.get(selectedIndex).equals(NO_SAVES_MESSAGE)) {
+        if (NO_SAVES_MESSAGE.equals(saveListModel.get(selectedIndex))) {
             controller.loadSaveFile(selectedIndex);
         } else {
             JOptionPane.showMessageDialog(this, "Invalid selection.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
+    
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public JPanel getPanel() {
         return this;

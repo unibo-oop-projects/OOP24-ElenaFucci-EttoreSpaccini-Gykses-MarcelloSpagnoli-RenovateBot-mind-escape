@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="16" height="16" tilewidth="16" tileheight="16" infinite="0" nextlayerid="7" nextobjectid="37">
+<map version="1.7" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="16" height="16" tilewidth="16" tileheight="16" infinite="0" nextlayerid="7" nextobjectid="39">
  <tileset firstgid="1" source="../tilesets/Enviroment.tsx"/>
  <tileset firstgid="626" source="../tilesets/Things.tsx"/>
  <tileset firstgid="1251" source="../tilesets/Enviroment2.tsx"/>
@@ -23,77 +23,6 @@
 27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27
 </data>
  </layer>
- <objectgroup id="5" name="Objects" class="Unpickable">
-  <properties>
-   <property name="Reward" value="Calendar note"/>
-  </properties>
-  <object id="1" name="Calendar" type="UnpickableWithEnigma" x="32" y="32" width="32" height="32">
-   <properties>
-    <property name="Enigma" value="Calendar"/>
-    <property name="Reward" value=""/>
-   </properties>
-  </object>
-  <object id="2" name="Wall" type="NonInteractableImpl" x="0" y="48" width="32" height="16"/>
-  <object id="3" x="0" y="64" width="16" height="16"/>
-  <object id="5" name="Wall" type="NonInteractableImpl" x="0" y="112" width="16" height="144"/>
-  <object id="6" name="Wall" type="NonInteractableImpl" x="16" y="240" width="240" height="16"/>
-  <object id="7" name="Wall" type="NonInteractableImpl" x="240" y="160" width="16" height="80"/>
-  <object id="10" name="Wall" type="NonInteractableImpl" x="208" y="48" width="48" height="16"/>
-  <object id="12" name="Wall" type="NonInteractableImpl" x="240" y="64" width="16" height="64"/>
-  <object id="13" name="Wall" type="NonInteractableImpl" x="64" y="48" width="16" height="16"/>
-  <object id="14" name="Wall" type="NonInteractableImpl" x="128" y="48" width="48" height="16"/>
-  <object id="17" name="Barrel" type="NonInteractableImpl" x="144.495" y="105.963" width="15.5963" height="22.9358"/>
-  <object id="19" name="Barrel" type="NonInteractableImpl" x="224.771" y="74.7706" width="14.6789" height="22.4771"/>
-  <object id="20" name="Table" type="NonInteractableImpl" x="112.844" y="160.55" width="47.7064" height="28.8991"/>
-  <object id="21" name="Chair" type="NonInteractableImpl" x="161.468" y="161.009" width="13.3028" height="27.9817"/>
-  <object id="22" name="Table" type="NonInteractableImpl" x="33.0275" y="128.44" width="47.2477" height="28.8991"/>
-  <object id="23" name="Chair" type="NonInteractableImpl" x="80.7339" y="128.44" width="13.7615" height="27.9817"/>
-  <object id="25" name="Table" type="Unpickable" x="32.5688" y="192.661" width="46.789" height="26.6055">
-   <properties>
-    <property name="Reward" value="Canteen note"/>
-   </properties>
-  </object>
-  <object id="26" name="Chairs" type="NonInteractableImpl" x="33.0275" y="220.183" width="46.3303" height="16.5138"/>
-  <object id="27" name="Chair" type="NonInteractableImpl" x="128.44" y="189.45" width="15.5963" height="15.5963"/>
-  <object id="29" name="Barrel" type="NonInteractableImpl" x="207.798" y="218.807" width="16.5138" height="21.1009"/>
-  <object id="30" name="Chair" type="NonInteractableImpl" x="32.5688" y="156.422" width="15.5963" height="16.5138"/>
-  <object id="31" name="Drawe" type="UnpickableWithEnigma" x="80.2752" y="55.0459" width="47.2477" height="22.0183">
-   <properties>
-    <property name="Enigma" value="Drawer"/>
-    <property name="Reward" value="Office key"/>
-   </properties>
-  </object>
-  <object id="36" name="Wrench" type="Pickable" gid="732" x="160" y="224" width="16" height="16" rotation="90">
-   <properties>
-    <property name="ID" type="int" value="8"/>
-   </properties>
-  </object>
- </objectgroup>
- <objectgroup id="6" name="Doors">
-  <object id="32" name="Door" type="DoorLockedWithPickable" x="243.58" y="128.107" width="6.88073" height="32.5688">
-   <properties>
-    <property name="DestX" type="int" value="25"/>
-    <property name="DestY" type="int" value="155"/>
-    <property name="Destination" value="archive"/>
-    <property name="keyItem_id" type="int" value="7"/>
-   </properties>
-  </object>
-  <object id="15" name="Door" type="DoorLockedWithPickable" x="176" y="32" width="32" height="32">
-   <properties>
-    <property name="DestX" type="int" value="218"/>
-    <property name="DestY" type="int" value="137"/>
-    <property name="Destination" value="office"/>
-    <property name="keyItem_id" type="int" value="3"/>
-   </properties>
-  </object>
-  <object id="4" name="Door" type="SimpleDoor" x="2.75229" y="79.3578" width="8.7156" height="33.4862">
-   <properties>
-    <property name="DestX" type="int" value="124"/>
-    <property name="DestY" type="int" value="216"/>
-    <property name="Destination" value="bedroom"/>
-   </properties>
-  </object>
- </objectgroup>
  <layer id="2" name="Furniture" width="16" height="16">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -128,10 +57,84 @@
 0,0,713,0,0,689,0,0,0,0,0,0,0,0,0,0,
 0,0,738,0,0,0,0,0,913,937,664,0,0,0,0,0,
 0,0,0,0,0,0,0,0,713,0,689,0,0,0,0,0,
-0,0,913,913,1301,0,0,0,738,0,0,0,0,0,0,0,
+0,0,913,913,765,0,0,0,738,0,0,0,0,0,0,0,
 0,0,713,0,713,0,0,0,0,0,0,0,0,0,0,0,
 0,0,738,0,738,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
+ <objectgroup id="6" name="Doors">
+  <object id="32" name="Door" type="DoorLockedWithPickable" x="243.58" y="128.107" width="6.88073" height="32.5688">
+   <properties>
+    <property name="DestX" type="int" value="25"/>
+    <property name="DestY" type="int" value="155"/>
+    <property name="Destination" value="archive"/>
+    <property name="keyItem_id" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="15" name="Door" type="DoorLockedWithPickable" x="176" y="32" width="32" height="32">
+   <properties>
+    <property name="DestX" type="int" value="218"/>
+    <property name="DestY" type="int" value="137"/>
+    <property name="Destination" value="office"/>
+    <property name="keyItem_id" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="4" name="Door" type="SimpleDoor" x="2.75229" y="79.3578" width="8.7156" height="33.4862">
+   <properties>
+    <property name="DestX" type="int" value="124"/>
+    <property name="DestY" type="int" value="216"/>
+    <property name="Destination" value="bedroom"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="5" name="Objects">
+  <properties>
+   <property name="Reward" value="Calendar note"/>
+  </properties>
+  <object id="1" name="Calendar" type="UnpickableWithEnigma" x="32" y="32" width="32" height="32">
+   <properties>
+    <property name="Enigma" value="Calendar"/>
+    <property name="Reward" value=""/>
+   </properties>
+  </object>
+  <object id="2" name="Wall" type="NonInteractableImpl" x="0" y="48" width="32" height="16"/>
+  <object id="3" name="Wall" type="NonInteractableImpl" x="0" y="64" width="16" height="16"/>
+  <object id="5" name="Wall" type="NonInteractableImpl" x="0" y="112" width="16" height="144"/>
+  <object id="6" name="Wall" type="NonInteractableImpl" x="16" y="240" width="240" height="16"/>
+  <object id="7" name="Wall" type="NonInteractableImpl" x="240" y="160" width="16" height="80"/>
+  <object id="10" name="Wall" type="NonInteractableImpl" x="208" y="48" width="48" height="16"/>
+  <object id="12" name="Wall" type="NonInteractableImpl" x="240" y="64" width="16" height="64"/>
+  <object id="13" name="Wall" type="NonInteractableImpl" x="64" y="48" width="16" height="16"/>
+  <object id="14" name="Wall" type="NonInteractableImpl" x="128" y="48" width="48" height="16"/>
+  <object id="17" name="Barrel" type="NonInteractableImpl" x="144.495" y="105.963" width="15.5963" height="22.9358"/>
+  <object id="19" name="Barrel" type="NonInteractableImpl" x="224.771" y="74.7706" width="14.6789" height="22.4771"/>
+  <object id="20" name="Table" type="NonInteractableImpl" x="112.844" y="160.55" width="47.7064" height="28.8991"/>
+  <object id="21" name="Chair" type="NonInteractableImpl" x="161.468" y="161.009" width="13.3028" height="27.9817"/>
+  <object id="22" name="Table" type="NonInteractableImpl" x="33.0275" y="128.44" width="47.2477" height="28.8991"/>
+  <object id="23" name="Chair" type="NonInteractableImpl" x="80.7339" y="128.44" width="13.7615" height="27.9817"/>
+  <object id="25" name="Table" type="NonInteractableImpl" x="32.5688" y="192.661" width="46.789" height="26.6055"/>
+  <object id="26" name="Chairs" type="NonInteractableImpl" x="33.0275" y="220.183" width="46.3303" height="16.5138"/>
+  <object id="27" name="Chair" type="NonInteractableImpl" x="128.44" y="189.45" width="15.5963" height="15.5963"/>
+  <object id="29" name="Barrel" type="NonInteractableImpl" x="207.798" y="218.807" width="16.5138" height="21.1009"/>
+  <object id="30" name="Chair" type="NonInteractableImpl" x="32.5688" y="156.422" width="15.5963" height="16.5138"/>
+  <object id="31" name="Drawer" type="UnpickableWithEnigma" x="80.2752" y="55.0459" width="47.2477" height="22.0183">
+   <properties>
+    <property name="Enigma" value="Drawer"/>
+    <property name="Reward" value="Office key"/>
+   </properties>
+  </object>
+  <object id="36" name="Wrench" type="Pickable" gid="732" x="160" y="224" width="16" height="16" rotation="90">
+   <properties>
+    <property name="Description" value="A wrench to open things"/>
+    <property name="ID" type="int" value="8"/>
+   </properties>
+  </object>
+  <object id="38" name="Canteen note" type="Pickable" gid="1073743128" x="70.2123" y="194.48" width="16" height="16">
+   <properties>
+    <property name="Description" value="The key is in the routine..."/>
+    <property name="ID" type="int" value="2"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>

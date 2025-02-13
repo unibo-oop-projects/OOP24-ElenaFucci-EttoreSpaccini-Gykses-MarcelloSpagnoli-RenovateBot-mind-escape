@@ -109,11 +109,6 @@ public final class PlayerView {
             null);
     }
 
-    /**
-     * Sets the current sprite based on the pressed keys.
-     * 
-     * @param keys The map of pressed keys
-     */
     private void setCurrentSprite(final Map<Integer, Boolean> keys) {
         for (final Map.Entry<Integer, Boolean> entry : keys.entrySet()) {
             if (KEY_MAPPER.get(entry.getKey()) != null && entry.getValue()) {

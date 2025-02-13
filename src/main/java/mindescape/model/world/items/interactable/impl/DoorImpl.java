@@ -25,7 +25,7 @@ import mindescape.model.world.rooms.api.Room;
  */
 public class DoorImpl extends GameObjectImpl implements Door {
 
-    private final static long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     private final Room destinationRoom;
     private final Point2D destinationPosition;

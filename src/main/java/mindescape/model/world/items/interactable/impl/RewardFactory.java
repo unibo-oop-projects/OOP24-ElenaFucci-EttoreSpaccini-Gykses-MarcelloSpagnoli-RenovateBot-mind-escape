@@ -10,7 +10,6 @@ import mindescape.model.world.items.interactable.api.Pickable;
 public class RewardFactory {
 
     private static final String BED_NOTE_DESC = "3 is the magic number";
-    private static final String CANTEEN_NOTE_DESC = "The key is in the routine";
     private static final String OFFICE_KEY_DESC = "A key";
     private static final String KEY_DESC = "The key to the last room";
     private static final String HAMMER_DESC = "An hammer";
@@ -20,7 +19,6 @@ public class RewardFactory {
     private static final String DUMMY_DESC = "dummy";
 
     private static final int BED_NOTE_ID = 1;
-    private static final int CANTEEN_NOTE_ID = 2;
     private static final int OFFICE_KEY_ID = 3;
     private static final int KEY_ID = 4;
     private static final int HAMMER_ID = 5;
@@ -36,8 +34,6 @@ public class RewardFactory {
         switch (name) {
             case "Bed note":
                 return new PickableImpl(null, name, Dimensions.TILE, BED_NOTE_DESC, BED_NOTE_ID);
-            case "Canteen note":
-                return new PickableImpl(null, name, Dimensions.TILE, CANTEEN_NOTE_DESC, CANTEEN_NOTE_ID);
             case "Office key":
                 return new PickableImpl(null, name, Dimensions.TILE, OFFICE_KEY_DESC, OFFICE_KEY_ID);
             case "Key":

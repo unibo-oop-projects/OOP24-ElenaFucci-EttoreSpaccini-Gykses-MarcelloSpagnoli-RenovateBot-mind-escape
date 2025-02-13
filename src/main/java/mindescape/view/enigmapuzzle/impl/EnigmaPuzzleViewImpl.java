@@ -2,6 +2,8 @@ package mindescape.view.enigmapuzzle.impl;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+
 import mindescape.controller.enigmapuzzle.api.EnigmaPuzzleController;
 import mindescape.view.enigmapuzzle.api.EnigmaPuzzleView;
 import java.awt.GridLayout;
@@ -15,7 +17,7 @@ import java.util.List;
  */
 public class EnigmaPuzzleViewImpl extends JPanel implements EnigmaPuzzleView {
 
-    private final static long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
     private final List<ImageButton> buttons = new ArrayList<>();
     private final BufferedImage image;
     private final int rows, cols;
@@ -36,17 +38,17 @@ public class EnigmaPuzzleViewImpl extends JPanel implements EnigmaPuzzleView {
         try {
             img = ImageIO.read(getClass().getClassLoader().getResource("puzzle/puzzle.jpg"));
         } catch (final IOException e) {
-            throw new RuntimeException("image not found");
+            throw new IllegalStateException("Image not found", e);
         }
         this.image = img;
-        setLayout(new GridLayout(rows, cols));
+        SwingUtilities.invokeLater(() -> setLayout(new GridLayout(rows, cols)));
         for (int i = 0; i < rows * cols; i++) {
             final ImageButton button = new ImageButton();
             buttons.add(button);
             button.addActionListener(e -> {
                 controller.handleInput(buttons.indexOf(button));
             });
-            add(button);
+            SwingUtilities.invokeLater(() -> add(button));
         }
     }
 
@@ -59,6 +61,13 @@ public class EnigmaPuzzleViewImpl extends JPanel implements EnigmaPuzzleView {
         return buttons;
     }
 
+    /**
+     * Updates the puzzle view with the provided pieces.
+     *
+     * @param pieces a 2D array representing the positions of the puzzle pieces.
+     *               Each element in the array corresponds to the position of a piece
+     *               in the original image.
+     */
     public void update(final Integer[][] pieces) {
         for (int i = 0; i < this.rows; i++) {
             for (int j = 0; j < this.cols; j++) {

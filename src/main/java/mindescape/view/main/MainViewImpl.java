@@ -14,7 +14,12 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+/**
+ * The view for the main screen.
+ */
 public class MainViewImpl implements MainView {
+    private static final int WIDTH = 800;
+    private static final int HEIGHT = 600;
     private static final Map<Integer, UserInput> KEY_MAPPER = Map.of(
         KeyEvent.VK_W, UserInput.UP,
         KeyEvent.VK_S, UserInput.DOWN,
@@ -27,6 +32,14 @@ public class MainViewImpl implements MainView {
     private JPanel currentPanel;
     private final JFrame frame = new JFrame("Mind Escape");
 
+    /**
+     * Constructs a MainViewImpl object.
+     *
+     * @param controller the main controller to be used by this view
+     *
+     * Initializes the main view with a given controller, sets up the main frame,
+     * and adds necessary listeners for key events and window closing events.
+     */
     public MainViewImpl(final MainController controller) {
         this.mainController = controller;
         this.currentPanel = new JPanel(); // Initialize with an empty panel
@@ -56,7 +69,7 @@ public class MainViewImpl implements MainView {
                         "Save before exiting", 
                         JOptionPane.YES_NO_CANCEL_OPTION
                     );
-                    
+
                     if (option == JOptionPane.YES_OPTION) {
                         try {
                             mainController.save();
@@ -69,16 +82,19 @@ public class MainViewImpl implements MainView {
                 }
             }
         });
-        frame.setSize(800, 600);
-        frame.setResizable(true);
-        frame.setVisible(true);
+        this.frame.setSize(WIDTH, HEIGHT);
+        this.frame.setResizable(true);
+        this.frame.setVisible(true);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setPanel(final JPanel panel) {
-        this.frame.remove(this.currentPanel);  
+        this.frame.remove(this.currentPanel);
         this.currentPanel = panel;
-        this.frame.add(this.currentPanel);  
+        this.frame.add(this.currentPanel);
         this.currentPanel.setVisible(true);
         this.currentPanel.setFocusable(true);
         this.currentPanel.requestFocusInWindow(); 
@@ -87,6 +103,9 @@ public class MainViewImpl implements MainView {
         this.currentPanel.repaint();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void show() {
         SwingUtilities.invokeLater(() -> {
@@ -96,6 +115,9 @@ public class MainViewImpl implements MainView {
         });
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void won() {
         JOptionPane.showMessageDialog(frame, "You won!");
