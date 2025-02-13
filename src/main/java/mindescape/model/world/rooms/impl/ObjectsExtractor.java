@@ -62,10 +62,15 @@ public final class ObjectsExtractor {
                         break;
                     case "LockedUnpickable":
                         gameObjects.add(factory.createLockedUnpickable(object.getName(), position, dimensions, 
-                        (Integer) object.getProperties().get("keyItem_id"),
-                        rewards.getReward((String) object.getProperties().get("Reward"))));
-                    default:
+                            (Integer) object.getProperties().get("keyItem_id"),
+                            rewards.getReward((String) object.getProperties().get("Reward"))));
                         break;
+                    default:
+                        throw new IllegalArgumentException(object.getName()
+                            +  " with ID "
+                            + object.getID() 
+                            + " is not valid"
+                        );
                 }
             }); 
         }
@@ -98,23 +103,28 @@ public final class ObjectsExtractor {
                             destPosition));
                         break;
                     case "DoorLockedWithPickable":
-                    doors.add(factory.createDoorLockedWithPickable(object.getName(), position, dimensions,
-                        (Integer) object.getProperties().get("keyItem_id"),
-                        rooms.stream()
-                        .filter(x -> x.getName().equals((String) object.getProperties().get("Destination")))
-                        .findFirst()
-                        .get(),
-                        destPosition));
+                        doors.add(factory.createDoorLockedWithPickable(object.getName(), position, dimensions,
+                            (Integer) object.getProperties().get("keyItem_id"),
+                            rooms.stream()
+                            .filter(x -> x.getName().equals((String) object.getProperties().get("Destination")))
+                            .findFirst()
+                            .get(),
+                            destPosition));
                         break;
                     case "SimpleDoor":
-                    doors.add(factory.createSimpleDoor(object.getName(), position, dimensions, 
-                        rooms.stream()
-                        .filter(x -> x.getName().equals((String) object.getProperties().get("Destination")))
-                        .findFirst()
-                        .get(),
-                        destPosition));
-                    default:
+                        doors.add(factory.createSimpleDoor(object.getName(), position, dimensions, 
+                            rooms.stream()
+                            .filter(x -> x.getName().equals((String) object.getProperties().get("Destination")))
+                            .findFirst()
+                            .get(),
+                            destPosition));
                         break;
+                    default:
+                        throw new IllegalArgumentException(object.getName()
+                            +  " with ID "
+                            + object.getID() 
+                            + " is not valid"
+                    );
                 }
             });
         }

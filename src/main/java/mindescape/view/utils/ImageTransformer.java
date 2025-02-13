@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 /**
  * This is a utility class to help manage images transformations, it is used to render the tiles.
  */
-public class ImageTransformer {
+public final class ImageTransformer {
 
     /**
      * Resizes an image using a scaling factor.

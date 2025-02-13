@@ -33,21 +33,20 @@ import mindescape.view.utils.ImageTransformer;
 /**
  * Implementation of the WorldView.
  */
-public final class WorldViewImpl extends JPanel implements WorldView, KeyListener {
-
-    private static final long serialVersionUID = 1L;
+public final class WorldViewImpl implements WorldView, KeyListener {
 
     private static final double ROTATING_ANGLE = -90;
     private static final int TILE_DIMENSION = (int) Dimensions.TILE.width();
     private final transient Map<TiledTile, BufferedImage> tilesCache = new HashMap<>();
-    private transient BufferedImage roomImage;
-    private transient String roomName;
+    private BufferedImage roomImage;
+    private String roomName;
     private final transient PlayerView player;
     private double roomHeight;
     private int objNum;
     private final Map<Integer, Boolean> keyState = new HashMap<>();
     private final transient ImageTransformer transformer = new ImageTransformer();
     private final Map<Integer, UserInput> keyMapper = KeyMapper.getKeyMap();
+    private final JPanel panel;
 
     /**
      * Constructor for WorldViewImpl.
@@ -55,15 +54,26 @@ public final class WorldViewImpl extends JPanel implements WorldView, KeyListene
      * @param currentRoom the current room
      */
     public WorldViewImpl(final Room currentRoom) {
-        roomHeight = currentRoom.getDimensions().height();
-        roomName = currentRoom.getName();
+        this.panel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                final double scaling = getScalingFactor();
+                final BufferedImage image = transformer.adapt(roomImage, scaling);
+                final int offset = (this.getWidth() - image.getWidth()) / 2;
+                g.drawImage(image, offset, 0, this);
+                player.draw(g, offset, scaling, keyState);
+            }
+        };
+        this.roomHeight = currentRoom.getDimensions().height();
+        this.roomName = currentRoom.getName();
         updateRoomImage(currentRoom);
         player = new PlayerView(getPlayer(currentRoom).getPosition());
         keyMapper.forEach((key, value) -> keyState.put(key, false));
         objNum = currentRoom.getGameObjects().size();
-        this.setFocusable(true);
-        requestFocusInWindow();
-        addKeyListener(this);
+        this.panel.setFocusable(true);
+        this.panel.requestFocusInWindow();
+        this.panel.addKeyListener(this);
     }
 
     @Override
@@ -75,22 +85,12 @@ public final class WorldViewImpl extends JPanel implements WorldView, KeyListene
             roomName = currentRoom.getName();
         }
         player.setPosition(getPlayer(currentRoom).getPosition());
-        repaint();
+        this.panel.repaint();
     }
 
     @Override
     public JPanel getPanel() {
-        return this;
-    }
-
-    @Override
-    protected void paintComponent(final Graphics g) {
-        super.paintComponent(g);
-        final double scaling = getScalingFactor();
-        final BufferedImage image = transformer.adapt(roomImage, scaling);
-        final int offset = (this.getWidth() - image.getWidth()) / 2;
-        g.drawImage(image, offset, 0, this);
-        player.draw(g, offset, scaling, keyState);
+        return this.panel;
     }
 
     private void drawLayer(final TiledTileLayer layer, final Graphics g, final TiledMap map) {
@@ -107,7 +107,7 @@ public final class WorldViewImpl extends JPanel implements WorldView, KeyListene
                         );
                         tilesCache.put(tile, img);
                     }
-                    g.drawImage(img, x * TILE_DIMENSION, y * TILE_DIMENSION, this);
+                    g.drawImage(img, x * TILE_DIMENSION, y * TILE_DIMENSION, this.panel);
                 }
             }
         }
@@ -160,7 +160,7 @@ public final class WorldViewImpl extends JPanel implements WorldView, KeyListene
     }
 
     private double getScalingFactor() {
-        final double tileScaledDim = this.getHeight() / (roomHeight / TILE_DIMENSION);
+        final double tileScaledDim = this.panel.getHeight() / (roomHeight / TILE_DIMENSION);
         return tileScaledDim / TILE_DIMENSION;
     }
 
