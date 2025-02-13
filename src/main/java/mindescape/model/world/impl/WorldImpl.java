@@ -40,7 +40,7 @@ public class WorldImpl implements World, Serializable {
      */
     public WorldImpl(final String username) {
         this.rooms = RoomImpl.createRooms();
-        final var currentRoom = rooms.stream().filter(x -> x.getName().equals("bedroom")).findFirst().get();
+        final var currentRoom = rooms.stream().filter(x -> "bedroom".equals(x.getName())).findFirst().get();
         this.player = new PlayerImpl(this.playerStartPosition, username, Dimensions.TILE, currentRoom);
         currentRoom.addGameObject(player);
         this.collisionDetector = new CollisionDetectorImpl();
@@ -96,14 +96,14 @@ public class WorldImpl implements World, Serializable {
      */
     @Override
     public boolean hasWon() {
-        LockedUnpickable mirror = (LockedUnpickable) this.getRooms()
+        final LockedUnpickable mirror = (LockedUnpickable) this.getRooms()
             .stream()
-            .filter(room -> room.getName().equals("final"))
+            .filter(room -> "final".equals(room.getName()))
             .findFirst()
             .get()
             .getGameObjects()
             .stream()
-            .filter(x -> x.getName().equals("Mirror"))
+            .filter(x -> "Mirror".equals(x.getName()))
             .findFirst()
             .get();
 
@@ -134,8 +134,8 @@ public class WorldImpl implements World, Serializable {
     public void movePlayer(final Movement movement) throws NullPointerException {
         Objects.requireNonNull(movement, "Movement must not be null");
 
-        var playerPosition = this.player.getPosition();
-        var position = new Point2D(playerPosition.x() + movement.getX(), playerPosition.y() + movement.getY());
+        final var playerPosition = this.player.getPosition();
+        final var position = new Point2D(playerPosition.x() + movement.getX(), playerPosition.y() + movement.getY());
         var collidingObject = this.collisionDetector.collisions(
             position, 
             this.player.getDimensions(), 

@@ -58,6 +58,7 @@ public final class SaveManager {
             oos.writeObject(world.getPlayer());
             oos.writeObject(world.getRooms());
         } catch (final IOException e) {
+            throw new RuntimeException("Error saving game status", e);
         }
     }
     /**

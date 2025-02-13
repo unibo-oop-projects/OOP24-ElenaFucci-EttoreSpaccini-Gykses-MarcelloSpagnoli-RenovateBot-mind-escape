@@ -32,10 +32,10 @@ public class EnigmaPuzzleViewImpl extends JPanel implements EnigmaPuzzleView {
     public EnigmaPuzzleViewImpl(final int cols, final int rows, final EnigmaPuzzleController controller) {
         this.rows = rows;
         this.cols = cols;
-        BufferedImage img;
+        final BufferedImage img;
         try {
             img = ImageIO.read(getClass().getClassLoader().getResource("puzzle/puzzle.jpg"));
-        } catch (IOException e) {
+        } catch (final IOException e) {
             throw new RuntimeException("image not found");
         }
         this.image = img;
@@ -63,10 +63,10 @@ public class EnigmaPuzzleViewImpl extends JPanel implements EnigmaPuzzleView {
     public void update(final Integer[][] pieces) {
         for (int i = 0; i < this.rows; i++) {
             for (int j = 0; j < this.cols; j++) {
-                int imgPos = pieces[i][j];
+                final int imgPos = pieces[i][j];
                 buttons.get(i * rows + j).setImage(image.getSubimage(
-                    (imgPos / this.rows) * (image.getWidth() / this.cols),
-                    (imgPos % this.cols) * (image.getHeight() / this.rows),
+                    imgPos / this.rows * image.getWidth() / this.cols,
+                    imgPos % this.cols * image.getHeight() / this.rows,
                     image.getWidth() / pieces.length,
                     image.getHeight() / pieces.length
                 ));

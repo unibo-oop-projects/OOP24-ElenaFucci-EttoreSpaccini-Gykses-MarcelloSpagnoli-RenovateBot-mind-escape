@@ -11,6 +11,8 @@ import mindescape.model.enigma.enigmapassword.api.EnigmaPasswordModel;
  */
 public class EnigmaPasswordModelImpl implements EnigmaPasswordModel, Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     /**
      * Indicates whether the enigma has been solved.
      */

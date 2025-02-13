@@ -43,7 +43,7 @@ public class PlayerView {
                 throw new IOException("Resource not found: playertiles/player.png");
             }
             image = ImageIO.read(is);
-        } catch (IOException e) {
+        } catch (final IOException e) {
             image = new BufferedImage(SPRITE_SHEET_WIDTH, SPRITE_SHEET_HEIGHT, BufferedImage.TYPE_INT_ARGB);
             Graphics g = image.createGraphics();
             g.setColor(Color.RED);
@@ -73,7 +73,7 @@ public class PlayerView {
         timer.start();
     }
 
-    public void setPosition(Point2D pos) {
+    public void setPosition(final Point2D pos) {
         x = (int) pos.x();
         y = (int) pos.y();
     }
@@ -88,7 +88,7 @@ public class PlayerView {
     }
 
     private void setCurrentSprite(final Map<Integer, Boolean> keys) {
-        for (Map.Entry<Integer, Boolean> entry : keys.entrySet()) {
+        for (final Map.Entry<Integer, Boolean> entry : keys.entrySet()) {
             if (KEY_MAPPER.get(entry.getKey()) != null && entry.getValue()) { // Se il tasto è premuto
                 currentSprite = spriteMapper.get(KEY_MAPPER.get(entry.getKey())).get(spriteIndex);
             }

@@ -18,6 +18,8 @@ import mindescape.model.world.items.interactable.api.Pickable;
  */
 public class InventoryImpl implements Inventory, Serializable {
 
+    private final static long serialVersionUID = 1L;
+
     private final Set<Pickable> set = new HashSet<>();
 
     /**

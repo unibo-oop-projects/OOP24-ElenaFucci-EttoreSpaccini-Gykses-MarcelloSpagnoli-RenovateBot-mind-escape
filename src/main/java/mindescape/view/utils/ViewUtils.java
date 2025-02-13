@@ -9,16 +9,16 @@ import java.awt.event.*;
  */
 public class ViewUtils {
 
-    private static final Font defaultFont = new Font("Serif", Font.PLAIN, 18); // Changed to Serif for a more classic feel
-    private static final Font titleFont = new Font("Serif", Font.BOLD, 36);  // More dramatic title font
-    private static final Color buttonColor = new Color(30, 32, 34); // Darker button color for tension
-    private static final Color buttonHoverColor = new Color(50, 53, 55); // Slightly lighter for hover effect
-    private static final Color labelColor = new Color(230, 230, 230); // Light color for contrast
-    private static final Color panelColor = new Color(20, 20, 20); // Almost black background for psychological effect
-    private static final Color textFieldBackground = new Color(45, 48, 50); // Darker text field
-    private static final Color textFieldTextColor = new Color(255, 255, 255); // White text for contrast
-    private static final Color textAreaBackground = new Color(40, 43, 45); // Slightly softer background for text areas
-    private static final Color textAreaTextColor = new Color(220, 220, 220); // Softer white for text in text areas
+    private static final Font defaultFont = new Font("Serif", Font.PLAIN, 18);
+    private static final Font titleFont = new Font("Serif", Font.BOLD, 36);
+    private static final Color buttonColor = new Color(30, 32, 34); 
+    private static final Color buttonHoverColor = new Color(50, 53, 55);
+    private static final Color labelColor = new Color(230, 230, 230);
+    private static final Color panelColor = new Color(20, 20, 20); 
+    private static final Color textFieldBackground = new Color(45, 48, 50); 
+    private static final Color textFieldTextColor = new Color(255, 255, 255); 
+    private static final Color textAreaBackground = new Color(40, 43, 45); 
+    private static final Color textAreaTextColor = new Color(220, 220, 220); 
 
     /**
      * Creates a styled JButton with specified text.
@@ -27,7 +27,7 @@ public class ViewUtils {
      * @return a styled JButton with the specified text
      */
     public static JButton createStyledButton(final String text) {
-        JButton button = new JButton(text);
+        final JButton button = new JButton(text);
         button.setFont(defaultFont);
         button.setForeground(Color.WHITE);
         button.setBackground(buttonColor);
@@ -60,8 +60,8 @@ public class ViewUtils {
      * @param text the text to be displayed on the label
      * @return a styled JLabel
      */
-    public static JLabel createStyledLabel(String text) {
-        JLabel label = new JLabel(text);
+    public static JLabel createStyledLabel(final String text) {
+        final JLabel label = new JLabel(text);
         label.setFont(defaultFont);
         label.setForeground(labelColor);
         label.setOpaque(true);
@@ -74,7 +74,7 @@ public class ViewUtils {
      * @return a styled JPanel
      */
     public static JPanel createStyledPanel() {
-        JPanel panel = new JPanel();
+        final JPanel panel = new JPanel();
         panel.setBackground(panelColor);
         panel.setLayout(new BorderLayout());
         return panel;
@@ -86,8 +86,8 @@ public class ViewUtils {
      * @param columns the number of columns for the text field
      * @return a styled JTextField
      */
-    public static JTextField createStyledTextField(int columns) {
-        JTextField textField = new JTextField(columns);
+    public static JTextField createStyledTextField(final int columns) {
+        final JTextField textField = new JTextField(columns);
         textField.setFont(defaultFont);
         textField.setBackground(textFieldBackground);
         textField.setForeground(textFieldTextColor);
@@ -102,8 +102,8 @@ public class ViewUtils {
      * @param columns the number of columns
      * @return a JScrollPane containing a styled JTextArea
      */
-    public static JScrollPane createStyledTextArea(int rows, int columns) {
-        JTextArea textArea = new JTextArea(rows, columns);
+    public static JScrollPane createStyledTextArea(final int rows, final int columns) {
+        final JTextArea textArea = new JTextArea(rows, columns);
         textArea.setFont(defaultFont);
         textArea.setBackground(textAreaBackground);
         textArea.setForeground(textAreaTextColor);
@@ -112,7 +112,7 @@ public class ViewUtils {
         textArea.setCaretColor(new Color(255, 255, 255));
         textArea.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        JScrollPane scrollPane = new JScrollPane(textArea);
+        final JScrollPane scrollPane = new JScrollPane(textArea);
         scrollPane.setBackground(textAreaBackground);
         return scrollPane;
     }
@@ -124,8 +124,8 @@ public class ViewUtils {
      * @param text the title text
      * @return a styled JLabel for titles
      */
-    public static JLabel createTitleLabel(String text) {
-        JLabel titleLabel = new JLabel(text);
+    public static JLabel createTitleLabel(final String text) {
+        final JLabel titleLabel = new JLabel(text);
         titleLabel.setFont(titleFont);
         titleLabel.setForeground(new Color(255, 69, 0));  // Fiery orange-red for tension and urgency
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);

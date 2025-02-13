@@ -49,8 +49,8 @@ public class CalendarViewImpl implements CalendarView {
         titleLabel.setForeground(Color.WHITE);
         panel.add(titleLabel, BorderLayout.NORTH);
 
-        String[] timeSlots = {"09:00 - 12:00", "12:00 - 13:00", "14:00 - 16:00", "16:00 - 21:00"};
-        String[] activities = {
+        final String[] timeSlots = {"09:00 - 12:00", "12:00 - 13:00", "14:00 - 16:00", "16:00 - 21:00"};
+        final String[] activities = {
                 "Group psychological session",
                 "Lunch in the canteen",
                 "Afternoon rest",
@@ -66,7 +66,7 @@ public class CalendarViewImpl implements CalendarView {
 
         // Creates the labels for time slots and activities, then adds them to the panel
         for (int i = 0; i < timeSlots.length; i++) {
-            JPanel entryPanel = new JPanel(new BorderLayout());
+            final JPanel entryPanel = new JPanel(new BorderLayout());
             entryPanel.setBackground(new Color(50, 50, 50));
             entryPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
 
@@ -89,13 +89,13 @@ public class CalendarViewImpl implements CalendarView {
         panel.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(final ComponentEvent e) {
-                int width = panel.getWidth();
-                int fontSize = Math.max(14, width / 30);
+                final int width = panel.getWidth();
+                final int fontSize = Math.max(14, width / 30);
                 titleLabel.setFont(new Font("Arial", Font.BOLD, fontSize + 6));
-                for (JLabel label : timeLabels) {
+                for (final JLabel label : timeLabels) {
                     label.setFont(new Font("Arial", Font.BOLD, fontSize));
                 }
-                for (JLabel label : activityLabels) {
+                for (final JLabel label : activityLabels) {
                     label.setFont(new Font("Arial", Font.PLAIN, fontSize));
                 }
                 button.setFont(new Font("Arial", Font.BOLD, fontSize));

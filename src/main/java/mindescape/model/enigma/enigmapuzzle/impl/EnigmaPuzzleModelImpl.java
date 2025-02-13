@@ -15,8 +15,8 @@ public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializable {
     private static final long serialVersionUID = 1L;
     private final int rows;
     private final int cols;
-    private Integer[][] pieces;
-    private String puzzleName;
+    private final Integer[][] pieces;
+    private final String puzzleName;
     private Integer clickedButtonIndex = null;
 
     /**

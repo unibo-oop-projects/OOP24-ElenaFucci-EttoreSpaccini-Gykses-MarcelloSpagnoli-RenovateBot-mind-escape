@@ -9,26 +9,14 @@ import mindescape.model.enigma.enigmapuzzle.impl.EnigmaPuzzleModelImpl;
 /**
  * Factory class that creates the enigma objects.
  */
-<<<<<<< HEAD
-public class EnigmaFactoryImpl implements EnigmaFactory, Serializable {
-
-    private static final long serialVersionUID = 1L;
-
-    private final Set<Enigma> enigmas;
-
-    public EnigmaFactoryImpl() {
-        this.enigmas = new HashSet<>();
-    }
-=======
 public class EnigmaFactoryImpl implements EnigmaFactory {
->>>>>>> 77d8a8b793112649d8a92a6231ba5f2b310e6ce6
 
     /**
      * {@inheritDoc}
      */
     @Override
     public Enigma getEnigma(final String name) throws IllegalArgumentException {
-        var enigmaName = EnigmaType.getEnigma(name);
+        final var enigmaName = EnigmaType.getEnigma(name);
         return switch (enigmaName) {
             case ENIGMA_FIRST_DOOR -> new EnigmaPasswordModelImpl(name, "Sergio Mattarella");
             case DRAWER -> new EnigmaPasswordModelImpl(name, "1213");
