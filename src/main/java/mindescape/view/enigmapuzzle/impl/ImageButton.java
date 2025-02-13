@@ -8,7 +8,7 @@ import javax.swing.JButton;
  * ImageButton is a custom JButton that allows setting an image to be displayed on the button.
  * It extends the JButton class and overrides the paintComponent method to draw the image.
  */
-public class ImageButton extends JButton {
+public final class ImageButton extends JButton {
 
     private static final long serialVersionUID = 1L;
     private transient Image image;

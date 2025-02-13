@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Implementation of the enigma puzzle.
  */
-public class EnigmaPuzzleViewImpl extends JPanel implements EnigmaPuzzleView {
+public final class EnigmaPuzzleViewImpl extends JPanel implements EnigmaPuzzleView {
 
     private static final long serialVersionUID = 1L;
     private final List<ImageButton> buttons = new ArrayList<>();

@@ -11,7 +11,7 @@ import mindescape.controller.maincontroller.api.MainController;
 /**
  * The EnigmaPuzzleControllerImpl class is the controller implementation for the enigma puzzle.
  */
-public class EnigmaPuzzleControllerImpl implements EnigmaPuzzleController {
+public final class EnigmaPuzzleControllerImpl implements EnigmaPuzzleController {
 
     private final EnigmaPuzzleModelImpl model;
     private final EnigmaPuzzleViewImpl view;
