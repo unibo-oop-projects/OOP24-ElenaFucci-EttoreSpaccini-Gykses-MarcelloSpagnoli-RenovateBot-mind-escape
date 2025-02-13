@@ -37,6 +37,7 @@ public final class ControllerBuilderImpl implements ControllerBuilder {
      *
      * @param mainController the main controller to be used by this builder
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The maincontroller needs to be exposed to the caller")
     public ControllerBuilderImpl(final MainController mainController) {
         this.mainController = mainController;
         this.controllerMap = new ControllerMapImpl();

@@ -20,8 +20,11 @@ import mindescape.model.enigma.enigmapassword.impl.EnigmaPasswordModelImpl;
  */
 final class EnigmaPasswordTest {
 
-    private final static int WIDTH = 400;
-    private final static int HEIGHT = 300;
+    private EnigmaPasswordTest() {
+    }
+
+    private static final int WIDTH = 400;
+    private static final int HEIGHT = 300;
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             final var controller = new EnigmaPasswordControllerImpl(

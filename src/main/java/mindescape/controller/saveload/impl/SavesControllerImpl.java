@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.List;
 import java.util.Objects;
 import javax.swing.JPanel;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import mindescape.controller.core.api.ControllerName;
 import mindescape.controller.maincontroller.api.MainController;
 import mindescape.controller.saveload.api.SavesController;
@@ -31,6 +33,7 @@ public final class SavesControllerImpl implements SavesController {
      *
      * @param mainController the main controller instance used to manage the overall application flow
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The main controller needs to be exposed to the caller")
     public SavesControllerImpl(final MainController mainController) {
         this.model = new SavesImpl();
         this.view = new SavesView(this);

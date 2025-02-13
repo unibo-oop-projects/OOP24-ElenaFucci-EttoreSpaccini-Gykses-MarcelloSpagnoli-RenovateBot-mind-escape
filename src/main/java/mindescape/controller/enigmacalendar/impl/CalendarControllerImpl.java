@@ -1,6 +1,8 @@
 package mindescape.controller.enigmacalendar.impl;
 
 import javax.swing.JPanel;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import mindescape.controller.core.api.ControllerName;
 import mindescape.controller.enigmacalendar.api.CalendarController;
 import mindescape.controller.maincontroller.api.MainController;
@@ -22,6 +24,7 @@ public final class CalendarControllerImpl implements CalendarController {
      *
      * @param mainController the main controller to be used by this calendar controller
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The mainController needs to be exposed to the caller")
     public CalendarControllerImpl(final MainController mainController) {
         this.mainController = mainController;
         this.view = new CalendarViewImpl(this);

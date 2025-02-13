@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import mindescape.controller.enigmacalendar.impl.CalendarControllerImpl;
 import mindescape.view.enigmacalendar.api.CalendarView;
 
@@ -126,6 +127,7 @@ public final class CalendarViewImpl implements CalendarView {
      * 
      * @return The panel containing the calendar view.
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The panel has to be returned to the caller")
     @Override
     public JPanel getPanel() {
         return panel;

@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.JButton;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * ImageButton is a custom JButton that allows setting an image to be displayed on the button.
  * It extends the JButton class and overrides the paintComponent method to draw the image.
@@ -18,6 +20,7 @@ public final class ImageButton extends JButton {
      *
      * @param image the new image to be set
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The image is not modified externally")
     public void setImage(final Image image) {
         this.image = image;
         repaint();
