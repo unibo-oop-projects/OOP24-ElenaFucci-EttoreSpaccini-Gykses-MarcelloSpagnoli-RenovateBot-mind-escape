@@ -83,24 +83,3 @@ public class EnigmaPuzzleViewImpl extends JPanel implements EnigmaPuzzleView {
         return this;
     }
 }
-
-
-/*
-private void divideImageIntoPieces() {
-    int width = originalImage.getWidth(null);
-    int height = originalImage.getHeight(null);
-    int pieceWidth = width / COLS;
-    int pieceHeight = height / ROWS;
-
-    BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-    Graphics g = bufferedImage.createGraphics();
-    g.drawImage(originalImage, 0, 0, null);
-    g.dispose();
-
-    for (int i = 0; i < ROWS; i++) {
-        for (int j = 0; j < COLS; j++) {
-            pieces[i][j] = bufferedImage.getSubimage(j * pieceWidth, i * pieceHeight, pieceWidth, pieceHeight);
-        }
-    }
-}
-*/
