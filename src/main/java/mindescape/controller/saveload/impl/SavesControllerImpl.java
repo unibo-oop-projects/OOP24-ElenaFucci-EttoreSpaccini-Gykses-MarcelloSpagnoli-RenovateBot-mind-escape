@@ -76,7 +76,6 @@ public final class SavesControllerImpl implements SavesController {
             final var saveData = SaveManager.loadGameStatus(saveFile);
             this.mainController.loadGame(saveData);
         } catch (IllegalArgumentException e) {
-            //TODO: Add error message
             this.mainController.setController(ControllerName.WORLD, null);
         }
     }
