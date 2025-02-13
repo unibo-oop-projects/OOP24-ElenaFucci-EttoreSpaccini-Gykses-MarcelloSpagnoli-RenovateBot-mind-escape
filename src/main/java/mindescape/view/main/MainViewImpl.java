@@ -27,6 +27,14 @@ public class MainViewImpl implements MainView {
     private JPanel currentPanel;
     private final JFrame frame = new JFrame("Mind Escape");
 
+    /**
+     * Constructs a MainViewImpl object.
+     *
+     * @param controller the main controller to be used by this view
+     *
+     * Initializes the main view with a given controller, sets up the main frame,
+     * and adds necessary listeners for key events and window closing events.
+     */
     public MainViewImpl(final MainController controller) {
         this.mainController = controller;
         this.currentPanel = new JPanel(); // Initialize with an empty panel
@@ -69,11 +77,14 @@ public class MainViewImpl implements MainView {
                 }
             }
         });
-        frame.setSize(800, 600);
-        frame.setResizable(true);
-        frame.setVisible(true);
+        this.frame.setSize(800, 600);
+        this.frame.setResizable(true);
+        this.frame.setVisible(true);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setPanel(final JPanel panel) {
         this.frame.remove(this.currentPanel);  
@@ -87,6 +98,9 @@ public class MainViewImpl implements MainView {
         this.currentPanel.repaint();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void show() {
         SwingUtilities.invokeLater(() -> {
@@ -96,6 +110,9 @@ public class MainViewImpl implements MainView {
         });
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void won() {
         JOptionPane.showMessageDialog(frame, "You won!");
