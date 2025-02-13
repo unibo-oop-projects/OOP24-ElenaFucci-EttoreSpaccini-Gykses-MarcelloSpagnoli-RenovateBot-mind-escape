@@ -4,7 +4,6 @@ import mindescape.model.world.api.World;
 import mindescape.model.world.impl.WorldImpl;
 import mindescape.model.world.player.api.Player;
 import mindescape.model.world.rooms.api.Room;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -49,7 +48,9 @@ public final class SaveManager {
         final var username = world.getPlayer().getName();
         final File saveDir = new File(SAVE_FOLDER);
         if (!saveDir.exists()) {
-            saveDir.mkdirs();
+            if (!saveDir.mkdirs()) {
+                throw new RuntimeException("Error creating save directory");
+            }
         }
 
         final File saveFile = new File(SAVE_FOLDER, username + ".sav");

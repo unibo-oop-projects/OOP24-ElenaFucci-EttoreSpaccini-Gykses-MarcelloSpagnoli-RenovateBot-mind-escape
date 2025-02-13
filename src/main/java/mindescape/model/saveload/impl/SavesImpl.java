@@ -20,7 +20,11 @@ public class SavesImpl implements Saves {
      */
     public SavesImpl() {
         if (!savesDirectory.exists()) {
-            savesDirectory.mkdirs();
+            try {
+                savesDirectory.mkdirs();
+            } catch (SecurityException e) {
+                e.printStackTrace();
+            }
         }
     }
 
