@@ -21,6 +21,9 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import java.awt.GridLayout;
 import java.awt.Image;
 
@@ -91,6 +94,7 @@ public final class InventoryViewImpl implements View {
      * @return the JPanel instance
      */
     @Override
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The panel needs to be exposed to the caller")
     public JPanel getPanel() {
         return this.panel;
     }

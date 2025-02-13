@@ -1,6 +1,8 @@
 package mindescape.controller.enigmapuzzle.impl;
 
 import javax.swing.JPanel;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import mindescape.model.api.Model;
 import mindescape.model.enigma.enigmapuzzle.impl.EnigmaPuzzleModelImpl;
 import mindescape.view.enigmapuzzle.impl.EnigmaPuzzleViewImpl;
@@ -23,6 +25,7 @@ public final class EnigmaPuzzleControllerImpl implements EnigmaPuzzleController 
      * @param model the model implementation for the enigma puzzle
      * @param mainController the main controller
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The main controller needs to be exposed to the caller")
     public EnigmaPuzzleControllerImpl(final EnigmaPuzzleModelImpl model, final MainController mainController) {
         this.model = model;
         this.view = new EnigmaPuzzleViewImpl(model.getCols(), model.getRows(), this); 

@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import mindescape.controller.enigmacalendar.impl.CalendarControllerImpl;
 import mindescape.view.enigmacalendar.api.CalendarView;
 
@@ -20,7 +21,7 @@ import mindescape.view.enigmacalendar.api.CalendarView;
  * Implementation of the calendar view that displays a daily schedule with time slots and activities.
  * The layout dynamically adjusts to the resizing of the window.
  */
-public class CalendarViewImpl implements CalendarView {
+public final class CalendarViewImpl implements CalendarView {
 
     private static final String FONT_NAME = "Arial";
     private static final Color BACKGROUND_COLOR = Color.DARK_GRAY;
@@ -126,6 +127,7 @@ public class CalendarViewImpl implements CalendarView {
      * 
      * @return The panel containing the calendar view.
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The panel has to be returned to the caller")
     @Override
     public JPanel getPanel() {
         return panel;

@@ -6,6 +6,7 @@ import mindescape.model.world.core.api.Point2D;
 import mindescape.model.world.core.impl.GameObjectImpl;
 import mindescape.model.world.player.api.Player;
 import mindescape.model.world.rooms.api.Room;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import mindescape.model.inventory.api.Inventory;
 import mindescape.model.inventory.impl.InventoryImpl;
 import mindescape.model.world.items.interactable.api.Interactable;
@@ -28,6 +29,7 @@ public final class PlayerImpl extends GameObjectImpl implements Player {
      * @param dimensions  the dimensions of the player
      * @param currentRoom the current room the player is in
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The current room has to exposed to the caller")
     public PlayerImpl(final Point2D position, final String name, 
                     final Dimensions dimensions, final Room currentRoom) {
             super(position, name, dimensions);
@@ -67,6 +69,7 @@ public final class PlayerImpl extends GameObjectImpl implements Player {
      *
      * @param room the room to set as the current room
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The current room has to exposed to the caller")
     @Override
     public void setCurrentRoom(final Room room) {
         this.currentRoom = room;
@@ -78,6 +81,7 @@ public final class PlayerImpl extends GameObjectImpl implements Player {
      *
      * @return the current room of the player.
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The room has to be exposed to the caller")
     @Override
     public Room getCurrentRoom() {
         return this.currentRoom;
@@ -88,6 +92,7 @@ public final class PlayerImpl extends GameObjectImpl implements Player {
      *
      * @return the player's inventory
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The inventroy has to be exposed to the caller")
     @Override
     public Inventory getInventory() {
         return this.inventory;

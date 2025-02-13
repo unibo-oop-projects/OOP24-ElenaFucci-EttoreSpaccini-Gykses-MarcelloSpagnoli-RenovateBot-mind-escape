@@ -3,6 +3,8 @@ package mindescape.controller.inventory;
 import java.awt.event.KeyEvent;
 import java.util.Objects;
 import javax.swing.JPanel;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import mindescape.controller.core.api.ClickableController;
 import mindescape.controller.core.api.ControllerName;
 import mindescape.controller.maincontroller.api.MainController;
@@ -28,6 +30,7 @@ public final class InventoryControllerImpl implements ClickableController {
      * @param inventory the inventory model that stores the items the player has collected
      * @param mainController the main controller that coordinates the overall application
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The mainController and the inventory need to be exposed to the caller")
     public InventoryControllerImpl(final Inventory inventory, final MainController mainController) {
         this.inventory = inventory;
         this.view = new InventoryViewImpl(this);
@@ -93,6 +96,7 @@ public final class InventoryControllerImpl implements ClickableController {
      * @return the model associated with this controller, or {@code null} if no model is set.
      */
     @Override
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The inventory model is returned to the caller")
     public Model getModel() {
         return this.inventory;
     }
