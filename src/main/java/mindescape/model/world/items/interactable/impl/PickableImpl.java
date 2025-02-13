@@ -23,7 +23,7 @@ import mindescape.model.world.player.api.Player;
  */
 public class PickableImpl extends GameObjectImpl implements Pickable {
 
-    private final static long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     private final String description;
     private final int id; 
