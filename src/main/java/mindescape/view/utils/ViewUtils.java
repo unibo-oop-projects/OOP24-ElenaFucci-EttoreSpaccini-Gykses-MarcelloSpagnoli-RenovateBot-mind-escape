@@ -6,7 +6,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -18,51 +17,68 @@ import javax.swing.SwingConstants;
 
 /**
  * The ViewUtils class provides utility methods for creating and styling UI components.
+ * This class should not be instantiated.
  */
-public class ViewUtils {
+public final class ViewUtils {
 
-    private final static Font defaultFont = new Font("Serif", Font.PLAIN, 18);
-    private final static Font titleFont = new Font("Serif", Font.BOLD, 36);
-    private final static Color buttonColor = new Color(30, 32, 34); 
-    private final static Color buttonHoverColor = new Color(50, 53, 55);
-    private final static Color labelColor = new Color(230, 230, 230);
-    private final static Color panelColor = new Color(20, 20, 20); 
-    private final static Color textFieldBackground = new Color(45, 48, 50); 
-    private final static Color textFieldTextColor = new Color(255, 255, 255); 
-    private final static Color textAreaBackground = new Color(40, 43, 45); 
-    private final static Color textAreaTextColor = new Color(220, 220, 220); 
+    private static final Font DEFAULT_FONT = new Font("Serif", Font.PLAIN, 18);
+    private static final Font TITLE_FONT = new Font("Serif", Font.BOLD, 36);
+    private static final Color BUTTON_COLOR = new Color(30, 32, 34);
+    private static final Color BUTTON_HOVER_COLOR = new Color(50, 53, 55);
+    private static final Color LABEL_COLOR = new Color(230, 230, 230);
+    private static final Color PANEL_COLOR = new Color(20, 20, 20);
+    private static final Color TEXT_FIELD_BACKGROUND = new Color(45, 48, 50);
+    private static final Color TEXT_FIELD_TEXT_COLOR = Color.WHITE;
+    private static final Color TEXT_AREA_BACKGROUND = new Color(40, 43, 45);
+    private static final Color TEXT_AREA_TEXT_COLOR = new Color(220, 220, 220);
+    private static final Color TITLE_COLOR = new Color(255, 69, 0);
+    private static final Color BORDER_COLOR = new Color(80, 80, 80);
+    private static final Color BORDER_HOVER_COLOR = new Color(100, 100, 100);
+    private static final int BUTTON_WIDTH = 150;
+    private static final int BUTTON_HEIGHT = 40;
+    private static final int BORDER_THICKNESS = 2;
+    private static final int TEXT_FIELD_PADDING = 5;
+    private static final int TITLE_WIDTH = 400;
+    private static final int TITLE_HEIGHT = 80;
+    private static final int TEXT_AREA_PADDING = 10;
+    private static final int MAX_LINE_LENGTH = 130;
+
+    /**
+     * Private constructor to prevent instantiation.
+     */
+    private ViewUtils() {
+        throw new UnsupportedOperationException("Utility class");
+    }
 
     /**
      * Creates a styled JButton with specified text.
      *
      * @param text the text to be displayed on the button
-     * @return a styled JButton with the specified text
+     * @return a styled JButton
      */
     public static JButton createStyledButton(final String text) {
         final JButton button = new JButton(text);
-        button.setFont(defaultFont);
+        button.setFont(DEFAULT_FONT);
         button.setForeground(Color.WHITE);
-        button.setBackground(buttonColor);
+        button.setBackground(BUTTON_COLOR);
         button.setFocusPainted(false);
-        button.setBorder(BorderFactory.createLineBorder(new Color(80, 80, 80), 2));
+        button.setBorder(BorderFactory.createLineBorder(BORDER_COLOR, BORDER_THICKNESS));
         button.setOpaque(true);
-        button.setPreferredSize(new Dimension(150, 40));
+        button.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
 
-        // Hover effect
         button.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(final MouseEvent e) {
-                button.setBackground(buttonHoverColor);
-                button.setBorder(BorderFactory.createLineBorder(new Color(100, 100, 100), 2));
+                button.setBackground(BUTTON_HOVER_COLOR);
+                button.setBorder(BorderFactory.createLineBorder(BORDER_HOVER_COLOR, BORDER_THICKNESS));
             }
 
             @Override
             public void mouseExited(final MouseEvent e) {
-                button.setBackground(buttonColor);
-                button.setBorder(BorderFactory.createLineBorder(new Color(80, 80, 80), 2));
+                button.setBackground(BUTTON_COLOR);
+                button.setBorder(BorderFactory.createLineBorder(BORDER_COLOR, BORDER_THICKNESS));
             }
         });
-
         return button;
     }
 
@@ -74,8 +90,8 @@ public class ViewUtils {
      */
     public static JLabel createStyledLabel(final String text) {
         final JLabel label = new JLabel(text);
-        label.setFont(defaultFont);
-        label.setForeground(labelColor);
+        label.setFont(DEFAULT_FONT);
+        label.setForeground(LABEL_COLOR);
         label.setOpaque(true);
         return label;
     }
@@ -87,23 +103,23 @@ public class ViewUtils {
      */
     public static JPanel createStyledPanel() {
         final JPanel panel = new JPanel();
-        panel.setBackground(panelColor);
+        panel.setBackground(PANEL_COLOR);
         panel.setLayout(new BorderLayout());
         return panel;
     }
 
     /**
      * Creates a styled JTextField.
-     * 
+     *
      * @param columns the number of columns for the text field
      * @return a styled JTextField
      */
     public static JTextField createStyledTextField(final int columns) {
         final JTextField textField = new JTextField(columns);
-        textField.setFont(defaultFont);
-        textField.setBackground(textFieldBackground);
-        textField.setForeground(textFieldTextColor);
-        textField.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+        textField.setFont(DEFAULT_FONT);
+        textField.setBackground(TEXT_FIELD_BACKGROUND);
+        textField.setForeground(TEXT_FIELD_TEXT_COLOR);
+        textField.setBorder(BorderFactory.createEmptyBorder(TEXT_FIELD_PADDING, TEXT_FIELD_PADDING * 2, TEXT_FIELD_PADDING, TEXT_FIELD_PADDING * 2));
         return textField;
     }
 
@@ -116,16 +132,16 @@ public class ViewUtils {
      */
     public static JScrollPane createStyledTextArea(final int rows, final int columns) {
         final JTextArea textArea = new JTextArea(rows, columns);
-        textArea.setFont(defaultFont);
-        textArea.setBackground(textAreaBackground);
-        textArea.setForeground(textAreaTextColor);
+        textArea.setFont(DEFAULT_FONT);
+        textArea.setBackground(TEXT_AREA_BACKGROUND);
+        textArea.setForeground(TEXT_AREA_TEXT_COLOR);
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
-        textArea.setCaretColor(new Color(255, 255, 255));
-        textArea.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        textArea.setCaretColor(Color.WHITE);
+        textArea.setBorder(BorderFactory.createEmptyBorder(TEXT_AREA_PADDING, TEXT_AREA_PADDING, TEXT_AREA_PADDING, TEXT_AREA_PADDING));
 
         final JScrollPane scrollPane = new JScrollPane(textArea);
-        scrollPane.setBackground(textAreaBackground);
+        scrollPane.setBackground(TEXT_AREA_BACKGROUND);
         return scrollPane;
     }
 
@@ -138,11 +154,11 @@ public class ViewUtils {
      */
     public static JLabel createTitleLabel(final String text) {
         final JLabel titleLabel = new JLabel(text);
-        titleLabel.setFont(titleFont);
-        titleLabel.setForeground(new Color(255, 69, 0));  // Fiery orange-red for tension and urgency
+        titleLabel.setFont(TITLE_FONT);
+        titleLabel.setForeground(TITLE_COLOR);
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         titleLabel.setOpaque(true);
-        titleLabel.setPreferredSize(new Dimension(400, 80));
+        titleLabel.setPreferredSize(new Dimension(TITLE_WIDTH, TITLE_HEIGHT));
         return titleLabel;
     }
 }
