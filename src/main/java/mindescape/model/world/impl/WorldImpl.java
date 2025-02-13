@@ -1,7 +1,6 @@
 package mindescape.model.world.impl;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -26,14 +25,12 @@ import mindescape.model.world.rooms.impl.RoomImpl;
  */
 public class WorldImpl implements World, Serializable {
 
-    private final Point2D playerStartPosition = new Point2D(110, 170);
     private static final long serialVersionUID = 1L;
     private final Player player;
     private final List<Room> rooms;
-    // NOPMD: the deserialization of this field is handled by another method
-    private final transient CollisionDetector collisionDetector; 
-    // NOPMD: the deserialization of this field is handled by another method
-    private transient Optional<GameObject> collidingObject; 
+    private final transient CollisionDetector collisionDetector;
+    private transient Optional<GameObject> collidingObject;
+    private final Point2D playerPosition = new Point2D(110, 170);
 
     /**
      * Constructs a new WorldImpl instance.
@@ -42,8 +39,8 @@ public class WorldImpl implements World, Serializable {
      */
     public WorldImpl(final String username) {
         this.rooms = RoomImpl.createRooms();
-        final var currentRoom = rooms.stream().filter(x -> "bedroom".equals(x.getName())).findFirst().get();
-        this.player = new PlayerImpl(this.playerStartPosition, username, Dimensions.TILE, currentRoom);
+        final var currentRoom = rooms.stream().filter(x -> x.getName().equals("bedroom")).findFirst().get();
+        this.player = new PlayerImpl(playerPosition, username, Dimensions.TILE, currentRoom);
         currentRoom.addGameObject(player);
         this.collisionDetector = new CollisionDetectorImpl();
         this.collidingObject = Optional.empty();
@@ -56,8 +53,7 @@ public class WorldImpl implements World, Serializable {
      * @param player the player
      */
     public WorldImpl(final List<Room> rooms, final Player player) {
-        this.rooms = new ArrayList<>();
-        rooms.stream().forEach(this.rooms::add);
+        this.rooms = rooms;
         this.player = player;
         this.collisionDetector = new CollisionDetectorImpl();
         this.collidingObject = Optional.empty();
@@ -82,6 +78,7 @@ public class WorldImpl implements World, Serializable {
             if (this.collidingObject.get() instanceof UnpickableWithEnigma) {
                 enigma = Optional.of(((UnpickableWithEnigma) this.collidingObject.get()).getEnigma());
             } 
+            
             if (this.collidingObject.get() instanceof Interactable) {
                 this.player.interact((Interactable) this.collidingObject.get());
             }
@@ -99,14 +96,14 @@ public class WorldImpl implements World, Serializable {
      */
     @Override
     public boolean hasWon() {
-        final LockedUnpickable mirror = (LockedUnpickable) this.getRooms()
+        LockedUnpickable mirror = (LockedUnpickable) this.getRooms()
             .stream()
-            .filter(room -> "final".equals(room.getName()))
+            .filter(room -> room.getName().equals("final"))
             .findFirst()
             .get()
             .getGameObjects()
             .stream()
-            .filter(x -> "Mirror".equals(x.getName()))
+            .filter(x -> x.getName().equals("Mirror"))
             .findFirst()
             .get();
 
@@ -125,7 +122,7 @@ public class WorldImpl implements World, Serializable {
      * {@inheritDoc}
      */
     @Override
-    public void addRoom(final Room room) {
+    public void addRoom(final Room room) throws NullPointerException {
         Objects.requireNonNull(room, "Room must not be null");
         this.rooms.add(room);
     }
@@ -134,31 +131,21 @@ public class WorldImpl implements World, Serializable {
      * {@inheritDoc}
      */
     @Override
-    public void movePlayer(final Movement movement) {
+    public void movePlayer(final Movement movement) throws NullPointerException {
         Objects.requireNonNull(movement, "Movement must not be null");
 
-        final var playerPosition = this.player.getPosition();
-        final var position = new Point2D(playerPosition.x() + movement.getX(), playerPosition.y() + movement.getY());
-        final var collidingObject = this.collisionDetector.collisions(
-            position, 
-            this.player.getDimensions(), 
-            this.getCurrentRoom().getGameObjects()
-        );
+        var playerPosition = this.player.getPosition();
+        var position = new Point2D(playerPosition.x() + movement.getX(), playerPosition.y() + movement.getY());
+        var collidingObject = this.collisionDetector.collisions(position, this.player.getDimensions(), this.getCurrentRoom().getGameObjects());
 
         if (collidingObject.isEmpty()) {
             this.player.move(movement);
-            this.setCollidingObject(Optional.empty());
+            collidingObject = Optional.empty();
         } else {
             this.setCollidingObject(collidingObject);
         }
     }
 
-    /**
-     * Sets the colliding object for the current world.
-     *
-     * @param collidingObject an Optional containing the GameObject that is colliding, 
-     *                        or an empty Optional if there is no collision.
-     */
     private void setCollidingObject(final Optional<GameObject> collidingObject) {
         this.collidingObject = collidingObject;
     }

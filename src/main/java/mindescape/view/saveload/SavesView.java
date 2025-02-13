@@ -3,11 +3,20 @@ package mindescape.view.saveload;
 import mindescape.controller.saveload.api.SavesController;
 import mindescape.view.api.View;
 import mindescape.view.utils.ViewUtils;
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.BorderLayout;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
 import java.util.Date;
 
 /**
@@ -106,7 +115,7 @@ public class SavesView extends JPanel implements View {
             JOptionPane.showMessageDialog(this, "Invalid selection.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+
     /**
      * {@inheritDoc}
      */
