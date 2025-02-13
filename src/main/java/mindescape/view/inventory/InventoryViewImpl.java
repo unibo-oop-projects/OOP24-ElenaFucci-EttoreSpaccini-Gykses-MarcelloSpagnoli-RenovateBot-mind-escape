@@ -23,23 +23,35 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import java.awt.GridLayout;
 import java.awt.Image;
+
+/**
+ * Implementation of the InventoryView interface.
+ */
 public class InventoryViewImpl implements View {
 
-    private static final int DEFAULT_BUTTON_SIZE = 70; // Dimensione iniziale dei bottoni (quadrati)
-    private static final int GRID_ROWS = 0; // Numero di colonne
-    private static final int GRID_COLUMNS = 4; // Numero di colonne
-    private static final int MARGIN = 10; // Margine tra i bottoni
+    private static final int GRID_ROWS = 0;
+    private static final int GRID_COLUMNS = 4;
+    private static final int MARGIN = 10;
 
     private final InventoryControllerImpl controller;
     private final JPanel panel;
     private final JPanel inventoryPanel;
     private final JTextArea descriptionArea;
 
+    /**
+     * Constructs an InventoryViewImpl with the specified controller.
+     * Initializes the main panel with a BorderLayout and an inventory panel with a GridLayout.
+     * Sets up a non-editable description area within a scroll pane.
+     * Adds a component listener to adjust font sizes based on panel width.
+     * Adds a key listener to handle input events.
+     * Sets the preferred size of the panel to 400x400.
+     *
+     * @param controller the InventoryControllerImpl instance to be used by this view
+     */
     public InventoryViewImpl(final InventoryControllerImpl controller) {
         this.controller = controller;
         this.panel = new JPanel(new BorderLayout());
         this.inventoryPanel = new JPanel();
-        // Usare un GridLayout con righe dinamiche (0) e un numero fisso di colonne (4)
         inventoryPanel.setLayout(new GridLayout(GRID_ROWS, GRID_COLUMNS, MARGIN, MARGIN)); 
         this.descriptionArea = new JTextArea(5, 20);
         this.descriptionArea.setEditable(false);
@@ -48,7 +60,6 @@ public class InventoryViewImpl implements View {
         JScrollPane scrollPane = new JScrollPane(descriptionArea);
         panel.add(scrollPane, BorderLayout.SOUTH);
 
-        // ComponentListener per ridimensionare il testo
         panel.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
@@ -58,7 +69,6 @@ public class InventoryViewImpl implements View {
             }
         });
 
-        // KeyListener per gestire gli input da tastiera
         panel.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -67,15 +77,25 @@ public class InventoryViewImpl implements View {
             }
         });
 
-        panel.setPreferredSize(new Dimension(400, 400)); // Dimensione iniziale del pannello
+        panel.setPreferredSize(new Dimension(400, 400));
     }
 
+    /**
+     * Returns the JPanel associated with this view.
+     *
+     * @return the JPanel instance
+     */
     public JPanel getPanel() {
         return panel;
     }
 
     /**
-     * Aggiorna i bottoni dell'inventario, ridimensionandoli proporzionalmente.
+     * Updates the inventory buttons based on the given set of items.
+     * This method removes all existing buttons from the inventory panel and creates new buttons
+     * for each item in the provided set. Each button displays an icon representing the item and
+     * is configured with an action listener to handle item clicks.
+     *
+     * @param items the set of items to be displayed as buttons in the inventory panel
      */
     public void updateInventoryButtons(final Set<Pickable> items) {
         inventoryPanel.removeAll();
@@ -85,18 +105,16 @@ public class InventoryViewImpl implements View {
                 @Override
                 public void paintComponent(Graphics g) {
                     super.paintComponent(g);
-                    // Ridimensiona l'icona per adattarla al bottone
                     Icon icon = createIcon(item);
                     if (icon != null) {
-                        int buttonSize = Math.min(getWidth(), getHeight()); // Assicurati che sia un quadrato
-                        Image img = ((ImageIcon) icon).getImage();
-                        Image scaledImg = img.getScaledInstance(buttonSize, buttonSize, Image.SCALE_SMOOTH);
+                        final int buttonSize = Math.min(getWidth(), getHeight());
+                        final Image img = ((ImageIcon) icon).getImage();
+                        final Image scaledImg = img.getScaledInstance(buttonSize, buttonSize, Image.SCALE_SMOOTH);
                         setIcon(new ImageIcon(scaledImg));
                     }
                 }
             };
 
-            // Imposta inizialmente l'icona per il bottone
             itemButton.setIcon(createIcon(item));
 
             itemButton.setFocusable(false);
@@ -107,9 +125,6 @@ public class InventoryViewImpl implements View {
                 }
             });
 
-            // Imposta la dimensione iniziale dei bottoni come quadrati
-            itemButton.setPreferredSize(new Dimension(DEFAULT_BUTTON_SIZE, DEFAULT_BUTTON_SIZE)); // Impostiamo una dimensione iniziale
-            itemButton.setMinimumSize(new Dimension(DEFAULT_BUTTON_SIZE, DEFAULT_BUTTON_SIZE)); // Impostiamo una dimensione minima
             inventoryPanel.add(itemButton);
         }
 
@@ -117,14 +132,17 @@ public class InventoryViewImpl implements View {
         final int fontSize = Math.max(10, width / 30);
         updateFontSizes(fontSize);
 
-        // Rendi i bottoni ridimensionabili
         inventoryPanel.revalidate();
         inventoryPanel.repaint();
     }
 
+    
     /**
-     * Crea l'icona per un item specifico, in base al suo nome.
-     * Questo metodo sostituisce getIcon(item) e crea direttamente l'icona.
+     * Creates an Icon for the given Pickable item.
+     *
+     * @param item the Pickable item for which the icon is to be created
+     * @return the Icon corresponding to the given item
+     * @throws IllegalArgumentException if the item's name is unexpected
      */
     private Icon createIcon(final Pickable item) {
         String imagePath = switch(item.getName()) {
@@ -141,15 +159,22 @@ public class InventoryViewImpl implements View {
         return new ImageIcon(getClass().getClassLoader().getResource("pickable/" + imagePath));
     }
 
+    
     /**
-     * Aggiorna la descrizione mostrata nell'area di testo.
+     * Updates the description area with the provided text.
+     *
+     * @param description the new description text to be set in the description area
      */
     public void updateDescription(String description) {
         descriptionArea.setText(description);
     }
 
+    
     /**
-     * Aggiorna la dimensione dei caratteri per tutti i componenti.
+     * Updates the font sizes of all components within the inventory panel.
+     * Specifically, it sets the font size of all JButton components and the description area.
+     *
+     * @param fontSize the new font size to be applied to the components
      */
     private void updateFontSizes(int fontSize) {
         for (final Component comp : inventoryPanel.getComponents()) {
