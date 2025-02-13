@@ -8,7 +8,7 @@ import mindescape.model.enigma.api.EnigmaFactory.EnigmaType;
 /**
  * Class representing the Calendar enigma.
  */
-public class Calendar implements Enigma, Serializable, Model {
+public final class Calendar implements Enigma, Serializable, Model {
 
     private static final long serialVersionUID = 1L;
 

@@ -27,7 +27,7 @@ import java.awt.Image;
 /**
  * Implementation of the InventoryView interface.
  */
-public class InventoryViewImpl implements View {
+public final class InventoryViewImpl implements View {
 
     private static final int GRID_ROWS = 0;
     private static final int GRID_COLUMNS = 4;

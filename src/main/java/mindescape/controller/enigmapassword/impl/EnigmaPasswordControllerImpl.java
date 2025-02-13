@@ -78,7 +78,6 @@ public class EnigmaPasswordControllerImpl implements EnigmaPasswordController {
      */
     @Override
     public Model getModel() {
-        // TODO Auto-generated method stub
         return null;
     }
 

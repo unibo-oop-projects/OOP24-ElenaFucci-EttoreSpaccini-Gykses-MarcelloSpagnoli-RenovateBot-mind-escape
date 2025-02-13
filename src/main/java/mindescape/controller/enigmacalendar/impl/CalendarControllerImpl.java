@@ -13,7 +13,7 @@ import mindescape.view.enigmacalendar.impl.CalendarViewImpl;
  * This class is responsible for handling the calendar-related operations
  * and interactions with the CalendarView.
  */
-public class CalendarControllerImpl implements CalendarController {
+public final class CalendarControllerImpl implements CalendarController {
     private final MainController mainController;
     private final CalendarView view;
 
