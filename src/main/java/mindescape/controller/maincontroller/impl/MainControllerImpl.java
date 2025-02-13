@@ -1,4 +1,5 @@
 package mindescape.controller.maincontroller.impl;
+
 import java.util.Objects;
 import javax.swing.SwingUtilities;
 import mindescape.controller.core.api.Controller;
@@ -13,7 +14,6 @@ import mindescape.model.saveload.util.SaveManager;
 import mindescape.model.world.api.World;
 import mindescape.view.api.MainView;
 import mindescape.view.main.MainViewImpl;
-import mindescape.model.enigma.calendar.Calendar;
 
 /**
  * Implementation of the MainController interface.
