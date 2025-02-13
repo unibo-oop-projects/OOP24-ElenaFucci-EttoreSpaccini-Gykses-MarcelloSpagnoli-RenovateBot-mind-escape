@@ -19,10 +19,8 @@ public class SavesImpl implements Saves {
      * If the directory does not exist, it creates the necessary directories.
      */
     public SavesImpl() {
-        if (!savesDirectory.exists()) {
-            if (!savesDirectory.mkdirs()) {
-                throw new IllegalStateException("Could not create saves directory.");
-            }
+        if (!savesDirectory.exists() && !savesDirectory.mkdirs()) {
+            throw new IllegalStateException("Could not create saves directory.");
         }
     }
 
