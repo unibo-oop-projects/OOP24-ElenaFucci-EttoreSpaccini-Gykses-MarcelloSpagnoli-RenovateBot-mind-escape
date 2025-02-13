@@ -11,7 +11,7 @@ import mindescape.view.guide.impl.GuideViewImpl;
 /**
  * Implementation of the GuideController interface.
  */
-public class GuideControllerImpl implements GuideController {
+public final class GuideControllerImpl implements GuideController {
 
     private final MainController mainController;
     private final GuideView guideView;

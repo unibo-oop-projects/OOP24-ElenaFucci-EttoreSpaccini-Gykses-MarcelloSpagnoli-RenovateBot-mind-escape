@@ -12,7 +12,7 @@ import mindescape.view.caesarcipher.impl.CaesarCipherViewImpl;
 /**
  * Implementation of {@code CaesarCipherController} that manages user interaction and model updates.
  */
-public class CaesarCipherControllerImpl implements CaesarCipherController {
+public final class CaesarCipherControllerImpl implements CaesarCipherController {
 
     private final MainController mainController;
     private final CaesarCipherModel model;

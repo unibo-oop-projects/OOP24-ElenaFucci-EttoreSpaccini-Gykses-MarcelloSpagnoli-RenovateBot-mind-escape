@@ -18,7 +18,7 @@ import mindescape.model.world.player.api.Player;
  * @see Enigma
  * @see GameObjectImpl
  */
-public class DoorLockedWithEnigma extends GameObjectImpl implements Door, UnpickableWithEnigma {
+public final class DoorLockedWithEnigma extends GameObjectImpl implements Door, UnpickableWithEnigma {
 
     private static final long serialVersionUID = 1L;
 

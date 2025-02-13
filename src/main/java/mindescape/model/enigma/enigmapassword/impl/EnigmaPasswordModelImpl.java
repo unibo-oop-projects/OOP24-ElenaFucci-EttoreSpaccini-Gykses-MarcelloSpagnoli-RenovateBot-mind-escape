@@ -9,7 +9,7 @@ import mindescape.model.enigma.enigmapassword.api.EnigmaPasswordModel;
  * The enigma is solved by providing the correct password.
  * </p>
  */
-public class EnigmaPasswordModelImpl implements EnigmaPasswordModel, Serializable {
+public final class EnigmaPasswordModelImpl implements EnigmaPasswordModel, Serializable {
 
     private static final long serialVersionUID = 1L;
 

@@ -13,7 +13,7 @@ import mindescape.view.enigmapassword.impl.EnigmaPasswordViewImpl;
  * Implementation of {@code EnigmaPasswordController} that manages user interactions
  * for password-based enigmas.
  */
-public class EnigmaPasswordControllerImpl implements EnigmaPasswordController {
+public final class EnigmaPasswordControllerImpl implements EnigmaPasswordController {
 
     private final MainController mainController;
     private final EnigmaPasswordModel model; 

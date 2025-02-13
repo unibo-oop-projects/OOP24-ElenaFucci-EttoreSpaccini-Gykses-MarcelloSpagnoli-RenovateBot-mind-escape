@@ -13,7 +13,7 @@ import mindescape.model.world.rooms.api.Room;
  * Implementation of {@link InteractableFactory} for creating interactable objects such as pickable items, doors, 
  * and unpickable objects with specific behaviors.
  */
-public class InteractableFactoryImpl implements InteractableFactory {
+public final class InteractableFactoryImpl implements InteractableFactory {
 
     /**
      * Creates a pickable object with the given parameters.
