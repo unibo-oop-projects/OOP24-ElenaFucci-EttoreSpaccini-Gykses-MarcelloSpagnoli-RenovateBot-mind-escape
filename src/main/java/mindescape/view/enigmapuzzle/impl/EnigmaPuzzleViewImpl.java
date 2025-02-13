@@ -48,7 +48,7 @@ public class EnigmaPuzzleViewImpl extends JPanel implements EnigmaPuzzleView {
             button.addActionListener(e -> {
                 controller.handleInput(buttons.indexOf(button));
             });
-            add(button);
+            SwingUtilities.invokeLater(() -> add(button));
         }
     }
 
