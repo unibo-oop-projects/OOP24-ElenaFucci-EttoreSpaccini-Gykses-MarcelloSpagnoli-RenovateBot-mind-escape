@@ -35,6 +35,8 @@ public class CaesarCipherViewImpl implements CaesarCipherView {
     private static final int MIN_FONT_SIZE = 12;
     private static final int FONT_SIZE_DIVISOR = 30;
     private static final int TITLE_FONT_SIZE_ADJUSTMENT = 6;
+    private static final int RESULT_ROW = 5;
+
 
     private final JPanel panel;
     private final JTextField shiftField;
@@ -108,7 +110,7 @@ public class CaesarCipherViewImpl implements CaesarCipherView {
         decryptedField = new JTextField(DECRYPTED_TEXT_FIELD_COLUMNS);
         decryptedField.setEditable(false);
         gbc.gridx = 0;
-        gbc.gridy = 5;
+        gbc.gridy = RESULT_ROW;
         gbc.gridwidth = 2;
         this.panel.add(decryptedField, gbc);
 
