@@ -7,7 +7,10 @@ import mindescape.controller.caesarcipher.api.CaesarCipherController;
 import mindescape.controller.caesarcipher.impl.CaesarCipherControllerImpl;
 import mindescape.model.enigma.caesarcipher.impl.CaesarCipherModelImpl;
 
+@SuppressWarnings("all")
 public class CaesarCipherTest {
+
+    @SuppressWarnings("all")
     public static void main(final String[] args) {
         SwingUtilities.invokeLater(() -> {
             CaesarCipherController controller = new CaesarCipherControllerImpl(

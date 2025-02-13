@@ -15,7 +15,7 @@ public class CaesarCipherModelImpl implements CaesarCipherModel, Serializable {
     private static final long serialVersionUID = 1L;
     private static final int LETTERS_IN_ALPHABET = 26;
 
-    private final String decryptedText;
+    private final int shift;
     private final String name;
     private boolean solved;
 
@@ -28,7 +28,7 @@ public class CaesarCipherModelImpl implements CaesarCipherModel, Serializable {
     public CaesarCipherModelImpl(final String name, final int shift) {
         this.name = name;
         this.solved = false;
-        this.decryptedText = this.decrypt(shift);
+        this.shift = shift;
     }
 
     /**
@@ -44,7 +44,7 @@ public class CaesarCipherModelImpl implements CaesarCipherModel, Serializable {
      */
     @Override
     public boolean hit(final Object value) {
-        if (value instanceof String && value.equals(this.decryptedText)) {
+        if (value instanceof String && value.equals(this.decrypt(this.shift))) {
             this.solved = true;
         }
         return this.solved;

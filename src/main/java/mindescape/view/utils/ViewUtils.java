@@ -141,9 +141,9 @@ public final class ViewUtils {
         textArea.setWrapStyleWord(true);
         textArea.setCaretColor(Color.WHITE);
         textArea.setBorder(BorderFactory.createEmptyBorder(
-            TEXT_AREA_PADDING,
-            TEXT_AREA_PADDING,
-            TEXT_AREA_PADDING,
+            TEXT_AREA_PADDING, 
+            TEXT_AREA_PADDING, 
+            TEXT_AREA_PADDING, 
             TEXT_AREA_PADDING
         ));
 
