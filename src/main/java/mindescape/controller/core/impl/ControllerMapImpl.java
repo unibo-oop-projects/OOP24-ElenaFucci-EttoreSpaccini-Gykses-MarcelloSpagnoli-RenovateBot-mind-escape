@@ -10,7 +10,7 @@ import mindescape.controller.core.api.ControllerName;
 /**
  * Implementation of the ControllerMap interface that manages a collection of controllers.
  */
-public class ControllerMapImpl implements ControllerMap {
+public final class ControllerMapImpl implements ControllerMap {
 
     private final Map<String, Controller> controllers;
 

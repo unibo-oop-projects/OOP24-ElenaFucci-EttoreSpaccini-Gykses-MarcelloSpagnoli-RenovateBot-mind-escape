@@ -19,7 +19,7 @@ import java.awt.event.WindowEvent;
 /**
  * The view for the main screen.
  */
-public class MainViewImpl implements MainView {
+public final class MainViewImpl implements MainView {
 
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;

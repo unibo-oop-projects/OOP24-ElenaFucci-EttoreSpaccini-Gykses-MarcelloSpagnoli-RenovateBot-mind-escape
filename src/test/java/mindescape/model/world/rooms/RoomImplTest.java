@@ -15,7 +15,7 @@ import mindescape.model.world.items.interactable.impl.PickableImpl;
 import mindescape.model.world.rooms.api.Room;
 import mindescape.model.world.rooms.impl.RoomImpl;
 
-public class RoomImplTest {
+final class RoomImplTest {
     private List<Room> rooms;
     private Room bedroom; 
 

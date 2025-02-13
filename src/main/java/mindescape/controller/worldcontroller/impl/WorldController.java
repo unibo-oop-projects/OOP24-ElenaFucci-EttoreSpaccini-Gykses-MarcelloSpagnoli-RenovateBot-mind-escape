@@ -3,7 +3,6 @@ package mindescape.controller.worldcontroller.impl;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
-
 import javax.swing.JPanel;
 import mindescape.controller.core.api.ControllerName;
 import mindescape.controller.core.api.KeyMapper;
@@ -19,7 +18,7 @@ import mindescape.view.world.WorldViewImpl;
 /**
  * The controller for the world.
  */
-public class WorldController implements LoopController {
+public final class WorldController implements LoopController {
 
     private final World world;
     private final WorldView worldView;

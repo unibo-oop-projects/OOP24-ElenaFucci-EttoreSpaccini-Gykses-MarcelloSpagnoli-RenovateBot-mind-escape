@@ -9,7 +9,7 @@ import mindescape.model.saveload.api.Saves;
 /**
  * Implementation of the Saves interface.
  */
-public class SavesImpl implements Saves {
+public final class SavesImpl implements Saves {
 
     private final File savesDirectory = new File("saves");
 

@@ -27,7 +27,6 @@ import java.util.Date;
 public final class SavesView extends JPanel implements View {
 
     private static final long serialVersionUID = 1L;
-
     private static final Color BACKGROUND_COLOR = new Color(20, 20, 20);
     private static final Color BORDER_COLOR = new Color(255, 215, 0);
     private static final Color LIST_BACKGROUND_COLOR = new Color(0, 0, 0);

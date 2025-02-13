@@ -23,7 +23,7 @@ import mindescape.model.world.rooms.impl.RoomImpl;
 /**
  * Implementation of the World interface.
  */
-public class WorldImpl implements World, Serializable {
+public final class WorldImpl implements World, Serializable {
 
     private static final long serialVersionUID = 1L;
     private final Player player;

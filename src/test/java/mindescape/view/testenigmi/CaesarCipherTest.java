@@ -8,7 +8,7 @@ import mindescape.controller.caesarcipher.impl.CaesarCipherControllerImpl;
 import mindescape.model.enigma.caesarcipher.impl.CaesarCipherModelImpl;
 
 @SuppressWarnings("all")
-public class CaesarCipherTest {
+final class CaesarCipherTest {
 
     @SuppressWarnings("all")
     public static void main(final String[] args) {

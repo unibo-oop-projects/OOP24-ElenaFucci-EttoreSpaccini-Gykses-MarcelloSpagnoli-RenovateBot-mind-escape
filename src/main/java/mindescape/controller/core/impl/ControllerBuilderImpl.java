@@ -26,7 +26,7 @@ import mindescape.model.world.impl.WorldImpl;
  * Implementation of the ControllerBuilder interface.
  * This class is responsible for building various controllers and managing them through a ControllerMap.
  */
-public class ControllerBuilderImpl implements ControllerBuilder {
+public final class ControllerBuilderImpl implements ControllerBuilder {
 
     private final ControllerMap controllerMap;
     private final MainController mainController;
