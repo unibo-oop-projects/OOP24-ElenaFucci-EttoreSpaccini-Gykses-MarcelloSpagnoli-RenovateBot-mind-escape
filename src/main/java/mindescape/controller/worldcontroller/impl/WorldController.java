@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import mindescape.controller.core.api.ControllerName;
 import mindescape.controller.core.api.KeyMapper;
 import mindescape.controller.core.api.LoopController;
@@ -35,6 +37,7 @@ public final class WorldController implements LoopController {
      * @param world the world model to be controlled
      * @param mainController the main controller managing the overall application
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The main controller needs to be exposed to the caller")
     public WorldController(final World world, final MainController mainController) {
         this.world = world;
         this.worldView = new WorldViewImpl(world.getCurrentRoom());
@@ -126,6 +129,7 @@ public final class WorldController implements LoopController {
      * {@inheritDoc}
      */
     @Override
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The model is returned to the caller")
     public Model getModel() {
         return this.world;
     }
