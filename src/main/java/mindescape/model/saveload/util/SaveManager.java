@@ -47,10 +47,8 @@ public final class SaveManager {
         Objects.requireNonNull(world, "World object cannot be null");
         final var username = world.getPlayer().getName();
         final File saveDir = new File(SAVE_FOLDER);
-        if (!saveDir.exists()) {
-            if (!saveDir.mkdirs()) {
-                throw new RuntimeException("Error creating save directory");
-            }
+        if (!saveDir.exists() && !saveDir.mkdirs()) {
+            throw new RuntimeException("Error creating save directory");
         }
 
         final File saveFile = new File(SAVE_FOLDER, username + ".sav");
