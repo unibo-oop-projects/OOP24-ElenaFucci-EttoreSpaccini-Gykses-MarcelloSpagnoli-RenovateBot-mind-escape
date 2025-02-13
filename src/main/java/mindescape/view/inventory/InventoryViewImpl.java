@@ -92,7 +92,7 @@ public class InventoryViewImpl implements View {
      */
     @Override
     public JPanel getPanel() {
-        return panel;
+        return this.panel;
     }
 
     /**
