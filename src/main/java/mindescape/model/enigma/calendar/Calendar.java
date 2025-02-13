@@ -1,7 +1,6 @@
 package mindescape.model.enigma.calendar;
 
 import java.io.Serializable;
-import mindescape.controller.core.api.ControllerName;
 import mindescape.model.api.Model;
 import mindescape.model.enigma.api.Enigma;
 import mindescape.model.enigma.api.EnigmaFactory.EnigmaType;

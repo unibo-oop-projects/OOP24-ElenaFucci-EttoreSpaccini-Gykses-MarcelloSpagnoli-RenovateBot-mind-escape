@@ -41,7 +41,6 @@ public final class ViewUtils {
     private static final int TITLE_WIDTH = 400;
     private static final int TITLE_HEIGHT = 80;
     private static final int TEXT_AREA_PADDING = 10;
-    private static final int MAX_LINE_LENGTH = 130;
 
     /**
      * Private constructor to prevent instantiation.
