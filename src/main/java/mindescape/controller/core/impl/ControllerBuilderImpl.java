@@ -1,6 +1,10 @@
 package mindescape.controller.core.impl;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import mindescape.controller.caesarcipher.impl.CaesarCipherControllerImpl;
+import mindescape.controller.core.api.Controller;
 import mindescape.controller.core.api.ControllerBuilder;
 import mindescape.controller.core.api.ControllerMap;
 import mindescape.controller.enigmacalendar.impl.CalendarControllerImpl;

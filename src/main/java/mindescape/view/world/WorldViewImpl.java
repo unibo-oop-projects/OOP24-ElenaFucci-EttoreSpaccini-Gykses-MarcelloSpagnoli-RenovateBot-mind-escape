@@ -42,15 +42,15 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
         KeyEvent.VK_I, UserInput.INVENTORY
     );
     private static final double ROTATING_ANGLE = -90;
-    private final Map<TiledTile, BufferedImage> tilesCache = new HashMap<>();
-    private BufferedImage roomImage;
+    private transient final Map<TiledTile, BufferedImage> tilesCache = new HashMap<>();
+    private transient BufferedImage roomImage;
     private double scaling = 1;
-    private String roomName;
-    private final PlayerView player;
+    private transient String roomName;
+    private transient final PlayerView player;
     private double roomHeight;
     private int objNum;
     private final Map<Integer, Boolean> keyState = new HashMap<>();
-    private final ImageTransformer transformer = new ImageTransformer();
+    private transient final ImageTransformer transformer = new ImageTransformer();
 
     /**
      * Constructor for WorldViewImpl.
