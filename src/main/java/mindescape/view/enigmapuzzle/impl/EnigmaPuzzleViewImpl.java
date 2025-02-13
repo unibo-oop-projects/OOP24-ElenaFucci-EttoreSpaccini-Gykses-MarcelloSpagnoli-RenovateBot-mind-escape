@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class EnigmaPuzzleViewImpl extends JPanel implements EnigmaPuzzleView {
 
-    private final static long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
     private final List<ImageButton> buttons = new ArrayList<>();
     private final BufferedImage image;
     private final int rows, cols;
@@ -59,6 +59,13 @@ public class EnigmaPuzzleViewImpl extends JPanel implements EnigmaPuzzleView {
         return buttons;
     }
 
+    /**
+     * Updates the puzzle view with the provided pieces.
+     *
+     * @param pieces a 2D array representing the positions of the puzzle pieces.
+     *               Each element in the array corresponds to the position of a piece
+     *               in the original image.
+     */
     public void update(final Integer[][] pieces) {
         for (int i = 0; i < this.rows; i++) {
             for (int j = 0; j < this.cols; j++) {

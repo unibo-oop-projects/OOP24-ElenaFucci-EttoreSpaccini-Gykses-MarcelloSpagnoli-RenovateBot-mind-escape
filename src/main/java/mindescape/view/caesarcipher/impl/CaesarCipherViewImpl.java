@@ -22,6 +22,12 @@ import mindescape.view.caesarcipher.api.CaesarCipherView;
 public class CaesarCipherViewImpl implements CaesarCipherView {
 
     private static final String FONT_NAME = "Arial";
+    private static final int SHIFT_FIELD_COLUMNS = 5;
+    private static final int DECRYPTED_FIELD_COLUMNS = 15;
+    private static final int FONT_SIZE_MIN = 12;
+    private static final int FONT_SIZE_DIVISOR = 30;
+    private static final int TITLE_FONT_SIZE_INCREMENT = 6;
+
     private final JPanel panel;
     private final JTextField shiftField;
     private final JLabel encryptedLabel;
@@ -69,7 +75,7 @@ public class CaesarCipherViewImpl implements CaesarCipherView {
         gbc.gridwidth = 1;
         this.panel.add(shiftLabel, gbc);
 
-        shiftField = new JTextField(5);
+        shiftField = new JTextField(SHIFT_FIELD_COLUMNS);
         gbc.gridx = 1;
         this.panel.add(shiftField, gbc);
 
@@ -91,7 +97,7 @@ public class CaesarCipherViewImpl implements CaesarCipherView {
         gbc.gridwidth = 2;
         this.panel.add(resultLabel, gbc);
 
-        decryptedField = new JTextField(15);
+        decryptedField = new JTextField(DECRYPTED_FIELD_COLUMNS);
         decryptedField.setEditable(false);
         gbc.gridx = 0;
         gbc.gridy = 5;
@@ -105,8 +111,8 @@ public class CaesarCipherViewImpl implements CaesarCipherView {
             @Override
             public void componentResized(final ComponentEvent e) {
                 final int width = panel.getWidth();
-                final int fontSize = Math.max(12, width / 30);
-                titleLabel.setFont(new Font(FONT_NAME, Font.BOLD, fontSize + 6));
+                final int fontSize = Math.max(FONT_SIZE_MIN, width / FONT_SIZE_DIVISOR);
+                titleLabel.setFont(new Font(FONT_NAME, Font.BOLD, fontSize + TITLE_FONT_SIZE_INCREMENT));
                 encryptedLabel.setFont(new Font(FONT_NAME, Font.PLAIN, fontSize));
                 shiftLabel.setFont(new Font(FONT_NAME, Font.PLAIN, fontSize));
                 resultLabel.setFont(new Font(FONT_NAME, Font.PLAIN, fontSize));

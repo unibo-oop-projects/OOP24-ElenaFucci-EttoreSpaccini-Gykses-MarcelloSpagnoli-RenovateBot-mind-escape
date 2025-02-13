@@ -21,7 +21,7 @@ import mindescape.model.world.player.api.Player;
  */
 public class UnpickableImpl extends GameObjectImpl implements Unpickable {
 
-    private final static long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     private final Pickable reward;
     private boolean unlocked;
