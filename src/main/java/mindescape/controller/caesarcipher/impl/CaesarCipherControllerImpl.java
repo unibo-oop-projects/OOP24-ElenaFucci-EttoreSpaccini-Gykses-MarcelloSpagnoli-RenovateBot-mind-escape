@@ -1,6 +1,5 @@
 package mindescape.controller.caesarcipher.impl;
 
-import java.io.Serializable;
 import javax.swing.JPanel;
 import mindescape.controller.caesarcipher.api.CaesarCipherController;
 import mindescape.controller.core.api.ControllerName;
@@ -13,9 +12,8 @@ import mindescape.view.caesarcipher.impl.CaesarCipherViewImpl;
 /**
  * Implementation of {@code CaesarCipherController} that manages user interaction and model updates.
  */
-public class CaesarCipherControllerImpl implements CaesarCipherController, Serializable {
+public class CaesarCipherControllerImpl implements CaesarCipherController {
 
-    private static final long serialVersionUID = 1L;
     private final MainController mainController;
     private final CaesarCipherModel model;
     private final CaesarCipherView view; 
