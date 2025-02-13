@@ -1,11 +1,7 @@
 package mindescape.view;
 
-import java.awt.Event;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
-
 import mindescape.controller.saveload.api.SavesController;
 import mindescape.controller.saveload.impl.SavesControllerImpl;
 
