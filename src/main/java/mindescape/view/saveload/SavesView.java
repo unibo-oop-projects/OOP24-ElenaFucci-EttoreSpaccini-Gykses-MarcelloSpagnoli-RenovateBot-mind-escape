@@ -66,9 +66,6 @@ public class SavesView extends JPanel implements View {
 
         this.add(scrollPane, BorderLayout.CENTER);
         this.add(buttonPanel, BorderLayout.SOUTH);
-
-        this.revalidate();
-        this.repaint();
     }
 
     private void styleSaveList() {
