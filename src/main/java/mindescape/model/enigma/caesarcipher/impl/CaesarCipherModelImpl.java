@@ -8,7 +8,7 @@ import mindescape.model.enigma.caesarcipher.api.CaesarCipherModel;
  * The {@code CaesarCipherModelImpl} class implements {@code CaesarCipherModel} to provide encryption
  * and decryption functionalities for the Caesar Cipher enigma.
  */
-public class CaesarCipherModelImpl implements CaesarCipherModel, Serializable {
+public final class CaesarCipherModelImpl implements CaesarCipherModel, Serializable {
 
     private static final String ENCRYPTED_TEXT = 
         "nhbfrgh wr wkh forvhw lv \"reolylrq\". Frqwdlqv lpsruwdqw lqirupdwlrqv."; 

@@ -11,7 +11,7 @@ import mindescape.model.world.player.api.Player;
 /**
  * Implementation of the CollisionDetector interface.
  */
-public class CollisionDetectorImpl implements CollisionDetector {
+public final class CollisionDetectorImpl implements CollisionDetector {
 
     /**
      * {@inheritDoc}

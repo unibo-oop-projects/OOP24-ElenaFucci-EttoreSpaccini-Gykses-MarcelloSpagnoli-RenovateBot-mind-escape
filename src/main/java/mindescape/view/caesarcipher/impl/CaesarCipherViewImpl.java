@@ -19,7 +19,7 @@ import mindescape.view.caesarcipher.api.CaesarCipherView;
  * The {@code CaesarCipherViewImpl} class implements {@code CaesarCipherView} to provide a graphical user
  * interface for displaying and decrypting an encrypted Caesar Cipher text.
  */
-public class CaesarCipherViewImpl implements CaesarCipherView {
+public final class CaesarCipherViewImpl implements CaesarCipherView {
 
     private static final String FONT_NAME = "Arial";
     private static final Color BACKGROUND_COLOR = Color.DARK_GRAY;
