@@ -30,8 +30,10 @@ public class WorldImpl implements World, Serializable {
     private static final long serialVersionUID = 1L;
     private final Player player;
     private final List<Room> rooms;
-    private final transient CollisionDetector collisionDetector; // NOPMD: the deserialization of this field is handled by another method
-    private transient Optional<GameObject> collidingObject; // NOPMD: the deserialization of this field is handled by another method
+    // NOPMD: the deserialization of this field is handled by another method
+    private final transient CollisionDetector collisionDetector; 
+    // NOPMD: the deserialization of this field is handled by another method
+    private transient Optional<GameObject> collidingObject; 
 
     /**
      * Constructs a new WorldImpl instance.

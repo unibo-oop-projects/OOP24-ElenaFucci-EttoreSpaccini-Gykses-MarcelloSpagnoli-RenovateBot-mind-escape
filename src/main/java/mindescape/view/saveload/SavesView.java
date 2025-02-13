@@ -55,7 +55,12 @@ public class SavesView extends JPanel implements View {
 
         final JPanel buttonPanel = ViewUtils.createStyledPanel();
         buttonPanel.setLayout(new BorderLayout());
-        buttonPanel.setBorder(BorderFactory.createEmptyBorder(BUTTON_PANEL_PADDING, BUTTON_PANEL_PADDING, BUTTON_PANEL_PADDING, BUTTON_PANEL_PADDING));
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(
+            BUTTON_PANEL_PADDING, 
+            BUTTON_PANEL_PADDING, 
+            BUTTON_PANEL_PADDING, 
+            BUTTON_PANEL_PADDING
+        ));
         buttonPanel.add(menuButton, BorderLayout.WEST);
         buttonPanel.add(loadButton, BorderLayout.EAST);
 
