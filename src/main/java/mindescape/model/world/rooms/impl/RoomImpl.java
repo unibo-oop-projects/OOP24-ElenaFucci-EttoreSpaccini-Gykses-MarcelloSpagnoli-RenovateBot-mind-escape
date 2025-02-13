@@ -25,7 +25,7 @@ import mindescape.model.world.rooms.api.Room;
  */
 public final class RoomImpl implements Room, Serializable {
 
-    private final static long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
     private final Dimensions dimensions;
     private final Set<GameObject> gameObjects = new HashSet<>();
     private final String name;

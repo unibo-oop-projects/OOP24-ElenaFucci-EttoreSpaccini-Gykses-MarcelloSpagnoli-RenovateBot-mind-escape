@@ -21,7 +21,7 @@ import mindescape.view.caesarcipher.api.CaesarCipherView;
  */
 public class CaesarCipherViewImpl implements CaesarCipherView {
 
-    private final static String FONT_NAME = "Arial";
+    private static final String FONT_NAME = "Arial";
     private final JPanel panel;
     private final JTextField shiftField;
     private final JLabel encryptedLabel;
