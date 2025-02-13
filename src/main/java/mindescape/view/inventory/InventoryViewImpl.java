@@ -35,6 +35,8 @@ public class InventoryViewImpl implements View {
     private static final int MIN_FONT_SIZE = 10;
     private static final int FONT_SIZE_DIVISOR = 30;
     private static final int PANEL_SIZE = 400;
+    private static final int DESCRIPTION_ROWS = 5;
+    private static final int DESCRIPTION_COLUMNS = 20;
 
     private final InventoryControllerImpl controller;
     private final JPanel panel;
@@ -56,7 +58,7 @@ public class InventoryViewImpl implements View {
         this.panel = new JPanel(new BorderLayout());
         this.inventoryPanel = new JPanel();
         inventoryPanel.setLayout(new GridLayout(GRID_ROWS, GRID_COLUMNS, MARGIN, MARGIN)); 
-        this.descriptionArea = new JTextArea(5, 20);
+        this.descriptionArea = new JTextArea(DESCRIPTION_ROWS, DESCRIPTION_COLUMNS);
         this.descriptionArea.setEditable(false);
         this.descriptionArea.setText("");
         panel.add(inventoryPanel, BorderLayout.CENTER);
@@ -65,17 +67,17 @@ public class InventoryViewImpl implements View {
 
         panel.addComponentListener(new ComponentAdapter() {
             @Override
-            public void componentResized(ComponentEvent e) {
-                int width = panel.getWidth();
-                int fontSize = Math.max(MIN_FONT_SIZE, width / FONT_SIZE_DIVISOR);
+            public void componentResized(final ComponentEvent e) {
+                final int width = panel.getWidth();
+                final int fontSize = Math.max(MIN_FONT_SIZE, width / FONT_SIZE_DIVISOR);
                 updateFontSizes(fontSize);
             }
         });
 
         panel.addKeyListener(new KeyAdapter() {
             @Override
-            public void keyPressed(KeyEvent e) {
-                int pressed = e.getKeyCode();
+            public void keyPressed(final KeyEvent e) {
+                final int pressed = e.getKeyCode();
                 controller.handleInput(pressed);
             }
         });
@@ -106,7 +108,7 @@ public class InventoryViewImpl implements View {
         for (final Pickable item : items) {
             JButton itemButton = new JButton() {
                 @Override
-                public void paintComponent(Graphics g) {
+                public void paintComponent(final Graphics g) {
                     super.paintComponent(g);
                     Icon icon = createIcon(item);
                     if (icon != null) {
@@ -123,7 +125,7 @@ public class InventoryViewImpl implements View {
             itemButton.setFocusable(false);
             itemButton.addActionListener(new ActionListener() {
                 @Override
-                public void actionPerformed(ActionEvent e) {
+                public void actionPerformed(final ActionEvent e) {
                     controller.handleItemClick(item);
                 }
             });
@@ -139,7 +141,6 @@ public class InventoryViewImpl implements View {
         inventoryPanel.repaint();
     }
 
-    
     /**
      * Creates an Icon for the given Pickable item.
      *
@@ -148,7 +149,7 @@ public class InventoryViewImpl implements View {
      * @throws IllegalArgumentException if the item's name is unexpected
      */
     private Icon createIcon(final Pickable item) {
-        String imagePath = switch(item.getName()) {
+        String imagePath = switch (item.getName()) {
             case "key" -> "key.png";
             case "Office key" -> "key.png";
             case "Bed note" -> "ticket.png";
@@ -162,24 +163,22 @@ public class InventoryViewImpl implements View {
         return new ImageIcon(getClass().getClassLoader().getResource("pickable/" + imagePath));
     }
 
-    
     /**
      * Updates the description area with the provided text.
      *
      * @param description the new description text to be set in the description area
      */
-    public void updateDescription(String description) {
+    public void updateDescription(final String description) {
         descriptionArea.setText(description);
     }
 
-    
     /**
      * Updates the font sizes of all components within the inventory panel.
      * Specifically, it sets the font size of all JButton components and the description area.
      *
      * @param fontSize the new font size to be applied to the components
      */
-    private void updateFontSizes(int fontSize) {
+    private void updateFontSizes(final int fontSize) {
         for (final Component comp : inventoryPanel.getComponents()) {
             if (comp instanceof JButton) {
                 JButton button = (JButton) comp;
