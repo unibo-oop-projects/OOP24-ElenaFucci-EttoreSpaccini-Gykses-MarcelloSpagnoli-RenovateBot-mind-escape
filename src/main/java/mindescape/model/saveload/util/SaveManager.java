@@ -26,9 +26,13 @@ import java.util.Objects;
  * 
  * @see World
  */
-public class SaveManager {
+public final class SaveManager {
 
     private static final String SAVE_FOLDER = "saves";
+
+    private SaveManager() {
+        throw new AssertionError("Utility class should not be instantiated");
+    }
 
     /**
      * Saves the current game status to a file.
@@ -40,24 +44,23 @@ public class SaveManager {
      * @param world the {@code World} object representing the current game state
      * @throws NullPointerException if the {@code World} object is null
      */
-    public static void saveGameStatus(final World world) throws NullPointerException {
+    public static void saveGameStatus(final World world) {
         Objects.requireNonNull(world, "World object cannot be null");
-        var username = world.getPlayer().getName();
-        File saveDir = new File(SAVE_FOLDER);
+        final var username = world.getPlayer().getName();
+        final File saveDir = new File(SAVE_FOLDER);
         if (!saveDir.exists()) {
             saveDir.mkdirs();
         }
 
-        File saveFile = new File(SAVE_FOLDER, username + ".sav");
+        final File saveFile = new File(SAVE_FOLDER, username + ".sav");
 
-        try (final ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(saveFile))) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(saveFile))) {
             oos.writeObject(world.getPlayer());
             oos.writeObject(world.getRooms());
         } catch (final IOException e) {
-            System.err.println("Error saving game: " + e.getMessage());
+            throw new RuntimeException("Error saving game status", e);
         }
     }
-    
     /**
      * Loads the game status from the specified save file.
      *
@@ -66,20 +69,19 @@ public class SaveManager {
      * @throws NullPointerException if the save file is null
      * @throws IllegalArgumentException if the save file does not exist
      */
-    public static World loadGameStatus(final File saveFile) throws NullPointerException, IllegalArgumentException {
+    public static World loadGameStatus(final File saveFile) {
         Objects.requireNonNull(saveFile, "Save file cannot be null");
 
         if (!saveFile.exists()) {
             throw new IllegalArgumentException("Save file does not exist");
         }
-    
-        try (final ObjectInputStream ois = new ObjectInputStream(new FileInputStream(saveFile))) {
-            var player = (Player) ois.readObject();
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(saveFile))) {
+            final var player = (Player) ois.readObject();
+
             @SuppressWarnings("unchecked")
-            var rooms = (List<Room>) ois.readObject();
+            final var rooms = (List<Room>) ois.readObject();
             return new WorldImpl(rooms, player);
         } catch (IOException | ClassNotFoundException e) {
-            System.err.println("Error loading game: " + e.getMessage());
             return null;
         }
     }

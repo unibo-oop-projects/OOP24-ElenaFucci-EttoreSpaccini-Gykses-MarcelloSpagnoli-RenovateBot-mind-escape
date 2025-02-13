@@ -1,7 +1,8 @@
 package mindescape.view.enigmapuzzle.impl;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Image;
+import javax.swing.JButton;
 
 /**
  * ImageButton is a custom JButton that allows setting an image to be displayed on the button.
@@ -9,24 +10,15 @@ import java.awt.*;
  */
 public class ImageButton extends JButton {
 
-    private final static long serialVersionUID = 1L;
-
+    private static final long serialVersionUID = 1L;
     private Image image;
-
-    /**
-     * Constructs an ImageButton object.
-     * This constructor calls the superclass constructor to initialize the ImageButton.
-     */
-    public ImageButton() {
-        super();
-    }
 
     /**
      * Sets the image for this button and repaints the component.
      *
      * @param image the new image to be set
      */
-    public void setImage(Image image) {
+    public void setImage(final Image image) {
         this.image = image;
         repaint();
     }
@@ -37,7 +29,7 @@ public class ImageButton extends JButton {
      * @param g the Graphics object used for drawing the image
      */
     @Override
-    protected void paintComponent(Graphics g) {
+    protected void paintComponent(final Graphics g) {
         super.paintComponent(g);
         if (image != null) {
             g.drawImage(image, 0, 0, getWidth(), getHeight(), this);

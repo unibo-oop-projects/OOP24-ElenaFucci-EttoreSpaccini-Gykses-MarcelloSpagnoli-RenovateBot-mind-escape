@@ -3,7 +3,6 @@ package mindescape.controller.core.impl;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-
 import mindescape.controller.core.api.Controller;
 import mindescape.controller.core.api.ControllerMap;
 import mindescape.controller.core.api.ControllerName;
@@ -30,32 +29,50 @@ public class ControllerMapImpl implements ControllerMap {
         this.controllers = new HashMap<>(controllersMap);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Controller findController(final ControllerName name) {
         Objects.requireNonNull(name, "Controller name must not be null.");
         return this.controllers.get(name.getName());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addController(final Controller controller) {
         this.controllers.put(controller.getName(), controller);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeController(final ControllerName name) {
         this.controllers.remove(name.getName());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void clear() {
         this.controllers.clear();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean containsController(final ControllerName name) {
         return this.controllers.containsKey(name.getName());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Iterable<Controller> getControllers() {
         return this.controllers.values();

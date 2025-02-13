@@ -10,11 +10,14 @@ import mindescape.model.enigma.caesarcipher.api.CaesarCipherModel;
  */
 public class CaesarCipherModelImpl implements CaesarCipherModel, Serializable {
 
+    private static final transient String ENCRYPTED_TEXT = 
+        "nhbfrgh wr wkh forvhw lv \"reolylrq\". Frqwdlqv lpsruwdqw lqirupdwlrqv."; 
     private static final long serialVersionUID = 1L;
-    private final static transient String ENCRYPTED_TEXT = "nhbfrgh wr wkh forvhw lv \"reolylrq\". Frqwdlqv lpsruwdqw lqirupdwlrqv."; 
-    private final String decryptedText; 
-    private final String name; 
-    private boolean solved; 
+    private static final int LETTERS_IN_ALPHABET = 26;
+
+    private final String decryptedText;
+    private final String name;
+    private boolean solved;
 
     /**
      * Constructs a {@code CaesarCipherModelImpl} with a name and a given shift value.
@@ -29,20 +32,15 @@ public class CaesarCipherModelImpl implements CaesarCipherModel, Serializable {
     }
 
     /**
-     * Checks if the enigma has been solved.
-     *
-     * @return {@code true} if solved, {@code false} otherwise
-     */
+    * {@inheritDoc}
+    */
     @Override
     public boolean isSolved() {
         return this.solved; 
     }
 
     /**
-     * Attempts to solve the enigma by comparing the provided value with the decrypted text.
-     *
-     * @param value the user-provided solution
-     * @return {@code true} if the solution is correct, {@code false} otherwise
+     * {@inheritDoc}
      */
     @Override
     public boolean hit(final Object value) {
@@ -53,9 +51,7 @@ public class CaesarCipherModelImpl implements CaesarCipherModel, Serializable {
     }
 
     /**
-     * Retrieves the name of the enigma.
-     *
-     * @return the enigma name as a string
+     * {@inheritDoc}
      */
     @Override
     public String getName() {
@@ -63,10 +59,7 @@ public class CaesarCipherModelImpl implements CaesarCipherModel, Serializable {
     }
 
     /**
-     * Encrypts the predefined text using the given shift value.
-     *
-     * @param shift the number of positions to shift each letter
-     * @return the encrypted text
+     * {@inheritDoc}
      */
     @Override
     public String decrypt(final int shift) {
@@ -74,7 +67,9 @@ public class CaesarCipherModelImpl implements CaesarCipherModel, Serializable {
         for (final char c : ENCRYPTED_TEXT.toCharArray()) {
             if (Character.isLetter(c)) {
                 final char base = Character.isUpperCase(c) ? 'A' : 'a';
-                result.append((char) ((c - base - (shift % 26) + 26) % 26 + base));
+                result.append(
+                    (char) ((c - base - (shift % LETTERS_IN_ALPHABET) + LETTERS_IN_ALPHABET) % LETTERS_IN_ALPHABET + base)
+                );
             } else {
                 result.append(c);
             }
@@ -83,9 +78,7 @@ public class CaesarCipherModelImpl implements CaesarCipherModel, Serializable {
     }
 
     /**
-     * Retrieves the encrypted text.
-     *
-     * @return the encrypted text as a string
+     * {@inheritDoc}
      */
     @Override
     public String getEncryptedText() {

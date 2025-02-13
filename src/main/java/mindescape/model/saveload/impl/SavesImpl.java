@@ -24,6 +24,9 @@ public class SavesImpl implements Saves {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<File> getSortedSaveFiles() {
         final var files = savesDirectory.listFiles((dir, name) -> name.endsWith(".sav"));

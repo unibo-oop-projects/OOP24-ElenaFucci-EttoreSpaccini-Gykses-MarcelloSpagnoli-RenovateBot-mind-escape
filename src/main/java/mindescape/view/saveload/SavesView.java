@@ -1,6 +1,6 @@
 package mindescape.view.saveload;
 
-import mindescape.controller.saveload.SavesController;
+import mindescape.controller.saveload.api.SavesController;
 import mindescape.view.api.View;
 import mindescape.view.utils.ViewUtils;
 import javax.swing.*;
@@ -10,24 +10,44 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Date;
 
+/**
+ * The view for the saves screen.
+ */
 public class SavesView extends JPanel implements View {
+
+    private static final long serialVersionUID = 1L;
+    private static final Color BACKGROUND_COLOR = new Color(20, 20, 20);
+    private static final Color BORDER_COLOR = new Color(255, 215, 0);
+    private static final Color LIST_BACKGROUND_COLOR = new Color(0, 0, 0);
+    private static final Color LIST_FOREGROUND_COLOR = new Color(255, 215, 0);
+    private static final Font LIST_FONT = new Font("Arial", Font.BOLD, 18);
+    private static final int BORDER_THICKNESS = 2;
+    private static final int BUTTON_PANEL_PADDING = 10;
+    private static final String NO_SAVES_MESSAGE = "No save files found.";
+    private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm";
+
     private final SavesController controller;
     private final DefaultListModel<String> saveListModel;
     private final JList<String> saveList;
     private final JButton loadButton;
     private final JButton menuButton;
 
+    /**
+     * Constructs the SavesView with a given controller.
+     *
+     * @param controller the SavesController instance that handles the logic for loading saves and quitting to the menu
+     */
     public SavesView(final SavesController controller) {
         this.controller = controller;
         this.setLayout(new BorderLayout());
-        this.setBackground(new Color(20, 20, 20));
+        this.setBackground(BACKGROUND_COLOR);
 
         this.saveListModel = new DefaultListModel<>();
         this.saveList = new JList<>(saveListModel);
         styleSaveList();
 
         final JScrollPane scrollPane = new JScrollPane(saveList);
-        scrollPane.setBorder(BorderFactory.createLineBorder(new Color(255, 215, 0), 2));
+        scrollPane.setBorder(BorderFactory.createLineBorder(BORDER_COLOR, BORDER_THICKNESS));
 
         loadButton = ViewUtils.createStyledButton("Load Save");
         loadButton.addActionListener(e -> this.loadSelectedSave());
@@ -37,7 +57,7 @@ public class SavesView extends JPanel implements View {
 
         final JPanel buttonPanel = ViewUtils.createStyledPanel();
         buttonPanel.setLayout(new BorderLayout());
-        buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(BUTTON_PANEL_PADDING, BUTTON_PANEL_PADDING, BUTTON_PANEL_PADDING, BUTTON_PANEL_PADDING));
         buttonPanel.add(menuButton, BorderLayout.WEST);
         buttonPanel.add(loadButton, BorderLayout.EAST);
 
@@ -50,23 +70,23 @@ public class SavesView extends JPanel implements View {
 
     private void styleSaveList() {
         saveList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        saveList.setBackground(new Color(0, 0, 0));
-        saveList.setForeground(new Color(255, 215, 0));
-        saveList.setFont(new Font("Arial", Font.BOLD, 18));
-        saveList.setBorder(BorderFactory.createLineBorder(new Color(255, 215, 0), 2));
+        saveList.setBackground(LIST_BACKGROUND_COLOR);
+        saveList.setForeground(LIST_FOREGROUND_COLOR);
+        saveList.setFont(LIST_FONT);
+        saveList.setBorder(BorderFactory.createLineBorder(BORDER_COLOR, BORDER_THICKNESS));
     }
 
-    public void updateSaveFiles(List<File> saveFiles) {
+    public void updateSaveFiles(final List<File> saveFiles) {
         saveListModel.clear();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        final SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
 
         if (saveFiles.isEmpty()) {
-            saveListModel.addElement("No save files found.");
+            saveListModel.addElement(NO_SAVES_MESSAGE);
             loadButton.setEnabled(false);
         } else {
-            for (File file : saveFiles) {
-                String fileName = file.getName().replace(".sav", "");
-                String lastModified = dateFormat.format(new Date(file.lastModified()));
+            for (final File file : saveFiles) {
+                final String fileName = file.getName().replace(".sav", "");
+                final String lastModified = dateFormat.format(new Date(file.lastModified()));
                 saveListModel.addElement(fileName + "\t" + lastModified);
             }
             loadButton.setEnabled(true);
@@ -74,8 +94,8 @@ public class SavesView extends JPanel implements View {
     }
 
     private void loadSelectedSave() {
-        int selectedIndex = saveList.getSelectedIndex();
-        if (selectedIndex != -1 && !saveListModel.get(selectedIndex).equals("No save files found.")) {
+        final int selectedIndex = saveList.getSelectedIndex();
+        if (selectedIndex != -1 && !saveListModel.get(selectedIndex).equals(NO_SAVES_MESSAGE)) {
             controller.loadSaveFile(selectedIndex);
         } else {
             JOptionPane.showMessageDialog(this, "Invalid selection.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -86,5 +106,4 @@ public class SavesView extends JPanel implements View {
     public JPanel getPanel() {
         return this;
     }
-
 }

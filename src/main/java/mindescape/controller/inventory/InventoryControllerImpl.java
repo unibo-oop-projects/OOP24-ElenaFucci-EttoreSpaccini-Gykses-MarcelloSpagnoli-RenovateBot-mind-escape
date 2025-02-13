@@ -25,9 +25,10 @@ public class InventoryControllerImpl implements ClickableController {
     /**
      * Constructs an InventoryControllerImpl object.
      *
+     * @param inventory the inventory model that stores the items the player has collected
      * @param mainController the main controller that coordinates the overall application
      */
-    public InventoryControllerImpl(Inventory inventory, final MainController mainController) {
+    public InventoryControllerImpl(final Inventory inventory, final MainController mainController) {
         this.inventory = inventory;
         this.view = new InventoryViewImpl(this);
         this.mainController = mainController;
@@ -41,10 +42,10 @@ public class InventoryControllerImpl implements ClickableController {
      * @throws NullPointerException if the input is null
      */
     @Override
-    public void handleInput(final Object input) throws IllegalArgumentException, NullPointerException {
+    public void handleInput(final Object input) {
         Objects.requireNonNull(input);
         if ((int) input == KeyEvent.VK_I) {
-            this.quit();                                 
+            this.quit();
         }
     }
 
@@ -93,7 +94,7 @@ public class InventoryControllerImpl implements ClickableController {
      */
     @Override
     public Model getModel() {
-        return (Model) this.inventory;
+        return this.inventory;
     }
 
     /**
@@ -113,7 +114,7 @@ public class InventoryControllerImpl implements ClickableController {
      * @param item the item that was clicked, must implement the Pickable interface
      */
     public void handleItemClick(final Pickable item) {
-        String description = item.getDescription();
+        final String description = item.getDescription();
         this.view.updateDescription(description);
     }
 }

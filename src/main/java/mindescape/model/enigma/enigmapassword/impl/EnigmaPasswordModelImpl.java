@@ -1,8 +1,6 @@
 package mindescape.model.enigma.enigmapassword.impl;
 
-
 import java.io.Serializable;
-
 import mindescape.model.enigma.enigmapassword.api.EnigmaPasswordModel;
 
 /**
@@ -12,6 +10,8 @@ import mindescape.model.enigma.enigmapassword.api.EnigmaPasswordModel;
  * </p>
  */
 public class EnigmaPasswordModelImpl implements EnigmaPasswordModel, Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * Indicates whether the enigma has been solved.
@@ -33,9 +33,7 @@ public class EnigmaPasswordModelImpl implements EnigmaPasswordModel, Serializabl
     }
 
     /**
-     * Checks whether the enigma has been solved.
-     *
-     * @return {@code true} if the enigma is solved, {@code false} otherwise
+     * {@inheritDoc}
      */
     @Override
     public boolean isSolved() {
@@ -43,16 +41,10 @@ public class EnigmaPasswordModelImpl implements EnigmaPasswordModel, Serializabl
     }
 
     /**
-     * Attempts to solve the enigma using the provided value.
-     * <p>
-     * The enigma is solved if the provided value matches the correct password.
-     * </p>
-     *
-     * @param value the value used to attempt solving the enigma
-     * @return {@code true} if the provided value solves the enigma, {@code false} otherwise
+     * {@inheritDoc}
      */
     @Override
-    public boolean hit(Object value) {
+    public boolean hit(final Object value) {
         if (value instanceof String && value.equals(this.password)) {
             this.solved = true;
         }
@@ -60,9 +52,7 @@ public class EnigmaPasswordModelImpl implements EnigmaPasswordModel, Serializabl
     }
 
     /**
-     * Retrieves the name of the enigma.
-     *
-     * @return a string representing the enigma's name
+     * {@inheritDoc}
      */
     @Override
     public String getName() {

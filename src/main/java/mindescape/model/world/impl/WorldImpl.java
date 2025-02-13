@@ -25,6 +25,7 @@ import mindescape.model.world.rooms.impl.RoomImpl;
  */
 public class WorldImpl implements World, Serializable {
 
+    private final Point2D playerStartPosition = new Point2D(110, 170);
     private static final long serialVersionUID = 1L;
     private final Player player;
     private final List<Room> rooms;
@@ -38,8 +39,8 @@ public class WorldImpl implements World, Serializable {
      */
     public WorldImpl(final String username) {
         this.rooms = RoomImpl.createRooms();
-        final var currentRoom = rooms.stream().filter(x -> x.getName().equals("bedroom")).findFirst().get();
-        this.player = new PlayerImpl(new Point2D(110, 170), username, Dimensions.TILE, currentRoom);
+        final var currentRoom = rooms.stream().filter(x -> "bedroom".equals(x.getName())).findFirst().get();
+        this.player = new PlayerImpl(this.playerStartPosition, username, Dimensions.TILE, currentRoom);
         currentRoom.addGameObject(player);
         this.collisionDetector = new CollisionDetectorImpl();
         this.collidingObject = Optional.empty();
@@ -58,11 +59,17 @@ public class WorldImpl implements World, Serializable {
         this.collidingObject = Optional.empty();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Room> getRooms() {
         return this.rooms;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<Enigma> letPlayerInteract() {
         Optional<Enigma> enigma = Optional.empty();
@@ -71,7 +78,6 @@ public class WorldImpl implements World, Serializable {
             if (this.collidingObject.get() instanceof UnpickableWithEnigma) {
                 enigma = Optional.of(((UnpickableWithEnigma) this.collidingObject.get()).getEnigma());
             } 
-            
             if (this.collidingObject.get() instanceof Interactable) {
                 this.player.interact((Interactable) this.collidingObject.get());
             }
@@ -84,53 +90,77 @@ public class WorldImpl implements World, Serializable {
         return enigma;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean hasWon() {
-        LockedUnpickable mirror = (LockedUnpickable) this.getRooms()
+        final LockedUnpickable mirror = (LockedUnpickable) this.getRooms()
             .stream()
-            .filter(room -> room.getName().equals("final"))
+            .filter(room -> "final".equals(room.getName()))
             .findFirst()
             .get()
             .getGameObjects()
             .stream()
-            .filter(x -> x.getName().equals("Mirror"))
+            .filter(x -> "Mirror".equals(x.getName()))
             .findFirst()
             .get();
 
         return mirror.isUnlocked();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Room getCurrentRoom() {
         return this.player.getCurrentRoom();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void addRoom(final Room room) throws NullPointerException {
+    public void addRoom(final Room room) {
         Objects.requireNonNull(room, "Room must not be null");
         this.rooms.add(room);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void movePlayer(final Movement movement) throws NullPointerException {
+    public void movePlayer(final Movement movement) {
         Objects.requireNonNull(movement, "Movement must not be null");
 
-        var playerPosition = this.player.getPosition();
-        var position = new Point2D(playerPosition.x() + movement.getX(), playerPosition.y() + movement.getY());
-        var collidingObject = this.collisionDetector.collisions(position, this.player.getDimensions(), this.getCurrentRoom().getGameObjects());
+        final var playerPosition = this.player.getPosition();
+        final var position = new Point2D(playerPosition.x() + movement.getX(), playerPosition.y() + movement.getY());
+        final var collidingObject = this.collisionDetector.collisions(
+            position, 
+            this.player.getDimensions(), 
+            this.getCurrentRoom().getGameObjects()
+        );
 
         if (collidingObject.isEmpty()) {
             this.player.move(movement);
-            collidingObject = Optional.empty();
         } else {
             this.setCollidingObject(collidingObject);
         }
     }
 
+    /**
+     * Sets the colliding object for the current world.
+     *
+     * @param collidingObject an Optional containing the GameObject that is colliding, 
+     *                        or an empty Optional if there is no collision.
+     */
     private void setCollidingObject(final Optional<GameObject> collidingObject) {
         this.collidingObject = collidingObject;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Player getPlayer() {
         return this.player;

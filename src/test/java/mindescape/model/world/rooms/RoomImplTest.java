@@ -40,8 +40,8 @@ public class RoomImplTest {
 
     @Test
     public void testRemoveGameObject() {
-        int size = bedroom.getGameObjects().size();
-        Pickable obj = new PickableImpl(new Point2D(0, 0), "", Dimensions.TILE, "", 0);
+        final int size = bedroom.getGameObjects().size();
+        final Pickable obj = new PickableImpl(new Point2D(0, 0), "", Dimensions.TILE, "", 0);
         bedroom.addGameObject(obj);
         assertEquals(size + 1, bedroom.getGameObjects().size());
         bedroom.removeGameObject(obj);

@@ -10,15 +10,20 @@ import mindescape.model.world.player.api.Player;
 import mindescape.model.world.rooms.api.Room;
 import mindescape.model.world.rooms.impl.RoomImpl;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Optional;
 
+/**
+ * Unit tests for the {@link CollisionDetector} implementation.
+ * This class tests the collision detection functionality in various scenarios
+ * within a room containing different game objects.
+ */
 public class CollisionDetectorTest {
 
     private CollisionDetector collisionDetector;
-    Room bedRoom;
-    Player player;
+    private Room bedRoom;
+    private Player player;
 
     @BeforeEach
     public void setUp() {
@@ -29,12 +34,36 @@ public class CollisionDetectorTest {
     @Test
     public void testCollisionDetected() {
         assertEquals(collisionDetector.collisions(new Point2D(188, 127), Dimensions.TILE, bedRoom.getGameObjects()),
-            Optional.of(bedRoom.getGameObjects().stream().filter(x -> x.getName().equals("Bed")).findAny().get()));
+            Optional.of(bedRoom.getGameObjects().stream().filter(x -> "Bed".equals(x.getName())).findAny().get()));
     }
 
     @Test
     public void testNoCollisionDetected() {
         assertEquals(collisionDetector.collisions(new Point2D(118, 152), Dimensions.TILE, bedRoom.getGameObjects()),
+            Optional.empty());
+    }
+
+    @Test
+    public void testCollisionWithTable() {
+        assertEquals(collisionDetector.collisions(new Point2D(200, 150), Dimensions.TILE, bedRoom.getGameObjects()),
+            Optional.of(bedRoom.getGameObjects().stream().filter(x -> "Table".equals(x.getName())).findAny().get()));
+    }
+
+    @Test
+    public void testCollisionWithChair() {
+        assertEquals(collisionDetector.collisions(new Point2D(220, 180), Dimensions.TILE, bedRoom.getGameObjects()),
+            Optional.of(bedRoom.getGameObjects().stream().filter(x -> "Chair".equals(x.getName())).findAny().get()));
+    }
+
+    @Test
+    public void testCollisionWithWall() {
+        assertEquals(collisionDetector.collisions(new Point2D(50, 50), Dimensions.TILE, bedRoom.getGameObjects()),
+            Optional.of(bedRoom.getGameObjects().stream().filter(x -> "Wall".equals(x.getName())).findAny().get()));
+    }
+
+    @Test
+    public void testNoCollisionAtBoundary() {
+        assertEquals(collisionDetector.collisions(new Point2D(0, 0), Dimensions.TILE, bedRoom.getGameObjects()),
             Optional.empty());
     }
 }

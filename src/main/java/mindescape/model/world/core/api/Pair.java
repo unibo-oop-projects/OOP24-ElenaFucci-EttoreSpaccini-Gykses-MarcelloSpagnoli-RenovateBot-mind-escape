@@ -23,7 +23,7 @@ public class Pair<X, Y> {
      * @param x the first element of the pair
      * @param y the second element of the pair
      */
-    public Pair(X x, Y y) {
+    public Pair(final X x, final Y y) {
         this.x = x;
         this.y = y;
     }
@@ -69,17 +69,21 @@ public class Pair<X, Y> {
      */
     @SuppressWarnings("rawtypes")
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
+    public boolean equals(final Object obj) {
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
-        Pair other = (Pair) obj;
+        }
+        final Pair other = (Pair) obj;
         if (x == null) {
-            if (other.x != null)
+            if (other.x != null) {
                 return false;
+            }
         } else if (!x.equals(other.x)) {
             return false;
         }
@@ -87,7 +91,7 @@ public class Pair<X, Y> {
             if (other.y != null) {
                 return false;
             }
-        } else if (!y.equals(other.y)){
+        } else if (!y.equals(other.y)) {
             return false;
         }
         return true;
