@@ -41,13 +41,12 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
         KeyEvent.VK_E, UserInput.INTERACT,
         KeyEvent.VK_I, UserInput.INVENTORY
     );
-
     private static final double ROTATING_ANGLE = -90;
     private final Map<TiledTile, BufferedImage> tilesCache = new HashMap<>();
     private BufferedImage roomImage;
     private double scaling = 1;
     private String roomName;
-    private PlayerView player;
+    private final PlayerView player;
     private double roomHeight;
     private int objNum;
     private final Map<Integer, Boolean> keyState = new HashMap<>();
@@ -59,7 +58,7 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
      * @param worldController the world controller
      * @param currentRoom the current room
      */
-    public WorldViewImpl(WorldController worldController, Room currentRoom) {
+    public WorldViewImpl(final WorldController worldController, final Room currentRoom) {
         roomHeight = currentRoom.getDimensions().height();
         roomName = currentRoom.getName();
         updateRoomImage(currentRoom);
@@ -152,22 +151,20 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
         return img;
     }
 
-    
-
     private Point2D getPositionFromId(final TiledTile tile, final int mapWidth) {
         return new Point2D(tile.getID() % mapWidth, tile.getID() / mapWidth);
     }
 
     private double getScalingFactor() {
-        double tileScaledDim = this.getHeight() / (roomHeight / Dimensions.TILE.height());
+        final double tileScaledDim = this.getHeight() / (roomHeight / Dimensions.TILE.height());
         return tileScaledDim / Dimensions.TILE.height();
     }
 
     private void updateRoomImage(final Room currentRoom) {
         roomImage = new BufferedImage((int) currentRoom.getDimensions().height(),
             (int) currentRoom.getDimensions().height(), BufferedImage.TYPE_4BYTE_ABGR);
-        Graphics2D finalMap = roomImage.createGraphics();
-        TiledMap map = new FileSystemTiledReader().getMap(currentRoom.getSource());
+        final Graphics2D finalMap = roomImage.createGraphics();
+        final TiledMap map = new FileSystemTiledReader().getMap(currentRoom.getSource());
         getTileLayers(map).forEach(layer -> drawLayer(layer, finalMap, map));
         List<TiledObject> tileObjects = getTileObjects(map);
         tileObjects = tileObjects

@@ -1,7 +1,6 @@
 package mindescape.view.guide.impl;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -19,13 +18,21 @@ import javax.swing.SwingConstants;
 import mindescape.controller.guide.api.GuideController;
 import mindescape.view.guide.api.GuideView;
 
+/**
+ * Implementation of the GuideView.
+ */
 public class GuideViewImpl extends JPanel implements GuideView {
+
     private final static String FONT_NAME = "Arial";
     private final JLabel titleLabel;
     private final JTextArea guideTextArea;
     private final JButton backButton;
     private final GuideController guideController;
 
+    /**
+     * Constructor of the GuideViewImpl.
+     * @param guideController the controller of the guide.
+     */
     public GuideViewImpl(final GuideController guideController) {
         this.guideController = guideController;
         this.setLayout(new BorderLayout());
@@ -49,10 +56,10 @@ public class GuideViewImpl extends JPanel implements GuideView {
         this.backButton.addActionListener(e -> this.guideController.quit());
         this.add(backButton, BorderLayout.SOUTH);
 
-        this.setPreferredSize(new Dimension(800, 600));
         this.addComponentListener(new ComponentAdapter() {
+
             @Override
-            public void componentResized(ComponentEvent e) {
+            public void componentResized(final ComponentEvent e) {
                 final int newSize = Math.max(12, getWidth() / 30);
                 titleLabel.setFont(new Font(FONT_NAME, Font.BOLD, newSize));
                 guideTextArea.setFont(new Font(FONT_NAME, Font.PLAIN, newSize - 4));
@@ -62,11 +69,9 @@ public class GuideViewImpl extends JPanel implements GuideView {
     }
 
     private String loadGuideText() {
-        System.out.println(getClass().getClassLoader().getResource("guide/guide.txt"));
         final StringBuilder content = new StringBuilder();
-        try (final InputStream is = getClass().getClassLoader().getResourceAsStream("guide/guide.txt");
-        
-            final  BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
+        try (InputStream is = getClass().getClassLoader().getResourceAsStream("guide/guide.txt");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 content.append(line).append("\n");
@@ -77,6 +82,9 @@ public class GuideViewImpl extends JPanel implements GuideView {
         return content.toString();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public JPanel getPanel() {
         return this;

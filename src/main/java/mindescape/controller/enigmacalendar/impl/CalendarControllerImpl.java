@@ -23,10 +23,10 @@ public class CalendarControllerImpl implements CalendarController {
      *
      * @param mainController the main controller to be used by this calendar controller
      */
-    public CalendarControllerImpl(MainController mainController) {
+    public CalendarControllerImpl(final MainController mainController) {
         this.mainController = mainController;
         this.view = new CalendarViewImpl(this);
-    }   
+    } 
 
     /**
      * Handles the input provided to the calendar controller.
@@ -36,7 +36,7 @@ public class CalendarControllerImpl implements CalendarController {
      * @throws NullPointerException if the input is null
      */
     @Override
-    public void handleInput(Object input) throws IllegalArgumentException, NullPointerException {
+    public void handleInput(final Object input) throws IllegalArgumentException, NullPointerException {
     }
 
     /**

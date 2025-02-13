@@ -7,6 +7,5 @@ import mindescape.controller.core.api.ClickableController;
  * It represents a controller for handling calendar-related functionalities
  * within the application.
  */
-public interface CalendarController extends ClickableController{
-
+public interface CalendarController extends ClickableController {
 }

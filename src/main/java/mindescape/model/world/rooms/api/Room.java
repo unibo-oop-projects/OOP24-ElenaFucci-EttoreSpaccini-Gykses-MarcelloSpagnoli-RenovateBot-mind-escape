@@ -56,7 +56,7 @@ public interface Room {
 
     /**
      * Dimensions of the room.
-     * @return
+     * @return {@link Dimensions} of the room 
      */
     Dimensions getDimensions();
 

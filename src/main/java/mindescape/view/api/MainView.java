@@ -2,6 +2,9 @@ package mindescape.view.api;
 
 import javax.swing.JPanel;
 
+/**
+ * This is the MainView interface, which allows to control subviews modeled as JPanels.
+ */
 public interface MainView {
 
     /**

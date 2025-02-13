@@ -3,6 +3,9 @@ package mindescape.model.world.core.api;
 import java.util.Optional;
 import java.util.Set;
 
+/**
+ * This interface is used to determine if an object is colliding with another object.
+ */
 public interface CollisionDetector {
     /**
      * Given the position and the dimension of an object, determines if it collides with any object of the room.

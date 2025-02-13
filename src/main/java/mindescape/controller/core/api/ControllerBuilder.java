@@ -29,26 +29,36 @@ public interface ControllerBuilder {
 
     /**
      * Builds the puzzle component.
+     *
+     * @param enigma the enigma to build
      */
     void buildPuzzle(Enigma enigma);
 
     /**
-     * Builds the enigma first door component.
+     * Builds the first door enigma component.
+     *
+     * @param enigma the enigma to build
      */
     void buildEnigmaFirstDoor(Enigma enigma);
 
     /**
-     * Builds the calendar component.
+     * Builds a calendar for the given enigma.
+     *
+     * @param enigma the enigma for which the calendar is to be built
      */
     void buildCalendar(Enigma enigma);
 
     /**
      * Builds the computer component.
+     * 
+     * @param enigma the enigma to build
      */
     void buildComputer(Enigma enigma);
 
     /**
      * Builds the wardrobe component.
+     * 
+     * @param enigma the enigma to build
      */
     void buildWardrobe(Enigma enigma);
 
@@ -66,6 +76,8 @@ public interface ControllerBuilder {
 
     /**
      * Builds the inventory for the controller.
+     * 
+     * @param world the world to build the inventory for
      */
     void buildInventory(World world);
 
@@ -76,8 +88,13 @@ public interface ControllerBuilder {
 
     /**
      * Builds the drawer controller.
+     * 
+     * @param enigma the enigma to build the drawer for
      */
     void buildDrawer(Enigma enigma);
 
+    /**
+     * Builds the guide controller.
+     */
     void buildGuide();
 }

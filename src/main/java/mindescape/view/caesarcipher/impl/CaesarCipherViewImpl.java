@@ -12,7 +12,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-
 import mindescape.controller.caesarcipher.api.CaesarCipherController;
 import mindescape.view.caesarcipher.api.CaesarCipherView;
 
@@ -23,14 +22,12 @@ import mindescape.view.caesarcipher.api.CaesarCipherView;
 public class CaesarCipherViewImpl implements CaesarCipherView {
 
     private final static String FONT_NAME = "Arial";
-
     private final JPanel panel;
     private final JTextField shiftField;
     private final JLabel encryptedLabel;
     private final JTextField decryptedField;
     private final JButton decryptButton;
     private final JButton quitButton;
-
     private final JLabel titleLabel;
     private final JLabel resultLabel;
     private final JLabel shiftLabel;
@@ -78,12 +75,12 @@ public class CaesarCipherViewImpl implements CaesarCipherView {
 
         decryptButton = new JButton("Decrypt");
         quitButton = new JButton("Quit");
-        
+
         gbc.gridx = 0;
         gbc.gridy = 3;
         gbc.gridwidth = 1;
         this.panel.add(decryptButton, gbc);
-        
+
         gbc.gridx = 1;
         this.panel.add(quitButton, gbc);
 
@@ -106,7 +103,7 @@ public class CaesarCipherViewImpl implements CaesarCipherView {
 
         this.panel.addComponentListener(new ComponentAdapter() {
             @Override
-            public void componentResized(ComponentEvent e) {
+            public void componentResized(final ComponentEvent e) {
                 final int width = panel.getWidth();
                 final int fontSize = Math.max(12, width / 30);
                 titleLabel.setFont(new Font(FONT_NAME, Font.BOLD, fontSize + 6));
@@ -120,7 +117,7 @@ public class CaesarCipherViewImpl implements CaesarCipherView {
             }
         });
     }
-    
+
     /**
      * Retrieves the panel associated with this view.
      *

@@ -3,7 +3,6 @@ package mindescape.view.inventory;
 import mindescape.controller.inventory.InventoryControllerImpl;
 import mindescape.model.world.items.interactable.api.Pickable;
 import mindescape.view.api.View;
-
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -15,13 +14,17 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Set;
-
 import javax.swing.BoxLayout;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+/**
+ * Implementation of the InventoryView.
+ */
 public class InventoryViewImpl implements View {
 
     private final InventoryControllerImpl controller;
@@ -49,20 +52,20 @@ public class InventoryViewImpl implements View {
         this.descriptionArea.setEditable(false);
         this.descriptionArea.setText("");
         panel.add(inventoryPanel, BorderLayout.CENTER);
-        JScrollPane scrollPane = new JScrollPane(descriptionArea);
+        final JScrollPane scrollPane = new JScrollPane(descriptionArea);
         panel.add(scrollPane, BorderLayout.SOUTH);
         panel.addComponentListener(new ComponentAdapter() {
             @Override
-            public void componentResized(ComponentEvent e) {
-                int width = panel.getWidth();
-                int fontSize = Math.max(10, width / 30);
+            public void componentResized(final ComponentEvent e) {
+                final int width = panel.getWidth();
+                final int fontSize = Math.max(10, width / 30);
                 updateFontSizes(fontSize);
             }
         });
         panel.addKeyListener(new KeyAdapter() {
             @Override
-            public void keyPressed(KeyEvent e) {
-                int pressed = e.getKeyCode();
+            public void keyPressed(final KeyEvent e) {
+                final int pressed = e.getKeyCode();
                 controller.handleInput(pressed);
             }
         });
@@ -76,7 +79,7 @@ public class InventoryViewImpl implements View {
      * @return the JPanel instance
      */
     public JPanel getPanel() {
-        return panel;
+        return this.panel;
     }
 
     /**
@@ -90,11 +93,11 @@ public class InventoryViewImpl implements View {
     public void updateInventoryButtons(final Set<Pickable> items) {
         inventoryPanel.removeAll();
         for (final Pickable item : items) {
-            JButton itemButton = new JButton(item.getName());
+            final JButton itemButton = new JButton(getIcon(item));
             itemButton.setFocusable(false);
             itemButton.addActionListener(new ActionListener() {
                 @Override
-                public void actionPerformed(ActionEvent e) {
+                public void actionPerformed(final ActionEvent e) {
                     controller.handleItemClick(item);
                 }
 
@@ -103,11 +106,26 @@ public class InventoryViewImpl implements View {
             inventoryPanel.add(itemButton);
         }
 
-        int width = panel.getWidth();
-        int fontSize = Math.max(10, width / 30);
+        final int width = panel.getWidth();
+        final int fontSize = Math.max(10, width / 30);
         updateFontSizes(fontSize);
         inventoryPanel.revalidate();
         inventoryPanel.repaint();
+    }
+
+    private Icon getIcon(final Pickable item) {
+        final String imagePath = switch (item.getName()) {
+            case "key" -> "key.png";
+            case "Office key" -> "key.png";
+            case "Bed note" -> "ticket.png";
+            case "Message" -> "ticket.png";
+            case "Canteen note" -> "ticket.png";
+            case "Hammer" -> "hammer.png";
+            case "Torch" -> "torch.png";
+            case "Wrench" -> "wrench.png";
+            default -> throw new IllegalArgumentException("Unexpected item: " + item.getName());
+        };
+        return new ImageIcon(getClass().getClassLoader().getResource("pickable/" + imagePath));
     }
 
     /**
@@ -115,7 +133,7 @@ public class InventoryViewImpl implements View {
      *
      * @param description the new description to be displayed
      */
-    public void updateDescription(String description) {
+    public void updateDescription(final String description) {
         descriptionArea.setText(description);
     }
 
@@ -125,10 +143,10 @@ public class InventoryViewImpl implements View {
      *
      * @param fontSize the new font size to be applied to the components
      */
-    private void updateFontSizes(int fontSize) {
+    private void updateFontSizes(final int fontSize) {
         for (final Component comp : inventoryPanel.getComponents()) {
             if (comp instanceof JButton) {
-                JButton button = (JButton) comp;
+                final JButton button = (JButton) comp;
                 button.setFont(new Font("Arial", Font.PLAIN, fontSize));
             }
         }
