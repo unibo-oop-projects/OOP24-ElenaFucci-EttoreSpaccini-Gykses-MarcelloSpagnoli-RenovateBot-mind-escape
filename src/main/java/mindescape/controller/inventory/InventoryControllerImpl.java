@@ -30,7 +30,10 @@ public final class InventoryControllerImpl implements ClickableController {
      * @param inventory the inventory model that stores the items the player has collected
      * @param mainController the main controller that coordinates the overall application
      */
-    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The mainController and the inventory need to be exposed to the caller")
+    @SuppressFBWarnings(
+        value = "EI_EXPOSE_REP", 
+        justification = "The mainController and the inventory need to be exposed to the caller"
+    )
     public InventoryControllerImpl(final Inventory inventory, final MainController mainController) {
         this.inventory = inventory;
         this.view = new InventoryViewImpl(this);
