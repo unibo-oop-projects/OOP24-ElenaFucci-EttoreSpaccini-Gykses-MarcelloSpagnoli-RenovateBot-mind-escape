@@ -2,7 +2,6 @@ package mindescape.controller.core.api;
 
 import java.util.Objects;
 
-
 /**
  * Enum representing various controller names used in the application.
  * Each enum constant is associated with a specific controller name.

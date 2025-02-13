@@ -44,7 +44,7 @@ public final class SaveManager {
      * @param world the {@code World} object representing the current game state
      * @throws NullPointerException if the {@code World} object is null
      */
-    public static void saveGameStatus(final World world) throws NullPointerException {
+    public static void saveGameStatus(final World world) {
         Objects.requireNonNull(world, "World object cannot be null");
         final var username = world.getPlayer().getName();
         final File saveDir = new File(SAVE_FOLDER);
@@ -58,6 +58,7 @@ public final class SaveManager {
             oos.writeObject(world.getPlayer());
             oos.writeObject(world.getRooms());
         } catch (final IOException e) {
+            throw new RuntimeException("Error saving game status", e);
         }
     }
     /**

@@ -63,7 +63,7 @@ public interface EnigmaFactory {
          * @throws IllegalArgumentException if the enigma type is not found
          */
         public static EnigmaType getEnigma(final String name) {
-            for (final var enigmaType : EnigmaType.values()) {
+            for (final var enigmaType : values()) {
                 if (enigmaType.getName().equals(name)) {
                     return enigmaType;
                 }
@@ -79,5 +79,5 @@ public interface EnigmaFactory {
      * @return the corresponding Enigma instance
      * @throws IllegalArgumentException if the enigma is not found
      */
-    Enigma getEnigma(String name) throws IllegalArgumentException;
+    Enigma getEnigma(String name);
 }

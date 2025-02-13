@@ -8,7 +8,7 @@ import mindescape.controller.caesarcipher.impl.CaesarCipherControllerImpl;
 import mindescape.model.enigma.caesarcipher.impl.CaesarCipherModelImpl;
 
 public class CaesarCipherTest {
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         SwingUtilities.invokeLater(() -> {
             CaesarCipherController controller = new CaesarCipherControllerImpl(
                         new CaesarCipherModelImpl("Caesar Cipher", 3), 

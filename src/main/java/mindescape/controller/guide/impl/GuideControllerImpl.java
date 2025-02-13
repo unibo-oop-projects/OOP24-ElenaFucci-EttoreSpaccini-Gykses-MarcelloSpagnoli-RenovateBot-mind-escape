@@ -30,7 +30,7 @@ public class GuideControllerImpl implements GuideController {
      * {@inheritDoc}
      */
     @Override
-    public void handleInput(final Object input) throws IllegalArgumentException, NullPointerException {
+    public void handleInput(final Object input) {
     }
 
     /**

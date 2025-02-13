@@ -5,7 +5,10 @@ import mindescape.controller.maincontroller.impl.MainControllerImpl;
 /**
  * The main class of the application.
  */
-class MindEscape {
+final class MindEscape {
+
+    private MindEscape() {
+    }
 
     /**
      * The main method of the application.

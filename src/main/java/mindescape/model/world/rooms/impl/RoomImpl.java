@@ -25,6 +25,7 @@ import mindescape.model.world.rooms.api.Room;
  */
 public final class RoomImpl implements Room, Serializable {
 
+    private static final long serialVersionUID = 1L;
     private final Dimensions dimensions;
     private final Set<GameObject> gameObjects = new HashSet<>();
     private final String name;
@@ -120,11 +121,11 @@ public final class RoomImpl implements Room, Serializable {
             .toList();
         rooms.forEach(room -> {
             objectsExtractor.extractfrom(room.getSource())
-                .forEach(obj -> room.addGameObject(obj));
+                .forEach(room::addGameObject);
         });
         rooms.forEach(room -> {
             objectsExtractor.addDoors(room.getSource(), rooms.stream().collect(Collectors.toSet()))
-                .forEach(door -> room.addGameObject(door));
+                .forEach(room::addGameObject);
         });
         return rooms;
     }
