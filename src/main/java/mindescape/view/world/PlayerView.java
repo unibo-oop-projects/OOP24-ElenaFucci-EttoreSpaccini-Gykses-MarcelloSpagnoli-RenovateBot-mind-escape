@@ -24,9 +24,9 @@ public class PlayerView {
         KeyEvent.VK_A, UserInput.LEFT,
         KeyEvent.VK_D, UserInput.RIGHT
     );
-    private final static int SPRITE_SHEET_HEIGHT = 16;
-    private final static int SPRITE_SHEET_WIDTH = 16*8;
-    private final static int SPRITES_PER_MOVEMENT = 2;
+    private static final int SPRITE_SHEET_HEIGHT = 16;
+    private static final int SPRITE_SHEET_WIDTH = 16*8;
+    private static final int SPRITES_PER_MOVEMENT = 2;
     private int spriteIndex;
     private final Map<UserInput, List<BufferedImage>> spriteMapper = new HashMap<>();
     private BufferedImage currentSprite;

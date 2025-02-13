@@ -1,24 +1,36 @@
 package mindescape.view.utils;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 /**
  * The ViewUtils class provides utility methods for creating and styling UI components.
  */
 public class ViewUtils {
 
-    private static final Font defaultFont = new Font("Serif", Font.PLAIN, 18);
-    private static final Font titleFont = new Font("Serif", Font.BOLD, 36);
-    private static final Color buttonColor = new Color(30, 32, 34); 
-    private static final Color buttonHoverColor = new Color(50, 53, 55);
-    private static final Color labelColor = new Color(230, 230, 230);
-    private static final Color panelColor = new Color(20, 20, 20); 
-    private static final Color textFieldBackground = new Color(45, 48, 50); 
-    private static final Color textFieldTextColor = new Color(255, 255, 255); 
-    private static final Color textAreaBackground = new Color(40, 43, 45); 
-    private static final Color textAreaTextColor = new Color(220, 220, 220); 
+    private final static Font defaultFont = new Font("Serif", Font.PLAIN, 18);
+    private final static Font titleFont = new Font("Serif", Font.BOLD, 36);
+    private final static Color buttonColor = new Color(30, 32, 34); 
+    private final static Color buttonHoverColor = new Color(50, 53, 55);
+    private final static Color labelColor = new Color(230, 230, 230);
+    private final static Color panelColor = new Color(20, 20, 20); 
+    private final static Color textFieldBackground = new Color(45, 48, 50); 
+    private final static Color textFieldTextColor = new Color(255, 255, 255); 
+    private final static Color textAreaBackground = new Color(40, 43, 45); 
+    private final static Color textAreaTextColor = new Color(220, 220, 220); 
 
     /**
      * Creates a styled JButton with specified text.
@@ -39,13 +51,13 @@ public class ViewUtils {
         // Hover effect
         button.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseEntered(MouseEvent e) {
+            public void mouseEntered(final MouseEvent e) {
                 button.setBackground(buttonHoverColor);
                 button.setBorder(BorderFactory.createLineBorder(new Color(100, 100, 100), 2));
             }
 
             @Override
-            public void mouseExited(MouseEvent e) {
+            public void mouseExited(final MouseEvent e) {
                 button.setBackground(buttonColor);
                 button.setBorder(BorderFactory.createLineBorder(new Color(80, 80, 80), 2));
             }
