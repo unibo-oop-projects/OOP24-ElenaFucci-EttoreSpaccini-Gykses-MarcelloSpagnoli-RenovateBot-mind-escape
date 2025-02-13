@@ -1,6 +1,7 @@
 package mindescape.model.world.core.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,7 +37,7 @@ class GameObjectImplTest {
         final Point2D newPosition = new Point2D(2, 2);
         gameObject.setPosition(newPosition);
         final Point2D position = gameObject.getPosition();
-        assertTrue(position != null);
+        assertNotNull(position);
         assertEquals(newPosition, position);
     }
 

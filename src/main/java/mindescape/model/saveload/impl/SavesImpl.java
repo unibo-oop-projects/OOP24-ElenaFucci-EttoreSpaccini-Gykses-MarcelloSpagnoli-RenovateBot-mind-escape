@@ -20,7 +20,9 @@ public class SavesImpl implements Saves {
      */
     public SavesImpl() {
         if (!savesDirectory.exists()) {
-            savesDirectory.mkdirs();
+            if (!savesDirectory.mkdirs()) {
+                throw new IllegalStateException("Could not create saves directory.");
+            }
         }
     }
 
