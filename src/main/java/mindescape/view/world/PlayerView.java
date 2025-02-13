@@ -3,7 +3,7 @@ package mindescape.view.world;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import javax.imageio.ImageIO;
@@ -34,7 +34,7 @@ public final class PlayerView {
 
 
     private int spriteIndex;
-    private final Map<UserInput, List<BufferedImage>> spriteMapper = new HashMap<>();
+    private final Map<UserInput, List<BufferedImage>> spriteMapper = new EnumMap<>(UserInput.class);
     private BufferedImage currentSprite;
     private final Timer timer;
     private int x;
@@ -53,9 +53,6 @@ public final class PlayerView {
         keyMapper.remove(KeyEvent.VK_E);
         BufferedImage image;
         try (InputStream is = getClass().getClassLoader().getResourceAsStream("playertiles/player.png")) {
-            if (is == null) {
-                throw new IOException("Resource not found: playertiles/player.png");
-            }
             image = ImageIO.read(is);
         } catch (final IOException e) {
             image = new BufferedImage(SPRITE_SHEET_WIDTH, SPRITE_SHEET_HEIGHT, BufferedImage.TYPE_INT_ARGB);

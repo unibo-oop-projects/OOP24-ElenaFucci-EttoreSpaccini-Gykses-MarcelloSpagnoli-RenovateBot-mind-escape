@@ -21,7 +21,7 @@ import mindescape.view.guide.api.GuideView;
 /**
  * Implementation of the GuideView.
  */
-public class GuideViewImpl extends JPanel implements GuideView {
+public final class GuideViewImpl extends JPanel implements GuideView {
 
     private static final long serialVersionUID = 1L;
     private static final String FONT_NAME = "Arial";
@@ -87,7 +87,7 @@ public class GuideViewImpl extends JPanel implements GuideView {
                 if (line != null) {
                     content.append(line).append('\n');
                 } 
-            } while (line != null && !line.equals(""));
+            } while (line != null && !"".equals(line));
         } catch (final IOException e) {
             content.append("Failed to load guide.txt");
         }

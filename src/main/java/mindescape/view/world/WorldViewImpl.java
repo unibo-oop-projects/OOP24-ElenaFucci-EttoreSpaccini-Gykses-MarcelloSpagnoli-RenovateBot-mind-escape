@@ -22,7 +22,6 @@ import org.tiledreader.TiledTileLayer;
 
 import mindescape.controller.core.api.KeyMapper;
 import mindescape.controller.core.api.UserInput;
-import mindescape.controller.worldcontroller.impl.WorldController;
 import mindescape.model.world.core.api.Dimensions;
 import mindescape.model.world.core.api.Point2D;
 import mindescape.model.world.player.api.Player;
@@ -35,10 +34,11 @@ import mindescape.view.utils.ImageTransformer;
  */
 public final class WorldViewImpl extends JPanel implements WorldView, KeyListener {
 
+    private static final long serialVersionUID = 1L;
+
     private static final double ROTATING_ANGLE = -90;
     private transient final Map<TiledTile, BufferedImage> tilesCache = new HashMap<>();
     private transient BufferedImage roomImage;
-    private double scaling = 1;
     private transient String roomName;
     private transient final PlayerView player;
     private double roomHeight;
@@ -50,10 +50,9 @@ public final class WorldViewImpl extends JPanel implements WorldView, KeyListene
     /**
      * Constructor for WorldViewImpl.
      *
-     * @param worldController the world controller
      * @param currentRoom the current room
      */
-    public WorldViewImpl(final WorldController worldController, final Room currentRoom) {
+    public WorldViewImpl(final Room currentRoom) {
         roomHeight = currentRoom.getDimensions().height();
         roomName = currentRoom.getName();
         updateRoomImage(currentRoom);
@@ -85,7 +84,7 @@ public final class WorldViewImpl extends JPanel implements WorldView, KeyListene
     @Override
     protected void paintComponent(final Graphics g) {
         super.paintComponent(g);
-        scaling = getScalingFactor();
+        final double scaling = getScalingFactor();
         final BufferedImage image = transformer.adapt(roomImage, scaling);
         final int offset = (this.getWidth() - image.getWidth()) / 2;
         g.drawImage(image, offset, 0, this);
@@ -190,7 +189,7 @@ public final class WorldViewImpl extends JPanel implements WorldView, KeyListene
 
     private List<TiledObject> getTileObjects(final TiledMap map) {
         final TiledObjectLayer objects =  map.getNonGroupLayers().stream()
-            .filter(layer -> layer.getName().equals("Objects"))
+            .filter(layer -> "Objects".equals(layer.getName()))
             .map(layer -> (TiledObjectLayer) layer)
             .findFirst()
             .get();

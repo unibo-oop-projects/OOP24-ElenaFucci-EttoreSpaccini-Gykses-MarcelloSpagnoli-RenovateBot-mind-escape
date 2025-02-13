@@ -15,14 +15,14 @@ public enum KeyMapper {
     private final int keyCode;
     private final UserInput userInput;
 
-    private KeyMapper(int keyCode, UserInput userInput) {
+    KeyMapper(final int keyCode, final UserInput userInput) {
         this.keyCode = keyCode;
         this.userInput = userInput;
     }
 
     public static Map<Integer, UserInput> getKeyMap() {
-        Map<Integer, UserInput> map = new HashMap<>();
-        for (KeyMapper key : KeyMapper.values()) {
+        final Map<Integer, UserInput> map = new HashMap<>();
+        for (final KeyMapper key : values()) {
             map.put(key.keyCode, key.userInput);
         }
         return map;

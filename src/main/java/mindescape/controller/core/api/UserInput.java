@@ -30,4 +30,5 @@ public enum UserInput {
      * Represents the user opening/closing the inventory.
      */
     INVENTORY;
+
 }

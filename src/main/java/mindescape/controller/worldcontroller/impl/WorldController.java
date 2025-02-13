@@ -35,7 +35,7 @@ public class WorldController implements LoopController {
      */
     public WorldController(final World world, final MainController mainController) {
         this.world = world;
-        this.worldView = new WorldViewImpl(this, world.getCurrentRoom());
+        this.worldView = new WorldViewImpl(world.getCurrentRoom());
         this.mainController = mainController;
     }
 

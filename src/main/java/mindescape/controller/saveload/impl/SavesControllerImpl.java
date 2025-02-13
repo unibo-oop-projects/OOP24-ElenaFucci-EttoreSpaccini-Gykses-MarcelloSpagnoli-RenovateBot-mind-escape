@@ -18,7 +18,7 @@ import mindescape.view.saveload.SavesView;
  * 
  * <p>Handles the user input for the Saves screen and updates the view accordingly.</p>
  */
-public class SavesControllerImpl implements SavesController {
+public final class SavesControllerImpl implements SavesController {
 
     private final Saves model;
     private final SavesView view;

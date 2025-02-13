@@ -18,7 +18,7 @@ import mindescape.view.main.MainViewImpl;
 /**
  * Implementation of the MainController interface.
  */
-public class MainControllerImpl implements MainController {
+public final class MainControllerImpl implements MainController {
     private Controller currentController;
     private ControllerMap controllerMap;
     private final MainView mainView;

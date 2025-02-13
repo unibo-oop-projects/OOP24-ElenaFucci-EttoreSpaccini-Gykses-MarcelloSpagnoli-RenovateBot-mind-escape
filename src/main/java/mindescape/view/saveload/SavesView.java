@@ -8,12 +8,15 @@ import java.awt.*;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 import java.util.Date;
 
 /**
  * The view for the saves screen.
  */
-public class SavesView extends JPanel implements View {
+public final class SavesView extends JPanel implements View {
+
+    private static final long serialVersionUID = 1L;
 
     private static final Color BACKGROUND_COLOR = new Color(20, 20, 20);
     private static final Color BORDER_COLOR = new Color(255, 215, 0);
@@ -76,7 +79,7 @@ public class SavesView extends JPanel implements View {
 
     public void updateSaveFiles(final List<File> saveFiles) {
         saveListModel.clear();
-        final SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+        final SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
 
         if (saveFiles.isEmpty()) {
             saveListModel.addElement(NO_SAVES_MESSAGE);
