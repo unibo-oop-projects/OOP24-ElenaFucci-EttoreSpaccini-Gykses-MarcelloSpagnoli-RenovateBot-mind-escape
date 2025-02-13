@@ -34,7 +34,7 @@ public class ObjectsExtractor {
         final RewardFactory rewards = new RewardFactory();
         final TiledMap map = new FileSystemTiledReader().getMap(roomPath);
         final List<TiledObjectLayer> layers = getObjectLayers(map)
-            .stream().filter(layer -> !layer.getName().equals("Doors"))
+            .stream().filter(layer -> !"Doors".equals(layer.getName()))
             .toList();
         for (final TiledObjectLayer layer : layers) {
             layer.getObjects().forEach(object -> {
@@ -78,7 +78,7 @@ public class ObjectsExtractor {
         final InteractableFactory factory = new InteractableFactoryImpl();
         final TiledMap map = new FileSystemTiledReader().getMap(roomPath);
         final List<TiledObjectLayer> doorLayers = getObjectLayers(map)
-            .stream().filter(layer -> layer.getName().equals("Doors"))
+            .stream().filter(layer -> "Doors".equals(layer.getName()))
             .toList();
         for (final TiledObjectLayer doorLayer : doorLayers) {
             doorLayer.getObjects().forEach(object -> {
@@ -86,7 +86,7 @@ public class ObjectsExtractor {
                 final Point2D destPosition = new Point2D(
                                 (int) object.getProperties().get("DestX"), 
                                 (int) object.getProperties().get("DestY"));
-                Dimensions dimensions = new Dimensions(object.getWidth(), object.getHeight());
+                final Dimensions dimensions = new Dimensions(object.getWidth(), object.getHeight());
                 switch (object.getType()) {
                     case "DoorLockedWithEnigma":
                         doors.add(factory.createDoorLockedWithEnigma(object.getName(), position, dimensions,

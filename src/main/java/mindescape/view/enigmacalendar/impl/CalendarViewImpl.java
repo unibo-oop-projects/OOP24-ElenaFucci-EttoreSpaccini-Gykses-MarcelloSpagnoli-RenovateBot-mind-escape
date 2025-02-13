@@ -40,7 +40,7 @@ public class CalendarViewImpl implements CalendarView {
         panel.setLayout(new BorderLayout());
         panel.setBackground(Color.DARK_GRAY);
 
-        JButton button = new JButton("Quit");
+        final JButton button = new JButton("Quit");
         button.addActionListener(e -> controller.quit());
         panel.add(button, BorderLayout.SOUTH);
 
