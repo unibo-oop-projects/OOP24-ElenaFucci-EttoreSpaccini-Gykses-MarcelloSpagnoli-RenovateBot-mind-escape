@@ -16,7 +16,7 @@ import mindescape.model.world.items.interactable.api.Pickable;
  * and manages the inventory view and inventory model. It handles user input,
  * updates the inventory view, and interacts with the main controller.
  */
-public class InventoryControllerImpl implements ClickableController {
+public final class InventoryControllerImpl implements ClickableController {
 
     private final InventoryViewImpl view;
     private final Inventory inventory;

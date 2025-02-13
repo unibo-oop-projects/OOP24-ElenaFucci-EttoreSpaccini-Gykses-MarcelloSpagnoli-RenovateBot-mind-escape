@@ -7,7 +7,7 @@ import mindescape.model.world.items.interactable.api.Pickable;
  * Since rewards are Pickables corresponding to certain Unpickables, this class
  * is used to create and keep a link between the two.
  */
-public class RewardFactory {
+public final class RewardFactory {
 
     private static final String BED_NOTE_DESC = "3 is the magic number";
     private static final String OFFICE_KEY_DESC = "A key";

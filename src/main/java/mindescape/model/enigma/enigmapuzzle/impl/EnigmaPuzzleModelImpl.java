@@ -10,7 +10,7 @@ import mindescape.model.enigma.enigmapuzzle.api.EnigmaPuzzleModel;
  * The {@code EnigmaPuzzleModelImpl} class implements {@code EnigmaPuzzleModel} to provide functionalities
  * for the Enigma Puzzle enigma.
  */
-public class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializable {
+public final class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializable {
 
     private static final long serialVersionUID = 1L;
     private final int rows;

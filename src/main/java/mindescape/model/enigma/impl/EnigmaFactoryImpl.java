@@ -9,7 +9,7 @@ import mindescape.model.enigma.enigmapuzzle.impl.EnigmaPuzzleModelImpl;
 /**
  * Factory class that creates the enigma objects.
  */
-public class EnigmaFactoryImpl implements EnigmaFactory {
+public final class EnigmaFactoryImpl implements EnigmaFactory {
 
     /**
      * {@inheritDoc}

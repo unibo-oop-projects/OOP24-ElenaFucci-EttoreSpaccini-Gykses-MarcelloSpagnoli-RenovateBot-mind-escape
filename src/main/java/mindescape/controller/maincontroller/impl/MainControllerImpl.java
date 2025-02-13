@@ -39,20 +39,16 @@ public final class MainControllerImpl implements MainController {
      */
     @Override
     public void setController(final ControllerName controllerName, final Enigma enigma) {
-        //TODO: check DRY
         // Quit the current controller if it is a LoopController
         if (this.currentController instanceof LoopController) {
             ((LoopController) this.currentController).quit();
         }
 
         // if the controller is already in the map, set it as the current controller 
-        if (this.controllerMap.containsController(controllerName)) {
-            this.currentController = this.controllerMap.findController(controllerName);
-        } else { // otherwise, build the controller and set it as the current controller
+        if (!this.controllerMap.containsController(controllerName)) {
             this.controllerMap = this.buildController(controllerName, enigma);
-            this.currentController = this.controllerMap.findController(controllerName);
         }
-
+        this.currentController = this.controllerMap.findController(controllerName);
         this.mainView.setPanel(this.currentController.getPanel());
         this.currentController.start();
     }
