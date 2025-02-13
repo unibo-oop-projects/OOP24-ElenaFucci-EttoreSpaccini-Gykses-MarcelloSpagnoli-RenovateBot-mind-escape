@@ -3,12 +3,20 @@ package mindescape.view.saveload;
 import mindescape.controller.saveload.api.SavesController;
 import mindescape.view.api.View;
 import mindescape.view.utils.ViewUtils;
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.BorderLayout;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Locale;
+import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
 import java.util.Date;
 
 /**
@@ -58,15 +66,17 @@ public final class SavesView extends JPanel implements View {
 
         final JPanel buttonPanel = ViewUtils.createStyledPanel();
         buttonPanel.setLayout(new BorderLayout());
-        buttonPanel.setBorder(BorderFactory.createEmptyBorder(BUTTON_PANEL_PADDING, BUTTON_PANEL_PADDING, BUTTON_PANEL_PADDING, BUTTON_PANEL_PADDING));
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(
+            BUTTON_PANEL_PADDING, 
+            BUTTON_PANEL_PADDING, 
+            BUTTON_PANEL_PADDING, 
+            BUTTON_PANEL_PADDING
+        ));
         buttonPanel.add(menuButton, BorderLayout.WEST);
         buttonPanel.add(loadButton, BorderLayout.EAST);
 
         this.add(scrollPane, BorderLayout.CENTER);
         this.add(buttonPanel, BorderLayout.SOUTH);
-
-        this.revalidate();
-        this.repaint();
     }
 
     private void styleSaveList() {
@@ -77,6 +87,11 @@ public final class SavesView extends JPanel implements View {
         saveList.setBorder(BorderFactory.createLineBorder(BORDER_COLOR, BORDER_THICKNESS));
     }
 
+    /**
+     * Updates the list of save files displayed in the view.
+     *
+     * @param saveFiles the list of save files to display
+     */
     public void updateSaveFiles(final List<File> saveFiles) {
         saveListModel.clear();
         final SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
@@ -102,7 +117,7 @@ public final class SavesView extends JPanel implements View {
             JOptionPane.showMessageDialog(this, "Invalid selection.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+
     /**
      * {@inheritDoc}
      */

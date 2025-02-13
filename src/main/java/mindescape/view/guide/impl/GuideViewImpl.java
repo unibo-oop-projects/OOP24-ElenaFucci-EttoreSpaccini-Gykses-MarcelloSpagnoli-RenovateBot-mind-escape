@@ -23,6 +23,8 @@ import mindescape.view.guide.api.GuideView;
  */
 public final class GuideViewImpl extends JPanel implements GuideView {
 
+    private static final int TEXT_AREA_FONT_SIZE = 16;
+    private static final int TITLE_FONT_SIZE = 24;
     private static final long serialVersionUID = 1L;
     private static final String FONT_NAME = "Arial";
     private static final int INITIAL_CAPACITY = 25;
@@ -30,7 +32,7 @@ public final class GuideViewImpl extends JPanel implements GuideView {
     private final JTextArea guideTextArea;
     private final JButton backButton;
     private final GuideController guideController;
-    
+
     /**
      * Constructor of the GuideViewImpl.
      * @param guideController the controller of the guide.
@@ -46,14 +48,15 @@ public final class GuideViewImpl extends JPanel implements GuideView {
     private void setUpComponents() {
         this.setLayout(new BorderLayout());
 
-        this.titleLabel.setFont(new Font(FONT_NAME, Font.BOLD, 24));
+        
+        this.titleLabel.setFont(new Font(FONT_NAME, Font.BOLD, TITLE_FONT_SIZE));
         this.add(titleLabel, BorderLayout.NORTH);
 
         this.guideTextArea.setEditable(false);
         this.guideTextArea.setLineWrap(true);
         this.guideTextArea.setWrapStyleWord(true);
         this.guideTextArea.setText(loadGuideText());
-        this.guideTextArea.setFont(new Font(FONT_NAME, Font.PLAIN, 16));
+        this.guideTextArea.setFont(new Font(FONT_NAME, Font.PLAIN, TEXT_AREA_FONT_SIZE));
 
         final JScrollPane scrollPane = new JScrollPane(guideTextArea);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
