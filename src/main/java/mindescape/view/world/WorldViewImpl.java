@@ -21,6 +21,7 @@ import org.tiledreader.TiledObjectLayer;
 import org.tiledreader.TiledTile;
 import org.tiledreader.TiledTileLayer;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import mindescape.controller.core.api.KeyMapper;
 import mindescape.controller.core.api.UserInput;
 import mindescape.model.world.core.api.Dimensions;
@@ -88,6 +89,8 @@ public final class WorldViewImpl implements WorldView, KeyListener {
         this.panel.repaint();
     }
 
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP",
+        justification = "it is not possible to create a copy of this, however nothing is changed by caller")
     @Override
     public JPanel getPanel() {
         return this.panel;
@@ -156,7 +159,7 @@ public final class WorldViewImpl implements WorldView, KeyListener {
     }
 
     private Point2D getPositionFromId(final TiledTile tile, final int mapWidth) {
-        return new Point2D(tile.getID() % mapWidth, tile.getID() / mapWidth);
+        return new Point2D(tile.getID() % mapWidth, (double) tile.getID() / mapWidth);
     }
 
     private double getScalingFactor() {
