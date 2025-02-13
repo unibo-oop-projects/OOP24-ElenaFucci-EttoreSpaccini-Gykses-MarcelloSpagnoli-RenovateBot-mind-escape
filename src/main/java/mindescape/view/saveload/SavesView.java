@@ -93,7 +93,7 @@ public class SavesView extends JPanel implements View {
 
     private void loadSelectedSave() {
         final int selectedIndex = saveList.getSelectedIndex();
-        if (NO_SAVES_MESSAGE.equals(saveListModel.get(selectedIndex))) {
+        if (!NO_SAVES_MESSAGE.equals(saveListModel.get(selectedIndex))) {
             controller.loadSaveFile(selectedIndex);
         } else {
             JOptionPane.showMessageDialog(this, "Invalid selection.", "Error", JOptionPane.ERROR_MESSAGE);
