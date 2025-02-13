@@ -86,7 +86,6 @@ public class InventoryViewImpl implements View {
                 final ImageIcon icon = new ImageIcon(getIcon(item).getScaledInstance(buttonSize, buttonSize, Image.SCALE_SMOOTH));
                 itemButton.setIcon(icon);
             } catch (final IOException ex) {
-                ex.printStackTrace();
             }
             itemButton.addActionListener(new ActionListener() {
                 @Override

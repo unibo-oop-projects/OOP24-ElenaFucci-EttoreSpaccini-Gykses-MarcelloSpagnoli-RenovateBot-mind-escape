@@ -140,7 +140,7 @@ public class SavesControllerImpl implements SavesController {
      * Loads the save files from the model and updates the view.
      */
     private void loadSaveFile() {
-        var saveFiles = model.getSortedSaveFiles();
+        final var saveFiles = model.getSortedSaveFiles();
 
         if (!saveFiles.isEmpty()) {
             view.updateSaveFiles(saveFiles);
