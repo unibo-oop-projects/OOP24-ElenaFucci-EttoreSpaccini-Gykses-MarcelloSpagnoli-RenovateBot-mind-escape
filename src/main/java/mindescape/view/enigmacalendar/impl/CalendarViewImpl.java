@@ -40,7 +40,7 @@ public class CalendarViewImpl implements CalendarView {
     private static final String[] TIME_SLOTS = {
         "09:00 - 12:00", "12:00 - 13:00", "14:00 - 16:00", "16:00 - 21:00"
     };
-    
+
     private static final String[] ACTIVITIES = {
         "Group psychological session",
         "Lunch in the canteen",
