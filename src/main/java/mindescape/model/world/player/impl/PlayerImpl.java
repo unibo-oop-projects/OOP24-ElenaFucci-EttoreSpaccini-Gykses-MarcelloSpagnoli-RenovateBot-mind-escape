@@ -14,8 +14,7 @@ import mindescape.model.world.items.interactable.api.Interactable;
 /**
  * A class that represents a player in the game.
  */
-public final class PlayerImpl extends GameObjectImpl implements Player {
-    
+public final class PlayerImpl extends GameObjectImpl implements Player {    
     private static final long serialVersionUID = 1L;
     private static final String WARNING = "EI_EXPOSE_REP";
 
