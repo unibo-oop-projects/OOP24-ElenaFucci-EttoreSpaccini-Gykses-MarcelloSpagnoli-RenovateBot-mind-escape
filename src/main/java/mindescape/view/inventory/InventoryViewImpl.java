@@ -14,8 +14,6 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.Set;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -36,7 +34,6 @@ public class InventoryViewImpl implements View {
     private final JPanel panel;
     private final JPanel inventoryPanel;
     private final JTextArea descriptionArea;
-    private int buttonSize = 70;
 
     public InventoryViewImpl(final InventoryControllerImpl controller) {
         this.controller = controller;
@@ -103,14 +100,6 @@ public class InventoryViewImpl implements View {
             itemButton.setIcon(createIcon(item));
 
             itemButton.setFocusable(false);
-            itemButton.setPreferredSize(new Dimension(buttonSize, buttonSize));
-            itemButton.setMinimumSize(new Dimension(buttonSize, buttonSize));
-            itemButton.setMaximumSize(new Dimension(buttonSize, buttonSize));
-            try {
-                final ImageIcon icon = new ImageIcon(getIcon(item).getScaledInstance(buttonSize, buttonSize, Image.SCALE_SMOOTH));
-                itemButton.setIcon(icon);
-            } catch (final IOException ex) {
-            }
             itemButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
