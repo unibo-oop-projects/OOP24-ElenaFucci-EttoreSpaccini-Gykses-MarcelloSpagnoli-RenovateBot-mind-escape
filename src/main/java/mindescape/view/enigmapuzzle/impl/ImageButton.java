@@ -14,14 +14,6 @@ public class ImageButton extends JButton {
     private Image image;
 
     /**
-     * Constructs an ImageButton object.
-     * This constructor calls the superclass constructor to initialize the ImageButton.
-     */
-    public ImageButton() {
-        super();
-    }
-
-    /**
      * Sets the image for this button and repaints the component.
      *
      * @param image the new image to be set

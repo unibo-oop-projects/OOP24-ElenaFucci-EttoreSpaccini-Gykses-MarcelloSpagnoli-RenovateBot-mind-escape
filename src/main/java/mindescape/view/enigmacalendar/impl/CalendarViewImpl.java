@@ -31,7 +31,6 @@ public class CalendarViewImpl implements CalendarView {
     private static final int GRID_VGAP = 10;
     private static final int MIN_FONT_SIZE = 14;
     private static final int TITLE_FONT_INCREMENT = 6;
-
     private static final String TITLE_TEXT = "Daily Schedule";
     private static final String QUIT_BUTTON_TEXT = "Quit";
 
@@ -64,7 +63,7 @@ public class CalendarViewImpl implements CalendarView {
         panel.setLayout(new BorderLayout());
         panel.setBackground(BACKGROUND_COLOR);
 
-        JButton button = new JButton(QUIT_BUTTON_TEXT);
+        final JButton button = new JButton(QUIT_BUTTON_TEXT);
         button.addActionListener(e -> controller.quit());
         panel.add(button, BorderLayout.SOUTH);
 

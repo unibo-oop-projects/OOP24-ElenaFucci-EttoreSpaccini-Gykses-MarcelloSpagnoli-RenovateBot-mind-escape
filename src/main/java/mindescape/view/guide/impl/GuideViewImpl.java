@@ -25,11 +25,12 @@ public class GuideViewImpl extends JPanel implements GuideView {
 
     private static final long serialVersionUID = 1L;
     private final static String FONT_NAME = "Arial";
+    private static final int INITIAL_CAPACITY = 25;
     private final JLabel titleLabel;
     private final JTextArea guideTextArea;
     private final JButton backButton;
     private final GuideController guideController;
-
+    
     /**
      * Constructor of the GuideViewImpl.
      * @param guideController the controller of the guide.
@@ -68,18 +69,18 @@ public class GuideViewImpl extends JPanel implements GuideView {
             }
         });
     }
-
+    
     private String loadGuideText() {
-        final StringBuilder content = new StringBuilder();
+        final StringBuilder content = new StringBuilder(INITIAL_CAPACITY);
         try (InputStream is = getClass().getClassLoader().getResourceAsStream("guide/guide.txt");
             BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
             String line;
-            while ((line = reader.readLine()) != null) {
-                content.append(line).append("\n");
-            }
-        } catch (final IOException | NullPointerException e) {
-            content.append("Failed to load guide.txt");
+        while ((line = reader.readLine()) != null) {
+            content.append(line).append('\n');
         }
+    } catch (final IOException | NullPointerException e) {
+        content.append("Failed to load guide.txt");
+    }
         return content.toString();
     }
 
