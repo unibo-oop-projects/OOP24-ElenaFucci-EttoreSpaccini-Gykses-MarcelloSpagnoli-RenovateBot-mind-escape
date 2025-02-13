@@ -10,7 +10,6 @@ import javax.swing.JButton;
  */
 public class ImageButton extends JButton {
 
-    private static final long serialVersionUID = 1L;
     private Image image;
 
     /**
