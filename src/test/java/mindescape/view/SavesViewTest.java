@@ -15,7 +15,6 @@ final class SavesViewTest {
 
     private SavesViewTest() {
     }
-
     /**
      * Main method to test the SavesView.
      * @param args the arguments.
@@ -27,7 +26,7 @@ final class SavesViewTest {
             frame.add(save.getPanel());
             frame.setSize(WIDTH, HEIGHT);
             frame.setVisible(true);
-        });        
+        });
     }
 
 }

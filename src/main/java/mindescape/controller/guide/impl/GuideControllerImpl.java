@@ -23,7 +23,7 @@ public final class GuideControllerImpl implements GuideController {
      *
      * @param mainController the main controller to be used by this guide controller
      */
-    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The mainController need to be exposed to the caller")
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The mainController needs to be exposed to the caller")
     public GuideControllerImpl(final MainController mainController) {
         this.mainController = mainController;
         this.guideView = new GuideViewImpl(this);

@@ -8,24 +8,20 @@ import mindescape.model.enigma.enigmapassword.impl.EnigmaPasswordModelImpl;
 
 /**
  * This class is a test class for the EnigmaPassword component.
- * It initializes the EnigmaPasswordControllerImpl with a model containing
- * a title and a password, and sets up a JFrame to display the controller's panel.
- * 
- * The main method uses SwingUtilities.invokeLater to ensure that the GUI creation
- * and updates are performed on the Event Dispatch Thread.
- * 
- * The JFrame is configured with a title "Enigma Password Test", a default close operation,
- * and a size of 400x300 pixels. The controller's panel is added to the frame, and the frame
- * is made visible.
  */
 final class EnigmaPasswordTest {
+    private static final int WIDTH = 400;
+    private static final int HEIGHT = 300;
 
     private EnigmaPasswordTest() {
     }
 
-    private static final int WIDTH = 400;
-    private static final int HEIGHT = 300;
-    public static void main(String[] args) {
+    /**
+     * The main method.
+     *
+     * @param args the command line arguments
+     */
+    public static void main(final String[] args) {
         SwingUtilities.invokeLater(() -> {
             final var controller = new EnigmaPasswordControllerImpl(
                     new EnigmaPasswordModelImpl("Enigma Password", "123"), 
