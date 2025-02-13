@@ -75,12 +75,13 @@ public class GuideViewImpl extends JPanel implements GuideView {
         try (InputStream is = getClass().getClassLoader().getResourceAsStream("guide/guide.txt");
             BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
             String line;
-        while ((line = reader.readLine()) != null) {
-            content.append(line).append('\n');
+            while ((line = reader.readLine()) != null) {
+                content.append(line).append('\n');
+            }
+        } 
+        catch (final IOException | NullPointerException e) {
+            content.append("Failed to load guide.txt");
         }
-    } catch (final IOException | NullPointerException e) {
-        content.append("Failed to load guide.txt");
-    }
         return content.toString();
     }
 

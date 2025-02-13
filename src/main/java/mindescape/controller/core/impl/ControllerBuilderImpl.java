@@ -1,8 +1,5 @@
 package mindescape.controller.core.impl;
-
-import java.util.Calendar;
 import java.util.Objects;
-
 import mindescape.controller.caesarcipher.impl.CaesarCipherControllerImpl;
 import mindescape.controller.core.api.ControllerBuilder;
 import mindescape.controller.core.api.ControllerMap;
@@ -17,10 +14,12 @@ import mindescape.controller.saveload.impl.SavesControllerImpl;
 import mindescape.controller.worldcontroller.impl.WorldController;
 import mindescape.model.enigma.api.Enigma;
 import mindescape.model.enigma.caesarcipher.api.CaesarCipherModel;
+import mindescape.model.enigma.calendar.Calendar;
 import mindescape.model.enigma.enigmapassword.api.EnigmaPasswordModel;
 import mindescape.model.enigma.enigmapuzzle.impl.EnigmaPuzzleModelImpl;
 import mindescape.model.world.api.World;
 import mindescape.model.world.impl.WorldImpl;
+
 
 /**
  * Implementation of the ControllerBuilder interface.
@@ -82,7 +81,7 @@ public class ControllerBuilderImpl implements ControllerBuilder {
     public void buildCalendar(final Enigma enigma) {
         if (!(enigma instanceof Calendar)) {
             throw new IllegalArgumentException(
-                "Invalid enigma type for CalendarControllerImpl: " + enigma.getClass().getSimpleName()
+                "Invalid enigma type for CalendarControllerImpl: " + enigma.getClass()
             );
         }
         this.controllerMap.addController(new CalendarControllerImpl(mainController));

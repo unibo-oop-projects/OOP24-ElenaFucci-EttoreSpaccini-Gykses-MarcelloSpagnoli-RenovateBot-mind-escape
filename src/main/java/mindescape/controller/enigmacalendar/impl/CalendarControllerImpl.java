@@ -1,7 +1,6 @@
 package mindescape.controller.enigmacalendar.impl;
 
 import javax.swing.JPanel;
-
 import mindescape.controller.core.api.ControllerName;
 import mindescape.controller.enigmacalendar.api.CalendarController;
 import mindescape.controller.maincontroller.api.MainController;
