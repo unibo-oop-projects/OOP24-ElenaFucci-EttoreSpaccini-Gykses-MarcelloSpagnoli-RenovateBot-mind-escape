@@ -27,7 +27,7 @@ public class EnigmaPuzzleControllerImpl implements EnigmaPuzzleController {
         this.model = model;
         this.view = new EnigmaPuzzleViewImpl(model.getCols(), model.getRows(), this); 
         this.mainController = mainController;
-        view.update(model.getPieces());  // Initialize the view
+        view.update(model.getPieces());
     }
 
     /**
@@ -35,11 +35,14 @@ public class EnigmaPuzzleControllerImpl implements EnigmaPuzzleController {
      */
     @Override
     public void handleInput(final Object input) {
-        if (this.model.hit((int) input)) {
-            this.view.update(this.model.getPieces());
+        if (input instanceof Integer) {
+            final int value = (Integer) input; 
+            if (this.model.hit(value)) {
+                this.view.update(this.model.getPieces());
 
-            if (this.model.isSolved()) {
-                this.quit();
+                if (this.model.isSolved()) {
+                    this.quit();
+                }
             }
         }
     }
@@ -81,7 +84,7 @@ public class EnigmaPuzzleControllerImpl implements EnigmaPuzzleController {
      */
     @Override
     public Model getModel() {
-        return (Model) this.model;
+        return null;
     }
 
     /**
