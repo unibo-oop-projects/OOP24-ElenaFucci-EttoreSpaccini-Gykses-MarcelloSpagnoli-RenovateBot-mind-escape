@@ -67,7 +67,7 @@ public class WorldViewImpl extends JPanel implements WorldView, KeyListener {
         player = new PlayerView(getPlayer(currentRoom).getPosition());
         KEY_MAPPER.forEach((key, value) -> keyState.put(key, false));
         objNum = currentRoom.getGameObjects().size();
-        setFocusable(true);
+        this.setFocusable(true);
         requestFocusInWindow();
         addKeyListener(this);
     }

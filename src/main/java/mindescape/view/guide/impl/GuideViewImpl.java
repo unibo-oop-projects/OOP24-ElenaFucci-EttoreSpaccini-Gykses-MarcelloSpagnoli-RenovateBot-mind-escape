@@ -23,6 +23,7 @@ import mindescape.view.guide.api.GuideView;
  */
 public class GuideViewImpl extends JPanel implements GuideView {
 
+    private static final long serialVersionUID = 1L;
     private final static String FONT_NAME = "Arial";
     private final JLabel titleLabel;
     private final JTextArea guideTextArea;
