@@ -31,7 +31,7 @@ public final class GuideViewImpl extends JPanel implements GuideView {
     private final JLabel titleLabel;
     private final JTextArea guideTextArea;
     private final JButton backButton;
-    private transient final GuideController guideController;
+    private final transient GuideController guideController;
 
     /**
      * Constructor of the GuideViewImpl.

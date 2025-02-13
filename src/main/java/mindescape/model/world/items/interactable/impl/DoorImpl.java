@@ -23,7 +23,7 @@ import mindescape.model.world.rooms.api.Room;
  * @see Door
  * @see GameObjectImpl
  */
-public class DoorImpl extends GameObjectImpl implements Door {
+public final class DoorImpl extends GameObjectImpl implements Door {
 
     private static final long serialVersionUID = 1L;
 

@@ -1,6 +1,7 @@
 package mindescape.controller.core.impl;
 
 import java.util.Objects;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import mindescape.controller.caesarcipher.impl.CaesarCipherControllerImpl;
 import mindescape.controller.core.api.ControllerBuilder;
 import mindescape.controller.core.api.ControllerMap;
@@ -26,7 +27,7 @@ import mindescape.model.world.impl.WorldImpl;
  * Implementation of the ControllerBuilder interface.
  * This class is responsible for building various controllers and managing them through a ControllerMap.
  */
-public class ControllerBuilderImpl implements ControllerBuilder {
+public final class ControllerBuilderImpl implements ControllerBuilder {
 
     private final ControllerMap controllerMap;
     private final MainController mainController;
@@ -173,6 +174,7 @@ public class ControllerBuilderImpl implements ControllerBuilder {
      * {@inheritDoc}
      */
     @Override
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The controller map is returned to the caller")
     public ControllerMap getResult() {
         return this.controllerMap;
     }

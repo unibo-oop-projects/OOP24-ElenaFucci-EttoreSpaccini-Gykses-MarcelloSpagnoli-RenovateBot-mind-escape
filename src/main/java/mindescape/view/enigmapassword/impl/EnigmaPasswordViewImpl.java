@@ -19,7 +19,7 @@ import mindescape.view.enigmapassword.api.EnigmaPasswordView;
  * The {@code EnigmaPasswordViewImpl} class implements {@code EnigmaPasswordView} to provide a user interface
  * for entering a password and verifying it against the enigma's solution.
  */
-public class EnigmaPasswordViewImpl implements EnigmaPasswordView {
+public final class EnigmaPasswordViewImpl implements EnigmaPasswordView {
 
     private static final String FONT_NAME = "Arial";
     private static final int TITLE_FONT_SIZE = 18;

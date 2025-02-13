@@ -17,7 +17,7 @@ import mindescape.model.world.player.api.Player;
  * @see Pickable
  * @see GameObjectImpl
  */
-public class DoorLockedWithPickable extends GameObjectImpl implements Door {
+public final class DoorLockedWithPickable extends GameObjectImpl implements Door {
 
     private static final long serialVersionUID = 1L;
     private final Door baseDoor;

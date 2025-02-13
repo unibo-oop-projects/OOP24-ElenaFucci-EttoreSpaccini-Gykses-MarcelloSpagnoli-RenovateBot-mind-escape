@@ -10,7 +10,7 @@ import mindescape.model.world.core.api.Point2D;
 /**
  * Test class for {@link GameObjectImpl}.
  */
-class GameObjectImplTest {
+final class GameObjectImplTest {
 
     private GameObjectImpl gameObject;
     private Point2D initialPosition;

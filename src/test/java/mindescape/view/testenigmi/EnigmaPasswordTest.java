@@ -18,7 +18,7 @@ import mindescape.model.enigma.enigmapassword.impl.EnigmaPasswordModelImpl;
  * and a size of 400x300 pixels. The controller's panel is added to the frame, and the frame
  * is made visible.
  */
-public class EnigmaPasswordTest {
+final class EnigmaPasswordTest {
 
     private final static int WIDTH = 400;
     private final static int HEIGHT = 300;

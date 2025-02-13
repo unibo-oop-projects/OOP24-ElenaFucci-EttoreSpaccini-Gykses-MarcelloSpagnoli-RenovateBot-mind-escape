@@ -19,7 +19,7 @@ public final class EnigmaPuzzleViewImpl extends JPanel implements EnigmaPuzzleVi
 
     private static final long serialVersionUID = 1L;
     private final List<ImageButton> buttons = new ArrayList<>();
-    private transient final BufferedImage image;
+    private final transient BufferedImage image;
     private final int rows, cols;
 
     /**
