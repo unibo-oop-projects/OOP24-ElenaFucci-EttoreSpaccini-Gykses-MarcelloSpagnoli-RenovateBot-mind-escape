@@ -47,8 +47,9 @@ public final class SaveManager {
         Objects.requireNonNull(world, "World object cannot be null");
         final var username = world.getPlayer().getName();
         final File saveDir = new File(SAVE_FOLDER);
+
         if (!saveDir.exists() && !saveDir.mkdirs()) {
-            throw new RuntimeException("Error creating save directory");
+            throw new SecurityException("Error creating save directory");
         }
 
         final File saveFile = new File(SAVE_FOLDER, username + ".sav");
@@ -57,7 +58,7 @@ public final class SaveManager {
             oos.writeObject(world.getPlayer());
             oos.writeObject(world.getRooms());
         } catch (final IOException e) {
-            throw new RuntimeException("Error saving game status", e);
+            throw new IllegalStateException("Error saving game status", e);
         }
     }
     /**
