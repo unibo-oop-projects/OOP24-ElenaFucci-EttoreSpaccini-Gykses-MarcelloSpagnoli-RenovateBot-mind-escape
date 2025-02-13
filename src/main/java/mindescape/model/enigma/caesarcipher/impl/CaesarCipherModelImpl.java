@@ -10,11 +10,11 @@ import mindescape.model.enigma.caesarcipher.api.CaesarCipherModel;
  */
 public class CaesarCipherModelImpl implements CaesarCipherModel, Serializable {
 
-    private final static transient String encryptedText = 
+    private final static transient String ENCRYPTED_TEXT = 
         "nhbfrgh wr wkh forvhw lv \"reolylrq\". Frqwdlqv lpsruwdqw lqirupdwlrqv."; 
-
     private static final long serialVersionUID = 1L;
     private static final int LETTERS_IN_ALPHABET = 26;
+
     private final String decryptedText;
     private final String name;
     private boolean solved;
@@ -64,7 +64,7 @@ public class CaesarCipherModelImpl implements CaesarCipherModel, Serializable {
     @Override
     public String decrypt(final int shift) {
         final StringBuilder result = new StringBuilder();
-        for (final char c : encryptedText.toCharArray()) {
+        for (final char c : ENCRYPTED_TEXT.toCharArray()) {
             if (Character.isLetter(c)) {
                 final char base = Character.isUpperCase(c) ? 'A' : 'a';
                 result.append(
@@ -82,6 +82,6 @@ public class CaesarCipherModelImpl implements CaesarCipherModel, Serializable {
      */
     @Override
     public String getEncryptedText() {
-        return encryptedText; 
+        return ENCRYPTED_TEXT; 
     }
 }
