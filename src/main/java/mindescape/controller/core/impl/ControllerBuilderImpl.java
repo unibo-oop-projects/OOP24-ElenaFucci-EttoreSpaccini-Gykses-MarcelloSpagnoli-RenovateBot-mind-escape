@@ -1,6 +1,7 @@
 package mindescape.controller.core.impl;
 
 import java.util.Objects;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import mindescape.controller.caesarcipher.impl.CaesarCipherControllerImpl;
 import mindescape.controller.core.api.ControllerBuilder;
 import mindescape.controller.core.api.ControllerMap;
@@ -173,6 +174,7 @@ public final class ControllerBuilderImpl implements ControllerBuilder {
      * {@inheritDoc}
      */
     @Override
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The controller map is returned to the caller")
     public ControllerMap getResult() {
         return this.controllerMap;
     }

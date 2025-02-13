@@ -36,7 +36,7 @@ public final class SavesView extends JPanel implements View {
     private static final int BUTTON_PANEL_PADDING = 10;
     private static final String NO_SAVES_MESSAGE = "No save files found.";
     private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm";
-    private final SavesController controller;
+    private final transient SavesController controller;
     private final DefaultListModel<String> saveListModel;
     private final JList<String> saveList;
     private final JButton loadButton;
