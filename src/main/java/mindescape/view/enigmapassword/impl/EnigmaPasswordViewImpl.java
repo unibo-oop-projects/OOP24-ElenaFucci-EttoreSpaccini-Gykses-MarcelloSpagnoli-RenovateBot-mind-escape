@@ -29,6 +29,8 @@ public class EnigmaPasswordViewImpl implements EnigmaPasswordView {
     private static final int INSET_SIZE = 10;
     private static final int MIN_FONT_SIZE = 12;
     private static final int FONT_SIZE_DIVISOR = 30;
+    private static final int TITLE_FONT_SIZE_ADJUSTMENT = 6;
+    private static final int RESULT_FONT_SIZE_ADJUSTMENT = 4;
 
     private final JPanel panel;
     private final JTextField passwordField;
@@ -94,8 +96,8 @@ public class EnigmaPasswordViewImpl implements EnigmaPasswordView {
             public void componentResized(final ComponentEvent e) {
                 final int width = panel.getWidth();
                 final int fontSize = Math.max(MIN_FONT_SIZE, width / FONT_SIZE_DIVISOR);
-                titleLabel.setFont(new Font(FONT_NAME, Font.BOLD, fontSize + 6));
-                resultLabel.setFont(new Font(FONT_NAME, Font.BOLD, fontSize + 4));
+                titleLabel.setFont(new Font(FONT_NAME, Font.BOLD, fontSize + TITLE_FONT_SIZE_ADJUSTMENT));
+                resultLabel.setFont(new Font(FONT_NAME, Font.BOLD, fontSize + RESULT_FONT_SIZE_ADJUSTMENT));
                 passwordField.setFont(new Font(FONT_NAME, Font.PLAIN, fontSize));
                 checkButton.setFont(new Font(FONT_NAME, Font.BOLD, fontSize));
                 quitButton.setFont(new Font(FONT_NAME, Font.BOLD, fontSize));

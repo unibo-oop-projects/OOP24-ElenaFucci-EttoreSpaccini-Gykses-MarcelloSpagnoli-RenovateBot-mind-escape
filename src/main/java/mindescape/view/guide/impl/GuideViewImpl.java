@@ -24,7 +24,7 @@ import mindescape.view.guide.api.GuideView;
 public class GuideViewImpl extends JPanel implements GuideView {
 
     private static final long serialVersionUID = 1L;
-    private final static String FONT_NAME = "Arial";
+    private static final String FONT_NAME = "Arial";
     private static final int INITIAL_CAPACITY = 25;
     private final JLabel titleLabel;
     private final JTextArea guideTextArea;
@@ -37,13 +37,18 @@ public class GuideViewImpl extends JPanel implements GuideView {
      */
     public GuideViewImpl(final GuideController guideController) {
         this.guideController = guideController;
+        this.titleLabel = new JLabel("MindEscape Guide", SwingConstants.CENTER);
+        this.guideTextArea = new JTextArea();
+        this.backButton = new JButton("Menu");
+        setUpComponents();
+    }
+
+    private void setUpComponents() {
         this.setLayout(new BorderLayout());
 
-        this.titleLabel = new JLabel("MindEscape Guide", SwingConstants.CENTER);
         this.titleLabel.setFont(new Font(FONT_NAME, Font.BOLD, 24));
         this.add(titleLabel, BorderLayout.NORTH);
 
-        this.guideTextArea = new JTextArea();
         this.guideTextArea.setEditable(false);
         this.guideTextArea.setLineWrap(true);
         this.guideTextArea.setWrapStyleWord(true);
@@ -54,7 +59,6 @@ public class GuideViewImpl extends JPanel implements GuideView {
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         this.add(scrollPane, BorderLayout.CENTER);
 
-        this.backButton = new JButton("Menu");
         this.backButton.addActionListener(e -> this.guideController.quit());
         this.add(backButton, BorderLayout.SOUTH);
 
@@ -62,24 +66,29 @@ public class GuideViewImpl extends JPanel implements GuideView {
 
             @Override
             public void componentResized(final ComponentEvent e) {
-                final int newSize = Math.max(12, getWidth() / 30);
+                final int width = getWidth();
+                final int calculatedFontSize = width / 30;
+                final int newSize = Math.max(12, calculatedFontSize);
+
                 titleLabel.setFont(new Font(FONT_NAME, Font.BOLD, newSize));
                 guideTextArea.setFont(new Font(FONT_NAME, Font.PLAIN, newSize - 4));
                 backButton.setFont(new Font(FONT_NAME, Font.PLAIN, newSize - 4));
             }
         });
     }
-    
+
     private String loadGuideText() {
         final StringBuilder content = new StringBuilder(INITIAL_CAPACITY);
         try (InputStream is = getClass().getClassLoader().getResourceAsStream("guide/guide.txt");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                content.append(line).append('\n');
-            }
-        } 
-        catch (final IOException | NullPointerException e) {
+             BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
+            String line; 
+            do {
+                line = reader.readLine();
+                if (line != null) {
+                    content.append(line).append('\n');
+                } 
+            } while (line != null && !line.equals(""));
+        } catch (final IOException e) {
             content.append("Failed to load guide.txt");
         }
         return content.toString();
