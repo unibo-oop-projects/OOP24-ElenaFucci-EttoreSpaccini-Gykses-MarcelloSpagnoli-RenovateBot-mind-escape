@@ -14,7 +14,6 @@ public final class ImageButton extends JButton {
     private static final long serialVersionUID = 1L;
     private transient Image image;
 
-    
     /**
      * Sets the image for this button and repaints the component.
      *
@@ -26,7 +25,6 @@ public final class ImageButton extends JButton {
         repaint();
     }
 
-    
     /**
      * Overrides the paintComponent method to draw an image on the button.
      * 
