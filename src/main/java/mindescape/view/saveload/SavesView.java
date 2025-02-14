@@ -59,7 +59,7 @@ public final class SavesView extends JPanel implements View {
 
         this.saveListModel = new DefaultListModel<>();
         this.saveList = new JList<>(saveListModel);
-        styleSaveList();
+        this.styleSaveList();
 
         final JScrollPane scrollPane = new JScrollPane(saveList);
         scrollPane.setBorder(BorderFactory.createLineBorder(BORDER_COLOR, BORDER_THICKNESS));
@@ -80,11 +80,8 @@ public final class SavesView extends JPanel implements View {
         ));
         buttonPanel.add(menuButton, BorderLayout.WEST);
         buttonPanel.add(loadButton, BorderLayout.EAST);
-
         this.add(scrollPane, BorderLayout.CENTER);
         this.add(buttonPanel, BorderLayout.SOUTH);
-
-        // **Aggiunto listener per il ridimensionamento**
         this.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(final ComponentEvent e) {
@@ -131,9 +128,6 @@ public final class SavesView extends JPanel implements View {
         }
     }
 
-    /**
-     * Aggiorna le dimensioni dei font in base alla larghezza del pannello.
-     */
     private void updateFontSizes() {
         final int width = this.getWidth();
         final int calculatedFontSize = Math.max(MIN_FONT_SIZE, Math.min(width / FONT_SIZE_DIVISOR, MAX_FONT_SIZE));

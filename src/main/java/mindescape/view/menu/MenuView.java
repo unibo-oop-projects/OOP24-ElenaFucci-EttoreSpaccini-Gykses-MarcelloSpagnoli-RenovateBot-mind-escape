@@ -16,7 +16,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
@@ -24,11 +23,13 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  */
 public class MenuView implements View {
 
+    private static final Dimension PREFERED_SIZE = new Dimension(200, 50);
     private static final int BORDER_SIZE = 50;
     private static final int INSET_SIZE = 15;
     private static final int TITLE_FONT_SIZE = 48;
     private static final int BUTTON_FONT_SIZE = 24;
     private static final Color BACKGROUND_COLOR = new Color(20, 20, 20);
+    private static final Color BUTTON_BG_COLOR = new Color(40, 40, 40);
     private static final Color TITLE_COLOR = Color.WHITE;
     private final ClickableController menuController;
     private final JPanel panel = new JPanel();
@@ -114,10 +115,10 @@ public class MenuView implements View {
         final JButton button = new JButton(text);
         button.setFont(new Font("Arial", Font.BOLD, BUTTON_FONT_SIZE));
         button.setFocusPainted(false);
-        button.setPreferredSize(new Dimension(200, 50)); // Imposta una dimensione iniziale compatta
-        button.setBackground(new Color(40, 40, 40)); // Sfondo scuro per il bottone
-        button.setForeground(TITLE_COLOR); // Testo bianco
-        button.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2)); // Bordo bianco per risaltare
+        button.setPreferredSize(PREFERED_SIZE);
+        button.setBackground(BUTTON_BG_COLOR);
+        button.setForeground(TITLE_COLOR);
+        button.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
         button.setOpaque(true);
 
         gbc.gridy = gridy;
