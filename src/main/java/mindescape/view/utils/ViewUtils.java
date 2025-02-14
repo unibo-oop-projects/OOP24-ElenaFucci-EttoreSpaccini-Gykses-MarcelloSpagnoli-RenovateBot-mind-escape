@@ -261,12 +261,11 @@ public static class Style {
      * @param textArea the JTextArea to be displayed in the scroll pane
      * @return a styled JScrollPane
      */
-    public static JScrollPane createStyledScrollPane(final JTextArea textArea) {
-        final JScrollPane scrollPane = new JScrollPane(textArea);
+    public static JScrollPane createStyledScrollPane(final JLabel label) {
+        final JScrollPane scrollPane = new JScrollPane(label);
         scrollPane.setBackground(Style.TEXT_AREA_BACKGROUND);
         return scrollPane;
     }
-
 
     /**
      * Creates a styled JLabel with specified text.
