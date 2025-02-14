@@ -1,7 +1,7 @@
 package mindescape.model.world.rooms.impl;
 
-import java.io.File;
 import java.io.Serializable;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -111,12 +111,19 @@ public final class RoomImpl implements Room, Serializable {
      * @return a list of {@link Room} from the files found in resources
      */
     public static List<Room> createRooms() {
-        final ClassLoader classLoader = RoomImpl.class.getClassLoader();
-        final File resources = new File(classLoader.getResource("rooms").getFile());
-        final ObjectsExtractor objectsExtractor = new ObjectsExtractor();
-        final File[] files = resources.listFiles();
-        final List<Room> rooms = Arrays.stream(files)
-            .map(File::getPath)
+        URL resourceUrl = RoomImpl.class.getClassLoader().getResource("rooms");
+        List<String> files = List.of();
+        ObjectsExtractor objectsExtractor = new ObjectsExtractor();
+        if (resourceUrl != null && resourceUrl.getProtocol().equals("jar")) {
+            files = Arrays.stream(RoomNames.values())
+                .map(x -> "rooms/" + x.getName() + ".tmx")
+                .toList();
+        } else if (resourceUrl != null){
+            files = Arrays.stream(RoomNames.values())
+                .map(x -> resourceUrl.getPath() + "/" + x.getName() + ".tmx")
+                .toList();
+        }
+        final List<Room> rooms = files.stream()
             .map(RoomImpl::new)
             .collect(Collectors.toList());
         rooms.forEach(room -> {

@@ -6,8 +6,9 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -125,7 +126,10 @@ public final class WorldViewImpl implements WorldView, KeyListener {
 
     private BufferedImage getTileImage(final TiledTile tile) {
         try {
-            final BufferedImage image = ImageIO.read(new File(tile.getTileset().getImage().getSource()));
+            String path = tile.getTileset().getImage().getSource();
+            String fileName = Paths.get(path).getFileName().toString();
+            InputStream is = WorldViewImpl.class.getClassLoader().getResourceAsStream("tiles/" + fileName);
+            final BufferedImage image = ImageIO.read(is);
             final Point2D pos = getPositionFromId(tile, tile.getTileset().getWidth());
             return image.getSubimage(
                 (int) pos.x() * TILE_DIMENSION,
