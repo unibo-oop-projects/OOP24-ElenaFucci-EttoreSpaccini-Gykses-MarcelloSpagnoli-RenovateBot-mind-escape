@@ -266,6 +266,8 @@ public static class Style {
     public static JScrollPane createStyledScrollPane(final JLabel label) {
         final JScrollPane scrollPane = new JScrollPane(label);
         scrollPane.setBackground(Color.DARK_GRAY);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
         return scrollPane;
     }
 
