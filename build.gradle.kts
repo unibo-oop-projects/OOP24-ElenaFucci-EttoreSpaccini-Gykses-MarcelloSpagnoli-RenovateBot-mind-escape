@@ -27,7 +27,7 @@ dependencies {
     // Maven dependencies are composed by a group name, a name and a version, separated by colons
     implementation("com.omertron:API-OMDB:1.5")
     implementation("org.jooq:jool:0.9.15")
-    implementation("com.github.MarcelloSpagnoli:TiledReader:aeebe8a")
+    implementation("com.github.MarcelloSpagnoli:TiledReader:c5e70f3")
     implementation("com.google.guava:guava:33.4.0-jre")
 
     //tiled reader to read rooms files
