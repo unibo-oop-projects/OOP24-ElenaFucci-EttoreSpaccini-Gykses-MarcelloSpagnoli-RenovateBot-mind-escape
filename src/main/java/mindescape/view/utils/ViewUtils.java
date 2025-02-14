@@ -254,4 +254,36 @@ public static class Style {
         titleLabel.setPreferredSize(new Dimension(Style.TITLE_WIDTH, Style.TITLE_HEIGHT));
         return titleLabel;
     }
+
+    /**
+     * Creates a styled JScrollPane containing a JTextArea.
+     *
+     * @param textArea the JTextArea to be displayed in the scroll pane
+     * @return a styled JScrollPane
+     */
+    public static JScrollPane createStyledScrollPane(final JTextArea textArea) {
+        final JScrollPane scrollPane = new JScrollPane(textArea);
+        scrollPane.setBackground(Style.TEXT_AREA_BACKGROUND);
+        return scrollPane;
+    }
+
+    public static JTextArea creatTextArea(final String text) {
+
+        final JTextArea textArea = new JTextArea(text);
+        textArea.setFont(Style.DEFAULT_FONT);
+        textArea.setBackground(Style.TEXT_AREA_BACKGROUND);
+        textArea.setForeground(Style.TEXT_AREA_TEXT_COLOR);
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
+        textArea.setCaretColor(Color.WHITE);
+        textArea.setBorder(BorderFactory.createEmptyBorder(
+            Style.TEXT_AREA_PADDING, 
+            Style.TEXT_AREA_PADDING, 
+            Style.TEXT_AREA_PADDING, 
+            Style.TEXT_AREA_PADDING
+        ));
+
+        return textArea;
+    }
+
 }
