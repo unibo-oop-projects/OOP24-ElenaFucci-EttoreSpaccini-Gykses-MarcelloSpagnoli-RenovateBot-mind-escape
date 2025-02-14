@@ -24,7 +24,7 @@ import mindescape.view.caesarcipher.api.CaesarCipherView;
 public final class CaesarCipherViewImpl implements CaesarCipherView {
 
     private static final String FONT_NAME = "Arial";
-    private static final Color BACKGROUND_COLOR = Color.DARK_GRAY;
+    private static final Color BACKGROUND_COLOR = Color.darkGray;
     private static final Color LABEL_COLOR = Color.WHITE;
     private static final String TITLE = "Caesar Cipher";
     private static final String ENCRYPTED_TEXT_LABEL = "Encrypted Text: ";
@@ -113,7 +113,7 @@ public final class CaesarCipherViewImpl implements CaesarCipherView {
         decryptedField.setEditable(false);
         gbc.gridx = 0;
         gbc.gridy = RESULT_ROW;
-        gbc.gridwidth = 2;
+        gbc.gridwidth = 3;
         this.panel.add(decryptedField, gbc);
 
         decryptButton.addActionListener(e -> controller.handleInput(shiftField.getText()));
@@ -129,7 +129,7 @@ public final class CaesarCipherViewImpl implements CaesarCipherView {
                 shiftLabel.setFont(new Font(FONT_NAME, Font.PLAIN, fontSize));
                 resultLabel.setFont(new Font(FONT_NAME, Font.PLAIN, fontSize));
                 shiftField.setFont(new Font(FONT_NAME, Font.PLAIN, fontSize));
-                decryptedField.setFont(new Font(FONT_NAME, Font.PLAIN, fontSize));
+                decryptedField.setFont(new Font(FONT_NAME, Font.PLAIN, fontSize - RESULT_ROW));
                 decryptButton.setFont(new Font(FONT_NAME, Font.BOLD, fontSize));
                 quitButton.setFont(new Font(FONT_NAME, Font.BOLD, fontSize));
             }
