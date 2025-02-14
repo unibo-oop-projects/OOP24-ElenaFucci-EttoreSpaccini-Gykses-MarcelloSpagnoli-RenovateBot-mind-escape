@@ -6,6 +6,8 @@ import javax.swing.SwingUtilities;
 
 import mindescape.controller.enigmapuzzle.api.EnigmaPuzzleController;
 import mindescape.view.enigmapuzzle.api.EnigmaPuzzleView;
+import mindescape.view.utils.ImageButton;
+
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
 import java.io.IOException;

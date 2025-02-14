@@ -1,4 +1,4 @@
-package mindescape.view.enigmapuzzle.impl;
+package mindescape.view.utils;
 
 import java.awt.Graphics;
 import java.awt.Image;
