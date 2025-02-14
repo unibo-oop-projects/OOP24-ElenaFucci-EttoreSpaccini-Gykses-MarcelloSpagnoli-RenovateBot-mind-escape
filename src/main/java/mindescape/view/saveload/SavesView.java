@@ -6,11 +6,12 @@ import mindescape.view.utils.ViewUtils;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.BorderLayout;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
-
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -31,11 +32,15 @@ public final class SavesView extends JPanel implements View {
     private static final Color BORDER_COLOR = new Color(255, 215, 0);
     private static final Color LIST_BACKGROUND_COLOR = new Color(0, 0, 0);
     private static final Color LIST_FOREGROUND_COLOR = new Color(255, 215, 0);
-    private static final Font LIST_FONT = new Font("Arial", Font.BOLD, 18);
     private static final int BORDER_THICKNESS = 2;
     private static final int BUTTON_PANEL_PADDING = 10;
     private static final String NO_SAVES_MESSAGE = "No save files found.";
     private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm";
+
+    private static final int MIN_FONT_SIZE = 12;
+    private static final int MAX_FONT_SIZE = 30;
+    private static final int FONT_SIZE_DIVISOR = 40;
+
     private final transient SavesController controller;
     private final DefaultListModel<String> saveListModel;
     private final JList<String> saveList;
@@ -60,9 +65,9 @@ public final class SavesView extends JPanel implements View {
         scrollPane.setBorder(BorderFactory.createLineBorder(BORDER_COLOR, BORDER_THICKNESS));
 
         loadButton = ViewUtils.createStyledButton("Load Save");
-        loadButton.addActionListener(e -> this.loadSelectedSave());
-
         menuButton = ViewUtils.createStyledButton("Menu");
+
+        loadButton.addActionListener(e -> this.loadSelectedSave());
         menuButton.addActionListener(e -> this.controller.quit());
 
         final JPanel buttonPanel = ViewUtils.createStyledPanel();
@@ -78,13 +83,20 @@ public final class SavesView extends JPanel implements View {
 
         this.add(scrollPane, BorderLayout.CENTER);
         this.add(buttonPanel, BorderLayout.SOUTH);
+
+        // **Aggiunto listener per il ridimensionamento**
+        this.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(final ComponentEvent e) {
+                updateFontSizes();
+            }
+        });
     }
 
     private void styleSaveList() {
         saveList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         saveList.setBackground(LIST_BACKGROUND_COLOR);
         saveList.setForeground(LIST_FOREGROUND_COLOR);
-        saveList.setFont(LIST_FONT);
         saveList.setBorder(BorderFactory.createLineBorder(BORDER_COLOR, BORDER_THICKNESS));
     }
 
@@ -104,7 +116,7 @@ public final class SavesView extends JPanel implements View {
             for (final File file : saveFiles) {
                 final String fileName = file.getName().replace(".sav", "");
                 final String lastModified = dateFormat.format(new Date(file.lastModified()));
-                saveListModel.addElement(fileName + "\t" + lastModified);
+                saveListModel.addElement(fileName + " - " + lastModified);
             }
             loadButton.setEnabled(true);
         }
@@ -117,6 +129,20 @@ public final class SavesView extends JPanel implements View {
         } else {
             JOptionPane.showMessageDialog(this, "Invalid selection.", "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    /**
+     * Aggiorna le dimensioni dei font in base alla larghezza del pannello.
+     */
+    private void updateFontSizes() {
+        final int width = this.getWidth();
+        final int calculatedFontSize = Math.max(MIN_FONT_SIZE, Math.min(width / FONT_SIZE_DIVISOR, MAX_FONT_SIZE));
+
+        Font updatedFont = new Font("Arial", Font.BOLD, calculatedFontSize);
+
+        saveList.setFont(updatedFont);
+        loadButton.setFont(updatedFont);
+        menuButton.setFont(updatedFont);
     }
 
     /**

@@ -24,7 +24,7 @@ import mindescape.view.caesarcipher.api.CaesarCipherView;
 public final class CaesarCipherViewImpl implements CaesarCipherView {
 
     private static final String FONT_NAME = "Arial";
-    private static final Color BACKGROUND_COLOR = Color.DARK_GRAY;
+    private static final Color BACKGROUND_COLOR = Color.darkGray;
     private static final Color LABEL_COLOR = Color.WHITE;
     private static final String TITLE = "Caesar Cipher";
     private static final String ENCRYPTED_TEXT_LABEL = "Encrypted Text: ";
