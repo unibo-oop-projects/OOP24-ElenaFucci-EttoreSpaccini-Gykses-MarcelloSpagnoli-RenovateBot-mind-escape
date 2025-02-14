@@ -287,6 +287,7 @@ public static class Style {
             Style.TEXT_AREA_PADDING, 
             Style.TEXT_AREA_PADDING
         ));
+        textArea.setEditable(false);
 
         return textArea;
     }
