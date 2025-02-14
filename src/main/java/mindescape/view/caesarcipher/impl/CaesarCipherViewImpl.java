@@ -129,7 +129,7 @@ public final class CaesarCipherViewImpl implements CaesarCipherView {
                 shiftLabel.setFont(new Font(FONT_NAME, Font.PLAIN, fontSize));
                 resultLabel.setFont(new Font(FONT_NAME, Font.PLAIN, fontSize));
                 shiftField.setFont(new Font(FONT_NAME, Font.PLAIN, fontSize));
-                decryptedField.setFont(new Font(FONT_NAME, Font.PLAIN, fontSize-RESULT_ROW));
+                decryptedField.setFont(new Font(FONT_NAME, Font.PLAIN, fontSize - RESULT_ROW));
                 decryptButton.setFont(new Font(FONT_NAME, Font.BOLD, fontSize));
                 quitButton.setFont(new Font(FONT_NAME, Font.BOLD, fontSize));
             }
