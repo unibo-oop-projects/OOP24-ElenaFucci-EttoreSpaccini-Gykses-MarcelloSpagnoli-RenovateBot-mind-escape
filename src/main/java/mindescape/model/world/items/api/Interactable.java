@@ -18,7 +18,6 @@ public interface Interactable extends Unmovable {
      * Performs an action when a player interacts with this item.
      *
      * @param player the player who is interacting with the item
-     * @return true if the action was successful, false otherwise
      */
-    boolean onAction(Player player);
+    void onAction(Player player);
 }
