@@ -111,14 +111,14 @@ public final class RoomImpl implements Room, Serializable {
      * @return a list of {@link Room} from the files found in resources
      */
     public static List<Room> createRooms() {
-        URL resourceUrl = RoomImpl.class.getClassLoader().getResource("rooms");
+        final URL resourceUrl = RoomImpl.class.getClassLoader().getResource("rooms");
         List<String> files = List.of();
-        ObjectsExtractor objectsExtractor = new ObjectsExtractor();
-        if (resourceUrl != null && resourceUrl.getProtocol().equals("jar")) {
+        final ObjectsExtractor objectsExtractor = new ObjectsExtractor();
+        if (resourceUrl != null && "jar".equals(resourceUrl.getProtocol())) {
             files = Arrays.stream(RoomNames.values())
                 .map(x -> "rooms/" + x.getName() + ".tmx")
                 .toList();
-        } else if (resourceUrl != null){
+        } else if (resourceUrl != null) {
             files = Arrays.stream(RoomNames.values())
                 .map(x -> resourceUrl.getPath() + "/" + x.getName() + ".tmx")
                 .toList();

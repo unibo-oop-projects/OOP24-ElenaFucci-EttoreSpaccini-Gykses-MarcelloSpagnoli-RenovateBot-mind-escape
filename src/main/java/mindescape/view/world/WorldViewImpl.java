@@ -127,9 +127,9 @@ public final class WorldViewImpl implements WorldView, KeyListener {
 
     private BufferedImage getTileImage(final TiledTile tile) {
         try {
-            String path = tile.getTileset().getImage().getSource();
-            String fileName = Paths.get(path).getFileName().toString();
-            InputStream is = WorldViewImpl.class.getClassLoader().getResourceAsStream("tiles/" + fileName);
+            final String path = tile.getTileset().getImage().getSource();
+            final String fileName = Paths.get(path).getFileName().toString();
+            final InputStream is = WorldViewImpl.class.getClassLoader().getResourceAsStream("tiles/" + fileName);
             final BufferedImage image = ImageIO.read(is);
             final Point2D pos = getPositionFromId(tile, tile.getTileset().getWidth());
             return image.getSubimage(
