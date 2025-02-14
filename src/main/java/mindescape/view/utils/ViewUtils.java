@@ -276,7 +276,7 @@ public static class Style {
     public static JTextArea creatTextArea(final String text) {
         final JTextArea textArea = new JTextArea(text);
         textArea.setFont(Style.DEFAULT_FONT);
-        textArea.setBackground(Style.TEXT_AREA_BACKGROUND);
+        textArea.setBackground(Color.DARK_GRAY);
         textArea.setForeground(Style.TEXT_AREA_TEXT_COLOR);
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
