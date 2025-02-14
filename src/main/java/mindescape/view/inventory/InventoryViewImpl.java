@@ -60,6 +60,7 @@ public final class InventoryViewImpl implements View {
         this.inventoryPanel = new JPanel(null); 
         this.descriptionArea = new JTextArea(DESCRIPTION_ROWS, DESCRIPTION_COLUMNS);
         this.descriptionArea.setEditable(false);
+        this.descriptionArea.setFocusable(false);
         this.descriptionArea.setText("");
 
         splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, inventoryPanel, new JScrollPane(descriptionArea));
