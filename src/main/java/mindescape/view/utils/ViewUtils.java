@@ -15,6 +15,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import org.checkerframework.checker.units.qual.C;
+
 /**
  * The ViewUtils class provides utility methods for creating and styling UI components.
  * This class should not be instantiated.
@@ -263,7 +265,7 @@ public static class Style {
      */
     public static JScrollPane createStyledScrollPane(final JLabel label) {
         final JScrollPane scrollPane = new JScrollPane(label);
-        scrollPane.setBackground(Style.TEXT_AREA_BACKGROUND);
+        scrollPane.setBackground(Color.DARK_GRAY);
         return scrollPane;
     }
 
