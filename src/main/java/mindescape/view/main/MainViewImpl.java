@@ -2,16 +2,17 @@ package mindescape.view.main;
 
 import java.util.Map;
 import java.util.Objects;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import mindescape.controller.core.api.KeyMapper;
 import mindescape.controller.core.api.UserInput;
 import mindescape.controller.maincontroller.api.MainController;
 import mindescape.view.api.MainView;
+import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
@@ -28,6 +29,7 @@ public final class MainViewImpl implements MainView {
     private JPanel currentPanel;
     private final JFrame frame = new JFrame("Mind Escape");
     private final Map<Integer, UserInput> keyMapper = KeyMapper.getKeyMap();
+    private final Image icon = new ImageIcon(getClass().getClassLoader().getResource("icons/mindescape.png")).getImage();
 
     /**
      * Constructs a MainViewImpl object.
@@ -81,6 +83,7 @@ public final class MainViewImpl implements MainView {
             }
         });
         this.frame.setSize(WIDTH, HEIGHT);
+        this.frame.setIconImage(icon);
         this.frame.setResizable(true);
         this.frame.setVisible(true);
     }

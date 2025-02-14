@@ -20,7 +20,6 @@ import org.tiledreader.TiledObject;
 import org.tiledreader.TiledObjectLayer;
 import org.tiledreader.TiledTile;
 import org.tiledreader.TiledTileLayer;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import mindescape.controller.core.api.KeyMapper;
 import mindescape.controller.core.api.UserInput;
@@ -30,6 +29,7 @@ import mindescape.model.world.player.api.Player;
 import mindescape.model.world.rooms.api.Room;
 import mindescape.view.api.WorldView;
 import mindescape.view.utils.ImageTransformer;
+import mindescape.view.utils.ViewUtils;
 
 /**
  * Implementation of the WorldView.
@@ -66,6 +66,7 @@ public final class WorldViewImpl implements WorldView, KeyListener {
                 player.draw(g, offset, scaling, keyState);
             }
         };
+        panel.setBackground(ViewUtils.Style.PANEL_COLOR);
         this.roomHeight = currentRoom.getDimensions().height();
         this.roomName = currentRoom.getName();
         updateRoomImage(currentRoom);

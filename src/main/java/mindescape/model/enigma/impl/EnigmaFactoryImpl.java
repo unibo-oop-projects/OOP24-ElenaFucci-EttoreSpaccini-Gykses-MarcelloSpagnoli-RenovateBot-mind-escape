@@ -19,7 +19,7 @@ public final class EnigmaFactoryImpl implements EnigmaFactory {
         final var enigmaName = EnigmaType.getEnigma(name);
         return switch (enigmaName) {
             case ENIGMA_FIRST_DOOR -> new EnigmaPasswordModelImpl(name, "Sergio Mattarella");
-            case DRAWER -> new EnigmaPasswordModelImpl(name, "1213");
+            case DRAWER -> new EnigmaPasswordModelImpl(name, "12-13");
             case CAESAR_CIPHER -> new CaesarCipherModelImpl(name, 3);
             case WARDROBE -> new EnigmaPasswordModelImpl(name, "oblivion");
             case CALENDAR -> new Calendar();

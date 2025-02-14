@@ -11,7 +11,7 @@ import mindescape.model.enigma.caesarcipher.api.CaesarCipherModel;
 public final class CaesarCipherModelImpl implements CaesarCipherModel, Serializable {
 
     private static final String ENCRYPTED_TEXT = 
-        "nhbfrgh wr wkh forvhw lv \"reolylrq\". Frqwdlqv lpsruwdqw lqirupdwlrqv."; 
+        "Forvhw nhb: reolylrq."; 
     private static final long serialVersionUID = 1L;
     private static final int LETTERS_IN_ALPHABET = 26;
 
