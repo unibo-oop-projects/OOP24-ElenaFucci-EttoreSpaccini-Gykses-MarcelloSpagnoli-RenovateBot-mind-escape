@@ -138,7 +138,7 @@ public final class SavesView extends JPanel implements View {
         final int width = this.getWidth();
         final int calculatedFontSize = Math.max(MIN_FONT_SIZE, Math.min(width / FONT_SIZE_DIVISOR, MAX_FONT_SIZE));
 
-        Font updatedFont = new Font("Arial", Font.BOLD, calculatedFontSize);
+        final Font updatedFont = new Font("Arial", Font.BOLD, calculatedFontSize);
 
         saveList.setFont(updatedFont);
         loadButton.setFont(updatedFont);
