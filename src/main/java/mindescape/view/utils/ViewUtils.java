@@ -267,8 +267,13 @@ public static class Style {
         return scrollPane;
     }
 
+    /**
+     * Creates a styled JTextArea with specified text.
+     *
+     * @param text the text to be displayed in the text area
+     * @return a styled JTextArea
+     */
     public static JTextArea creatTextArea(final String text) {
-
         final JTextArea textArea = new JTextArea(text);
         textArea.setFont(Style.DEFAULT_FONT);
         textArea.setBackground(Style.TEXT_AREA_BACKGROUND);
