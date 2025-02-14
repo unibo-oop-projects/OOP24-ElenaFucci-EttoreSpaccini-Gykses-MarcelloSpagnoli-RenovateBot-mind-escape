@@ -3,11 +3,12 @@ package mindescape.view.inventory;
 import mindescape.controller.inventory.InventoryControllerImpl;
 import mindescape.model.world.items.interactable.api.Pickable;
 import mindescape.view.api.View;
+import mindescape.view.enigmapuzzle.impl.ImageButton;
+
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
@@ -15,65 +16,58 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Set;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 import java.awt.GridLayout;
 import java.awt.Image;
 
-/**
- * Implementation of the InventoryView interface.
- */
 public final class InventoryViewImpl implements View {
 
-    private static final int GRID_ROWS = 0;
-    private static final int GRID_COLUMNS = 4;
+    private static final int GRID_COLUMNS = 4; // Numero fisso di colonne
     private static final int MARGIN = 10;
     private static final int MIN_FONT_SIZE = 10;
     private static final int FONT_SIZE_DIVISOR = 30;
     private static final int PANEL_SIZE = 400;
     private static final int DESCRIPTION_ROWS = 5;
     private static final int DESCRIPTION_COLUMNS = 20;
+    
+    private static final int MIN_BUTTON_SIZE = 50; // La dimensione minima del bottone
 
     private final InventoryControllerImpl controller;
     private final JPanel panel;
     private final JPanel inventoryPanel;
     private final JTextArea descriptionArea;
 
-    /**
-     * Constructs an InventoryViewImpl with the specified controller.
-     * Initializes the main panel with a BorderLayout and an inventory panel with a GridLayout.
-     * Sets up a non-editable description area within a scroll pane.
-     * Adds a component listener to adjust font sizes based on panel width.
-     * Adds a key listener to handle input events.
-     * Sets the preferred size of the panel to 400x400.
-     *
-     * @param controller the InventoryControllerImpl instance to be used by this view
-     */
     public InventoryViewImpl(final InventoryControllerImpl controller) {
         this.controller = controller;
-        this.panel = new JPanel(new BorderLayout());
-        this.inventoryPanel = new JPanel();
-        inventoryPanel.setLayout(new GridLayout(GRID_ROWS, GRID_COLUMNS, MARGIN, MARGIN)); 
+        this.panel = new JPanel(new BorderLayout());  // Usare BorderLayout
+
+        // Pannello che contiene i bottoni con layout null
+        this.inventoryPanel = new JPanel(null); 
         this.descriptionArea = new JTextArea(DESCRIPTION_ROWS, DESCRIPTION_COLUMNS);
         this.descriptionArea.setEditable(false);
         this.descriptionArea.setText("");
+        
         panel.add(inventoryPanel, BorderLayout.CENTER);
         final JScrollPane scrollPane = new JScrollPane(descriptionArea);
         panel.add(scrollPane, BorderLayout.SOUTH);
 
+        // Aggiungiamo un listener per il ridimensionamento
         panel.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(final ComponentEvent e) {
-                final int width = panel.getWidth();
-                final int fontSize = Math.max(MIN_FONT_SIZE, width / FONT_SIZE_DIVISOR);
-                updateFontSizes(fontSize);
+                // Ottieni la larghezza del pannello
+                final int panelWidth = panel.getWidth();
+                
+                // Calcola la nuova dimensione dei bottoni in modo che si ingrandiscano proporzionalmente
+                int buttonSize = Math.max(MIN_BUTTON_SIZE, (panelWidth - MARGIN * (GRID_COLUMNS + 1)) / GRID_COLUMNS);
+                updateButtonSizes(buttonSize);  // Aggiorna le dimensioni dei bottoni
+                positionButtons(buttonSize);  // Ricalcola la posizione dei bottoni in base al nuovo layout
+                final int fontSize = Math.max(MIN_FONT_SIZE, panelWidth / FONT_SIZE_DIVISOR);
+                updateFontSizes(fontSize);  // Aggiorna la dimensione dei font
             }
         });
 
@@ -88,45 +82,19 @@ public final class InventoryViewImpl implements View {
         panel.setPreferredSize(new Dimension(PANEL_SIZE, PANEL_SIZE));
     }
 
-    /**
-     * Returns the JPanel associated with this view.
-     *
-     * @return the JPanel instance
-     */
     @Override
-    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The panel needs to be exposed to the caller")
     public JPanel getPanel() {
         return this.panel;
     }
 
-    /**
-     * Updates the inventory buttons based on the given set of items.
-     * This method removes all existing buttons from the inventory panel and creates new buttons
-     * for each item in the provided set. Each button displays an icon representing the item and
-     * is configured with an action listener to handle item clicks.
-     *
-     * @param items the set of items to be displayed as buttons in the inventory panel
-     */
     public void updateInventoryButtons(final Set<Pickable> items) {
         inventoryPanel.removeAll();
 
+        // Aggiungi i bottoni dinamicamente all'inventario
         for (final Pickable item : items) {
-            final JButton itemButton = new JButton() {
-                @Override
-                public void paintComponent(final Graphics g) {
-                    super.paintComponent(g);
-                    final Icon icon = createIcon(item);
-                    if (icon != null) {
-                        final int buttonSize = Math.min(getWidth(), getHeight());
-                        final Image img = ((ImageIcon) icon).getImage();
-                        final Image scaledImg = img.getScaledInstance(buttonSize, buttonSize, Image.SCALE_SMOOTH);
-                        setIcon(new ImageIcon(scaledImg));
-                    }
-                }
-            };
-
-            itemButton.setIcon(createIcon(item));
-
+            final ImageButton itemButton = new ImageButton();
+            final Image image = createImage(item);
+            itemButton.setImage(image);
             itemButton.setFocusable(false);
             itemButton.addActionListener(new ActionListener() {
                 @Override
@@ -135,54 +103,81 @@ public final class InventoryViewImpl implements View {
                 }
             });
 
+            // Impostiamo la dimensione iniziale del bottone
             inventoryPanel.add(itemButton);
         }
 
-        final int width = panel.getWidth();
-        final int fontSize = Math.max(MIN_FONT_SIZE, width / FONT_SIZE_DIVISOR);
-        updateFontSizes(fontSize);
+        // Aggiorna i bottoni dopo l'inserimento
+        final int panelWidth = panel.getWidth();
+        final int buttonSize = Math.max(MIN_BUTTON_SIZE, (panelWidth - MARGIN * (GRID_COLUMNS + 1)) / GRID_COLUMNS);
+        updateButtonSizes(buttonSize);  // Aggiorna le dimensioni dei bottoni
+        positionButtons(buttonSize);  // Ricalcola la posizione dei bottoni
 
+        // Ridisegna la vista
         inventoryPanel.revalidate();
         inventoryPanel.repaint();
+
+        // Applica la dimensione del font in base alla larghezza del pannello
+        final int fontSize = Math.max(MIN_FONT_SIZE, panelWidth / FONT_SIZE_DIVISOR);
+        updateFontSizes(fontSize);
     }
 
-    /**
-     * Creates an Icon for the given Pickable item.
-     *
-     * @param item the Pickable item for which the icon is to be created
-     * @return the Icon corresponding to the given item
-     * @throws IllegalArgumentException if the item's name is unexpected
-     */
-    private Icon createIcon(final Pickable item) {
+    private Image createImage(final Pickable item) {
         final String imagePath = switch (item.getName()) {
-            case "key" -> "key.png";
-            case "Office key" -> "key.png";
-            case "Bed note" -> "ticket.png";
-            case "Message" -> "ticket.png";
-            case "Canteen note" -> "ticket.png";
+            case "key", "Office key" -> "key.png";
+            case "Bed note", "Message", "Canteen note" -> "ticket.png";
             case "Hammer" -> "hammer.png";
             case "Torch" -> "torch.png";
             case "Wrench" -> "wrench.png";
             default -> throw new IllegalArgumentException("Unexpected item: " + item.getName());
         };
-        return new ImageIcon(getClass().getClassLoader().getResource("pickable/" + imagePath));
+        return new ImageIcon(getClass().getClassLoader().getResource("pickable/" + imagePath)).getImage();
     }
 
-    /**
-     * Updates the description area with the provided text.
-     *
-     * @param description the new description text to be set in the description area
-     */
     public void updateDescription(final String description) {
         descriptionArea.setText(description);
     }
 
-    /**
-     * Updates the font sizes of all components within the inventory panel.
-     * Specifically, it sets the font size of all JButton components and the description area.
-     *
-     * @param fontSize the new font size to be applied to the components
-     */
+    // Metodo per aggiornare la dimensione dei bottoni
+    private void updateButtonSizes(final int buttonSize) {
+        for (final Component comp : inventoryPanel.getComponents()) {
+            if (comp instanceof JButton) {
+                final JButton button = (JButton) comp;
+                // Ridimensiona i bottoni
+                button.setSize(buttonSize, buttonSize);
+            }
+        }
+    }
+
+    // Metodo per aggiornare la posizione dei bottoni
+    private void positionButtons(final int buttonSize) {
+        int x = MARGIN;  // Posizione X iniziale dei bottoni
+        int y = MARGIN;  // Posizione Y iniziale dei bottoni
+
+        int columnCount = 0;
+
+        // Distribuiamo i bottoni in base al numero di colonne
+        for (final Component comp : inventoryPanel.getComponents()) {
+            if (comp instanceof JButton) {
+                JButton button = (JButton) comp;
+
+                // Imposta la posizione assoluta del bottone
+                button.setLocation(x, y);
+
+                columnCount++;
+                if (columnCount >= GRID_COLUMNS) {
+                    // Se abbiamo raggiunto il numero di colonne, inizia una nuova riga
+                    columnCount = 0;
+                    x = MARGIN;
+                    y += buttonSize + MARGIN; // Vai alla riga successiva
+                } else {
+                    // Spostati alla colonna successiva
+                    x += buttonSize + MARGIN;
+                }
+            }
+        }
+    }
+
     private void updateFontSizes(final int fontSize) {
         for (final Component comp : inventoryPanel.getComponents()) {
             if (comp instanceof JButton) {
