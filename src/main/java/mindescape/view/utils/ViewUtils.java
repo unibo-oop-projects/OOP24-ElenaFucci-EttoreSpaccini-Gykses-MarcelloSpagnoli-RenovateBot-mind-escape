@@ -267,11 +267,12 @@ public static class Style {
         return scrollPane;
     }
 
+
     /**
-     * Creates a styled JTextArea with specified text.
+     * Creates a styled JLabel with specified text.
      *
-     * @param text the text to be displayed in the text area
-     * @return a styled JTextArea
+     * @param text the text to be displayed on the label
+     * @return a styled JLabel
      */
     public static JLabel enigmaJLabel(final String text) {
         final JLabel label = new JLabel(text);
@@ -283,7 +284,7 @@ public static class Style {
             Style.TEXT_FIELD_PADDING, Style.TEXT_FIELD_PADDING * 2,
             Style.TEXT_FIELD_PADDING, Style.TEXT_FIELD_PADDING * 2
         ));
-        
+
         return label;
     }
 
