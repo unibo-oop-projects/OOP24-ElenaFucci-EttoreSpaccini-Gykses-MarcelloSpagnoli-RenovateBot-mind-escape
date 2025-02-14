@@ -273,23 +273,18 @@ public static class Style {
      * @param text the text to be displayed in the text area
      * @return a styled JTextArea
      */
-    public static JTextArea creatTextArea(final String text) {
-        final JTextArea textArea = new JTextArea(text);
-        textArea.setFont(Style.DEFAULT_FONT);
-        textArea.setBackground(Color.DARK_GRAY);
-        textArea.setForeground(Style.TEXT_AREA_TEXT_COLOR);
-        textArea.setLineWrap(true);
-        textArea.setWrapStyleWord(true);
-        textArea.setCaretColor(Color.WHITE);
-        textArea.setBorder(BorderFactory.createEmptyBorder(
-            Style.TEXT_AREA_PADDING, 
-            Style.TEXT_AREA_PADDING, 
-            Style.TEXT_AREA_PADDING, 
-            Style.TEXT_AREA_PADDING
+    public static JLabel enigmaJLabel(final String text) {
+        final JLabel label = new JLabel(text);
+        label.setFont(Style.DEFAULT_FONT);
+        label.setForeground(Style.LABEL_COLOR);
+        label.setOpaque(true);
+        label.setBackground(Color.DARK_GRAY);
+        label.setBorder(BorderFactory.createEmptyBorder(
+            Style.TEXT_FIELD_PADDING, Style.TEXT_FIELD_PADDING * 2,
+            Style.TEXT_FIELD_PADDING, Style.TEXT_FIELD_PADDING * 2
         ));
-        textArea.setEditable(false);
-
-        return textArea;
+        
+        return label;
     }
 
 }
