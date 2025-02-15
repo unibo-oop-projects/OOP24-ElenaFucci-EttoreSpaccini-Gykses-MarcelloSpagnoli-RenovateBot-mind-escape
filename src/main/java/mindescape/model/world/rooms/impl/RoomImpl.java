@@ -107,22 +107,12 @@ public final class RoomImpl implements Room, Serializable {
     }
 
     /**
-     * This is a static method to create the rooms.
+     * This is a static factory to create the rooms.
      * @return a list of {@link Room} from the files found in resources
      */
     public static List<Room> createRooms() {
-        final URL resourceUrl = RoomImpl.class.getClassLoader().getResource("rooms");
-        List<String> files = List.of();
         final ObjectsExtractor objectsExtractor = new ObjectsExtractor();
-        if (resourceUrl != null && "jar".equals(resourceUrl.getProtocol())) {
-            files = Arrays.stream(RoomNames.values())
-                .map(x -> "rooms/" + x.getName() + ".tmx")
-                .toList();
-        } else if (resourceUrl != null) {
-            files = Arrays.stream(RoomNames.values())
-                .map(x -> resourceUrl.getPath() + "/" + x.getName() + ".tmx")
-                .toList();
-        }
+        final List<String> files = listRooms();
         final List<Room> rooms = files.stream()
             .map(RoomImpl::new)
             .collect(Collectors.toList());
@@ -131,7 +121,7 @@ public final class RoomImpl implements Room, Serializable {
                 .forEach(room::addGameObject);
         });
         rooms.forEach(room -> {
-            objectsExtractor.addDoors(room.getSource(), rooms.stream().collect(Collectors.toSet()))
+            objectsExtractor.exstractDoors(room.getSource(), rooms.stream().collect(Collectors.toSet()))
                 .forEach(room::addGameObject);
         });
         return rooms;
@@ -151,5 +141,20 @@ public final class RoomImpl implements Room, Serializable {
     @Override
     public Dimensions getDimensions() {
         return dimensions;
+    }
+
+    private static List<String> listRooms() {
+        final URL resourceUrl = RoomImpl.class.getClassLoader().getResource("rooms");
+        List<String> files = List.of();
+        if (resourceUrl != null && "jar".equals(resourceUrl.getProtocol())) {
+            files = Arrays.stream(RoomNames.values())
+                .map(x -> "rooms/" + x.getName() + ".tmx")
+                .toList();
+        } else if (resourceUrl != null) {
+            files = Arrays.stream(RoomNames.values())
+                .map(x -> resourceUrl.getPath() + "/" + x.getName() + ".tmx")
+                .toList();
+        }
+        return files;
     }
 }
