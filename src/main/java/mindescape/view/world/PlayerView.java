@@ -32,7 +32,6 @@ public final class PlayerView {
     private static final int RIGHT_POSITION = 4;
     private static final int LEFT_POSITION = 6;
 
-
     private int spriteIndex;
     private final Map<UserInput, List<BufferedImage>> spriteMapper = new EnumMap<>(UserInput.class);
     private BufferedImage currentSprite;

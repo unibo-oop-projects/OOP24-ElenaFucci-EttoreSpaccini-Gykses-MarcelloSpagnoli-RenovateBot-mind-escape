@@ -150,7 +150,7 @@ public final class WorldController implements LoopController {
                 || keyMapper.get(entry.getKey()) == UserInput.INVENTORY) {
                     break;
                 }
-            }   
+            }
         }
     }
 

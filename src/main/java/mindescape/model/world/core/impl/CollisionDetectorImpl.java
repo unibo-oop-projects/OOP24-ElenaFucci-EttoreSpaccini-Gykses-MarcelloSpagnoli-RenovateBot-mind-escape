@@ -24,13 +24,13 @@ public final class CollisionDetectorImpl implements CollisionDetector {
         .findFirst();
     }
 
-    /**
+    /*
      * Checks if two objects are colliding based on their positions and dimensions.
      *
-     * @param position the position of the first object
-     * @param dim the dimensions of the first object
-     * @param obj the second object to check collision against
-     * @return true if the objects are colliding, false otherwise
+     * position the position of the first object
+     * dim the dimensions of the first object
+     * obj the second object to check collision against
+     * true if the objects are colliding, false otherwise
      */
     private boolean areColliding(final Point2D position, final Dimensions dim, final GameObject obj) {
         final Point2D objPos = obj.getPosition();
