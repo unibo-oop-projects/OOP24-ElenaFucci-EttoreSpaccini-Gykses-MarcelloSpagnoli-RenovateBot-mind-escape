@@ -24,7 +24,7 @@ import mindescape.model.world.rooms.api.Room;
  * @see Door
  * @see GameObjectImpl
  */
-public final class DoorImpl extends GameObjectImpl implements Door {
+public final class BaseDoor extends GameObjectImpl implements Door {
 
     private static final long serialVersionUID = 1L;
 
@@ -41,7 +41,7 @@ public final class DoorImpl extends GameObjectImpl implements Door {
      * @param destinationPosition the position in the destination room where the player will be placed
      */
     @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The destination room has to be exposed for the game logic")
-    public DoorImpl(final Point2D position, final String name,
+    public BaseDoor(final Point2D position, final String name,
                     final Dimensions dimensions, final Room destinationRoom, final Point2D destinationPosition) {
         super(position, name, dimensions);
         this.destinationRoom = destinationRoom;

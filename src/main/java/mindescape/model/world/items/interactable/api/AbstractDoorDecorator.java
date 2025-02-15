@@ -46,5 +46,5 @@ public abstract class AbstractDoorDecorator extends GameObjectImpl implements Do
      */
     @Override
     public abstract boolean isUnlocked(); 
-    
+
 }
