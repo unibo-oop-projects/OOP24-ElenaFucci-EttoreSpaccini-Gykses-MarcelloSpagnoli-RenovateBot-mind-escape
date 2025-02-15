@@ -8,7 +8,8 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Paths;
+import java.nio.file.InvalidPathException;
+import java.nio.file.Path;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -98,6 +99,36 @@ public final class WorldViewImpl implements WorldView, KeyListener {
         return this.panel;
     }
 
+    @Override
+    public void keyTyped(final KeyEvent e) {
+    }
+
+    @Override
+    public void keyPressed(final KeyEvent e) {
+        final int pressed = e.getKeyCode();
+        if (keyMapper.containsKey(pressed)) {
+            keyState.put(pressed, true);
+        }
+    }
+
+    @Override
+    public void keyReleased(final KeyEvent e) {
+        final int released = e.getKeyCode();
+        if (keyMapper.containsKey(released)) {
+            keyState.put(released, false);
+        }
+    }
+
+    @Override
+    public Map<Integer, Boolean> getKeyState() {
+        return Collections.unmodifiableMap(keyState);
+    }
+
+    @Override
+    public void clearInput() {
+        keyState.clear();
+    }
+
     private void drawLayer(final TiledTileLayer layer, final Graphics g, final TiledMap map) {
         for (int x = 0; x < map.getWidth(); x++) {
             for (int y = 0; y < map.getHeight(); y++) {
@@ -125,11 +156,23 @@ public final class WorldViewImpl implements WorldView, KeyListener {
             .toList();
     }
 
+    @SuppressFBWarnings(value = "NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE",
+        justification = "sb gives it on line 142 although is safe")
     private BufferedImage getTileImage(final TiledTile tile) {
         try {
+            if (tile.getTileset().getImage() == null) {
+                return getFallbackImage();
+            }
             final String path = tile.getTileset().getImage().getSource();
-            final String fileName = Paths.get(path).getFileName().toString();
+            final Path filePath = Path.of(path);
+            if (filePath == null || filePath.getFileName() == null) {
+                return getFallbackImage();
+            }
+            final String fileName = filePath.getFileName().toString();
             final InputStream is = WorldViewImpl.class.getClassLoader().getResourceAsStream("tiles/" + fileName);
+            if (is == null) {
+                return getFallbackImage();
+            }
             final BufferedImage image = ImageIO.read(is);
             final Point2D pos = getPositionFromId(tile, tile.getTileset().getWidth());
             return image.getSubimage(
@@ -138,17 +181,8 @@ public final class WorldViewImpl implements WorldView, KeyListener {
                 TILE_DIMENSION,
                 TILE_DIMENSION
             );
-        } catch (IOException e) {
-            final BufferedImage image = new BufferedImage(
-                TILE_DIMENSION,
-                TILE_DIMENSION,
-                BufferedImage.TYPE_4BYTE_ABGR
-            );
-            final Graphics g = image.createGraphics();
-            g.setColor(Color.BLACK);
-            g.fillRect(0, 0, TILE_DIMENSION, TILE_DIMENSION);
-            g.dispose();
-            return image;
+        } catch (IOException | InvalidPathException e) {
+            return getFallbackImage();
         }
     }
 
@@ -213,33 +247,18 @@ public final class WorldViewImpl implements WorldView, KeyListener {
         return objects.getObjects().stream().filter(obj -> obj.getTile() != null).toList();
     }
 
-    @Override
-    public void keyTyped(final KeyEvent e) {
+    private BufferedImage getFallbackImage() {
+        final BufferedImage image = new BufferedImage(
+                TILE_DIMENSION,
+                TILE_DIMENSION,
+                BufferedImage.TYPE_4BYTE_ABGR
+            );
+        final Graphics g = image.createGraphics();
+        g.setColor(Color.WHITE);
+        g.fillRect(0, 0, TILE_DIMENSION, TILE_DIMENSION);
+        g.dispose();
+        return image;
     }
 
-    @Override
-    public void keyPressed(final KeyEvent e) {
-        final int pressed = e.getKeyCode();
-        if (keyMapper.containsKey(pressed)) {
-            keyState.put(pressed, true);
-        }
-    }
-
-    @Override
-    public void keyReleased(final KeyEvent e) {
-        final int released = e.getKeyCode();
-        if (keyMapper.containsKey(released)) {
-            keyState.put(released, false);
-        }
-    }
-
-    @Override
-    public Map<Integer, Boolean> getKeyState() {
-        return Collections.unmodifiableMap(keyState);
-    }
-
-    @Override
-    public void clearInput() {
-        keyState.clear();
-    }
+    
 }
