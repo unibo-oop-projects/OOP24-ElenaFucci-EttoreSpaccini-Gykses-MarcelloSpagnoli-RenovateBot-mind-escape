@@ -10,6 +10,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import mindescape.model.world.core.api.Dimensions;
 import mindescape.model.world.player.api.Player;
 import mindescape.model.world.rooms.api.Room;
+import mindescape.view.api.AnimatedPlayerRenderer;
 import mindescape.view.api.WorldView;
 import mindescape.view.utils.ImageTransformer;
 import mindescape.view.utils.ViewUtils;
@@ -21,7 +22,7 @@ public final class WorldViewImpl implements WorldView, KeyListener {
 
     private static final int TILE_DIMENSION = (int) Dimensions.TILE.width();
     private String roomName;
-    private final PlayerView player;
+    private final AnimatedPlayerRenderer player;
     private int objNum;
     private final ImageTransformer transformer = new ImageTransformer();
     private final JPanel panel;
@@ -36,7 +37,7 @@ public final class WorldViewImpl implements WorldView, KeyListener {
     public WorldViewImpl(final Room currentRoom) {
         this.panel = createPanel();
         this.roomName = currentRoom.getName();
-        player = new PlayerView(getPlayer(currentRoom).getPosition());
+        player = new PlayerRendererImpl(getPlayer(currentRoom).getPosition());
         objNum = currentRoom.getGameObjects().size();
         renderer = new RoomRenderer(currentRoom);
     }

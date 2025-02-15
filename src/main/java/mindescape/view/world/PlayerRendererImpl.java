@@ -12,6 +12,8 @@ import javax.swing.Timer;
 import mindescape.controller.core.api.KeyMapper;
 import mindescape.controller.core.api.UserInput;
 import mindescape.model.world.core.api.Point2D;
+import mindescape.view.api.AnimatedPlayerRenderer;
+
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,7 +21,7 @@ import java.io.InputStream;
 /**
  * Class that represents the player view.
  */
-public final class PlayerView {
+public final class PlayerRendererImpl implements AnimatedPlayerRenderer{
 
     private static final int SPRITE_SIZE = 16;
     private static final int SPRITE_SHEET_COLUMNS = 8;
@@ -45,7 +47,7 @@ public final class PlayerView {
      * 
      * @param pos The initial position of the player
      */
-    public PlayerView(final Point2D pos) {
+    public PlayerRendererImpl(final Point2D pos) {
         this.spriteIndex = 0;
         this.x = (int) pos.x();
         this.y = (int) pos.y();
@@ -84,11 +86,7 @@ public final class PlayerView {
         timer.start();
     }
 
-    /**
-     * Updates the player's position.
-     * 
-     * @param pos The new position of the player
-     */
+    @Override
     public void setPosition(final Point2D pos) {
         x = (int) pos.x();
         y = (int) pos.y();
@@ -119,3 +117,4 @@ public final class PlayerView {
         }
     }
 }
+
