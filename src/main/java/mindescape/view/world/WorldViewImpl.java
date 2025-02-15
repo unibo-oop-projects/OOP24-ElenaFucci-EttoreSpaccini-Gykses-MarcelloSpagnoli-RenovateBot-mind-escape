@@ -44,7 +44,6 @@ public final class WorldViewImpl implements WorldView, KeyListener {
     private BufferedImage roomImage;
     private String roomName;
     private final transient PlayerView player;
-    private double roomHeight;
     private int objNum;
     private final Map<Integer, Boolean> keyState = new HashMap<>();
     private final transient ImageTransformer transformer = new ImageTransformer();
@@ -57,27 +56,13 @@ public final class WorldViewImpl implements WorldView, KeyListener {
      * @param currentRoom the current room
      */
     public WorldViewImpl(final Room currentRoom) {
-        this.panel = new JPanel() {
-            @Override
-            protected void paintComponent(final Graphics g) {
-                super.paintComponent(g);
-                final double scaling = getScalingFactor();
-                final BufferedImage image = transformer.adapt(roomImage, scaling);
-                final int offset = (this.getWidth() - image.getWidth()) / 2;
-                g.drawImage(image, offset, 0, this);
-                player.draw(g, offset, scaling, keyState);
-            }
-        };
-        panel.setBackground(ViewUtils.Style.PANEL_COLOR);
-        this.roomHeight = currentRoom.getDimensions().height();
+        this.panel = createPanel();
         this.roomName = currentRoom.getName();
         updateRoomImage(currentRoom);
         player = new PlayerView(getPlayer(currentRoom).getPosition());
-        keyMapper.forEach((key, value) -> keyState.put(key, false));
+        initializeKeyState();
         objNum = currentRoom.getGameObjects().size();
-        this.panel.setFocusable(true);
-        this.panel.requestFocusInWindow();
-        this.panel.addKeyListener(this);
+        
     }
 
     @Override
@@ -85,7 +70,6 @@ public final class WorldViewImpl implements WorldView, KeyListener {
         if (!roomName.equals(currentRoom.getName()) || objNum != currentRoom.getGameObjects().size()) {
             objNum = currentRoom.getGameObjects().size();
             updateRoomImage(currentRoom);
-            roomHeight = currentRoom.getDimensions().height();
             roomName = currentRoom.getName();
         }
         player.setPosition(getPlayer(currentRoom).getPosition());
@@ -202,7 +186,7 @@ public final class WorldViewImpl implements WorldView, KeyListener {
     }
 
     private double getScalingFactor() {
-        final double tileScaledDim = this.panel.getHeight() / (roomHeight / TILE_DIMENSION);
+        final double tileScaledDim = this.panel.getHeight() / (roomImage.getHeight() / TILE_DIMENSION);
         return tileScaledDim / TILE_DIMENSION;
     }
 
@@ -258,6 +242,29 @@ public final class WorldViewImpl implements WorldView, KeyListener {
         g.fillRect(0, 0, TILE_DIMENSION, TILE_DIMENSION);
         g.dispose();
         return image;
+    }
+
+    private JPanel createPanel() {
+        final JPanel panel = new JPanel() {
+            @Override
+            protected void paintComponent(final Graphics g) {
+                super.paintComponent(g);
+                final double scaling = getScalingFactor();
+                final BufferedImage image = transformer.adapt(roomImage, scaling);
+                final int offset = (this.getWidth() - image.getWidth()) / 2;
+                g.drawImage(image, offset, 0, this);
+                player.draw(g, offset, scaling, keyState);
+            }
+        };
+        panel.setFocusable(true);
+        panel.requestFocusInWindow();
+        panel.addKeyListener(this);
+        panel.setBackground(ViewUtils.Style.PANEL_COLOR);
+        return panel;
+    }
+
+    private void initializeKeyState() {
+        keyMapper.forEach((key, value) -> keyState.put(key, false));
     }
 
     
