@@ -2,6 +2,7 @@ package mindescape.model.enigma.enigmapuzzle.impl;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -105,12 +106,10 @@ public final class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializa
      * @return a new 2D array of {@link Image} objects representing the pieces of the puzzle.
      */
     public Integer[][] getPieces() {
-        final Integer[][] copy = new Integer[this.rows][this.cols];
-        for (int i = 0; i < this.rows; i++) {
-            System.arraycopy(this.pieces[i], 0, copy[i], 0, this.cols);
-        }
-        return copy;
-    }
+        return Arrays.stream(pieces)
+                     .map(row -> Arrays.copyOf(row, row.length))
+                     .toArray(Integer[][]::new);
+    }    
 
     /**
      * Swaps the pieces at the specified indices.
