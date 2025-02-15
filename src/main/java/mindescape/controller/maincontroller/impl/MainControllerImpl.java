@@ -13,8 +13,8 @@ import mindescape.controller.maincontroller.api.MainController;
 import mindescape.model.enigma.api.Enigma;
 import mindescape.model.saveload.util.SaveManager;
 import mindescape.model.world.api.World;
-import mindescape.view.api.MainView;
-import mindescape.view.main.MainViewImpl;
+import mindescape.view.main.api.MainView;
+import mindescape.view.main.impl.MainViewImpl;
 
 /**
  * Implementation of the MainController interface.
@@ -85,6 +85,8 @@ public final class MainControllerImpl implements MainController {
      */
     @Override
     public void exit() {
+        this.controllerMap.clear();
+        this.mainView.close();
         System.exit(0);
     }
 

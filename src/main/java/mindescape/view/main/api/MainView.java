@@ -1,4 +1,4 @@
-package mindescape.view.api;
+package mindescape.view.main.api;
 
 import javax.swing.JPanel;
 
@@ -23,5 +23,10 @@ public interface MainView {
      * This method is called when the player wins the game.
      */
     void won();
+
+    /**
+     * Closes the view.
+     */
+    void close();
 
 }
