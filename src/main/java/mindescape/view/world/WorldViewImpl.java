@@ -99,6 +99,36 @@ public final class WorldViewImpl implements WorldView, KeyListener {
         return this.panel;
     }
 
+    @Override
+    public void keyTyped(final KeyEvent e) {
+    }
+
+    @Override
+    public void keyPressed(final KeyEvent e) {
+        final int pressed = e.getKeyCode();
+        if (keyMapper.containsKey(pressed)) {
+            keyState.put(pressed, true);
+        }
+    }
+
+    @Override
+    public void keyReleased(final KeyEvent e) {
+        final int released = e.getKeyCode();
+        if (keyMapper.containsKey(released)) {
+            keyState.put(released, false);
+        }
+    }
+
+    @Override
+    public Map<Integer, Boolean> getKeyState() {
+        return Collections.unmodifiableMap(keyState);
+    }
+
+    @Override
+    public void clearInput() {
+        keyState.clear();
+    }
+
     private void drawLayer(final TiledTileLayer layer, final Graphics g, final TiledMap map) {
         for (int x = 0; x < map.getWidth(); x++) {
             for (int y = 0; y < map.getHeight(); y++) {
@@ -230,33 +260,5 @@ public final class WorldViewImpl implements WorldView, KeyListener {
         return image;
     }
 
-    @Override
-    public void keyTyped(final KeyEvent e) {
-    }
-
-    @Override
-    public void keyPressed(final KeyEvent e) {
-        final int pressed = e.getKeyCode();
-        if (keyMapper.containsKey(pressed)) {
-            keyState.put(pressed, true);
-        }
-    }
-
-    @Override
-    public void keyReleased(final KeyEvent e) {
-        final int released = e.getKeyCode();
-        if (keyMapper.containsKey(released)) {
-            keyState.put(released, false);
-        }
-    }
-
-    @Override
-    public Map<Integer, Boolean> getKeyState() {
-        return Collections.unmodifiableMap(keyState);
-    }
-
-    @Override
-    public void clearInput() {
-        keyState.clear();
-    }
+    
 }
