@@ -1,5 +1,7 @@
 package mindescape.controller.menu;
 
+import java.util.Optional;
+
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -102,11 +104,11 @@ public class MenuController implements ClickableController {
                 return;
             }
 
-            if (playerName.isEmpty()) {
+            if (playerName.isEmpty() || playerName.isBlank()) {
                 JOptionPane.showMessageDialog(null, "Please enter a name!", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
                 this.mainController.setPlayerName(playerName);
-                this.mainController.setController(ControllerName.WORLD, null);
+                this.mainController.setController(ControllerName.WORLD, Optional.empty());
                 return;
             }
         }
@@ -115,7 +117,7 @@ public class MenuController implements ClickableController {
      * Loads the game state from a saved file.
      */
     private void loadGame() {
-        this.mainController.setController(ControllerName.LOAD, null);
+        this.mainController.setController(ControllerName.LOAD, Optional.empty());
     }
 
     /**
@@ -145,6 +147,6 @@ public class MenuController implements ClickableController {
      * Action to be executed when the guide button is clicked.
      */
     private void guideAction() {
-        this.mainController.setController(ControllerName.GUIDE, null);
+        this.mainController.setController(ControllerName.GUIDE, Optional.empty());
     }
 }

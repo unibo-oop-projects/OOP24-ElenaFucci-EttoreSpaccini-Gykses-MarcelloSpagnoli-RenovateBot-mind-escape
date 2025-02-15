@@ -1,9 +1,11 @@
 package mindescape.controller.maincontroller.api;
 
+import java.util.Optional;
 import mindescape.controller.core.api.Controller;
 import mindescape.controller.core.api.ControllerName;
 import mindescape.model.enigma.api.Enigma;
 import mindescape.model.world.api.World;
+
 
 /**
  * The MainController interface provides a method to set a Controller.
@@ -16,7 +18,7 @@ public interface MainController {
      * @param controllerName the name of the controller to be set
      * @param enigma the enigma to be set
      */
-    void setController(ControllerName controllerName, Enigma enigma);
+    void setController(ControllerName controllerName, Optional<Enigma> enigma);
 
     /**
      * Starts the game loop.

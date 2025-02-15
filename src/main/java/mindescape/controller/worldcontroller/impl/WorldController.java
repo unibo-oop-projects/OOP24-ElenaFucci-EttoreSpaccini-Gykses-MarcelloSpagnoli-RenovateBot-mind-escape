@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
-
+import java.util.Optional;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import mindescape.controller.core.api.ControllerName;
 import mindescape.controller.core.api.KeyMapper;
@@ -154,11 +154,11 @@ public final class WorldController implements LoopController {
     private void interactAction() {
         worldView.clearInput();
         this.world.letPlayerInteract().ifPresent(enigma -> 
-        this.mainController.setController(ControllerName.fromString(enigma.getName()), enigma));
+        this.mainController.setController(ControllerName.fromString(enigma.getName()), Optional.of(enigma)));
     }
 
     private void inventoryAction() {
         worldView.clearInput();
-        this.mainController.setController(ControllerName.INVENTORY, null);
+        this.mainController.setController(ControllerName.INVENTORY, Optional.empty());
     }
 }

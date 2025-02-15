@@ -4,7 +4,7 @@ import java.io.Serializable;
 import mindescape.model.enigma.enigmapassword.api.EnigmaPasswordModel;
 
 /**
- * Represents a password-based enigma required to unlock a door in the first room.
+ * Represents a password-based enigma.
  * <p>
  * The enigma is solved by providing the correct password.
  * </p>
