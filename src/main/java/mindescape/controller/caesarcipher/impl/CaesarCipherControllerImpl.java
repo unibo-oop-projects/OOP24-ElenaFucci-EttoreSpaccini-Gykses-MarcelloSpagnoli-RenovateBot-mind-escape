@@ -42,6 +42,7 @@ public final class CaesarCipherControllerImpl implements CaesarCipherController 
     public void handleInput(final Object input) {
         try {
             final int shift = Integer.parseInt((String) input);
+            model.hit(model.decrypt(shift)); 
             view.showResult(model.decrypt(shift));
         } catch (NumberFormatException e) {
             view.showResult("Invalid shift value!");
