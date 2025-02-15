@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
+
 import mindescape.model.enigma.enigmapuzzle.api.EnigmaPuzzleModel;
 
 /**
@@ -54,19 +56,6 @@ public final class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializa
     }
 
     /**
-     * Retrieves a copy of the 2D array of image pieces that make up the enigma puzzle.
-     *
-     * @return a new 2D array of {@link Image} objects representing the pieces of the puzzle.
-     */
-    public Integer[][] getPieces() {
-        final Integer[][] copy = new Integer[this.rows][this.cols];
-        for (int i = 0; i < this.rows; i++) {
-            System.arraycopy(this.pieces[i], 0, copy[i], 0, this.cols);
-        }
-        return copy;
-    }
-
-    /**
      * Retrieves the image piece located at the specified row and column.
      *
      * @param row the row index of the piece to retrieve
@@ -84,10 +73,11 @@ public final class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializa
     public String getName() {
         return this.puzzleName;
     }
+
     /**
      * Shuffles the pieces of the puzzle randomly.
-     * This method first collects all pieces into a list, shuffles the list,
-     * and then reassigns the shuffled pieces back to the original 2D array.
+     * This method first collects all pieces into a list, shuffles the list, and then
+     * assigns the shuffled pieces back to the 2D array.
      */
     public void shufflePieces() {
         final List<Integer> shuffledPieces = new ArrayList<>();
@@ -98,7 +88,9 @@ public final class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializa
             }
         }
 
-        Collections.shuffle(shuffledPieces);
+        final Random rand = new Random(System.nanoTime());
+        Collections.shuffle(shuffledPieces, rand);
+
         int index = 0;
         for (int i = 0; i < this.rows; i++) {
             for (int j = 0; j < this.cols; j++) {
@@ -107,11 +99,17 @@ public final class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializa
         }
     }
 
-        /**
-     * Starts the puzzle, calling shufflePieces to randomize the puzzle pieces.
+    /**
+     * Retrieves a copy of the 2D array of image pieces that make up the enigma puzzle.
+     *
+     * @return a new 2D array of {@link Image} objects representing the pieces of the puzzle.
      */
-    public void startPuzzle() {
-        this.shufflePieces(); // Call shuffle after construction is complete
+    public Integer[][] getPieces() {
+        final Integer[][] copy = new Integer[this.rows][this.cols];
+        for (int i = 0; i < this.rows; i++) {
+            System.arraycopy(this.pieces[i], 0, copy[i], 0, this.cols);
+        }
+        return copy;
     }
 
     /**

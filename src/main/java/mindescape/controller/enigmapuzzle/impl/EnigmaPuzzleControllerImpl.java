@@ -95,5 +95,8 @@ public final class EnigmaPuzzleControllerImpl implements EnigmaPuzzleController 
      */
     @Override
     public void start() {
+        this.model.shufflePieces();
+        this.view.update(this.model.getPieces());
     }
+
 }
