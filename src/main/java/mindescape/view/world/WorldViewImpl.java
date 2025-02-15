@@ -8,7 +8,8 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Paths;
+import java.nio.file.InvalidPathException;
+import java.nio.file.Path;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -43,7 +44,6 @@ public final class WorldViewImpl implements WorldView, KeyListener {
     private BufferedImage roomImage;
     private String roomName;
     private final transient PlayerView player;
-    private double roomHeight;
     private int objNum;
     private final Map<Integer, Boolean> keyState = new HashMap<>();
     private final transient ImageTransformer transformer = new ImageTransformer();
@@ -56,27 +56,13 @@ public final class WorldViewImpl implements WorldView, KeyListener {
      * @param currentRoom the current room
      */
     public WorldViewImpl(final Room currentRoom) {
-        this.panel = new JPanel() {
-            @Override
-            protected void paintComponent(final Graphics g) {
-                super.paintComponent(g);
-                final double scaling = getScalingFactor();
-                final BufferedImage image = transformer.adapt(roomImage, scaling);
-                final int offset = (this.getWidth() - image.getWidth()) / 2;
-                g.drawImage(image, offset, 0, this);
-                player.draw(g, offset, scaling, keyState);
-            }
-        };
-        panel.setBackground(ViewUtils.Style.PANEL_COLOR);
-        this.roomHeight = currentRoom.getDimensions().height();
+        this.panel = createPanel();
         this.roomName = currentRoom.getName();
         updateRoomImage(currentRoom);
         player = new PlayerView(getPlayer(currentRoom).getPosition());
-        keyMapper.forEach((key, value) -> keyState.put(key, false));
+        initializeKeyState();
         objNum = currentRoom.getGameObjects().size();
-        this.panel.setFocusable(true);
-        this.panel.requestFocusInWindow();
-        this.panel.addKeyListener(this);
+        
     }
 
     @Override
@@ -84,7 +70,6 @@ public final class WorldViewImpl implements WorldView, KeyListener {
         if (!roomName.equals(currentRoom.getName()) || objNum != currentRoom.getGameObjects().size()) {
             objNum = currentRoom.getGameObjects().size();
             updateRoomImage(currentRoom);
-            roomHeight = currentRoom.getDimensions().height();
             roomName = currentRoom.getName();
         }
         player.setPosition(getPlayer(currentRoom).getPosition());
@@ -96,6 +81,36 @@ public final class WorldViewImpl implements WorldView, KeyListener {
     @Override
     public JPanel getPanel() {
         return this.panel;
+    }
+
+    @Override
+    public void keyTyped(final KeyEvent e) {
+    }
+
+    @Override
+    public void keyPressed(final KeyEvent e) {
+        final int pressed = e.getKeyCode();
+        if (keyMapper.containsKey(pressed)) {
+            keyState.put(pressed, true);
+        }
+    }
+
+    @Override
+    public void keyReleased(final KeyEvent e) {
+        final int released = e.getKeyCode();
+        if (keyMapper.containsKey(released)) {
+            keyState.put(released, false);
+        }
+    }
+
+    @Override
+    public Map<Integer, Boolean> getKeyState() {
+        return Collections.unmodifiableMap(keyState);
+    }
+
+    @Override
+    public void clearInput() {
+        keyState.clear();
     }
 
     private void drawLayer(final TiledTileLayer layer, final Graphics g, final TiledMap map) {
@@ -125,11 +140,23 @@ public final class WorldViewImpl implements WorldView, KeyListener {
             .toList();
     }
 
+    @SuppressFBWarnings(value = "NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE",
+        justification = "sb gives it on line 142 although is safe")
     private BufferedImage getTileImage(final TiledTile tile) {
         try {
+            if (tile.getTileset().getImage() == null) {
+                return getFallbackImage();
+            }
             final String path = tile.getTileset().getImage().getSource();
-            final String fileName = Paths.get(path).getFileName().toString();
+            final Path filePath = Path.of(path);
+            if (filePath == null || filePath.getFileName() == null) {
+                return getFallbackImage();
+            }
+            final String fileName = filePath.getFileName().toString();
             final InputStream is = WorldViewImpl.class.getClassLoader().getResourceAsStream("tiles/" + fileName);
+            if (is == null) {
+                return getFallbackImage();
+            }
             final BufferedImage image = ImageIO.read(is);
             final Point2D pos = getPositionFromId(tile, tile.getTileset().getWidth());
             return image.getSubimage(
@@ -138,17 +165,8 @@ public final class WorldViewImpl implements WorldView, KeyListener {
                 TILE_DIMENSION,
                 TILE_DIMENSION
             );
-        } catch (IOException e) {
-            final BufferedImage image = new BufferedImage(
-                TILE_DIMENSION,
-                TILE_DIMENSION,
-                BufferedImage.TYPE_4BYTE_ABGR
-            );
-            final Graphics g = image.createGraphics();
-            g.setColor(Color.BLACK);
-            g.fillRect(0, 0, TILE_DIMENSION, TILE_DIMENSION);
-            g.dispose();
-            return image;
+        } catch (IOException | InvalidPathException e) {
+            return getFallbackImage();
         }
     }
 
@@ -168,7 +186,7 @@ public final class WorldViewImpl implements WorldView, KeyListener {
     }
 
     private double getScalingFactor() {
-        final double tileScaledDim = this.panel.getHeight() / (roomHeight / TILE_DIMENSION);
+        final double tileScaledDim = this.panel.getHeight() / (roomImage.getHeight() / TILE_DIMENSION);
         return tileScaledDim / TILE_DIMENSION;
     }
 
@@ -213,33 +231,41 @@ public final class WorldViewImpl implements WorldView, KeyListener {
         return objects.getObjects().stream().filter(obj -> obj.getTile() != null).toList();
     }
 
-    @Override
-    public void keyTyped(final KeyEvent e) {
+    private BufferedImage getFallbackImage() {
+        final BufferedImage image = new BufferedImage(
+                TILE_DIMENSION,
+                TILE_DIMENSION,
+                BufferedImage.TYPE_4BYTE_ABGR
+            );
+        final Graphics g = image.createGraphics();
+        g.setColor(Color.WHITE);
+        g.fillRect(0, 0, TILE_DIMENSION, TILE_DIMENSION);
+        g.dispose();
+        return image;
     }
 
-    @Override
-    public void keyPressed(final KeyEvent e) {
-        final int pressed = e.getKeyCode();
-        if (keyMapper.containsKey(pressed)) {
-            keyState.put(pressed, true);
-        }
+    private JPanel createPanel() {
+        final JPanel panel = new JPanel() {
+            @Override
+            protected void paintComponent(final Graphics g) {
+                super.paintComponent(g);
+                final double scaling = getScalingFactor();
+                final BufferedImage image = transformer.adapt(roomImage, scaling);
+                final int offset = (this.getWidth() - image.getWidth()) / 2;
+                g.drawImage(image, offset, 0, this);
+                player.draw(g, offset, scaling, keyState);
+            }
+        };
+        panel.setFocusable(true);
+        panel.requestFocusInWindow();
+        panel.addKeyListener(this);
+        panel.setBackground(ViewUtils.Style.PANEL_COLOR);
+        return panel;
     }
 
-    @Override
-    public void keyReleased(final KeyEvent e) {
-        final int released = e.getKeyCode();
-        if (keyMapper.containsKey(released)) {
-            keyState.put(released, false);
-        }
+    private void initializeKeyState() {
+        keyMapper.forEach((key, value) -> keyState.put(key, false));
     }
 
-    @Override
-    public Map<Integer, Boolean> getKeyState() {
-        return Collections.unmodifiableMap(keyState);
-    }
-
-    @Override
-    public void clearInput() {
-        keyState.clear();
-    }
+    
 }
