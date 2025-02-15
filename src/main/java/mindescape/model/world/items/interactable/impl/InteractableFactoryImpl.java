@@ -50,7 +50,7 @@ public final class InteractableFactoryImpl implements InteractableFactory {
         final int keyItemId,
         final Room destinationRoom, 
         final Point2D destinationPosition) {
-            final var door = new DoorImpl(
+            final var door = new BaseDoor(
                 position, 
                 name, 
                 dimensions, 
@@ -75,7 +75,7 @@ public final class InteractableFactoryImpl implements InteractableFactory {
     public Door createDoorLockedWithEnigma(final String name, final Point2D position,
                                            final Dimensions dimensions, final Enigma enigma,
                                            final Room destinationRoom, final Point2D destinationPosition) {
-        return new DoorLockedWithEnigma(new DoorImpl(position, name, dimensions, destinationRoom, destinationPosition), enigma);
+        return new DoorLockedWithEnigma(new BaseDoor(position, name, dimensions, destinationRoom, destinationPosition), enigma);
     }
 
     /**
@@ -141,6 +141,6 @@ public final class InteractableFactoryImpl implements InteractableFactory {
     public Door createSimpleDoor(final String name, final Point2D position,
                                  final Dimensions dimensions, final Room destinationRoom, 
                                  final Point2D destinationPosition) {
-        return new DoorImpl(position, name, dimensions, destinationRoom, destinationPosition);
+        return new BaseDoor(position, name, dimensions, destinationRoom, destinationPosition);
     }
 }
