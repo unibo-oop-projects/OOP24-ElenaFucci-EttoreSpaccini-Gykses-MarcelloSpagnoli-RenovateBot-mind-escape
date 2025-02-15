@@ -224,7 +224,7 @@ public final class WorldViewImpl implements WorldView, KeyListener {
                 BufferedImage.TYPE_4BYTE_ABGR
             );
         final Graphics g = image.createGraphics();
-        g.setColor(Color.BLACK);
+        g.setColor(Color.WHITE);
         g.fillRect(0, 0, TILE_DIMENSION, TILE_DIMENSION);
         g.dispose();
         return image;
