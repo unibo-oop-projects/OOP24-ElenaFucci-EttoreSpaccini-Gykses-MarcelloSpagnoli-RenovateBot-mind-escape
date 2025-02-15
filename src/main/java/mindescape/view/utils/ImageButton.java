@@ -19,7 +19,7 @@ public final class ImageButton extends JButton {
      *
      * @param image the new image to be set
      */
-    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "L'immagine non viene modificata esternamente")
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The image is not externally modified")
     public void setImage(final Image image) {
         this.image = image;
         repaint();

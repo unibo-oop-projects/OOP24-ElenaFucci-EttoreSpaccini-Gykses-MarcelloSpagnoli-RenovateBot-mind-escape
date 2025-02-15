@@ -3,8 +3,8 @@ package mindescape.controller.core.impl;
 import java.util.Objects;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import mindescape.controller.caesarcipher.impl.CaesarCipherControllerImpl;
-import mindescape.controller.core.api.ControllerBuilder;
-import mindescape.controller.core.api.ControllerMap;
+import mindescape.controller.core.api.Controller;
+import mindescape.controller.core.api.ControllerFactory;
 import mindescape.controller.enigmacalendar.impl.CalendarControllerImpl;
 import mindescape.controller.enigmapassword.impl.EnigmaPasswordControllerImpl;
 import mindescape.controller.enigmapuzzle.impl.EnigmaPuzzleControllerImpl;
@@ -22,170 +22,149 @@ import mindescape.model.enigma.enigmapuzzle.impl.EnigmaPuzzleModelImpl;
 import mindescape.model.world.api.World;
 import mindescape.model.world.impl.WorldImpl;
 
-
 /**
- * Implementation of the ControllerBuilder interface.
- * This class is responsible for building various controllers and managing them through a ControllerMap.
+ * Implementation of the ControllerFactory interface.
  */
-public final class ControllerBuilderImpl implements ControllerBuilder {
+public final class ControllerFactoryImpl implements ControllerFactory {
 
-    private final ControllerMap controllerMap;
     private final MainController mainController;
 
     /**
-     * Constructs a new ControllerBuilderImpl with the specified MainController.
-     *
-     * @param mainController the main controller to be used by this builder
+     * Constructor for the ControllerFactoryImpl class.
+     * 
+     * @param mainController the MainController instance to be used by the factory.
      */
     @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The maincontroller needs to be exposed to the caller")
-    public ControllerBuilderImpl(final MainController mainController) {
+    public ControllerFactoryImpl(final MainController mainController) {
         this.mainController = mainController;
-        this.controllerMap = new ControllerMapImpl();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void buildMenu() {
-        this.controllerMap.addController(new MenuController(this.mainController));
+    public Controller buildMenu() {
+        return new MenuController(this.mainController);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void buildPuzzle(final Enigma enigma) {
+    public Controller buildPuzzle(final Enigma enigma) {
         if (!(enigma instanceof EnigmaPuzzleModelImpl)) {
             throw new IllegalArgumentException(
                 "Invalid enigma type for EnigmaPuzzleControllerImpl: " + enigma.getClass().getSimpleName()
             );
         }
-        this.controllerMap.addController(new EnigmaPuzzleControllerImpl((EnigmaPuzzleModelImpl) enigma, this.mainController));
+        return new EnigmaPuzzleControllerImpl((EnigmaPuzzleModelImpl) enigma, this.mainController);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void buildEnigmaFirstDoor(final Enigma enigma) {
+    public Controller buildEnigmaFirstDoor(final Enigma enigma) {
         if (!(enigma instanceof EnigmaPasswordModel)) {
             throw new IllegalArgumentException(
                 "Invalid enigma type for EnigmaPasswordControllerImpl: " + enigma.getClass().getSimpleName()
             );
         }
-        this.controllerMap.addController(new EnigmaPasswordControllerImpl((EnigmaPasswordModel) enigma, mainController));
+        return new EnigmaPasswordControllerImpl((EnigmaPasswordModel) enigma, mainController);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void buildCalendar(final Enigma enigma) {
+    public Controller buildCalendar(final Enigma enigma) {
         if (!(enigma instanceof Calendar)) {
             throw new IllegalArgumentException(
                 "Invalid enigma type for CalendarControllerImpl: " + enigma.getClass()
             );
         }
-        this.controllerMap.addController(new CalendarControllerImpl(mainController));
+        return new CalendarControllerImpl(mainController);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void buildComputer(final Enigma enigma) {
+    public Controller buildComputer(final Enigma enigma) {
         if (!(enigma instanceof CaesarCipherModel)) {
             throw new IllegalArgumentException(
                 "Invalid enigma type for CaesarCipherControllerImpl: " + enigma.getClass().getSimpleName()
             );
         }
-        this.controllerMap.addController(new CaesarCipherControllerImpl((CaesarCipherModel) enigma, this.mainController));
+        return new CaesarCipherControllerImpl((CaesarCipherModel) enigma, this.mainController);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void buildWardrobe(final Enigma enigma) {
+    public Controller buildWardrobe(final Enigma enigma) {
         if (!(enigma instanceof EnigmaPasswordModel)) {
             throw new IllegalArgumentException(
                 "Invalid enigma type for EnigmaPasswordControllerImpl: " + enigma.getClass().getSimpleName()
             );
         }
-        this.controllerMap.addController(new EnigmaPasswordControllerImpl((EnigmaPasswordModel) enigma, mainController));
+        return new EnigmaPasswordControllerImpl((EnigmaPasswordModel) enigma, mainController);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void buildNewWorld(final String username) {
+    public Controller buildNewWorld(final String username) {
         Objects.requireNonNull(username);
-        this.controllerMap.addController(new WorldController(new WorldImpl(username), mainController));
+        return new WorldController(new WorldImpl(username), mainController);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void buildExistingWorld(final World world) {
+    public Controller buildExistingWorld(final World world) {
         Objects.requireNonNull(world);
-        this.controllerMap.addController(new WorldController(world, mainController));
+        return new WorldController(world, mainController);
     }
     /**
      * {@inheritDoc}
      */
     @Override
-    public void buildLoad() {
-       this.controllerMap.addController(new SavesControllerImpl(this.mainController));
+    public Controller buildLoad() {
+       return new SavesControllerImpl(this.mainController);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void buildInventory(final World world) {
+    public Controller buildInventory(final World world) {
         Objects.requireNonNull(world);
-        this.controllerMap.addController(new InventoryControllerImpl(world.getPlayer().getInventory(), mainController));
+        return new InventoryControllerImpl(world.getPlayer().getInventory(), mainController);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void buildDrawer(final Enigma enigma) {
+    public Controller buildDrawer(final Enigma enigma) {
         if (!(enigma instanceof EnigmaPasswordModel)) {
             throw new IllegalArgumentException(
                 "Invalid enigma type for EnigmaPasswordControllerImpl: " + enigma.getClass().getSimpleName()
             );
         }
-        this.controllerMap.addController(new EnigmaPasswordControllerImpl((EnigmaPasswordModel) enigma, mainController));
+        return new EnigmaPasswordControllerImpl((EnigmaPasswordModel) enigma, mainController);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void reset() {
-        this.controllerMap.clear();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The controller map is returned to the caller")
-    public ControllerMap getResult() {
-        return this.controllerMap;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void buildGuide() {
-        this.controllerMap.addController(new GuideControllerImpl(mainController));
+    public Controller buildGuide() {
+        return new GuideControllerImpl(mainController);
     }
 
 }

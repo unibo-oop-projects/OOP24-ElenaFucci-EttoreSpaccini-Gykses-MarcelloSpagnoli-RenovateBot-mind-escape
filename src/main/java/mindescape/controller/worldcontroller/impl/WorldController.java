@@ -1,6 +1,5 @@
 package mindescape.controller.worldcontroller.impl;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
@@ -26,7 +25,7 @@ public final class WorldController implements LoopController {
     private final WorldView worldView;
     private final MainController mainController;
     private final Logger logger = Logger.getLogger(WorldController.class.getName());
-    private boolean running = true;
+    private volatile boolean running = true;
     private static final int FPS = 60; 
     private static final long TIME = 1_000; // 1 second in milliseconds
     private final Map<Integer, UserInput> keyMapper = KeyMapper.getKeyMap();
@@ -68,7 +67,7 @@ public final class WorldController implements LoopController {
         this.running = false;
     }
 
-    /**
+    /*
      * The loop that runs the game.
      */
     private final class Loop extends Thread {
@@ -144,9 +143,13 @@ public final class WorldController implements LoopController {
     }
 
     private void movePlayerIfKeyPressed() {
-        for (final Map.Entry<Integer, Boolean> entry : new HashMap<>(worldView.getKeyState()).entrySet()) {
+        for (final Map.Entry<Integer, Boolean> entry : worldView.getKeyState().entrySet()) {
             if (entry.getValue()) {
                 handleInput(keyMapper.get(entry.getKey()));
+                if (keyMapper.get(entry.getKey()) == UserInput.INTERACT
+                || keyMapper.get(entry.getKey()) == UserInput.INVENTORY) {
+                    break;
+                }
             }
         }
     }

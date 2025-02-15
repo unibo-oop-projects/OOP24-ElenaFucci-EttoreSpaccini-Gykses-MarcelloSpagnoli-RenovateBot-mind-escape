@@ -1,4 +1,4 @@
-package mindescape.view.main;
+package mindescape.view.main.impl;
 
 import java.util.Map;
 import java.util.Objects;
@@ -11,7 +11,8 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import mindescape.controller.core.api.KeyMapper;
 import mindescape.controller.core.api.UserInput;
 import mindescape.controller.maincontroller.api.MainController;
-import mindescape.view.api.MainView;
+import mindescape.view.main.api.MainView;
+
 import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -123,5 +124,13 @@ public final class MainViewImpl implements MainView {
     @Override
     public void won() {
         JOptionPane.showMessageDialog(frame, "You won!");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void close() {
+        this.frame.dispose();
     }
 }
