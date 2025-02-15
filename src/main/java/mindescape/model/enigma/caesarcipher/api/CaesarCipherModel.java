@@ -9,10 +9,10 @@ import mindescape.model.enigma.api.Enigma;
 public interface CaesarCipherModel extends Enigma {
 
     /**
-     * Encrypts a predefined text using the Caesar Cipher algorithm with the specified shift value.
+     * Decrypts a predefined text using the Caesar Cipher algorithm with the specified shift value.
      *
      * @param shift the number of positions to shift each letter in the text
-     * @return the encrypted text
+     * @return the decrypted text
      */
     String decrypt(int shift); 
 
