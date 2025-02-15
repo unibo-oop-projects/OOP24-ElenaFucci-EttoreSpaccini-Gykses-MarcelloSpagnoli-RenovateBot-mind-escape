@@ -259,5 +259,4 @@ public final class WorldViewImpl implements WorldView, KeyListener {
         g.dispose();
         return image;
     }
-
 }
