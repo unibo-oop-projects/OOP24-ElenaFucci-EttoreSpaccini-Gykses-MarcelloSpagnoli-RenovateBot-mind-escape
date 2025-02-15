@@ -3,6 +3,8 @@ package mindescape.controller.saveload.impl;
 import java.io.File;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
+
 import javax.swing.JPanel;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -79,7 +81,7 @@ public final class SavesControllerImpl implements SavesController {
             final var saveData = SaveManager.loadGameStatus(saveFile);
             this.mainController.loadGame(saveData);
         } catch (IllegalArgumentException e) {
-            this.mainController.setController(ControllerName.WORLD, null);
+            this.mainController.setController(ControllerName.WORLD, Optional.empty());
         }
     }
 
