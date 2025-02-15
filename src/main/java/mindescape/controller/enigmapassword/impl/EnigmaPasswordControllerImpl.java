@@ -1,5 +1,7 @@
 package mindescape.controller.enigmapassword.impl;
 
+import java.util.Optional;
+
 import javax.swing.JPanel;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -65,7 +67,7 @@ public final class EnigmaPasswordControllerImpl implements EnigmaPasswordControl
      */
     @Override
     public void quit() {
-        this.mainController.setController(ControllerName.WORLD, null);
+        this.mainController.setController(ControllerName.WORLD, Optional.empty());
     }
 
     /**
