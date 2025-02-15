@@ -260,5 +260,4 @@ public final class WorldViewImpl implements WorldView, KeyListener {
         return image;
     }
 
-    
 }

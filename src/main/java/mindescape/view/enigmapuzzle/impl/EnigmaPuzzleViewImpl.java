@@ -60,6 +60,7 @@ public final class EnigmaPuzzleViewImpl extends JPanel implements EnigmaPuzzleVi
      *
      * @return a list of {@link ImageButton} objects.
      */
+    @Override
     public List<ImageButton> getButtons() {
         return Collections.unmodifiableList(this.buttons);
     }
@@ -71,6 +72,7 @@ public final class EnigmaPuzzleViewImpl extends JPanel implements EnigmaPuzzleVi
      *               Each element in the array corresponds to the position of a piece
      *               in the original image.
      */
+    @Override
     public void update(final Integer[][] pieces) {
         for (int i = 0; i < this.rows; i++) {
             for (int j = 0; j < this.cols; j++) {

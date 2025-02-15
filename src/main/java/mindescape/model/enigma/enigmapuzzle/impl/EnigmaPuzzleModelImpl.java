@@ -43,6 +43,7 @@ public final class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializa
      *
      * @return the number of rows
      */
+    @Override
     public int getRows() {
         return this.rows;
     }
@@ -52,6 +53,7 @@ public final class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializa
      *
      * @return the number of columns
      */
+    @Override
     public int getCols() {
         return this.cols;
     }
@@ -63,6 +65,7 @@ public final class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializa
      * @param col the column index of the piece to retrieve
      * @return the image piece at the specified row and column
      */
+    @Override
     public Integer getPiece(final int row, final int col) {
         return this.pieces[row][col];
     }
@@ -80,6 +83,7 @@ public final class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializa
      * This method first collects all pieces into a list, shuffles the list, and then
      * assigns the shuffled pieces back to the 2D array.
      */
+    @Override
     public void shufflePieces() {
         final List<Integer> shuffledPieces = new ArrayList<>();
 
@@ -105,11 +109,12 @@ public final class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializa
      *
      * @return a new 2D array of {@link Image} objects representing the pieces of the puzzle.
      */
+    @Override
     public Integer[][] getPieces() {
         return Arrays.stream(pieces)
                      .map(row -> Arrays.copyOf(row, row.length))
                      .toArray(Integer[][]::new);
-    }    
+    }
 
     /**
      * Swaps the pieces at the specified indices.
@@ -117,6 +122,7 @@ public final class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializa
      * @param index1 the index of the first piece to swap
      * @param index2 the index of the second piece to swap
      */
+    @Override
     public void swapPieces(final Integer index1, final Integer index2) {
         final Integer firstRow = index1 / this.cols;
         final Integer firstCol = index1 % this.cols;
