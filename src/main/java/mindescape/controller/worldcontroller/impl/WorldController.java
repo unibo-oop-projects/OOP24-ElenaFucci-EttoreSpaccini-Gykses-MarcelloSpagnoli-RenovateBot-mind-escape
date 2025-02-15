@@ -26,7 +26,7 @@ public final class WorldController implements LoopController {
     private final WorldView worldView;
     private final MainController mainController;
     private final Logger logger = Logger.getLogger(WorldController.class.getName());
-    private boolean running = true;
+    private volatile boolean running = true;
     private static final int FPS = 60; 
     private static final long TIME = 1_000; // 1 second in milliseconds
     private final Map<Integer, UserInput> keyMapper = KeyMapper.getKeyMap();

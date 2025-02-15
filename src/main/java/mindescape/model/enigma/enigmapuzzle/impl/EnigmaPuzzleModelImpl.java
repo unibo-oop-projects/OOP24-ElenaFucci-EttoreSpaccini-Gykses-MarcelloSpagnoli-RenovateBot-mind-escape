@@ -109,7 +109,7 @@ public final class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializa
         return Arrays.stream(pieces)
                      .map(row -> Arrays.copyOf(row, row.length))
                      .toArray(Integer[][]::new);
-    }    
+    }
 
     /**
      * Swaps the pieces at the specified indices.
