@@ -1,6 +1,7 @@
 package mindescape.controller.maincontroller.impl;
 
 import java.util.Objects;
+import java.util.Optional;
 import javax.swing.SwingUtilities;
 import mindescape.controller.core.api.Controller;
 import mindescape.controller.core.api.ControllerBuilder;
@@ -38,7 +39,7 @@ public final class MainControllerImpl implements MainController {
      * {@inheritDoc}
      */
     @Override
-    public void setController(final ControllerName controllerName, final Enigma enigma) {
+    public void setController(final ControllerName controllerName, final Optional<Enigma> enigma) {
         // Quit the current controller if it is a LoopController
         if (this.currentController instanceof LoopController) {
             ((LoopController) this.currentController).quit();
@@ -46,7 +47,7 @@ public final class MainControllerImpl implements MainController {
 
         // if the controller is already in the map, set it as the current controller 
         if (!this.controllerMap.containsController(controllerName)) {
-            this.controllerMap = this.buildController(controllerName, enigma);
+            this.controllerMap = this.buildController(controllerName, enigma.orElse(null));
         }
         this.currentController = this.controllerMap.findController(controllerName);
         this.mainView.setPanel(this.currentController.getPanel());
@@ -109,7 +110,7 @@ public final class MainControllerImpl implements MainController {
     public void loadGame(final World world) {
         this.controllerBuilder.buildExistingWorld(world);
         this.controllerMap = this.controllerBuilder.getResult();
-        this.setController(ControllerName.WORLD, null);
+        this.setController(ControllerName.WORLD, Optional.empty());
     }
 
     /**
@@ -118,7 +119,7 @@ public final class MainControllerImpl implements MainController {
     private void onStart() {
         this.controllerBuilder.buildMenu();
         this.controllerMap = this.controllerBuilder.getResult();
-        this.setController(ControllerName.MENU, null);
+        this.setController(ControllerName.MENU, Optional.empty());
     }
 
     /**

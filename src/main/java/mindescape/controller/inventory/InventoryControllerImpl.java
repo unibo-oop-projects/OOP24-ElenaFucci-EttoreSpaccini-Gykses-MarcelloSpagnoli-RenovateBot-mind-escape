@@ -2,6 +2,8 @@ package mindescape.controller.inventory;
 
 import java.awt.event.KeyEvent;
 import java.util.Objects;
+import java.util.Optional;
+
 import javax.swing.JPanel;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -80,7 +82,7 @@ public final class InventoryControllerImpl implements ClickableController {
      */
     @Override
     public void quit() {
-        this.mainController.setController(ControllerName.WORLD, null);
+        this.mainController.setController(ControllerName.WORLD, Optional.empty());
     }
 
     /**
