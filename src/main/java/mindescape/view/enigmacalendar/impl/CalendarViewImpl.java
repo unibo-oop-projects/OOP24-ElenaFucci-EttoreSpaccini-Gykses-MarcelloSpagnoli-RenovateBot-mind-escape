@@ -83,7 +83,6 @@ public final class CalendarViewImpl implements CalendarView {
         timeLabels = new JLabel[TIME_SLOTS.length];
         activityLabels = new JLabel[ACTIVITIES.length];
 
-        // Creates the labels for time slots and activities, then adds them to the panel
         for (int i = 0; i < TIME_SLOTS.length; i++) {
             final JPanel entryPanel = new JPanel(new BorderLayout());
             entryPanel.setBackground(ENTRY_BACKGROUND_COLOR);
@@ -104,7 +103,6 @@ public final class CalendarViewImpl implements CalendarView {
 
         panel.add(schedulePanel, BorderLayout.CENTER);
 
-        // Adds a listener to resize the text when the window is resized
         panel.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(final ComponentEvent e) {
