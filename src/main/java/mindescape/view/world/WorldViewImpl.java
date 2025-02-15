@@ -130,7 +130,7 @@ public final class WorldViewImpl implements WorldView, KeyListener {
         justification = "sb gives it on line 142 although is safe")
     private BufferedImage getTileImage(final TiledTile tile) {
         try {
-            if (tile.getTileset().getImage() != null) {
+            if (tile.getTileset().getImage() == null) {
                 return getFallbackImage();
             }
             final String path = tile.getTileset().getImage().getSource();
