@@ -24,12 +24,13 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import mindescape.model.world.core.api.Dimensions;
 import mindescape.model.world.core.api.Point2D;
 import mindescape.model.world.rooms.api.Room;
+import mindescape.view.api.RoomRenderer;
 import mindescape.view.utils.ImageTransformer;
 
 /**
  * Class that renders the room.
  */
-public final class RoomRenderer {
+public final class RoomRendererImpl implements RoomRenderer {
 
     private static final double ROTATING_ANGLE = -90;
     private static final int TILE_DIMENSION = (int) Dimensions.TILE.width();
@@ -41,7 +42,7 @@ public final class RoomRenderer {
      * Constructor for RoomRenderer.
      * @param currentRoom the room to be rendered.
      */
-    public RoomRenderer(final Room currentRoom) {
+    public RoomRendererImpl(final Room currentRoom) {
         updateRoomImage(currentRoom);
     }
 

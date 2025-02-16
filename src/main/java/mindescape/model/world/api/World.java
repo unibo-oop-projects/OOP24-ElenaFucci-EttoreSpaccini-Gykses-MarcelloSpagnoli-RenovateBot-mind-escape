@@ -5,6 +5,7 @@ import java.util.Optional;
 import mindescape.model.api.Model;
 import mindescape.model.enigma.api.Enigma;
 import mindescape.model.world.core.api.Movement;
+import mindescape.model.world.core.api.WorldObserver;
 import mindescape.model.world.player.api.Player;
 import mindescape.model.world.rooms.api.Room;
 
@@ -62,5 +63,11 @@ public interface World extends Model {
      * @return the {@link Player} instance representing the player in the world.
      */
     Player getPlayer();
+
+    /**
+     * Sets the observer for the world.
+     * @param observer the observer to be set
+     */
+    void setObserver(final WorldObserver observer);
 
 }
