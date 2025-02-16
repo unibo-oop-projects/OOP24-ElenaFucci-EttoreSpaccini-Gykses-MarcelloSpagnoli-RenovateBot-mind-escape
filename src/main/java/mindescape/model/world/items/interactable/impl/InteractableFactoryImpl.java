@@ -7,6 +7,7 @@ import mindescape.model.world.items.interactable.api.Door;
 import mindescape.model.world.items.interactable.api.InteractableFactory;
 import mindescape.model.world.items.interactable.api.Pickable;
 import mindescape.model.world.items.interactable.api.Unpickable;
+import mindescape.model.world.items.interactable.api.UnpickableWithEnigma;
 import mindescape.model.world.rooms.api.Room;
 
 /**
@@ -86,10 +87,10 @@ public final class InteractableFactoryImpl implements InteractableFactory {
      * @param dimensions  the dimensions of the unpickable object
      * @param enigma      the enigma required to unlock the object
      * @param reward      a pickable item rewarded after solving the enigma
-     * @return a new {@link Unpickable} instance
+     * @return a new {@link UnpickableWithEnigma} instance
      */
     @Override
-    public Unpickable createUnpickableWithEnigma(final String name, final Point2D position,
+    public UnpickableWithEnigma createUnpickableWithEnigma(final String name, final Point2D position,
                                                  final Dimensions dimensions, final Enigma enigma,
                                                  final Pickable reward) {
         return new UnpickableWithEnigmaImpl(name, position, dimensions, enigma, reward);

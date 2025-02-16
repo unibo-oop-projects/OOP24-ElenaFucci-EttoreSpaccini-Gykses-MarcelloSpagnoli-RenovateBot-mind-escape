@@ -75,9 +75,9 @@ public interface InteractableFactory {
      * @param dimensions the dimensions of the unpickable object
      * @param enigma     the enigma required to unlock the object
      * @param reward     a pickable item rewarded upon solving, or null if none
-     * @return a new instance of {@link Unpickable} with an enigma requirement
+     * @return a new instance of {@link UnpickableWithEnigma} with an enigma requirement
      */
-    Unpickable createUnpickableWithEnigma(String name, Point2D position,
+    UnpickableWithEnigma createUnpickableWithEnigma(String name, Point2D position,
                                           Dimensions dimensions, Enigma enigma, Pickable reward);
 
     /**
