@@ -93,7 +93,7 @@ public final class EnigmaPuzzleModelImpl implements EnigmaPuzzleModel, Serializa
             }
         }
 
-        final Random rand = new Random(System.nanoTime());
+        final Random rand = new Random();
         Collections.shuffle(shuffledPieces, rand);
 
         int index = 0;

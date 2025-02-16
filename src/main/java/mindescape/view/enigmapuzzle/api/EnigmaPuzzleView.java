@@ -16,9 +16,9 @@ public interface EnigmaPuzzleView extends View {
      */
     List<ImageButton> getButtons();
     /**
-     * Updates the view with the given puzzle pieces.
-     *
-     * @param pieces a 2D array of Integer representing the puzzle pieces to be updated in the view
+     * Updates the view with the specified pieces.
+     * 
+     * @param pieces a 2D array of Integer representing the pieces of the enigma puzzle.
      */
     void update(Integer[][] pieces);
 }
