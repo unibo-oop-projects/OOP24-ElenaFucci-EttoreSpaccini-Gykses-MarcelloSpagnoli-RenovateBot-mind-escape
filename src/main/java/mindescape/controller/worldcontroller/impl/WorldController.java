@@ -13,13 +13,15 @@ import mindescape.controller.maincontroller.api.MainController;
 import mindescape.model.api.Model;
 import mindescape.model.world.api.World;
 import mindescape.model.world.core.api.Movement;
+import mindescape.model.world.core.api.WorldObserver;
+import mindescape.model.world.rooms.api.Room;
 import mindescape.view.api.WorldView;
 import mindescape.view.world.WorldViewImpl;
 
 /**
  * The controller for the world.
  */
-public final class WorldController implements LoopController {
+public final class WorldController implements LoopController, WorldObserver {
 
     private final World world;
     private final WorldView worldView;
@@ -40,6 +42,7 @@ public final class WorldController implements LoopController {
     public WorldController(final World world, final MainController mainController) {
         this.world = world;
         this.worldView = new WorldViewImpl(world.getCurrentRoom());
+        this.world.setObserver(this);
         this.mainController = mainController;
     }
 
@@ -163,5 +166,10 @@ public final class WorldController implements LoopController {
     private void inventoryAction() {
         worldView.clearInput();
         this.mainController.setController(ControllerName.INVENTORY, Optional.empty());
+    }
+
+    @Override
+    public void onRoomChanged(final Room newRoom) {
+        worldView.updateRoomImage(newRoom);
     }
 }

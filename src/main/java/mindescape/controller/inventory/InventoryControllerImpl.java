@@ -127,4 +127,3 @@ public final class InventoryControllerImpl implements ClickableController {
         this.view.updateDescription(description);
     }
 }
-

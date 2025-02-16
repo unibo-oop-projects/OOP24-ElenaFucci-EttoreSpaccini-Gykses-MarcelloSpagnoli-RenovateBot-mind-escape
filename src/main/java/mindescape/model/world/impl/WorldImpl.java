@@ -13,6 +13,7 @@ import mindescape.model.world.core.api.Dimensions;
 import mindescape.model.world.core.api.GameObject;
 import mindescape.model.world.core.api.Movement;
 import mindescape.model.world.core.api.Point2D;
+import mindescape.model.world.core.api.WorldObserver;
 import mindescape.model.world.core.impl.CollisionDetectorImpl;
 import mindescape.model.world.items.interactable.api.Interactable;
 import mindescape.model.world.items.interactable.api.UnpickableWithEnigma;
@@ -37,6 +38,7 @@ public final class WorldImpl implements World, Serializable {
     @SuppressFBWarnings(value = "SE_TRANSIENT_FIELD_NOT_RESTORED", justification = "Deserialization is handled by other classes")
     private transient Optional<GameObject> collidingObject;
     private final Point2D playerPosition = new Point2D(110, 170);
+    private transient WorldObserver observer;
 
     /**
      * Constructs a new WorldImpl instance.
@@ -88,9 +90,16 @@ public final class WorldImpl implements World, Serializable {
         if (collidingObject.isPresent()) {
             if (this.collidingObject.get() instanceof UnpickableWithEnigma) {
                 enigma = Optional.of(((UnpickableWithEnigma) this.collidingObject.get()).getEnigma());
-            } 
+            }
+            final Room oldRoom = this.getCurrentRoom();
+            final int oldObjNum = oldRoom.getGameObjects().size();
             if (this.collidingObject.get() instanceof Interactable) {
                 this.player.interact((Interactable) this.collidingObject.get());
+            }
+            final Room newRoom = this.getCurrentRoom();
+            final int newObjNum = newRoom.getGameObjects().size();
+            if (!oldRoom.getName().equals(newRoom.getName()) || oldObjNum != newObjNum) {
+                this.observer.onRoomChanged(newRoom);
             }
         }
 
@@ -168,5 +177,10 @@ public final class WorldImpl implements World, Serializable {
     @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The player is mutable")
     public Player getPlayer() {
         return this.player;
+    }
+
+    @Override
+    public void setObserver(final WorldObserver observer) {
+        this.observer = observer;
     }
 }

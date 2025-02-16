@@ -35,4 +35,10 @@ public interface WorldView {
      */
     void clearInput();
 
+    /**
+     * Updates the room image.
+     * @param currentRoom the room to be rendered.
+     */
+    void updateRoomImage(Room currentRoom);
+
 }

@@ -32,7 +32,6 @@ public final class EnigmaPuzzleControllerImpl implements EnigmaPuzzleController 
         this.model = model;
         this.view = new EnigmaPuzzleViewImpl(model.getCols(), model.getRows(), this); 
         this.mainController = mainController;
-        view.update(model.getPieces());
     }
 
     /**

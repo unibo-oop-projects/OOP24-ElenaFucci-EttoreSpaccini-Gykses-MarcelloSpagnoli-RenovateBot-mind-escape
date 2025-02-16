@@ -11,6 +11,7 @@ import mindescape.model.world.core.api.Dimensions;
 import mindescape.model.world.player.api.Player;
 import mindescape.model.world.rooms.api.Room;
 import mindescape.view.api.AnimatedPlayerRenderer;
+import mindescape.view.api.RoomRenderer;
 import mindescape.view.api.WorldView;
 import mindescape.view.utils.ImageTransformer;
 import mindescape.view.utils.ViewUtils;
@@ -21,9 +22,7 @@ import mindescape.view.utils.ViewUtils;
 public final class WorldViewImpl implements WorldView, KeyListener {
 
     private static final int TILE_DIMENSION = (int) Dimensions.TILE.width();
-    private String roomName;
     private final AnimatedPlayerRenderer player;
-    private int objNum;
     private final ImageTransformer transformer = new ImageTransformer();
     private final JPanel panel;
     private final InputManager inputManager = new InputManager();
@@ -36,19 +35,12 @@ public final class WorldViewImpl implements WorldView, KeyListener {
      */
     public WorldViewImpl(final Room currentRoom) {
         this.panel = createPanel();
-        this.roomName = currentRoom.getName();
         player = new PlayerRendererImpl(getPlayer(currentRoom).getPosition());
-        objNum = currentRoom.getGameObjects().size();
-        renderer = new RoomRenderer(currentRoom);
+        renderer = new RoomRendererImpl(currentRoom);
     }
 
     @Override
     public void draw(final Room currentRoom) {
-        if (!roomName.equals(currentRoom.getName()) || objNum != currentRoom.getGameObjects().size()) {
-            objNum = currentRoom.getGameObjects().size();
-            renderer.updateRoomImage(currentRoom);
-            roomName = currentRoom.getName();
-        }
         player.setPosition(getPlayer(currentRoom).getPosition());
         this.panel.repaint();
     }
@@ -112,6 +104,11 @@ public final class WorldViewImpl implements WorldView, KeyListener {
         panel.addKeyListener(this);
         panel.setBackground(ViewUtils.Style.PANEL_COLOR);
         return panel;
+    }
+
+    @Override
+    public void updateRoomImage(final Room currentRoom) {
+        renderer.updateRoomImage(currentRoom);
     }
 
 }
