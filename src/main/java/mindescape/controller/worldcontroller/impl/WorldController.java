@@ -169,7 +169,7 @@ public final class WorldController implements LoopController, WorldObserver {
     }
 
     @Override
-    public void onRoomChanged(Room newRoom) {
+    public void onRoomChanged(final Room newRoom) {
         worldView.updateRoomImage(newRoom);
     }
 }

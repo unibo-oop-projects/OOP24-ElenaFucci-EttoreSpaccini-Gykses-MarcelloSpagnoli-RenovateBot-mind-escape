@@ -21,7 +21,7 @@ import java.io.InputStream;
 /**
  * Class that represents the player view.
  */
-public final class PlayerRendererImpl implements AnimatedPlayerRenderer{
+public final class PlayerRendererImpl implements AnimatedPlayerRenderer {
 
     private static final int SPRITE_SIZE = 16;
     private static final int SPRITE_SHEET_COLUMNS = 8;
@@ -92,14 +92,7 @@ public final class PlayerRendererImpl implements AnimatedPlayerRenderer{
         y = (int) pos.y();
     }
 
-    /**
-     * Draws the player sprite at the given position.
-     * 
-     * @param g The graphics context
-     * @param offset The offset value for rendering
-     * @param scaling The scaling factor
-     * @param keys The map of pressed keys
-     */
+    @Override
     public void draw(final Graphics g, final int offset, final double scaling, final Map<Integer, Boolean> keys) {
         setCurrentSprite(keys);
         g.drawImage(currentSprite, (int) ((x * scaling) + offset),

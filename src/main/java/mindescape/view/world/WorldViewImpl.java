@@ -107,7 +107,7 @@ public final class WorldViewImpl implements WorldView, KeyListener {
     }
 
     @Override
-    public void updateRoomImage(Room currentRoom) {
+    public void updateRoomImage(final Room currentRoom) {
         renderer.updateRoomImage(currentRoom);
     }
 

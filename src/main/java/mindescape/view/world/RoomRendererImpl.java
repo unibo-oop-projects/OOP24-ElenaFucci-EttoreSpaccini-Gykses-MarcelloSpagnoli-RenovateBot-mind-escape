@@ -46,10 +46,7 @@ public final class RoomRendererImpl implements RoomRenderer {
         updateRoomImage(currentRoom);
     }
 
-    /**
-     * Getter for the room image.
-     * @return the room image.
-     */
+    @Override
     public BufferedImage getRoomImage() {
         final BufferedImage copy = new BufferedImage(roomImage.getWidth(),
             roomImage.getHeight(),
@@ -60,10 +57,7 @@ public final class RoomRendererImpl implements RoomRenderer {
         return copy;
     }
 
-    /**
-     * Updates the room image.
-     * @param currentRoom the room to be rendered.
-     */
+    @Override
     public void updateRoomImage(final Room currentRoom) {
         roomImage = new BufferedImage((int) currentRoom.getDimensions().height(),
             (int) currentRoom.getDimensions().height(), BufferedImage.TYPE_4BYTE_ABGR);

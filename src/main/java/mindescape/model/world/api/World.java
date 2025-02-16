@@ -68,6 +68,6 @@ public interface World extends Model {
      * Sets the observer for the world.
      * @param observer the observer to be set
      */
-    void setObserver(final WorldObserver observer);
+    void setObserver(WorldObserver observer);
 
 }

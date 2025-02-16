@@ -38,7 +38,7 @@ public final class WorldImpl implements World, Serializable {
     @SuppressFBWarnings(value = "SE_TRANSIENT_FIELD_NOT_RESTORED", justification = "Deserialization is handled by other classes")
     private transient Optional<GameObject> collidingObject;
     private final Point2D playerPosition = new Point2D(110, 170);
-    private WorldObserver observer;
+    private transient WorldObserver observer;
 
     /**
      * Constructs a new WorldImpl instance.

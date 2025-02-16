@@ -4,17 +4,20 @@ import java.awt.image.BufferedImage;
 
 import mindescape.model.world.rooms.api.Room;
 
+/**
+ * Interface that models a RoomRenderer.
+ */
 public interface RoomRenderer {
     /**
      * Getter for the room image.
      * @return the room image.
      */
-    public BufferedImage getRoomImage();
+    BufferedImage getRoomImage();
 
     /**
      * Updates the room image.
      * @param currentRoom the room to be rendered.
      */
-    public void updateRoomImage(final Room currentRoom);
+    void updateRoomImage(Room currentRoom);
 }
 
