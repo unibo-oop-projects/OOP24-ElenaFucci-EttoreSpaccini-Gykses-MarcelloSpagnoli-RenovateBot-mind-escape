@@ -46,7 +46,7 @@ public final class WorldViewImpl implements WorldView, KeyListener {
     }
 
     @SuppressFBWarnings(value = "EI_EXPOSE_REP",
-        justification = "it is intended, since roomrenderer writes on it")
+        justification = "it is not possible to create a defensive copy, anyway it is not modified by caller")
     @Override
     public JPanel getPanel() {
         return this.panel;

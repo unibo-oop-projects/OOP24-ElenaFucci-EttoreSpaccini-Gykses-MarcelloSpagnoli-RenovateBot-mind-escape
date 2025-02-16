@@ -55,6 +55,9 @@ final class RoomImplTest {
     void testGetGameObjects() {
         assertEquals(bedroom.getGameObjects().size(), 13);
         assertEquals(bedroom.getGameObjects().stream().filter(obj -> obj instanceof DoorLockedWithEnigma).count(), 1);
+        final Pickable obj = new PickableImpl(new Point2D(0, 0), "", Dimensions.TILE, "", 0);
+        bedroom.addGameObject(obj);
+        assertTrue(bedroom.getGameObjects().stream().anyMatch(x -> x.equals(obj)));
     }
 
     @Test

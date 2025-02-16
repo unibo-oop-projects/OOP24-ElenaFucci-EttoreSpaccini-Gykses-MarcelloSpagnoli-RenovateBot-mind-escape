@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.tiledreader.FileSystemTiledReader;
 import org.tiledreader.TiledMap;
 
 import com.google.common.io.Files;
@@ -36,7 +35,7 @@ public final class RoomImpl implements Room, Serializable {
      * @param roomFilePath path to the rosom file
      */
     public RoomImpl(final String roomFilePath) {
-        final TiledMap room = new FileSystemTiledReader().getMap(roomFilePath);
+        final TiledMap room = new MapReader().getMap(roomFilePath);
         this.dimensions = new Dimensions(room.getWidth() * Dimensions.TILE.width(), room.getHeight() * Dimensions.TILE.height());
         this.name = Files.getNameWithoutExtension(roomFilePath);
         this.source = roomFilePath;
