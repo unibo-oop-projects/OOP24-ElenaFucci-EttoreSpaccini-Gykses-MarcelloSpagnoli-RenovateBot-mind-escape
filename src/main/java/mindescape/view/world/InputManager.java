@@ -7,10 +7,13 @@ import java.util.Map;
 import mindescape.controller.core.api.KeyMapper;
 import mindescape.controller.core.api.UserInput;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 /**
  * Class that manages the input of the of the worldview.
  */
-public final class InputManager {
+public final class InputManager implements KeyListener {
     private final Map<Integer, Boolean> keyState = new HashMap<>();
     private final Map<Integer, UserInput> keyMapper = KeyMapper.getKeyMap();
 
@@ -19,6 +22,20 @@ public final class InputManager {
      */
     public InputManager() {
         initializeKeyState();
+    }
+
+    @Override
+    public void keyTyped(final KeyEvent e) {
+    }
+
+    @Override
+    public void keyPressed(final KeyEvent e) {
+        pressedInput(e.getKeyCode());
+    }
+
+    @Override
+    public void keyReleased(final KeyEvent e) {
+        releasedInput(e.getKeyCode());
     }
 
     /**

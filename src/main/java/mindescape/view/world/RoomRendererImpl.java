@@ -13,7 +13,6 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
-import org.tiledreader.FileSystemTiledReader;
 import org.tiledreader.TiledMap;
 import org.tiledreader.TiledObject;
 import org.tiledreader.TiledObjectLayer;
@@ -24,6 +23,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import mindescape.model.world.core.api.Dimensions;
 import mindescape.model.world.core.api.Point2D;
 import mindescape.model.world.rooms.api.Room;
+import mindescape.model.world.rooms.impl.MapReader;
 import mindescape.view.api.RoomRenderer;
 import mindescape.view.utils.ImageTransformer;
 
@@ -62,7 +62,7 @@ public final class RoomRendererImpl implements RoomRenderer {
         roomImage = new BufferedImage((int) currentRoom.getDimensions().height(),
             (int) currentRoom.getDimensions().height(), BufferedImage.TYPE_4BYTE_ABGR);
         final Graphics2D finalMap = roomImage.createGraphics();
-        final TiledMap map = new FileSystemTiledReader().getMap(currentRoom.getSource());
+        final TiledMap map = new MapReader().getMap(currentRoom.getSource());
         getTileLayers(map).forEach(layer -> drawLayer(layer, finalMap, map));
         List<TiledObject> tileObjects = getTileObjects(map);
         tileObjects = tileObjects

@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-import org.tiledreader.FileSystemTiledReader;
 import org.tiledreader.TiledMap;
 import org.tiledreader.TiledObjectLayer;
 import mindescape.model.world.core.api.GameObject;
@@ -24,7 +23,7 @@ public final class ObjectsExtractor {
      */
     Set<GameObject> extractfrom(final String roomPath) {
         final Set<GameObject> gameObjects = new HashSet<>();
-        final TiledMap map = new FileSystemTiledReader().getMap(roomPath);
+        final TiledMap map = new MapReader().getMap(roomPath);
         final List<TiledObjectLayer> layers = getObjectLayers(map)
             .stream().filter(layer -> !"Doors".equals(layer.getName()))
             .toList();
@@ -45,7 +44,7 @@ public final class ObjectsExtractor {
      */
     Set<GameObject> exstractDoors(final String roomPath, final Set<Room> rooms) {
         final Set<GameObject> doors = new HashSet<>();
-        final TiledMap map = new FileSystemTiledReader().getMap(roomPath);
+        final TiledMap map = new MapReader().getMap(roomPath);
         final List<TiledObjectLayer> doorLayers = getObjectLayers(map)
             .stream().filter(layer -> "Doors".equals(layer.getName()))
             .toList();

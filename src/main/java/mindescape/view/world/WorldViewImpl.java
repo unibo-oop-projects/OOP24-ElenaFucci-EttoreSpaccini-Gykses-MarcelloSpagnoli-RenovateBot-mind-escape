@@ -1,8 +1,6 @@
 package mindescape.view.world;
 
 import java.awt.Graphics;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.util.Map;
 import javax.swing.JPanel;
@@ -19,7 +17,7 @@ import mindescape.view.utils.ViewUtils;
 /**
  * Implementation of the WorldView.
  */
-public final class WorldViewImpl implements WorldView, KeyListener {
+public final class WorldViewImpl implements WorldView {
 
     private static final int TILE_DIMENSION = (int) Dimensions.TILE.width();
     private final AnimatedPlayerRenderer player;
@@ -46,25 +44,13 @@ public final class WorldViewImpl implements WorldView, KeyListener {
     }
 
     @SuppressFBWarnings(value = "EI_EXPOSE_REP",
-        justification = "it is intended, since roomrenderer writes on it")
+        justification = "it is not possible to create a defensive copy, anyway it is not modified by caller")
     @Override
     public JPanel getPanel() {
         return this.panel;
     }
 
-    @Override
-    public void keyTyped(final KeyEvent e) {
-    }
 
-    @Override
-    public void keyPressed(final KeyEvent e) {
-        inputManager.pressedInput(e.getKeyCode());
-    }
-
-    @Override
-    public void keyReleased(final KeyEvent e) {
-        inputManager.releasedInput(e.getKeyCode());
-    }
 
     @Override
     public Map<Integer, Boolean> getKeyState() {
@@ -101,7 +87,7 @@ public final class WorldViewImpl implements WorldView, KeyListener {
         };
         panel.setFocusable(true);
         panel.requestFocusInWindow();
-        panel.addKeyListener(this);
+        panel.addKeyListener(inputManager);
         panel.setBackground(ViewUtils.Style.PANEL_COLOR);
         return panel;
     }
